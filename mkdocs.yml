@@ -2,38 +2,38 @@ site_name: Team 2928 FRC Training
 site_url: https://2928-frc-programmer-training.readthedocs.io
 nav:
     - Home: index.md
-    - Romi Robot:
-        - 'Subsystems and Commands': 
-            - Romi/SC/romiSCIndex.md
-            - Romi/SC/romiDev.md
-            - Romi/SC/romiExample.md
-            - Romi/SC/romiStructure.md
-            - Romi/SC/romiSubsystems.md
-            - Romi/SC/romiCommands.md
-            - Romi/SC/romiCommandGroups.md
-            - Romi/SC/romiShuffleboard.md
-        - 'Robot Control':
-            - Romi/Control/romiControlIndex.md
-            - Romi/Control/romiCharacterization.md
-            - Romi/Control/romiPID.md
-            - Romi/Control/romiTrajectory.md
-            - Romi/Control/romiStateSpace.md
-            - Romi/Control/romiServos.md
-        - 'Vision Processing':
-            - Romi/Vision/romiVisionIndex.md
-            - Romi/Vision/romiBasicVision.md
-            - Romi/Vision/romiImageProcessing.md
-            - Romi/Vision/romiLineFollow.md
-        - 'Romi Robot Software':
-            - Romi/RomiSoftware/romiSoftwareIndex.md
-            - Romi/RomiSoftware/romiPiSoftware.md
-            - Romi/RomiSoftware/romiFirmware.md
+    # - Romi Robot:
+    - 'Romi Robot Basics': 
+        - Romi/SC/romiSCIndex.md
+        - Romi/SC/romiDev.md
+        - Romi/SC/romiExample.md
+        - Romi/SC/romiStructure.md
+        - Romi/SC/romiSubsystems.md
+        - Romi/SC/romiCommands.md
+        - Romi/SC/romiCommandGroups.md
+        - Romi/SC/romiShuffleboard.md
+    - 'Robot Control':
+        - Romi/Control/romiControlIndex.md
+        - Romi/Control/romiCharacterization.md
+        - Romi/Control/romiPID.md
+        - Romi/Control/romiTrajectory.md
+        - Romi/Control/romiStateSpace.md
+        - Romi/Control/romiServos.md
+    - 'Vision Processing':
+        - Romi/Vision/romiVisionIndex.md
+        - Romi/Vision/romiBasicVision.md
+        - Romi/Vision/romiImageProcessing.md
+        - Romi/Vision/romiLineFollow.md
+    - 'Romi Robot Software':
+        - Romi/RomiSoftware/romiSoftwareIndex.md
+        - Romi/RomiSoftware/romiPiSoftware.md
+        - Romi/RomiSoftware/romiFirmware.md
 
-    - 'Development Tools': 
-        - Tools/vscode.md
-        - Tools/git.md
-        - Tools/simulator.md
-        - Tools/shuffleboard.md
+    # - 'Development Tools': 
+    #     - Tools/vscode.md
+    #     - Tools/git.md
+    #     - Tools/simulator.md
+    #     - Tools/shuffleboard.md
 
     - 'Programming': 
         - Introduction to Programming: Programming/introProgramming.md
@@ -42,30 +42,30 @@ nav:
         - Objects: Programming/objects.md
         - State Machines: Programming/stateMachines.md
 
-    - 'Robotics Concepts': 
-        - 'Robot Systems': 
-            - Introduction: Concepts/RobotSystem/robotSystemsIndex.md   
-            - Robot Systems: Concepts/RobotSystem/intro.md
-            - Sensors: Concepts/RobotSystem/sensors.md
-            - Actuators: Concepts/RobotSystem/actuators.md
-            - Control Algorithms: Concepts/RobotSystem/control.md
-        - 'Dynamics': 
-            - Concepts/Dynamics/dynamicsIndex.md
-            - Mobile Robot Kinematics: Concepts/Dynamics/kinematics.md
-            - Position & Orientation: Concepts/Dynamics/geometry.md
-            - Dynamical Systems: Concepts/Dynamics/dynamicalSystems.md
-            - Paths & Trajectories: Concepts/Dynamics/pathsTrajectories.md
-        - Optimal Estimation:
-            - Concepts/OptimalEstimation/optimalEstimationIndex.md
-            - Pose Estimation: Concepts/OptimalEstimation/poseEstimation.md
-            - Random Processes: Concepts/OptimalEstimation/randomProcesses.md
-            - Kalman Filters: Concepts/OptimalEstimation/kalmanFilters.md
-        - Control:
-            - Concepts/Control/controlIndex.md
-            - Concepts/Control/classicalControl.md
-            - Concepts/Control/stateSpaceControl.md
-            - Concepts/Control/LQR.md
+    # - 'Robotics Concepts': 
+    - 'Robot Systems': 
+        - Concepts/RobotSystem/robotSystemsIndex.md   
+        - Concepts/RobotSystem/intro.md
+        - Concepts/RobotSystem/sensors.md
+        - Concepts/RobotSystem/actuators.md
+        - Concepts/RobotSystem/control.md
+    - 'Dynamics': 
+        - Concepts/Dynamics/dynamicsIndex.md
+        - Concepts/Dynamics/kinematics.md
+        - Concepts/Dynamics/geometry.md
+        - Concepts/Dynamics/dynamicalSystems.md
+        - Concepts/Dynamics/pathsTrajectories.md
+    - 'Optimal Estimation':
+        - Concepts/OptimalEstimation/optimalEstimationIndex.md
+        - Concepts/OptimalEstimation/poseEstimation.md
+        - Concepts/OptimalEstimation/randomProcesses.md
+        - Concepts/OptimalEstimation/kalmanFilters.md
+    - 'Control':
+        - Concepts/Control/controlIndex.md
+        - Concepts/Control/classicalControl.md
+        - Concepts/Control/stateSpaceControl.md
+        - Concepts/Control/LQR.md
     - 'Vision': 
-        - Introduction: Vision/introVision.md
+        - Vision/introVision.md
 
 theme: readthedocs

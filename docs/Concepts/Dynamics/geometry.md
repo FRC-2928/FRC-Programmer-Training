@@ -1,4 +1,4 @@
-## <a name="top"></a>Robot Geometry
+## Robot Geometry
 
 In order to control a robot it’s necessary to know its position and orientation — where it is at any particular time.  Its position in 3-D space is defined using the set of coordinates X, Y, and Z.  This coordinate system is called the Cartesian coordinate system.  When the robot moves from one position to another it’s referred to as a translation.  When it rotates about its center point then it has changed orientation. 
 
@@ -92,7 +92,7 @@ There needs to be a method to reset the odometry back to the starting point.  Th
 
 - Angela Sodemann - [Rotation Matrix Video](https://www.youtube.com/watch?v=lVjFhNv2N8o)
 
-<h3><span style="float:left">
+<!-- <h3><span style="float:left">
 <a href="kinematics">Previous</a></span>
 <span style="float:right">
-<a href="dynamicalSystems">Next</a></span></h3>
+<a href="dynamicalSystems">Next</a></span></h3> -->

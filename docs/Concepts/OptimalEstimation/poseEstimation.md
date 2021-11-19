@@ -1,4 +1,4 @@
-# <a name="top"></a>Pose Estimation
+# Pose Estimation
 A basic requirement for a mobile robot is to measure its own motion. This allows a robot to determine which way to go and if it ever got there. It'll use its *Pose* which is defined as its [Position and Orientation](../Dynamics/geometry) from some reference frame. 
 
 This module will explore two methods for determining the robot's pose, Odometry and Pose Estimation.  The WPILib classes *DifferentialDriveOdometry* and *DifferentialDrivePoseEstimator* are used for this purpose.
@@ -88,8 +88,3 @@ Update the estimator in the `periodic()` block, and populate the Field2D object 
 FIRST Robotics Competition](https://file.tavsys.net/control/controls-engineering-in-frc.pdf) Chapter 6.
 
 - Alonzo Kelly [Mobile Robotics](https://www.cambridge.org/core/books/mobile-robotics/5BF238489F9BC337C0736432C87B3091) Chapter 6
-
-<h3><span style="float:left">
-<a href="optimalEstimationIndex">Previous</a></span>
-<span style="float:right">
-<a href="stateEstimation">Next</a></span></h3>

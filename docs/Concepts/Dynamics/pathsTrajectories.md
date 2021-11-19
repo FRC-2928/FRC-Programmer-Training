@@ -1,4 +1,4 @@
-# <a name="top"></a>Paths and Trajectories
+# Paths and Trajectories
 
 ## <a name="trapezoidProfile"></a>Trapezoid Motion Profile
 <!-- Controller Hierarchy Kelly Ch 7.1.1.3 create diagram... -->
@@ -36,7 +36,7 @@ The code to create the trajectory configuration constraint:
 
 - QUT Robot Academy [Paths & Trajectories](https://robotacademy.net.au/masterclass/paths-and-trajectories/)
 
-<h3><span style="float:left">
+<!-- <h3><span style="float:left">
 <a href="LQR">Previous</a></span>
 <span style="float:right">
-<a href="controlIndex">Back</a></span></h3>
+<a href="controlIndex">Back</a></span></h3> -->

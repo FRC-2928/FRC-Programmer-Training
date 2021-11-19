@@ -1,4 +1,4 @@
-# <a name="top"></a>Kalman Filters
+# Kalman Filters
 *Kalman Filters* fuse measurements from one or more sensors with a State Space model of the system to optimally estimate a system’s state. Kalman filters have two parts: prediction and correction. Prediction projects our state estimate forward in time according to our system’s dynamics, and correct steers the estimated state towards the measured state.  
 
 If you think all that sounds confusing then you're not alone.  Kalman Filters can be difficult to understand and explain, however the site  [KalmanFilters.net](https://www.kalmanfilter.net/default.aspx) by Alex Becker does an excelent job of it, so you should go there first.  The following diagrams will serve as a quick reference for later use.
@@ -34,7 +34,7 @@ FIRST Robotics Competition](https://file.tavsys.net/control/controls-engineering
 
 - Alex Becker [Kalman Filters](https://www.kalmanfilter.net/default.aspx)
 
-<h3><span style="float:left">
+<!-- <h3><span style="float:left">
 <a href="stateEstimation">Previous</a></span>
 <span style="float:right">
-<a href="optimalEstimationIndex">Back</a></span></h3>
+<a href="optimalEstimationIndex">Back</a></span></h3> -->
