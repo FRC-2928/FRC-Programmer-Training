@@ -1,4 +1,4 @@
-# <a name="code"></a>Shuffleboard
+# Shuffleboard
 When creating Commands and Subsystems for our robot it'll be necessary to see the data that's getting generated.  Remember that robots are data driven machines, so in order to test our code we'll need to see the data.
 For that purpose we'll be using WPI tool called **Shuffleboard**, which will allow us to view all of the data coming from the robot in real time.
 

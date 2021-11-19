@@ -1,4 +1,4 @@
-# <a name="code"></a>Command Groups
+# Command Groups
 Simple commands can be composed into [Command Groups](https://docs.wpilib.org/en/latest/docs/software/commandbased/command-groups.html) to accomplish more-complicated tasks. There are several ways in which Command Groups can be composed, as shown the documentation.  We'll look at a full example of a **Sequential** Command Group from the Romi sample code.
 
 ## The AutonomousDistance Command

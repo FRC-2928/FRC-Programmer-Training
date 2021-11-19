@@ -1,4 +1,4 @@
-# <a name="code"></a>Color Sensor
+# Color Sensor
 
 The color sensor is attached to the I2C ports of the Romi. 
 

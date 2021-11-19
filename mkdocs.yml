@@ -2,38 +2,38 @@ site_name: Team 2928 FRC Training
 site_url: https://2928-frc-programmer-training.readthedocs.io
 nav:
     - Home: index.md
-    - 'Romi Robot':
+    - Romi Robot:
         - 'Subsystems and Commands': 
-            - 'Romi/SC/romiSCIndex.md'
-            - 'Romi Development Environment': Romi/SC/romiDev.md
-            - 'Romi Example Code': Romi/SC/romiExample.md
-            - 'Basic Robot Structure': Romi/SC/romiStructure.md
-            - 'Subsystems': Romi/SC/romiSubsystems.md
-            - 'Commands': Romi/SC/romiCommands.md
-            - 'Command Groups': Romi/SC/romiCommandGroups.md
-            - 'Shuffleboard': Romi/SC/romiShuffleboard.md
+            - Romi/SC/romiSCIndex.md
+            - Romi/SC/romiDev.md
+            - Romi/SC/romiExample.md
+            - Romi/SC/romiStructure.md
+            - Romi/SC/romiSubsystems.md
+            - Romi/SC/romiCommands.md
+            - Romi/SC/romiCommandGroups.md
+            - Romi/SC/romiShuffleboard.md
         - 'Robot Control':
-            - 'Romi/Control/romiControlIndex.md'
-            - Robot Characterization: Romi/Control/romiCharacterization.md
-            - Motion PID Control: Romi/Control/romiPID.md
-            - Trajectory Following: Romi/Control/romiTrajectory.md
-            - State Space Control: Romi/Control/romiStateSpace.md
-            - Controlling Servos: Romi/Control/romiServos.md
+            - Romi/Control/romiControlIndex.md
+            - Romi/Control/romiCharacterization.md
+            - Romi/Control/romiPID.md
+            - Romi/Control/romiTrajectory.md
+            - Romi/Control/romiStateSpace.md
+            - Romi/Control/romiServos.md
         - 'Vision Processing':
-            - 'Romi/Vision/romiVisionIndex.md'
-            - Basic Vision Program: Romi/Vision/romiBasicVision.md
-            - Image Processing: Romi/Vision/romiImageProcessing.md
-            - Line Following: Romi/Vision/romiLineFollow.md
+            - Romi/Vision/romiVisionIndex.md
+            - Romi/Vision/romiBasicVision.md
+            - Romi/Vision/romiImageProcessing.md
+            - Romi/Vision/romiLineFollow.md
         - 'Romi Robot Software':
-            - 'Romi/RomiSoftware/romiSoftwareIndex.md'
-            - RaspberryPi Software: Romi/RomiSoftware/romiPiSoftware.md
-            - Micro Controller Firmware: Romi/RomiSoftware/romiFirmware.md
+            - Romi/RomiSoftware/romiSoftwareIndex.md
+            - Romi/RomiSoftware/romiPiSoftware.md
+            - Romi/RomiSoftware/romiFirmware.md
 
     - 'Development Tools': 
-        - Visual Studio Code: Tools/vscode.md
-        - Git and Github: Tools/git.md
-        - Robot Simulator: Tools/simulator.md
-        - Shuffleboard: Tools/shuffleboard.md
+        - Tools/vscode.md
+        - Tools/git.md
+        - Tools/simulator.md
+        - Tools/shuffleboard.md
 
     - 'Programming': 
         - Introduction to Programming: Programming/introProgramming.md

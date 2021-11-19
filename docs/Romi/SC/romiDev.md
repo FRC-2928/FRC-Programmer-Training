@@ -1,4 +1,4 @@
-# <a name="code"></a>Romi Development Environment
+# Romi Development Environment
 This section explains the development environment that we'll be using for the programming tutorials.
 
 ![Development Environment](../../images/Romi/Romi.002.jpeg)

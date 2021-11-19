@@ -1,4 +1,4 @@
-# <a name="top"></a>Robot Characterization
+# Robot Characterization
 *Characterization* or, more formally, *System Identification* - is the process of determining a mathematical model for the behavior of a system through statistical analysis of its inputs and outputs.
 
 ## Running the Robot Characterization Tool

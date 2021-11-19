@@ -1,4 +1,4 @@
-# <a name="top"></a>State Space Controllers
+# State Space Controllers
 So far we have been using classical control theory and methods, such as PID, that are based on a simple input-output description of the system. These are called single-input single-output (SISO) systems.  **State Space** control is an alternative to PID control.  State Space control is based on the idea that if you know the internal physics of the system and can predict how it’ll react to a given input then you can tune the system in a way that’s similar to tuning PID controllers.  State Space control is more flexible than PID control. 
 
 In this module we'll use State Space Control to drive the Romi at a specified velocity for a short period of time.  Rather than use an arbitrary *Proportional* gain derived through testing, we'll first try to develop an accurate physical model of our Drivetrain (system) and then use it to help us pick gains for the feedback controller.  This allows us not only to predict ahead of time how a system will react, but also test our controllers without a physical robot.

@@ -1,4 +1,4 @@
-# <a name="top"></a>Motion Control PID
+# Motion Control PID
 In this lesson we're going to add a new commands that'll give us more control over how the robot moves.  We'll be using a *PID Controller* that enables the robot to constantly monitor its current state as it drives towards its goal. For a more in-depth explaination refer to [Classical Control](../../Concepts/Control/classicalControl.md) module of this training guide.
 
 In this module we'll create three new commands that we'll test from the *AutonomousDistance* group command.

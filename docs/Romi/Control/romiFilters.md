@@ -1,4 +1,4 @@
-# <a name="code"></a>Filters
+# Filters
 In this section we will learn about filters.  Filters take external measurements to estimate the true state of the system. 
 
 ## Linear Filters 

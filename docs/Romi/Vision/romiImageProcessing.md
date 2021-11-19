@@ -1,4 +1,4 @@
-# <a name="code"></a>Image Processing
+# Image Processing
 In the previous module we got the camera streaming images to Shuffleboard and put image related data into the Network Tables for further processing.  In this module you'll learn how to process camera images to extract certain features.  For this module we'll extract a line that's marked on the floor.  The line should be a distinctive color that doesn't blend in with the surrounding colors.  During this lesson we'll decide on a color and tune the camera in to lock onto that color.  Once we've "locked on" to the color we'll draw a center line on the camera image so as we can follow the line. The camera server will use the Robotpy [Network Tables](https://robotpy.readthedocs.io/en/stable/guide/nt.html#networktables-guide) to send data to the [Simulator](https://docs.wpilib.org/en/latest/docs/software/wpilib-tools/robot-simulation/index.html) and [Shuffleboard](https://docs.wpilib.org/en/latest/docs/software/dashboards/shuffleboard/index.html). We'll also send data to the Network Tables on where the center of the line is. 
 
 ## The Image Processing Program

@@ -1,4 +1,4 @@
-# <a name="code"></a>PID and Line Following
+# PID and Line Following
 In this module we'll make use of the previous [ImageProcessing](https://github.com/mjwhite8119/romi-examples/tree/main/ImageProcessing) project that recognizes a line drawn on the ground. The line is constantly being tracked and its position within the image is sent over the Network Tables.  The link to this program is [PIDLineFollow](https://github.com/mjwhite8119/romi-examples/tree/main/PIDLineFollow). 
 
 ## The Line Follow Program

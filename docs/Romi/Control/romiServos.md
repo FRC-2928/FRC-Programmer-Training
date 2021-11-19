@@ -1,4 +1,4 @@
-# <a name="code"></a>Programming Servos
+# Programming Servos
 In this lesson we'll create a program to control servos that are attached to the Romi.  The program called [BasicServo](https://github.com/mjwhite8119/romi-examples/tree/main/BasicServo)
 
 ## How Servos Work
