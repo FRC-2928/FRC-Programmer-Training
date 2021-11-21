@@ -15,18 +15,26 @@ The `Constants` file needs to be updated to include `Joystick` and `Arm` values.
 
 ![Arm Motor Control](../../images/Romi/Romi.005.jpeg)
 
-## Robot Arm Startup and Shutdown
-There's an issue with the robot arm when its attached to the Romi with the FRC software stack installed.  The microcontroller will initiate prior to you starting your java program, and it will activate the arm servos outside of their recommended operating ranges.  To prevent this, follow this startup procedure.
+## Robot Arm Startup
+There's an issue with the robot arm when it's attached to the Romi with the FRC software stack installed.  The microcontroller will initiate prior to you starting your java program and it will activate the arm servos outside of their safe operating ranges.  This results in the arm crashing down onto the ground if the Romi Arm is built according to the instructions.  To prevent this the firmware on the Romi has to be updated.  
 
-1. Make sure that the power to the arm servos is disconnected when you switch on the Romi.    
+The problem is illustrated in the diagram below. The microcontroller gets the PWM signals for the servos from the *external IO buffers*.  See [Romi Onboard and External IO](../SC/romiIO.md) for a description of these. Whenever your java program is not running, or is *Disabled*, the `rPiLink.buffer.extIoValues` are set to zero. This translates to a servo position of 90 degrees, which is outside of the safe range of the servo.  Unfortunatelly, there's no way to control this from your java program since it's no longer connected to the microcontroller.  The only way to resolve this problem is to modify the microcontroller firmware.
 
-2. Start your java program and put it into teleop mode. 
+![Arm Motor Range](../../images/Romi/Romi.021.jpeg)
 
-3. Move the Tilt and Lift buttons.
+The firmware has been updated to prevent the servos from going outside of their safe ranges and includes three new functions: `initializeArm(), incrementWrites()`, and `doWritesForArm()`.  In order to use those functions you must press the **A Button** on the microcontroller to switch it into *Arm Mode*.  The modified [firmware program](https://github.com/mjwhite8119/wpilib-ws-robot-romi/blob/main/firmware/src/main.cpp) can be viewed on Github. To install this version of the firmware follow the instructions in the [Romi Firmware](../RomiSoftware/romiFirmware.md) module.
 
-4. Connect the power to the servos.  
+Follow this startup procedure.
 
-Prior to ending your java program switch off the power to the servos.
+1. Make sure that the power to the arm servos is disconnected when you switch on the Romi.  
+
+2. Press the **A Button** on the microcontroller.
+
+3. Connect the power to the servos.
+
+4. Start your java program. 
+
+Currently, the Romi will remain in *Arm Mode* until it is restarted.
 
 ## Adding an Arm Position Command
 The JoystickArmCommand incrementally moves the robot arm components as you press buttons on the joystick.  It would be useful to have a command that move the arm to the fully up or down position with a single button press. 

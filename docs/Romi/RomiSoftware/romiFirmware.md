@@ -7,19 +7,21 @@ The micro controller firmware is run on an 32U4 development board, which is an e
 
 Once PlatformIO has been installed you can use the following steps to download the firmware and flash it to the 32U4 development board:
 
-1. Open a Terminal.
+1. Connect a USB cable between your laptop and the Romi.
 
-2. Download the [Romi Firmware](https://github.com/wpilibsuite/wpilib-ws-robot-romi) using the following command:
+2. Open a Terminal.
+
+3. Download the [Romi Firmware](https://github.com/wpilibsuite/wpilib-ws-robot-romi) using the following command:
 
     `git clone https://github.com/wpilibsuite/wpilib-ws-robot-romi.git`
 
-3. Change into the `wpilib-ws-robot-rom` folder and drag the `Firmware` folder into VSCode.  
+4. Change into the `wpilib-ws-robot-romi` folder and drag the `Firmware` folder into VSCode.  
 
-4. Compile the software by clicking the checkmark in the bottom taskbar.
+5. Compile the software by clicking the compile (checkmark) icon in the bottom taskbar.
 
-5. While connected to the Romi via the USB cable you can see any `Serial.print` statements by opening the serial port monitor (plug icon).
+6. Flash the software to the Romi using the upload (right arrow) icon in the bottom taskbar.
 
-![PlatformIO Taskbar](../../images/FRCTools/PlatformIOTaskbar.png)
+7. While connected to the Romi via the USB cable you can see any `Serial.print` statements by opening the serial port monitor (plug icon).
 
 ![Romi Firmware](../../images/Romi/Romi.007.jpeg)
 

@@ -194,7 +194,7 @@ The output will tell you how many file objects have been downloaded.  Conceptual
 
 ![Clone Repository](../images/FRCTools/FRCTools.008.jpeg)
 
-## Branching
+<!-- ## Branching
 
 ## Merging
 
@@ -202,7 +202,7 @@ The output will tell you how many file objects have been downloaded.  Conceptual
 
 ## The `.gitignore` File
 
-## References
+## References -->
 
 - FRC Documentation - [Git Version Control](https://docs.wpilib.org/en/latest/docs/software/basic-programming/git-getting-started.html)
 

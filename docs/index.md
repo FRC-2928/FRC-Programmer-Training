@@ -3,7 +3,7 @@ This site hosts training resources for programming teams involved in the First R
 
 The subjects that will be covered in this course will include:
 
-![Course Overview](images/FRCConcepts/016.jpg)
+![Course Overview](images/FRCConcepts/FRCConcepts.016.jpeg)
 
 The main learning path is the **Romi Training Robot**.  From there we'll link to other parts of the training resources.
 

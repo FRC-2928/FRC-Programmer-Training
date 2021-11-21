@@ -1,6 +1,5 @@
-# Shuffleboard
-When creating Commands and Subsystems for our robot it'll be necessary to see the data that's getting generated.  Remember that robots are data driven machines, so in order to test our code we'll need to see the data.
-For that purpose we'll be using WPI tool called **Shuffleboard**, which will allow us to view all of the data coming from the robot in real time.
+# Shuffleboard with Romi
+When creating Commands and Subsystems for our robot it'll be necessary to see the data that's getting generated.  Remember that robots are data driven machines, so in order to test our code we'll need to see the data. For that purpose we'll be using WPI tool called **Shuffleboard**, which will allow us to view all of the data coming from the robot in real time.
 
 The documentation explains how to [start Shuffleboard](https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/shuffleboard/getting-started/shuffleboard-tour.html#starting-shuffleboard) depending on your development laptop.
 

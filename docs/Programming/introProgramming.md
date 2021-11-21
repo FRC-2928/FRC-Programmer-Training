@@ -9,10 +9,10 @@ State Machines represent the state of a system at any point in time.  As time pa
 
 Let's go over each of these categories in detail. 
 
-- [Data Structures](dataStructures)
-- [Procedures](procedures)
-- [Objects](objects)
-- [State Machines](stateMachines)
+- [Data Structures](dataStructures.md)
+- [Procedures](procedures.md)
+- [Objects](objects.md)
+- [State Machines](stateMachines.md)
 
 ## Program Files
 Most programs will be composed of multiple files that separate the various components of the program.  This makes it much easier to work on specific parts of the program without scrolling through a single large file.  It also allows the project to be worked on by a team of programmers since you would not all be working on the same file. When the program is compiled all of the files are combined, or linked, together to form a single executable file.  In order to associate all of the files that are part of the same project we use an `import` statement as shown below. 
