@@ -16,12 +16,12 @@ After that, we'll create two commands to move the robot more smoothly to the des
 ## PID Controller
 Before looking at the PID controller supplied by the WPI library, it would be useful to get an understanding of what PID control is by watching the [PID Introduction Video by WPI](https://docs.wpilib.org/en/stable/docs/software/advanced-controls/introduction/pid-video.html). A schematic of WPIlib PIDController is below with a detailed explaination found in the [Introduction to PID](https://docs.wpilib.org/en/stable/docs/software/advanced-controls/introduction/introduction-to-pid.html) section of the FRC® documentation.
 
-![PID Controller](../../images/Romi/042.jpg)
+![PID Controller](../../images/Romi/Romi.042.jpeg)
 
 ## The DriveDistancePID Command
 To create a *PIDCommand* in VSCode right click under the commands folder and select *Create a new class/command*.  Then select **PIDCommand (new)** from the drop down.
 
-![Commands](../../images/Romi/041.jpg)
+![Commands](../../images/Romi/Romi.041.jpeg)
 
 The first thing we need is the *PIDController* class that simply requires to know what the ***P**roportional*, ***I**ntegral*, and ***D**erivative* 
 values are.  We're going to start with the **P** set to *2.0* and **I**, **D** set to zero.  Since these values are constants they should be put in the *Constants* file.  The *PIDController* class is where all of the work is done and was explained in the previous section.

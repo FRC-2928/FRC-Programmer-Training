@@ -3,7 +3,7 @@ site_url: https://2928-frc-programmer-training.readthedocs.io
 nav:
     - Home: 
         - index.md
-    # - Romi Robot:
+# - Romi Robot:
         - 'Romi Robot Basics': 
             - Romi/SC/romiSCIndex.md
             - Romi/SC/romiDev.md
@@ -20,6 +20,7 @@ nav:
             - Romi/Control/romiTrajectory.md
             - Romi/Control/romiStateSpace.md
             - Romi/Control/romiServos.md
+            - Romi/Control/romiArm.md
         - 'Vision Processing':
             - Romi/Vision/romiVisionIndex.md
             - Romi/Vision/romiBasicVision.md
@@ -29,12 +30,6 @@ nav:
             - Romi/RomiSoftware/romiSoftwareIndex.md
             - Romi/RomiSoftware/romiPiSoftware.md
             - Romi/RomiSoftware/romiFirmware.md
-
-    # - 'Development Tools': 
-    #     - Tools/vscode.md
-    #     - Tools/git.md
-    #     - Tools/simulator.md
-    #     - Tools/shuffleboard.md
 
         - 'Programming': 
             - Programming/introProgramming.md
