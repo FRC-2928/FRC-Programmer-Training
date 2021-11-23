@@ -9,10 +9,10 @@ Load the characterization program [Romi Characterization](https://github.com/mjw
 <!-- Start up the *romi-characterization* program and follow the [Romi Characterization](https://github.com/bb-frc-workshops/romi-examples/tree/main/romi-characterization) instructions. -->
 
 ## Interpreting the Romi Analysis
+To be completed.
 
 ## Robot Characterization Lab
-
-Add to the Constants file:
+Run robot characterization for your Romi.  Look at the results and add the following constants to your *Constants* file.  Note, that the values for your Romi may be different from the example below.
 
     // Dynamical constants
     public static final double kMaxSpeedMetersPerSecond = 0.5;
