@@ -87,7 +87,7 @@ The programming team is primarily tasked with controlling the robot.  Robot cont
 ## References 
 - QUT Robotics Academy [Introduction to Robotics](https://robotacademy.net.au/masterclass/introduction-to-robotics/)
 
-<h3><span style="float:left">
+<!-- <h3><span style="float:left">
 <a href="index">Home</a></span>
 <span style="float:right">
-<a href="../geometry">Next</a></span></h3>
+<a href="../geometry">Next</a></span></h3> -->

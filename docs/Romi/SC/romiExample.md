@@ -18,9 +18,11 @@ Next, place the robot in Teleoperated mode and drive it around using the joystic
 ![Simulator](../../images/Romi/Romi.039.jpeg)
 
 ## References
+- Spectrum3847 - [Romi WPILib Example Project Walkthrough](https://www.youtube.com/watch?v=j5g4nHV3FaY&ab_channel=Spectrum3847)
+
+<!-- - Cerbotics4400 - [Introduction to FRC programming](https://www.youtube.com/watch?v=ImkxFrBirwY&list=TLPQMjgxMTIwMjF2Q19t44SxpA&index=3&ab_channel=Cerbotics4400) -->
+
 - FRC Documentation - [Robot Simulator](https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/robot-simulation/introduction.html)
-
-
 
 <!-- <h3><span style="float:left">
 <a href="romiDev">Previous</a></span>

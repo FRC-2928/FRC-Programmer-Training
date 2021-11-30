@@ -1,17 +1,41 @@
 # Romi Robot Arm
-In this module we'll be creating code to control the [Robot Arm kit for Romi](https://www.pololu.com/product/3550) from Pololu. This program will be called [BasicArm](https://github.com/mjwhite8119/romi-examples/tree/main/BasicArm) which will include the following updates to the **RomiReference** project.
+In this module we'll be creating code to control the [Robot Arm kit for Romi](https://www.pololu.com/product/3550) from Pololu. This project will be called [BasicArm](https://github.com/mjwhite8119/romi-examples/tree/main/BasicArm) which will include the following updates to the **RomiReference** project.
 
-![BasicArm](../../images/Romi/Romi.029.jpeg)
+![BasicArm](../../images/Romi/Romi.031.jpeg)
 
-Before reading this section please review the [SimpleArm documentation](https://github.com/bb-frc-workshops/romi-examples/tree/main/simpleArm) on the BB FRC Workshops site.
+Before reading this section please review the [SimpleArm documentation](https://github.com/bb-frc-workshops/romi-examples/tree/main/simpleArm) on the BB FRC Workshops site.  This will be our starting point but we'll use the [RomiServo](romiServos.md) class for our project.
 
 ## Controlling the Robot Arm
-This is how the software stack works together to operate the robot arm.
+This is a diagram of the end-to-end software stack required to operate the robot arm.  As with all of our projects communication with the Romi will take place via the Simulator that connects to the NodeJS application running on the Raspberry Pi. This in turn sends messages to the microcontroller that is responsible for directly controlling the arm's servos using PWM.
+
 ![Servo Control](../../images/Romi/Romi.006.jpeg)
 
-A button is attached to each of the three arm components Lift, Tilt, and Gripper.  Every time a button is pressed the related arm component is moved.  This is done incrementally.  There are min and max limits to the range of motion of the arm.  The range of the servo is 0 to 180 degrees but that is too large a range for the arm.
+In order to control the arm within our java project, we'll create a subsystem called *Arm* that brings together three servos that make up the arm.  The servos will control the Gripper, Lift, and Tilt components of the arm using methods of the *Arm* class.  Later we can assign a joystick or Simulator button  to each of the three arm components via a command and every time the button is pressed the related arm component is moved.  This is done incrementally in the [RomiServo](romiServos.md) class.  
 
-The `Constants` file needs to be updated to include `Joystick` and `Arm` values.
+    private final RomiServo m_gripper = new RomiServo(ArmConstants.GRIPPER_PORT);
+    private final RomiServo m_tilt = new RomiServo(ArmConstants.TILT_PORT);
+    private final RomiServo m_lift = new RomiServo(ArmConstants.LIFT_PORT);
+
+Method used to increment the tilt component.
+
+    public void tilt(double delta) {
+      m_tilt.incrementServo(delta);
+    }
+
+![BasicArm](../../images/Romi/Romi.062.jpeg)
+
+There are minimum and maximum limits to the range of motion of the arm.  The range of the servo is 0 to 180 degrees but that is too large a range for the arm. We've already setup a method in *RomiServo* to restrict the servo range so we can use that to setup the ranges for our arm components.  The min and max values for your Romi Arm may be slightly different.  We can also set a default angle for the arm components.
+
+    public Arm() {
+      // Set the min/max range for each component
+      m_gripper.setAngleRange(ArmConstants.GRIPPER_MIN, ArmConstants.GRIPPER_MAX);
+      m_tilt.setAngleRange(ArmConstants.TILT_MIN, ArmConstants.TILT_MAX);
+      m_lift.setAngleRange(ArmConstants.LIFT_MIN, ArmConstants.LIFT_MAX);
+
+      // Set the default angle position
+      m_tilt.setDefaultAngle(ArmConstants.TILT_MIN);
+      m_lift.setDefaultAngle(ArmConstants.LIFT_MIN);
+    }
 
 ![Arm Motor Control](../../images/Romi/Romi.005.jpeg)
 
@@ -36,22 +60,22 @@ Follow this startup procedure.
 
 Currently, the Romi will remain in *Arm Mode* until it is restarted.
 
-## Adding an Arm Position Command
-The JoystickArmCommand incrementally moves the robot arm components as you press buttons on the joystick.  It would be useful to have a command that move the arm to the fully up or down position with a single button press. 
-
-Create a new command called **ArmPosition**.  In the VSCode file menu right click on the **commands** folder and select "Create a new class/command".  Enter the name **ArmPosition** in the box.  This will give you a template for creating your new command, which will include the class constructor and the **initialize(), execute(), end(),** and **isFinished()** methods.  
+## The JoystickArm Command
+The JoystickArm command incrementally moves the robot arm components as you press buttons on the joystick...   
 
 Before filling out these methods with code let's think about what subsystems and components we'll need to create this command.  We'll certainly need the Arm subsystem.  The Arm will move in response to a button pressed on the Joystick so we'll also need to get a reference to that.
 
-Import the Arm and Joystick command at the top of the file and create a private variable to each of them inside of the class.  
+Import the *Arm* class at the top of the file and create a private variable it.  
 
-Example...
+    public final Arm m_arm = new Arm();
 
 Pass the Arm and Joysick into the constructor and set the Arm as a requirement.  Also assign the private arm and joystick variables to the parameters that you just passed in.
 
-Example...
+    m_arm.setDefaultCommand( new JoystickArm(m_arm, m_joystickIO));
 
-Now let's figure out what we're going to do with these. 
+## Positioning the Arm
+It would be useful to have a command that move the arm to the fully up or down position with a single button press.
+This section documents positioning the arm in the fully up and down position... 
 
 ## Testing the Arm Command
 We can test the Arm command either by using the joystick or from Shuffleboard.  We'll setup our program to use both methods.  

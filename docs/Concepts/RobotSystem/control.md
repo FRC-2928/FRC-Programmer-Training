@@ -26,5 +26,5 @@ Explain a real time operating system...
 
 ![RTOS](../../images/FRCConcepts/FRCConcepts.015.jpeg)
 
-<h3><span style="float:left">
-<a href="intro">Previous</a></span>
+<!-- <h3><span style="float:left">
+<a href="intro">Previous</a></span> -->

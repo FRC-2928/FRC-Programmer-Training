@@ -39,7 +39,7 @@ There are infinite usages of LDS, and SLAM (Simultaneous Localization And Mappin
 
 - Alonzo Kelly [Mobile Robotics](https://www.cambridge.org/core/books/mobile-robotics/5BF238489F9BC337C0736432C87B3091) Chapter 6.2
 
-<h3><span style="float:left">
+<!-- <h3><span style="float:left">
 <a href="intro">Previous</a></span>
 <span style="float:right">
-<a href="actuators">Next</a></span></h3>
+<a href="actuators">Next</a></span></h3> -->
