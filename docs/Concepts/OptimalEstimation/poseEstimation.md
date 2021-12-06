@@ -76,6 +76,30 @@ Update the estimator in the `periodic()` block, and populate the Field2D object 
 
       m_estimatedField2d.setRobotPose(getEstimatedPose());
 
+### Reset Odometry
+Finally, we'll add a command to reset the odometry.  This will come in useful as we test and retest our commands.  That command is quite short and looks like this:
+
+    public class ResetOdometry extends InstantCommand {
+    private static Drivetrain m_drive;
+
+        public ResetOdometry(Drivetrain drive) {
+            // Use addRequirements() here to declare subsystem dependencies.
+            m_drive = drive;
+            addRequirements(drive);
+        }
+
+        // Called when the command is initially scheduled.
+        @Override
+        public void initialize() {
+            m_drive.arcadeDrive(0, 0);
+            m_drive.resetGyro();
+            m_drive.resetEncoders();
+        }
+    }
+
+Add that to your list of Autonomous commands in the *RobotContainer* class:
+
+    m_chooser.addOption("Reset Odometry", new ResetOdometry(m_drivetrain));
 
 ## References
 - FRC Documentation [Odometry](https://docs.wpilib.org/en/stable/docs/software/kinematics-and-odometry/differential-drive-odometry.html)

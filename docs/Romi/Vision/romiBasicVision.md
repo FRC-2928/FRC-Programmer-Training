@@ -7,6 +7,11 @@ The following diagram shows the software components that we're going to use and 
 
 ![Camera Program Components](../../images/FRCVision/FRCVision.004.jpeg)
 
+## Test the Camera Connection
+Ensure that the camera is connected by going to the **Vision Settings** section.  Under the **USB Cameras** panel it should show the Raspberry Pi camera as connected.  Clicking on the **Open Stream** button will open another browser tab with the camera stream.  The URL will be `http://10.0.0.2/1181` or `http://wpilibpi.local:1181`.  Sometimes you may have to do a page reload on the `1181` URL to get the stream to display.
+
+![Camera Program Components](../../images/FRCVision/FRCVision.019.jpeg)
+
 ## Development Setup for Python
 In order to use Python in VSCode you will need to install the **Python IntelliSence** plugin.
 

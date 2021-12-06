@@ -77,7 +77,7 @@ The `setDefaultCommand()` method sets the default Command of the subsystem. The 
 
 
 ## Viewing the Robot Pose
-As the robot drives around it might be useful to view its position and orientation on in the Simulator.  We looked at that module previously so you ready to go onto the [Pose Estimation](../Concepts/OptimalEstimation/poseEstimation) module.  There are a couple of classes that need to be implemented to do this so review that module next.
+As the robot drives around it might be useful to view its position and orientation on in the Simulator.  We looked at that module previously so you ready're to go onto the [Pose Estimation](../../Concepts/OptimalEstimation/poseEstimation.md) module.  There are a couple of classes that need to be implemented to do this so review that module next.
 
 ## Commands Lab
 There are two objectives for this lab:

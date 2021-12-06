@@ -25,8 +25,5 @@ A Linear Time-Invariant system, as the name suggests, has two parts to it:
 
 ## References
 
+- FRC Documentation [Simulation Physics](https://docs.wpilib.org/en/latest/docs/software/wpilib-tools/robot-simulation/physics-sim.html)
 
-<!-- <h3><span style="float:left">
-<a href="geometry">Previous</a></span>
-<span style="float:right">
-<a href="systemId">Next</a></span></h3> -->
