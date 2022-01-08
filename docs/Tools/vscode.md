@@ -13,6 +13,32 @@ It's important that everyone has the latest software otherwise you won't be able
 
 ![After Upgrade](../images/FRCTools/FRCTools.011.jpeg)
 
+## Installing Pheonix Software
+The **Cross The Road Electronics** vendor libraries must be installed installed into the `wpilib/20YY` directory.  Here are the [Phoenix Software](https://store.ctr-electronics.com/software/) releases for each platform. 
+
+When you run the Phoenix software installer for Windows it installs the software in the requisit directories.  For Mac and Linux follow the *Install Pheonix on Mac and Linux* instructions below once you've downloaded the zip file.
+
+Once installed you have to bring the libraries into your project.  This can be done from the WPI palette **Manage Vendor Libraries** option.  This is detailed in the FRC documentation [Adding Offline Libraries](https://docs.wpilib.org/en/stable/docs/software/vscode-overview/3rd-party-libraries.html#adding-offline-libraries) and also in the CTRE Documentation to [Create a Project](https://docs.ctre-phoenix.com/en/latest/ch05a_CppJava.html).
+
+### Install Pheonix on Mac and Linux
+There are three folders contained in this archive-
+- "maven"
+- "vendordeps"
+- "Robotbuilder"
+
+For VSCode Integration:
+Place the `maven/com/ctre` and `vendordeps/Pheonix.json` folders inside the WPILib installation folder.
+This is typically located in `~/wpilib/2022`.
+
+Instructions on adding Phoenix to your FRC vscode project can be found [here](https://phoenix-documentation.readthedocs.io/en/latest/ch05a_CppJava.html).
+
+
+For **Robotbuilder**:
+The Robotbuilder folder contains Robotbuilder extensions for using CTRE classes.
+It currently contains the Talon FX, CANCoder, Talon SRX, Victor SPX, CANifier, and Pigeon IMU extensions.
+
+Take the desired extension folder (eg. "Talon SRX") and place it in `~\wpilib\2022\Robotbuilder\extensions`.
+
 ## Using Live Share
 Live Share enables you to quickly collaborate with a friend, classmate, or professor on the same code without the need to sync code or to configure the same development tools, settings, or environment.
 

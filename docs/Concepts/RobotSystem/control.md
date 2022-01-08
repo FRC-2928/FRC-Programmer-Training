@@ -13,6 +13,15 @@ Finally, in order for the robot to communicate with a User Interface, and for th
 
 ![Control Categories](../../images/FRCConcepts/FRCConcepts.012.jpeg)
 
+
+## Robot Software Design 
+Robots generally implement the following design pattern where it receives external commands to control actuators that interact with the physical world.  They use sensors to provide feedback, or system state, that helps direct them towards their goal.  
+![Process Loop](../../images/FRCConcepts/FRCConcepts.008.jpeg)
+
+The software code should be organized to reflect this design pattern.  All subsystems need to be initialized, a process sometimes referred to as *Bring-up*. The *Initialization* section will include the subsystem's class constructor.  The code can be further sectioned into *Input Control, Feedback Control*, and *System State* to implement the design pattern. Note that not all subsystems will include all of these sections. For instance, an IMU may only include the *Bring-up* and *System State* sections.  During the testing phase, prior to getting a physical robot, there's a lot of reliance on simulation, which can be provided its own section.
+
+![Code Sections](../../images/FRCConcepts/FRCConcepts.021.jpeg)
+
 ## <a name="rtos"></a>Real Time Operating Systems (RTOS)
 Explain a general purpose operating system...
 
