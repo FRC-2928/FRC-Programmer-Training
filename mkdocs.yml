@@ -38,8 +38,8 @@ nav:
             - Programming/procedures.md
             - Programming/objects.md
             - Programming/stateMachines.md
-            - Programming/vscode.md
-            - Programming/git.md
+            - Tools/vscode.md
+            - Tools/git.md
 
         # - 'Robotics Concepts': 
         - 'Robot Systems': 
