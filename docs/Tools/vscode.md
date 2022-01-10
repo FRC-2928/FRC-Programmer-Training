@@ -9,9 +9,14 @@ An Integrated Development Environment (IDE) is a piece of software that is used 
 
 Visual Studio Code is the supported IDE for programming an FRC robot. If you don't have VSCode installed on your computer the best way of doing this is to follow the instructions on the [FRC Documentation Website](https://docs.wpilib.org/en/latest/docs/zero-to-robot/step-2/wpilib-setup.html). These instructions will also install the WPI Library which is used for programming the FRC robot. Additional information is also found at [FRC Documentation VSCode Overview](https://docs.wpilib.org/en/latest/docs/software/vscode-overview/index.html). The link to download the latest software is somewhat hidden, you can find it under [Prerequisites](https://docs.wpilib.org/en/latest/docs/zero-to-robot/step-2/wpilib-setup.html#prerequisites) and click on the Github link.  Scroll all the way down to the bottom of the Github release page to find the downloads.
 
-It's important that everyone has the latest software otherwise you won't be able to work on other team mates code.  After upgrading VSCode will import each project to the latest version.  Answer *Yes* to each prompt.
+## Upgrading Software
+A new version of the WPILib is released each year on the same day that the new competition is announced. It's important that everyone has the latest software.  Upgrading to the new version is essentially the same as doing a new install.  Here's a direct link to the latest  [Release down load page](https://github.com/wpilibsuite/allwpilib/releases/tag/v2022.1.1).  Follow the instructions for [Running the Installer](https://docs.wpilib.org/en/latest/docs/zero-to-robot/step-2/wpilib-setup.html#running-the-installer).
+
+After upgrading VSCode will import each project to the latest version.  Answer *Yes* to each prompt.
 
 ![After Upgrade](../images/FRCTools/FRCTools.011.jpeg)
+
+As soon as you open the upgraded project VSCode will start to run a compile.  This will often produce build errors that you need to resolve. You will probably have to import 3rd party software like *Pheonix* and *REVLib*.  Instructions on installing and configuring these libraries is detailed in the next section. Also see [Importing a Gradle Project](https://docs.wpilib.org/en/stable/docs/software/vscode-overview/importing-gradle-project.html) for more details on importing projects from previous season.
 
 ## Installing Pheonix Software
 The **Cross The Road Electronics** vendor libraries must be installed installed into the `wpilib/20YY` directory.  Here are the [Phoenix Software](https://store.ctr-electronics.com/software/) releases for each platform. 
@@ -26,18 +31,18 @@ There are three folders contained in this archive-
 - "vendordeps"
 - "Robotbuilder"
 
-For VSCode Integration:
 Place the `maven/com/ctre` and `vendordeps/Pheonix.json` folders inside the WPILib installation folder.
 This is typically located in `~/wpilib/2022`.
 
 Instructions on adding Phoenix to your FRC vscode project can be found [here](https://phoenix-documentation.readthedocs.io/en/latest/ch05a_CppJava.html).
 
+The **Robotbuilder** folder contains Robotbuilder extensions for using CTRE classes. It currently contains the Talon FX, CANCoder, Talon SRX, Victor SPX, CANifier, and Pigeon IMU extensions. Take the desired extension folder (eg. "Talon SRX") and place it in `~\wpilib\2022\Robotbuilder\extensions`.
 
-For **Robotbuilder**:
-The Robotbuilder folder contains Robotbuilder extensions for using CTRE classes.
-It currently contains the Talon FX, CANCoder, Talon SRX, Victor SPX, CANifier, and Pigeon IMU extensions.
-
-Take the desired extension folder (eg. "Talon SRX") and place it in `~\wpilib\2022\Robotbuilder\extensions`.
+## Install REV Robotics Software
+The install of the REV Robotics libraries is similar to that of the Pheonix software for Mac and Linux.  
+- Download the zip file from the [REV Robotics Software](https://docs.revrobotics.com/sparkmax/software-resources/spark-max-api-information#c++-and-java) releases page.
+- Place the `maven/com/revrobotics` and `vendordeps/REVLib.json` folders inside the WPILib installation folder. This is typically located in `~/wpilib/2022`.
+- Once installed you have to bring the libraries into your project.  This can be done from the WPI palette **Manage Vendor Libraries** option, as explained above.
 
 ## Using Live Share
 Live Share enables you to quickly collaborate with a friend, classmate, or professor on the same code without the need to sync code or to configure the same development tools, settings, or environment.

@@ -13,8 +13,10 @@ If you are on Windows you may need to download git bash from the following URL:
 
 [Git bash for Windows](https://gitforwindows.org)
 
+This module will step through the process of creating an repository, committing code and pushing it to a remote repository on GitHub.  We'll look at how to do this at the command line and within VSCode.
+
 ## Initializing the Repository
-Let's start a new project at the command line:
+To start a new project at the command line:
 
 `$ mkdir MyProject`
 
@@ -38,13 +40,19 @@ We now want to initialize it for use with git:
 
 `$ git init`
 
+You should see the following response:
+
       Initialized empty Git repository in /Users/martinwhite/Documents/FRCProjects/MyProject/.git/
 
 You will see a new directory under the project folder.
 
 ![Initialize Repository](../images/FRCTools/FRCTools.001.jpeg)
 
-## Configuring Git
+You can also initialize a repository in VSCode.  This is usually done after you have created a new project as detailed in [Creating a New WPILib Project](https://docs.wpilib.org/en/stable/docs/software/vscode-overview/creating-robot-program.html#creating-a-new-wpilib-project). Click on **Initialize Repository** then *Stage* and *Commit* your changes. You now have a local repostitory on your PC.  See a more detailed overview of **Staging and Committing** below.
+
+![VSCode Initialize Repository](../images/FRCTools/FRCTools.012.jpeg)
+
+## Configuring Username and Email
 Before continuing with Git you’ll want to do a few things to customize your Git environment. You should only have to do these things only once on any given computer. You can also change them at any time by running through the commands again.
 
 Git comes with a tool called `git config` that lets you get and set configuration variables that control all aspects of how Git looks and operates. 
@@ -127,7 +135,11 @@ We can always see what status the Git repository is in by typing:
       On branch master
       nothing to commit, working tree clean
 
-We now have no new files to commit. It's telling us that our working directory is clean.      
+We now have no new files to commit. It's telling us that our working directory is clean.   
+
+The previous process can be done in VSCode by carrying out the steps in the following diagram.
+
+![Create GitHub Repository](../images/FRCTools/FRCTools.014.jpeg)
 
 ## Pushing to the Remote Repository
 Before we can push our code to GitHub we need to go there and create a repository.
@@ -166,7 +178,9 @@ And now we can push our code to the remote GitHub repository:
       * [new branch]      master -> master
       Branch 'master' set up to track remote branch 'master' from 'origin'.
 
+You can setup VSCode to push to a remote repository using the following steps.  Click on options and select **Add Remote**.  Get the URL from your GitHub repository and paste it in, then press enter.  You'll be asked to name the remote, call it `origin`. You can then click on **Publish Branch** to update the remote repository.
 
+![Setting Remote Repository](../images/FRCTools/FRCTools.013.jpeg)
 
 ## Cloning a Repository
 The primary reason for creating repositories is so that other people can view and edit your code.  The way we do that is to `clone` the repository.  You first need to get the URL of the repository that you want to clone. 
@@ -207,6 +221,3 @@ The output will tell you how many file objects have been downloaded.  Conceptual
 - FRC Documentation - [Git Version Control](https://docs.wpilib.org/en/latest/docs/software/basic-programming/git-getting-started.html)
 
 - YouTube video - [VSCode and Github](https://www.youtube.com/watch?v=Fk12ELJ9Bww)
-
-<!-- <h3><span style="float:left">
-<a href="../index">Home</a></span> -->
