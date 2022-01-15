@@ -208,6 +208,9 @@ The output will tell you how many file objects have been downloaded.  Conceptual
 
 ![Clone Repository](../images/FRCTools/FRCTools.008.jpeg)
 
+## Project Version Control Strategy
+
+![Clone Repository](../images/FRCTools/FRCTools.015.jpeg)
 <!-- ## Branching
 
 ## Merging
