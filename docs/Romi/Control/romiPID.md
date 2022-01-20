@@ -74,43 +74,54 @@ A common FRC® controls solution is to pair a [Trapezoid Motion Profile](../../C
 ## The DriveDistanceProfiled Command
 With the *DriveDistancePID* command there's no way of avoiding the sudden accelerations and changes in velocity at the beginning of the move, which makes it difficult to tune the PID controller to arrive at the setpoint.  It would be better if we can move more smoothly to the setpoint by gradually accelerating and decelerating at the beginning and end of the movement. To facilitate this, WPILib includes its own *ProfiledPIDController* class. Let's see if we can improve upon the results of the *DriveDistancePID* command.  
 
-Instead of using the *PIDController* class we'll use the *ProfiledPIDController* that we just looked at.  This class specifies P, I, and D values together with velocity and acceleration constraints.  These constraints to 0.5 and 0.05 respectively, which was obtained during *Robot Characterization*.
+Instead of using the *PIDController* class we'll use the *ProfiledPIDController* that we just looked at.  This class specifies **P, I**, and **D** values together with the *TrapezoidProfile.Constraints* that specify velocity and acceleration.  Set these constraints to 0.5 and 0.05 respectively, which was obtained during *Robot Characterization*.  The *TrapezoidProfile.Constraints* are a constant so can be put into the *Constants* file like so.
+
+    public static final TrapezoidProfile.Constraints kTrapezoidProfileConstraints =
+            new TrapezoidProfile.Constraints(DrivetrainConstants.kMaxSpeedMetersPerSecond,
+                                            DrivetrainConstants.kMaxAccelMetersPerSecondSquared);
 
 We'll again add the *Drivetrain* and *targetDistance* parameters to the constructor.  However, this time the targetDistance will be passed into the ProfiledPIDController as a *TrapezoidProfile.state*.  We'll use the encoders as the measurement source as we did in the last command.
 
 ![PID Command](../../images/Romi/Romi.048.jpeg)
 
-Here's the code:
+Here's the final code:
 
-    public DriveDistanceProfiled(double targetDistance, Drivetrain drive) {
+    public class DriveDistanceProfiled extends ProfiledPIDCommand {
+      /** Creates a new DriveDistanceProfiled. */
+      private static Drivetrain m_drive;
+      private static NetworkTableInstance inst = NetworkTableInstance.getDefault();
+      private static NetworkTable table = inst.getTable("Shuffleboard/Drivetrain");
+      
+      public DriveDistanceProfiled(double targetDistance, Drivetrain drivetrain) {
         super(
             // The ProfiledPIDController used by the command
             new ProfiledPIDController(
                 // The PID gains and motion profile constraints
-                DriveConstants.kPDriveVel,
-                DriveConstants.kIDriveVel,
-                DriveConstants.kDDriveVel,
-                new TrapezoidProfile.Constraints(Constants.DriveConstants.kMaxSpeedMetersPerSecond,
-                                                Constants.DriveConstants.kMaxAccelMetersPerSecondSquared)),
+                DrivetrainConstants.kPDriveVel,
+                DrivetrainConstants.kIDriveVel,
+                DrivetrainConstants.kDDriveVel,
+
+                // The motion profile constraints
+                DrivetrainConstants.kTrapezoidProfileConstraints),
 
             // The measurement coming from the sensors
-            drive::getAverageDistanceMeters,
+            drivetrain::getAverageDistanceMeters,
 
             // The goal (can also be a constant)
             () -> new TrapezoidProfile.State(targetDistance,0),
 
             // Use the calculated velocity at each setpoint
             (output, setpoint) -> {
-              drive.steer(setpoint.velocity);
-            },
+              drivetrain.driveVelocity(setpoint.velocity);
+            });
 
-            // Declare subsystem dependencies.
-            drive);
+        // Use addRequirements() here to declare subsystem dependencies.
+        addRequirements(drivetrain);    
 
         // Configure additional PID options by calling `getController` here.
-        getController().setTolerance(DriveConstants.kDistanceToleranceMeters,
-                                    DriveConstants.kVelocityToleranceMetersPerS);
-    }
+        getController().setTolerance(DrivetrainConstants.kDistanceToleranceMeters,
+                                    DrivetrainConstants.kVelocityToleranceMetersPerS);
+      }
 
 ### Driving the Motors
 One problem with this profiled motion command is that the robot more than likely doesn't drive straight.  Also, in the *DriveDistancePID* command we had to add a value to the **I** parameter in order to get the command to finish (reach its setpoint).  To fix these problems we'll create a new method in the *Drivetrain* class called `steerVelocity()` that calculates a voltage value for each wheel, which is then sent to the motors setVoltage() method.

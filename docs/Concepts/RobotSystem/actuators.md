@@ -6,6 +6,9 @@ Most of the actuators that are used for our competition robot are supplied by [C
 
 [Loop Control Modes](https://docs.ctre-phoenix.com/en/stable/ch16_ClosedLoop.html#closed-loop-control-modes) documentation.
 
+![Motor Control Modes](../../images/Romi/Romi.067.jpeg)
+
+![PID Control Modes](../../images/Romi/Romi.068.jpeg)
 
 ## TalonFX Falcon 500
 
