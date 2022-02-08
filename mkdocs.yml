@@ -47,7 +47,9 @@ nav:
             - Concepts/RobotSystem/intro.md
             - Concepts/RobotSystem/sensors.md
             - Concepts/RobotSystem/actuators.md
+            - Concepts/RobotSystem/drivetrains.md
             - Concepts/RobotSystem/control.md
+            - Concepts/RobotSystem/communications.md
         - 'Dynamics': 
             - Concepts/Dynamics/dynamicsIndex.md
             - Concepts/Dynamics/kinematics.md

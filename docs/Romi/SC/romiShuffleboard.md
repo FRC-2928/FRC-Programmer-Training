@@ -2,7 +2,7 @@
 When creating Commands and Subsystems for our robot it'll be necessary to see the data that's getting generated.  Remember that robots are data driven machines, so in order to test our code we'll need to see the data.
 For that purpose we'll be using WPI tool called **Shuffleboard**, which will allow us to view all of the data coming from the robot in real time.  It also enables you to send data to the robot in order to make commands more flexible and change the behaviour of the robot.
 
-The documentation explains how to [start Shuffleboard](https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/shuffleboard/getting-started/shuffleboard-tour.html#starting-shuffleboard) depending on your development laptop.
+The documentation explains how to [start Shuffleboard](https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/shuffleboard/getting-started/shuffleboard-tour.html#starting-shuffleboard) depending on your development laptop.  If it crashes from *Start Tool* on MacOS you have to use `~/wpilib/2022/jdk/bin/java -jar ~/wpilib/2022/tools/shuffleboard.jar` 
 
 ## Parameterizing the AutoDistance Command
 We're going to enhance the *AutoDistance* command in order to accept input from Shuffleboard.  The current command moves the robot forward and backward 10 inches but with the help of Shuffleboard we'll be able to control how far the robot moves.

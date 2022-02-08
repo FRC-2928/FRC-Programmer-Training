@@ -9,10 +9,13 @@ We will use the camera for two purposes:
 
 ![Camera Program Structure](../images/FRCVision/FRCVision.001.jpeg)
 
-On the FRC game field they will use [Retroflective](https://docs.wpilib.org/en/stable/docs/software/vision-processing/introduction/target-info-and-retroreflection.html) tape to identify targets. We'll use [Image Processing](imageProcessing.md) to determine the location and distance of the target and act accordingly.  Image processing is done using an FRC application called *GRIP*.
+On the FRC game field they will use [Retroflective](https://docs.wpilib.org/en/stable/docs/software/vision-processing/introduction/target-info-and-retroreflection.html) tape to identify targets. We'll use [Image Processing](imageProcessing.md) to determine the location and distance of the target and act accordingly.  Image processing can be done using either [Limelight](https://docs.limelightvision.io/en/latest/index.html) or [PhotonVision](https://docs.photonvision.org).  PhotonVision is open-source and can be used with the RaspberryPi camera on the Romi, or with the Limelight.  The Limelight image processing software can only be used on the Limelight.
 
-## Using GRIP
-You can download GRIP from the [GRIP Releases](https://github.com/WPIRoboticsProjects/GRIP/releases) link.  Scroll to the botton of the page and select the install for your computer.  The FRC documentation [Vision with GRIP](https://docs.wpilib.org/en/stable/docs/software/vision-processing/grip/index.html) details its use.
+## Using PhotonVision
+[PhotonVision](https://docs.photonvision.org) can be [Installed on the LimeLight](https://docs.photonvision.org/en/latest/docs/getting-started/installation/limelight.html) for use with the competition robot and can also be [Installed on the Romi](https://github.com/PhotonVision/photonvision-docs/blob/ec29ff49e4a03f8d06e00818885efa774126c24c/source/docs/getting-started/installation/romi.rst) for training purposes.  
+
+## Using the Limelight
+Refer to the Limelight [Documentation](https://docs.limelightvision.io/en/latest/index.html), which is very comprehensive.  Our interface can be reached at `http://10.TE.AM.33:5801/` after connecting to the robot's access point.  Where `TE.AM` is replaced with the team number, e.g. `29.28`.
 
 ## References
 - FRC Documentation - [Introduction to Vision](https://docs.wpilib.org/en/stable/docs/software/vision-processing/introduction/what-is-vision.html)
@@ -23,7 +26,6 @@ You can download GRIP from the [GRIP Releases](https://github.com/WPIRoboticsPro
 
 - Peter Corke Lecture - [Introduction to Robot Vision](https://www.youtube.com/watch?v=N_a6IP6KUSE&list=PL1pxneANaikCO1-Z0XTaljLR3SE8tgRXY)
 
-<!-- <h3><span style="float:left">
-<a href="../index">Home</a></span>
-<span style="float:right">
-<a href="control">Next</a></span></h3> -->
+- PhotonVision - [Documentation](https://docs.photonvision.org/en/latest/)
+
+- Limelight - [Documentation](https://docs.limelightvision.io/en/latest/index.html)
