@@ -29,3 +29,5 @@ Refer to the Limelight [Documentation](https://docs.limelightvision.io/en/latest
 - PhotonVision - [Documentation](https://docs.photonvision.org/en/latest/)
 
 - Limelight - [Documentation](https://docs.limelightvision.io/en/latest/index.html)
+
+- Simon Prince - [Computer Vision](http://www.computervisionmodels.com)
