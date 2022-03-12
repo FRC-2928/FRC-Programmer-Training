@@ -211,7 +211,10 @@ The output will tell you how many file objects have been downloaded.  Conceptual
 ## Project Version Control Strategy
 
 ![Clone Repository](../images/FRCTools/FRCTools.015.jpeg)
-<!-- ## Branching
+
+## Branching
+
+To delete a remote branch use `git branch -d <branch name>`
 
 ## Merging
 
@@ -219,7 +222,8 @@ The output will tell you how many file objects have been downloaded.  Conceptual
 
 ## The `.gitignore` File
 
-## References -->
+## References 
+
 
 - FRC Documentation - [Git Version Control](https://docs.wpilib.org/en/latest/docs/software/basic-programming/git-getting-started.html)
 

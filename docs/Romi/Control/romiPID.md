@@ -217,7 +217,4 @@ We have already setup the getHeading() method in the [Subsystems](romiSubsystems
 
 - Code Example - [BasicPID](https://github.com/mjwhite8119/romi-examples/tree/main/BasicPID)
 
-<!-- <h3><span style="float:left">
-<a href="romiShuffleboard">Previous</a></span>
-<span style="float:right">
-<a href="romiPathPlanning">Next</a></span></h3> -->
+- FRC Programming Done Right -[PID Control](https://frc-pdr.readthedocs.io/en/latest/control/pid_control.html)

@@ -29,6 +29,8 @@ Add a LinearSystem for the Drivetrain to the *Constants* file.
                                                     kvVoltSecondsPerRadian, 
                                                     kaVoltSecondsSquaredPerRadian);
 
+<!-- Document project *SimpleDifferentialDriveSimulation* project. Specifically, the *DifferentialDrivetrainSim* class.                                                     -->
+<!-- ![State and Output Equations](../../images/FRCAnimatedGIFs.gif) -->
 
 ## References
 - FRC Documentation [State Space Controllers](https://docs.wpilib.org/en/stable/docs/software/advanced-controls/state-space/state-space-intro.html)
