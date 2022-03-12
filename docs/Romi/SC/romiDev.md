@@ -1,14 +1,20 @@
-# Romi Development Environment
+# Development Environment
 This section explains the development environment that we'll be using for the programming tutorials.
 
 ![Development Environment](../../images/Romi/Romi.002.jpeg)
 
-## Hardware Platform
-Our primary hardware platform is going to be the [Romi Robot Kit for FIRST](https://www.pololu.com/product/4022).  The Romi robot is a robot base that can be used by FRC teams preparing for competitions. The kit includes an Arduino compatible 32U4 Control Board and a Raspberry Pi together with software that is maintained by WPILib.
+## Hardware Platforms
+We'll be using two hardware platforms for our training.  During training we are likely to make some mistakes so we need a platform that will not cause any damage, for this we will be using the *Romi Robot Kit*.  After testing things out on the Romi we'll move to the RoboRIO robot that is very similar to the one used in competition.
+
+### Romi Robot Kit
+The [Romi Robot Kit for FIRST](https://www.pololu.com/product/4022).  The Romi robot is a robot base that can be used by FRC teams preparing for competitions. The kit includes an Arduino compatible 32U4 Control Board and a Raspberry Pi together with software that is maintained by WPILib.
 
 The control board has two H-bridge motor drivers and is designed to connect to the encoders on the motors to allow closed-loop motor control. It also includes a 5 volt switching step-down regulator that can supply up to 2 Amps continuously, along with a power switching and distribution circuit. A 3-axis accelerometer and gyro enable a Romi 32U4 robot to make inertial measurements, estimate its orientation, and detect external forces. Three on-board pushbuttons offer an interface for user input, while indicator LEDs, a buzzer, and a connector for an optional LCD allow the robot to provide feedback.
 
 When we move onto the Vision section of the tutorials we'll also make use of a Raspberry Pi camera.
+
+### RoboRIO Robot
+The RobiRIO robot is very similar to that used in competition.
 
 ## Software Development IDE
 

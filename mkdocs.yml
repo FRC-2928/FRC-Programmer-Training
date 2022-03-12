@@ -4,7 +4,7 @@ nav:
     - Home: 
         - index.md
 # - Romi Robot:
-        - 'Romi Robot Basics': 
+        - 'Robot Basics': 
             - Romi/SC/romiSCIndex.md
             - Romi/SC/romiDev.md
             - Romi/SC/romiExample.md
@@ -14,7 +14,7 @@ nav:
             - Romi/SC/romiCommandGroups.md
             - Romi/SC/romiShuffleboard.md
             - Romi/SC/romiGPIO.md
-        - 'Romi Robot Control':
+        - 'Robot Control':
             - Romi/Control/romiControlIndex.md
             - Romi/Control/romiCharacterization.md
             - Romi/Control/romiPID.md
@@ -22,23 +22,26 @@ nav:
             - Romi/Control/romiStateSpace.md
             - Romi/Control/romiServos.md
             - Romi/Control/romiArm.md
-        - 'Romi Vision Processing':
+        - 'Vision Processing':
             - Romi/Vision/romiVisionIndex.md
             - Romi/Vision/romiBasicVision.md
             - Romi/Vision/romiImageProcessing.md
             - Romi/Vision/romiLineFollow.md
-        - 'Romi Robot Software':
-            - Romi/RomiSoftware/romiSoftwareIndex.md
-            - Romi/RomiSoftware/romiPiSoftware.md
-            - Romi/RomiSoftware/romiFirmware.md
+        - 'Software Install':
+            - SoftwareInstall/softwareIndex.md
+            - SoftwareInstall/vscode.md
+            - SoftwareInstall/romiPiSoftware.md
+            - SoftwareInstall/romiFirmware.md
+            - SoftwareInstall/rioSoftware.md
+            - SoftwareInstall/vendorSoftware.md
 
         - 'Programming': 
             - Programming/introProgramming.md
             - Programming/dataStructures.md
             - Programming/procedures.md
             - Programming/objects.md
-            - Programming/stateMachines.md
-            - Tools/vscode.md
+            - Programming/stateMachines.md  
+            - Tools/vscode.md     
             - Tools/git.md
 
         # - 'Robotics Concepts': 

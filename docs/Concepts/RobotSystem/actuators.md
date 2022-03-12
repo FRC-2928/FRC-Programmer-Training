@@ -1,6 +1,6 @@
 # Actuators
 
-Most of the actuators that are used for our competition robot are supplied by [Cross The Road Electronics CTRE](https://docs.ctre-phoenix.com/en/latest/index.html).  These mainly include the **TalonFX 500** for the drivetrain.  And the **Victor SPX** for onboard mechanisms.  Before using any of this hardware we need to install the additional 3rd-Party *Phoenix* software. Third-party software installation details can be found [here](../../Tools/vscode.md#pheonix).
+Most of the actuators that are used for our competition robot are supplied by [Cross The Road Electronics CTRE](https://docs.ctre-phoenix.com/en/latest/index.html).  These mainly include the **TalonFX 500** for the drivetrain.  And the **Talon SRX** for onboard mechanisms.  Before using any of this hardware we need to install the additional 3rd-Party *Phoenix* software. Third-party software installation details can be found [here](../../Tools/vscode.md#pheonix).
 
 ## Loop Control Modes
 

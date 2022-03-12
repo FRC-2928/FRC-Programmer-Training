@@ -1,4 +1,7 @@
-# Romi Example Code
+# Example Code
+The WPILib development team have provided an extensive library of example code to get you started. 
+
+## Romi Example Code
 We're going to start by loading the example code that comes with the WPI libraries.  The example code project will be the base of all of our training lessons and lets you drive the Romi around using a gamepad. To create a project using the example follow the [Programming the Romi](https://docs.wpilib.org/en/stable/docs/romi-robot/programming-romi.html) documentation.
 
 The example code does not run on the Raspberry Pi.  It runs on your development laptop computer and uses the WPILib Simulation framework to communicate with the Romi robot.  The joystick controller will therefore have to connected to your laptop in order to work with the Romi. A joystick can be connected to your laptop via a USB port or Bluetooth.  We'll learn more later about how joysticks are used in our code.
@@ -16,6 +19,9 @@ As is the case with the real robots that are used for competition, the Romi oper
 Next, place the robot in Teleoperated mode and drive it around using the joystick.
 
 ![Simulator](../../images/Romi/Romi.039.jpeg)
+
+## RoboRIO Example Code
+
 
 ## References
 - Spectrum3847 - [Romi WPILib Example Project Walkthrough](https://www.youtube.com/watch?v=j5g4nHV3FaY&ab_channel=Spectrum3847)
