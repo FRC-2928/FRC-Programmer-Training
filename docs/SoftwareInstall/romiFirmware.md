@@ -29,11 +29,5 @@ If button A or B is pressed during powerup then the 32U4 enters test mode.
 
 
 ## References 
-[Romi Firmware - github](https://github.com/pololu/romi-32u4-arduino-library)
-[Romi Firmware README - github](https://github.com/wpilibsuite/wpilib-ws-robot-romi/blob/main/firmware/README.md)
-
-
-<!-- <h3><span style="float:left">
-<a href="romiPiSoftware">Previous</a></span> -->
-<!-- <span style="float:right">
-<a href="romiVision">Next</a></span></h3> -->
+- [Romi Firmware - github](https://github.com/pololu/romi-32u4-arduino-library)
+- [Romi Firmware README - github](https://github.com/wpilibsuite/wpilib-ws-robot-romi/blob/main/firmware/README.md)
