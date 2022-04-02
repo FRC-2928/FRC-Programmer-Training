@@ -5,7 +5,7 @@ nav:
         - index.md
         - 'Software Install':
             - SoftwareInstall/softwareIndex.md
-            - SoftwareInstall/vscode.md
+            - SoftwareInstall/vscodeSoftware.md
             - SoftwareInstall/romiPiSoftware.md
             - SoftwareInstall/romiFirmware.md
             - SoftwareInstall/rioSoftware.md
