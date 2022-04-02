@@ -80,3 +80,6 @@ nav:
             - MachineLearning/MLControl.md    
 
 theme: readthedocs
+python:
+  install:
+    - requirements: requirements.txt
