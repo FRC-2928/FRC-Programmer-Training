@@ -46,7 +46,7 @@ Explain how the program works...It makes use of the [Camera Server](https://docs
 ## <a name="upload"></a>Upload Python Program
 You can't run the camera server code on your laptop since it's not currently supported.  You have to upload it to the Raspberry Pi to test it. In a terminal (Powershell):
 
-1. `cd ~/Documents/romi-examples/BasicVision/Vision`.  If you opened up a terminal from VSCode then you should only need to `cd Vision`.
+1. `cd ~/Documents/RomiExamples/BasicVision/Vision`.  If you opened up a terminal from VSCode then you should only need to `cd Vision`.
 2. The python program has multiple files so you need to upload them all.  This is done with a zip file.  Run `python build.py` to build the zip file.  Depending on how Python is installed you may have to type `python3`.  The zip file will be called `wpilib.tar.gz`.
 3. On the Romi WPILibPi.local webpage. Go to **Application**.
 4. Put Raspberry Pi file system into *Writable* mode.
@@ -76,7 +76,7 @@ Note: Shuffleboard uses the Network Tables to display the camera data so your ja
 An alternative way to view the overlayed camera stream is to bring it up in a browser.  The URL is `wpilibpi.local:1182/stream.mjpg`.  The port of the original stream is *1181*.
 
 ## Notes on Restarting the Romi
-When you first turn the Romi it will restart with the program that you last uploaded.  So if that's what you require then there's no action neccesary. Dispite this, the **Vision Application Configuration** panel will default to the *Custom* application, even though the *Custom* application is not running. 
+When you first turn the Romi it will restart with the program that you last uploaded.  So if that's what you require then there's no action neccesary. Despite this, the **Vision Application Configuration** panel will default to the *Custom* application, even though the *Custom* application is not running. 
 
 If you've switched the application to **Built-in multi-camera streaming** then you will have to upload your python program again, since it will try to call `uploaded.py` instead of your `multiCameraServer.py` program. The the `runCamera` file keeps getting overwritten so you cannot just upload a new `multiCameraServer.py` file from the **Vision Application Configuration** panel.  You have to upload your tar file from the **File Upload** panel.
 

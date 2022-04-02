@@ -3,6 +3,13 @@ site_url: https://2928-frc-programmer-training.readthedocs.io
 nav:
     - Home: 
         - index.md
+        - 'Software Install':
+            - SoftwareInstall/softwareIndex.md
+            - SoftwareInstall/vscode.md
+            - SoftwareInstall/romiPiSoftware.md
+            - SoftwareInstall/romiFirmware.md
+            - SoftwareInstall/rioSoftware.md
+            - SoftwareInstall/vendorSoftware.md
 # - Romi Robot:
         - 'Robot Basics': 
             - Romi/SC/romiSCIndex.md
@@ -11,7 +18,6 @@ nav:
             - Romi/SC/romiStructure.md
             - Romi/SC/romiSubsystems.md
             - Romi/SC/romiCommands.md
-            - Romi/SC/romiCommandGroups.md
             - Romi/SC/romiShuffleboard.md
             - Romi/SC/romiGPIO.md
         - 'Robot Control':
@@ -27,13 +33,7 @@ nav:
             - Romi/Vision/romiBasicVision.md
             - Romi/Vision/romiImageProcessing.md
             - Romi/Vision/romiLineFollow.md
-        - 'Software Install':
-            - SoftwareInstall/softwareIndex.md
-            - SoftwareInstall/vscode.md
-            - SoftwareInstall/romiPiSoftware.md
-            - SoftwareInstall/romiFirmware.md
-            - SoftwareInstall/rioSoftware.md
-            - SoftwareInstall/vendorSoftware.md
+        
 
         - 'Programming': 
             - Programming/introProgramming.md
@@ -71,5 +71,12 @@ nav:
             - Concepts/Control/LQR.md
         - 'Vision': 
             - Vision/introVision.md
+        - 'Machine Learning':
+            - MachineLearning/MLIndex.md
+            - MachineLearning/MLImageCollection.md
+            - MachineLearning/MLAnnotation.md
+            - MachineLearning/MLTraining.md
+            - MachineLearning/MLDeployment.md
+            - MachineLearning/MLControl.md    
 
 theme: readthedocs

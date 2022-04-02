@@ -1,9 +1,9 @@
 # Introduction to Machine Learning and Neural Networks
 
-## Essential Math
+ 
+Good resource [ML Overview](https://ml-cheatsheet.readthedocs.io/en/latest/nn_concepts.html)
 
 
-## Machine Learning
 
 MIT Press book **Machine Learning Basics** [Chapter 4](https://www.deeplearningbook.org/contents/ml.html)
 
@@ -27,6 +27,8 @@ Neural Networks and Deep Learning book [Chapter 2](http://neuralnetworksanddeepl
 ## References
 - FRC Documentation - [Axon](https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/axon/introduction.html)
 
+- Jeremy Howard, Sylvain Gugger - [Practical Deep Learning for Coders](https://course.fast.ai/)
+
 - Deep Learning - [Video Playlist](https://www.youtube.com/playlist?list=PLZbbT5o_s2xq7LwI2y8_QtvuXZedL6tQU) - deeplizard
 
 - Neural Networks and Deep Learning - [Free Online Book](http://neuralnetworksanddeeplearning.com/index.html)
@@ -36,3 +38,5 @@ Neural Networks and Deep Learning book [Chapter 2](http://neuralnetworksanddeepl
 - James, Witten, Hastie, Tibshirani [An Introduction to Statistics Learning](https://www.statlearning.com)
 
 - An Introduction to Statistics Learning [YouTube Playlist](https://www.youtube.com/playlist?list=PLOg0ngHtcqbPTlZzRHA2ocQZqB1D_qZ5V)
+
+- [ML Overview](https://ml-cheatsheet.readthedocs.io/en/latest/nn_concepts.html)
