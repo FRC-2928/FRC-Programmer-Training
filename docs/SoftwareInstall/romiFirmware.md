@@ -23,11 +23,11 @@ Once PlatformIO has been installed you can use the following steps to download t
 
 7. While connected to the Romi via the USB cable you can see any `Serial.print` statements by opening the serial port monitor (plug icon).
 
-![Romi Firmware](../../images/Romi/Romi.007.jpeg)
+![Romi Firmware](../images/Romi/Romi.007.jpeg)
 
 If button A or B is pressed during powerup then the 32U4 enters test mode.
 
 
 ## References 
-- [Romi Firmware - github](https://github.com/pololu/romi-32u4-arduino-library)
-- [Romi Firmware README - github](https://github.com/wpilibsuite/wpilib-ws-robot-romi/blob/main/firmware/README.md)
+- [Romi Firmware](https://github.com/pololu/romi-32u4-arduino-library) - GitHub
+- [Romi Firmware README](https://github.com/wpilibsuite/wpilib-ws-robot-romi/blob/main/firmware/README.md) - GitHub
