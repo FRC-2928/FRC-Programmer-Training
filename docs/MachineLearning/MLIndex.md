@@ -1,15 +1,23 @@
 # Introduction to Machine Learning
 **Machine Learning** is a powerful tool that can accomplish computational tasks that traditional algorithms cannot. In the FIRST Robotics Competition, machine learning can be used to detect game pieces, scoring locations, or even other robots.  For a good overview of Machine Learning see Brendan Fortuner's [Machine Learning Glossary](https://ml-cheatsheet.readthedocs.io/en/latest/nn_concepts.html).  Also see an [Introduction to Machine Learning](https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/axon/machine-learning.html) in the FRC Documentation. 
 
-In order to implement Machine Learning we'll generally follow a process of collecting images, annotating the images, training a model, deploying the trained model on the robot, and finally using the trained model to control the robot.  This is an iterative process that will be continued until we have a satisfactory outcome.  
+In order to implement Machine Learning we'll generally follow a process of collecting images, annotating the images, preprocessing and augmenting the images, training a model, deploying the trained model on the robot, and finally using the trained model to control the robot.  This is an iterative process that will be continued until we have a satisfactory outcome.  
 ![Machine Learning Process](../images/FRCMachineLearning/FRCMachineLearning.001.jpeg)
 
-There are multiple ways to carry out this process.  FRC has a tool called **Axon** that implements the training, testing, and exporting of the machine learning model.  See an [Introduction to Axon](https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/axon/introduction.html) in the FRC Documentation.  Other processes are used to Annotate the images. Various options to carry out this process are detailed in the following sections.
+There are multiple ways to carry out this process.  FRC has a tool called **Axon** that implements the training, testing, and exporting of the machine learning model.  See an [Introduction to Axon](https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/axon/introduction.html) in the FRC Documentation.  The model is then deployed to a Raspberry Pi using a [Coral USB Accelerator](https://coral.ai/products/accelerator) for real-time processing of the images. 
 
-- [Image Collection](MLImageCollection.md)
-- [Annotating Images](MLAnnotation.md)
+An alternative process is to use the [Roboflow](https://roboflow.com) platform to upload video, process the images, and train the model.  The resulting trained model is deployed to a Raspberry Pi using an OAK-D camera provided by [Luxonis](https://www.luxonis.com).  The OAK-D camera has an onboard Tensor Processing Unit (TPU) that runs the model and processes the images before sending it to the Raspberry Pi.  The model can also be trained in [Google Colab](https://colab.research.google.com/?utm_source=scs-index).
+
+![Roboflow OAK-D Process](../images/FRCMachineLearning/FRCMachineLearning.002.jpeg)
+
+The Roboflow, Google Colab, with the OAK-D Camera deployment process is the one that will be documented in the following sections.
+
+
+<!-- - [Image Collection](MLImageUpload.md)
+- [Annotating Images](MLAnnotation.md) -->
+- [Preparing Images](MLProcessImages.md)
 - [Training the Model](MLTraining.md)
-- [Deployment](MLDeployment.md)
+- [Deploying the Model](MLDeployment.md)
 - [Machine Learning Based Control](MLControl.md)
 
 ## References
@@ -20,3 +28,7 @@ There are multiple ways to carry out this process.  FRC has a tool called **Axon
 - Jeremy Howard, Sylvain Gugger - [Practical Deep Learning for Coders](https://course.fast.ai/)
 
 - Deep Learning - [Video Playlist](https://www.youtube.com/playlist?list=PLZbbT5o_s2xq7LwI2y8_QtvuXZedL6tQU) - deeplizard
+
+- Roboflow [OpenCV AI Kit Training Course](https://roboflow.com/course)
+
+- OAK-D Camera [Luxonis](https://www.luxonis.com)

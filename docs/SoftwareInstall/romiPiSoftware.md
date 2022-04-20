@@ -9,9 +9,17 @@ In the [romi-robot.ts](https://github.com/wpilibsuite/wpilib-ws-robot-romi/blob/
 
 The [wpilib-ws-robot-romi](https://github.com/wpilibsuite/wpilib-ws-robot-romi) package depends on [wpilib-ws-robot](https://github.com/wpilibsuite/wpilib-ws-robot), which in turn depends on [node-wpilib-ws](https://github.com/wpilibsuite/node-wpilib-ws). The `node-wpilib-ws` package contains the core classes that implement the WPILib WebSocket protocol.
 
-![RaspberryPi Software](../../images/Romi/Romi.003.jpeg)
+![RaspberryPi Software](../images/Romi/Romi.003.jpeg)
 
-![External IO Config](../../images/Romi/Romi.035.jpeg)
+## Software Install
+The Romi Robots that you'll be using for training will already have a software image installed on an SD card.  If you purchase a new Romi or the SD card gets corrupted then refer to [Imaging your Romi](https://docs.wpilib.org/en/stable/docs/romi-robot/imaging-romi.html) to create a new image.
+
+You will have to upgrade the software as new releases come available.  This can be done via the [The Romi Web UI](https://docs.wpilib.org/en/stable/docs/romi-robot/web-ui.html#romi-status).  You first have to download the latest release from the [Romi Web Service Release](https://github.com/wpilibsuite/wpilib-ws-robot-romi/releases) page.  Download the `romi-service-x.x.x.tgz` file to your PC.  Then connect to the Romi and click on the **Romi** tab and scroll down to the **Web Service Update** section.  Put the Romi in *Writable* mode, choose the file, and click *Save*.  
+
+Note: When downloading the file from the releases page the extension may get renamed to `.tar`.  You will need to rename it back to `.tgz` in order to choose the file in the Web UI.
+
+## External IO Configuration
+![External IO Config](../images/Romi/Romi.035.jpeg)
 
 ### Data Communications
 Only send the heartbeat if we have an active WS connection, the robot is in enabled state AND we have a recent-ish DS packet

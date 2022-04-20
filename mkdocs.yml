@@ -10,8 +10,9 @@ nav:
             - SoftwareInstall/romiFirmware.md
             - SoftwareInstall/rioSoftware.md
             - SoftwareInstall/vendorSoftware.md
+            - SoftwareInstall/visionSoftware.md
 # - Romi Robot:
-        - 'Robot Basics': 
+        - 'Romi Robot Basics': 
             - Romi/SC/romiSCIndex.md
             - Romi/SC/romiDev.md
             - Romi/SC/romiExample.md
@@ -20,7 +21,7 @@ nav:
             - Romi/SC/romiCommands.md
             - Romi/SC/romiShuffleboard.md
             - Romi/SC/romiGPIO.md
-        - 'Robot Control':
+        - 'Romi Robot Control':
             - Romi/Control/romiControlIndex.md
             - Romi/Control/romiCharacterization.md
             - Romi/Control/romiPID.md
@@ -28,7 +29,7 @@ nav:
             - Romi/Control/romiStateSpace.md
             - Romi/Control/romiServos.md
             - Romi/Control/romiArm.md
-        - 'Vision Processing':
+        - 'Romi Vision Processing':
             - Romi/Vision/romiVisionIndex.md
             - Romi/Vision/romiBasicVision.md
             - Romi/Vision/romiImageProcessing.md
@@ -73,8 +74,9 @@ nav:
             - Vision/introVision.md
         - 'Machine Learning':
             - MachineLearning/MLIndex.md
-            - MachineLearning/MLImageCollection.md
-            - MachineLearning/MLAnnotation.md
+            # - MachineLearning/MLImageUpload.md
+            # - MachineLearning/MLAnnotation.md
+            - MachineLearning/MLProcessImages.md
             - MachineLearning/MLTraining.md
             - MachineLearning/MLDeployment.md
             - MachineLearning/MLControl.md    
