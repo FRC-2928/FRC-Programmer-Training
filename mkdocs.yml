@@ -74,8 +74,6 @@ nav:
             - Vision/introVision.md
         - 'Machine Learning':
             - MachineLearning/MLIndex.md
-            # - MachineLearning/MLImageUpload.md
-            # - MachineLearning/MLAnnotation.md
             - MachineLearning/MLProcessImages.md
             - MachineLearning/MLTraining.md
             - MachineLearning/MLDeployment.md

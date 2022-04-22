@@ -1,5 +1,12 @@
 # Training a Model
-There are options that we have to train our model.  It can be trained in **Roboflow** or we can export it for training in **Google Colab**.  To train in Roboflow watch the [Training](https://www.youtube.com/watch?v=njWwmKLWVyE)  YouTube Video and read the [Train](https://docs.roboflow.com/train) documentation.  
+Once you have a dataset of the images that you're happy with it can be used to train and validate a model. For the training and validation process you have two options.  You can train and validate in *Roboflow*, or you can export it for training and validation in *Google Colab*.  The process of validating an image with a model is called *Inference*. In order to deploy a model to the competition robot it must be trained using Colab since you'll need to have a model file that can be used offline.
+
+## Training Model in Roboflow
+To train a model in Roboflow watch the [Training](https://www.youtube.com/watch?v=njWwmKLWVyE)  YouTube Video and read the [Train](https://docs.roboflow.com/train) documentation. Once you have a trained model it can be validated directly on the Roboflow site. 
+
+To validate, go to the **Versions** section of your Roboflow account, select an image of the objects that you want to run inference on and upload it to the site.  If your model is properly trained you should see bounding boxes around the objects of interest.
+
+![Test API](../images/FRCMachineLearning/FRCMachineLearning.011.jpeg)
 
 ## Training Model in Colab
 This process will show how to train a [Yolo](https://pjreddie.com/darknet/yolo/) model for deployment on an [Luxonis OAK](https://shop.luxonis.com/collections/usb) device.  The training process in Google Colab follows these steps.
@@ -49,9 +56,9 @@ This step will load the YOLOv4 trained weights and make inference on test images
 ### Convert to OpenVino Blob File
 When you are satisfied with the model's testing results you can convert it to a file format that runs on the OAK-D camera.  Save and download the `.weights` file that was created in *Train Detector Model* step.  This file can be converted to other formats suitable for deployment.
 
-The first step in creating the blob file is to install Tensorflow and convert the `.weights` file to a `.pb`
+Before creating the *blob* file you need to convert the `.weights` file to a `.pb`.  `pb` stands for *protobuf*. In TensorFlow, the protbuf file contains the graph definition as well as the weights of the model. This step requires the installation of Tensorflow into Colab.
 
-The next step is to install the [yolo2openvino](https://github.com/luxonis/yolo2openvino) library into the Colab environment.  This library will export the `.weights` file into the OpenVINO *Intermediate Representation* IR format. A JSON configuration file is required for the conversion. The most important parameter to check in the configuration file is the number of classes.  This should match the number of object types that you're tracking, for example, if you have *Blueballs* and *Redballs* then the number of classes should be 2.
+The next step is to install the [yolo2openvino](https://github.com/luxonis/yolo2openvino) library into the Colab environment.  This library will convert the `.pb` file into the OpenVINO *Intermediate Representation* IR format. A JSON configuration file is required for the conversion. The most important parameter to check in the configuration file is the number of classes.  This should match the number of object types that you're tracking, for example, if you have *Blueballs* and *Redballs* then the number of classes should be 2.
 
         [
                 {
@@ -68,9 +75,11 @@ The next step is to install the [yolo2openvino](https://github.com/luxonis/yolo2
                 }
         ]
 
-Lastly, we install the *blobconverter* library and use it to convert IR files to the *OpenVino* to blob format that can be run on OAK devices. After this step is complete the *IR* and *blob* files can be downloaded to your PC.
+Once conversion to OpenVINO IR is successful we can install the *blobconverter* library and use it to convert the IR files to a blob format that can be run on OAK devices. After this step is complete the *IR* and *blob* files can be downloaded to your PC.
 
-The full conversion process is shown below.
+> There is also a [Web App](https://blobconverter.luxonis.com/) where you can convert the model using the *blobconverter*. Select OpenVINO 2021.3 > OpenVINO Model > Continue, upload .xml and .bin, and convert.
+
+The full weights file to OAK blob file conversion process is shown below.
 
 ![Converting Model](../images/FRCMachineLearning/FRCMachineLearning.008.jpeg)
 

@@ -28,7 +28,7 @@ After this is done we can create a version of the dataset in preparation for tra
 
 ![Generating Dataset](../images/FRCMachineLearning/FRCMachineLearning.005.jpeg)
 
-After creating a dataset version it can be *Exported* for training.  This is shown in the training section.
+When you satisfied with the number of annotated images and have created a dataset version it can be *Exported* for training.  This process is shown in the training section.
 
 ## References
 - Roboflow [Image Upload](https://www.youtube.com/watch?v=ZspfrPd4IKo) - Youtube Video

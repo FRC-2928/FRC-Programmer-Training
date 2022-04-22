@@ -49,7 +49,7 @@ Before installing the software make sure that `git` is installed using `git --ve
         
 
 ## Deploying the Python Inference Script        
-In order to run the OAK-D camera and display the detected objects you need to deploy a custom python script that is specific to the type of detection model that you want to deploy. An example of a custom script can be found [here](https://github.com/mjwhite8119/RomiExamples/blob/main/BasicML/Vision/tiny_yolo_wpi.py).  This script will detect purple and red blocks and display the output to a Web URL.  It'll also place information about objects that have been detected into Network Tables so a it can be used by your WPILib java program.
+In order to run the OAK-D camera and display the detected objects you need to deploy a custom python script that is specific to the type of detection model that you want to deploy.  In our case, we're going to use the YoloV4 model.  The script will use a default model that detects various common objects and display the output to a Web URL. It'll also place information about objects that have been detected into Network Tables so a it can be used by your WPILib java program.
 
 To deploy the script follow these steps:
 
@@ -66,6 +66,14 @@ To deploy the script follow these steps:
 
         cd FRCDetectionModels/
         python3 -m pip install -r requirements.txt        
+
+There is also a custom model that is supplied in the *FRCDetectionModels* package that detects the Rapid-React balls from the 2022 competition.  To use that model run the following commands:
+
+        cd /home/pi
+        cp FRCDetectionModels/custom.blog .
+        cp FRCDetectionModels/custom_config.json .
+
+The python script will first check in the user's home directory for a file named `custom.blob`, if it finds that file it will run that model instead of the default model.
 
 ## Run the Detection Script
 You can now put the Romi back into Read-Only mode.  Plug the OAK-D camera into the USB 3 port (blue port).  It will need to be powered from the barrel jack, which will require an additional power source.
@@ -86,6 +94,9 @@ From the `FRCDetectionModels` directory run:
         python3 tiny_yolo_wpi.py 
 
 The output can be viewed at `10.0.0.2:8091`
+
+## The Detection Script
+An example of a custom script can be found [here](https://github.com/mjwhite8119/FRCDetectionModels/blob/master/tiny_yolo_wpi.py). 
 
 ## References
 - Luxonis [Depthai](https://docs.luxonis.com/en/latest/) software documentation
