@@ -27,7 +27,7 @@ On Mac/Linux `pip3 install robotpy-cscore`
 <!-- This errors out...  More investigation to be done. -->
 
 ## The Basic Vision Program
-For this lesson we'll use the [BasicVision](https://github.com/mjwhite8119/romi-examples/tree/main/BasicVision) project.  Clone this project to VSCode.  The **BasicVision** project uses the WPI example project **RomiReference** to run and view the camera data in the Simulator and Shuffleboard.  The only change made to this code is to add a tab for Vision to Shuffleboard.  This is done in the *RobotContainer* class.
+For this lesson we'll use the [BasicVision](https://github.com/FRC-2928/RomiExamples/tree/main/BasicVision) project.  Clone this project to VSCode.  The **BasicVision** project uses the WPI example project **RomiReference** to run and view the camera data in the Simulator and Shuffleboard.  The only change made to this code is to add a tab for Vision to Shuffleboard.  This is done in the *RobotContainer* class.
 
 ![Basic Vision updates](../../images/FRCVision/FRCVision.010.jpeg)
 
@@ -101,9 +101,4 @@ If you've switched the application to **Built-in multi-camera streaming** then y
 
 - [Robotpy examples - github](https://github.com/robotpy/robotpy-cscore/tree/main/examples)
 
-- Code Example - [BasicVision](https://github.com/mjwhite8119/romi-examples/tree/main/BasicVision)
-
-<!-- <h3><span style="float:left">
-<a href="romi">Previous</a></span>
-<span style="float:right">
-<a href="romiImageProcessing">Next</a></span></h3> -->
+- Code Example - [BasicVision](https://github.com/FRC-2928/RomiExamples/tree/main/BasicVision)

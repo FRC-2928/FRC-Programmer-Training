@@ -74,7 +74,7 @@ Also, we should change the name of the Joystick variable name to `m_joystick` in
 
 - FRC Documentation - [Shuffleboard](https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/shuffleboard/index.html)
 
-- Code Example - [DrivetrainBase](https://github.com/mjwhite8119/romi-examples/tree/main/DrivetrainBase)
+- Code Example - [DrivetrainBase](https://github.com/FRC-2928/RomiExamples/tree/main/RomiDrivetrainBase)
 
 <!-- <h3><span style="float:left">
 <a href="romiExample">Previous</a></span>

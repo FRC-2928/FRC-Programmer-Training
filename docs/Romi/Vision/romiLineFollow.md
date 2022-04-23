@@ -1,5 +1,5 @@
 # PID and Line Following
-In this module we'll make use of the previous [ImageProcessing](https://github.com/mjwhite8119/romi-examples/tree/main/ImageProcessing) project that recognizes a line drawn on the ground. The line is constantly being tracked and its position within the image is sent over the Network Tables.  The link to this program is [PIDLineFollow](https://github.com/mjwhite8119/romi-examples/tree/main/PIDLineFollow). 
+In this module we'll make use of the previous [ImageProcessing](https://github.com/FRC-2928/RomiExamples/tree/main/ImageProcessing) project that recognizes a line drawn on the ground. The line is constantly being tracked and its position within the image is sent over the Network Tables.  The link to this program is [PIDLineFollow](https://github.com/FRC-2928/RomiExamples/tree/main/PIDLineFollow). 
 
 ## The Line Follow Program
 We'll use *PID Control* to get the Romi to follow a line marked on the ground.  The program implements the PID controller supplied by WPILib.  Before completing this section you should have done the [Motion PID Control](romiPID) module.  This project makes the following updates to the basic *RomiReference* project.  The *Vision* subsystem is from the previous [Image Processing](romiImageProcessing) project. In this module we'll be adding the *LineFollowPIDCommand* and making a few updates to other classes.
@@ -52,7 +52,7 @@ Note: Shuffleboard uses the Network Tables to display the camera data so your ja
 
 - Tyler Veness [Controls Engineering in FRC](https://file.tavsys.net/control/controls-engineering-in-frc.pdf)
 
-- Code Example - [PIDLineFollow](https://github.com/mjwhite8119/romi-examples/tree/main/PIDLineFollow)
+- Code Example - [PIDLineFollow](https://github.com/FRC-2928/RomiExamples/tree/main/PIDLineFollow)
 
 <!-- <h3><span style="float:left">
 <a href="romiImageProcessing">Previous</a></span>

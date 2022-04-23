@@ -6,7 +6,7 @@ Some of the GPIO pins on the Romi are already connected to input/output devices.
 
 ![Onboard IO](../../images/Romi/Romi.019.jpeg)
 
-In the *romiReference* project comes with the subsystem [OnboardIO](https://github.com/mjwhite8119/romi-examples/blob/main/DrivetrainBase/src/main/java/frc/robot/subsystems/OnBoardIO.java) to control the IO ports for the onboard components.
+In the *romiReference* project comes with the subsystem [OnboardIO](https://github.com/FRC-2928/RomiExamples/blob/main/RomiDrivetrainBase/src/main/java/frc/robot/subsystems/OnBoardIO.java) to control the IO ports for the onboard components.
 
 ## External IO
 There are additional GPIO pins available for general purpose use that can be utilized via header pins. These can be configured via the Romi UI as detailed by the [External IO Configuration](https://docs.wpilib.org/en/latest/docs/romi-robot/web-ui.html#external-io-configuration) FRC documentation.

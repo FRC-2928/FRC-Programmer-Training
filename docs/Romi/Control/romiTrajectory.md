@@ -76,7 +76,7 @@ The chassis speeds become the next setpoint for the PID controllers that get the
 
 - QUT Robot Academy [Paths & Trajectories](https://robotacademy.net.au/masterclass/paths-and-trajectories/)
 
-- Code Example - [Trajectory Following - Ramsete](https://github.com/mjwhite8119/romi-examples/tree/main/romi-trajectory-ramsete)
+- Code Example - [Trajectory Following - Ramsete](https://github.com/FRC-2928/RomiExamples/tree/main/RomiTrajectoryRamsete)
 
 - Declan Freeman-Gleason - [WPILib Trajectories Presentation](https://pietroglyph.github.io/trajectory-presentation/#/)
 <!-- <h3><span style="float:left">

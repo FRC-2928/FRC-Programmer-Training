@@ -1,5 +1,5 @@
 # Programming Servos
-In this lesson we'll create a program to control servos that are attached to the Romi.  The program is called [BasicServo](https://github.com/mjwhite8119/romi-examples/tree/main/BasicServo) and can be found on Github.
+In this lesson we'll create a program to control servos that are attached to the Romi.  The program is called [BasicServo](https://github.com/FRC-2928/RomiExamples/tree/main/BasicServo) and can be found on Github.
 
 ## How Servos Work
 Servos work using a Pulse Width Modulation (PWM) signal that is passed to the servo every 20 milliseconds.  The pulse width is between 1 and 2 m/s where 1 m/s moves the servo to the 0 degree position and 2 m/s moves it a full 180 degrees.  Values in between those two time values move it to degrees in between 0 and 180 degrees.  
@@ -50,12 +50,12 @@ And here's the `saturateLimit()` method to restrict the range of the servo.
       return outval;
     }
 
-There are additional methods to set the min/max range through which the servo can move, and also to set a default angle.  Here's the full code for the [RomiServo](https://github.com/mjwhite8119/romi-examples/blob/main/BasicServo/src/main/java/frc/robot/subsystems/RomiServo.java) subsystem.
+There are additional methods to set the min/max range through which the servo can move, and also to set a default angle.  Here's the full code for the [RomiServo](https://github.com/FRC-2928/RomiExamples/blob/main/BasicServo/src/main/java/frc/robot/subsystems/RomiServo.java) subsystem.
 
 ## The ServoCommand
 The *ServoCommand* accepts the *RomiServo* subsystem and the joystick to control the movement of the servo.
 
-Here's the full code for the [ServoCommand](https://github.com/mjwhite8119/romi-examples/blob/main/BasicServo/src/main/java/frc/robot/commands/ServoCommand.java).
+Here's the full code for the [ServoCommand](https://github.com/FRC-2928/RomiExamples/blob/main/BasicServo/src/main/java/frc/robot/commands/ServoCommand.java).
 
 ## Add Servo to the RobotContainer.
 Now that we have a Servo subsystem and command we need to add it to the robot structure via the *RobotContainer* class.  We first need to import it, so open the RobotContainer.java file and the import near the top.

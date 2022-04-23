@@ -25,6 +25,7 @@ Try setting output mode to right (camera is offset)
 Documentation for [Creating a Pipeline](https://docs.photonvision.org/en/latest/docs/getting-started/pipeline-tuning/index.html)
 
 ## PhotonLib Programming
+Before you do any WPILib programming you have to install the PhotonLib Library. See the [PhotonLib Installation](https://docs.photonvision.org/en/latest/docs/programming/photonlib/adding-vendordep.html) page.
 In this section we're going to attempt to determine the position of the robot on the game field based only on what is viewed from its camera.  I say attempt because this will involve some estimation, so our results may not be acceptable without a lot tuning. The plan is to use visual targets on the field to estimate the position of the robot. There are a several pieces that must come together to make this work so this section may be a little complex.
 
 In order to pull this off we need to get data on the following things:

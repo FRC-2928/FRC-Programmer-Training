@@ -25,10 +25,10 @@ The deployment process for *Roboflow*, *Google Colab*, with the *OAK-D Camera* a
 
 - Brendan Fortuner [ML Glossary](https://ml-cheatsheet.readthedocs.io/en/latest/nn_concepts.html)
 
-- Jeremy Howard, Sylvain Gugger - [Practical Deep Learning for Coders](https://course.fast.ai/)
-
 - Deep Learning - [Video Playlist](https://www.youtube.com/playlist?list=PLZbbT5o_s2xq7LwI2y8_QtvuXZedL6tQU) - deeplizard
 
 - Roboflow [OpenCV AI Kit Training Course](https://roboflow.com/course)
 
 - OAK-D Camera [Luxonis](https://www.luxonis.com)
+
+- Zebra Labs [ZebraVision 7.0](https://drive.google.com/file/d/1a6TjJwKlH-76vkAthQSiNZgopLMd_BW_/view)
