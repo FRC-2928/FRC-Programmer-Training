@@ -1,8 +1,8 @@
 # Preparing Images
-Before a *Neural Network Model* can be trained we need a lot of prepared images of the objects that you want to detect.  Preparing images involves:
+Before a *Neural Network Model* can be trained we need a lot of prepared images of the objects that we want to detect.  Preparing images involves:
 - **Annotating**, which involves drawing bounding boxes around objects of interest. 
-- **Preprocessing**. 
-- **Augmenting**, which increases the number of image samples. 
+- **Preprocessing**, where the images get oriented and resized. 
+- **Augmenting**, which increases the number and variablity of image samples. 
 - **Versioning**, so as you can keep multiple versioned copies of your prepared image datasets.
 
 Finally, the images must be exported in preparation for training the neural network model.
@@ -15,7 +15,7 @@ The best way to get multiple images is to take a video of the objects.  In our c
 Once you have the video upload it to the Roboflow Website.  You will need to create an account, which you can do by using your GitHub account login.  Watch this Roboflow [Image Upload](https://www.youtube.com/watch?v=ZspfrPd4IKo) YouTube Video for how to do this.  Also read about [Adding Data](https://docs.roboflow.com/adding-data) in the Roboflow documentation.
 
 ## Annotating Images
-Once you have the images uploaded they need to be annotated.  This involves drawing bounding boxes around objects of interest.  In our case, we will draw a bounding box around the game pieces.  There may be one or more game pieces in a single image.  Once the bounding box is drawn is has to have a label assigned.  
+Once you have the images uploaded they need to be annotated.  This involves drawing bounding boxes around objects of interest.  In our case, we will draw a bounding box around the game pieces.  There may be one or more game pieces in a single image.  Once the bounding box is drawn is has to have a label assigned.  For the FIRST 2022 competition you might only have two labels, e.g. *blueball, redball*. 
 
 ![Annotating Images](../images/FRCMachineLearning/FRCMachineLearning.004.jpeg)
 
@@ -28,7 +28,7 @@ After this is done we can create a version of the dataset in preparation for tra
 
 ![Generating Dataset](../images/FRCMachineLearning/FRCMachineLearning.005.jpeg)
 
-When you satisfied with the number of annotated images and have created a dataset version it can be *Exported* for training.  This process is shown in the training section.
+When you satisfied with the number of annotated images and have created a dataset version it can be *Exported* for training.  This process is shown in the following *Training and Validation* section.
 
 ## References
 - Roboflow [Image Upload](https://www.youtube.com/watch?v=ZspfrPd4IKo) - Youtube Video

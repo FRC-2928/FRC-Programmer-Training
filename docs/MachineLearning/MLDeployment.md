@@ -100,6 +100,14 @@ This script connects to the OAK-D camera and streams images to the inference mod
 
 The [python inference script](https://github.com/FRC-2928/FRC-OAK-Deployment-Models/blob/main/spacial_tiny_yolo_wpi.py) can be found on FRC-2928 GitHub account. 
 
+## Desktop Deployment
+
+In order to make the training and validation workflow more efficient it's useful to have a desktop enviroment setup into which you can plug the OAK-D camera.  Here is a list of options that you can employ for that purpose.
+
+[Desktop Deployment Options](MLDesktopDeployment.md)
+
+   
+
 ## References
 - Luxonis [Depthai](https://docs.luxonis.com/en/latest/) software documentation
 - Roboflow [Deployment](https://www.youtube.com/watch?v=f2d5YksgQsU) - Youtube Video
