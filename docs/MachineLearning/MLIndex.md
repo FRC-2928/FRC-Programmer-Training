@@ -33,7 +33,8 @@ The deployment process for *Roboflow*, *Google Colab*, with the *OAK-D Camera* a
 - [Preparing the Image Dataset](MLProcessImages.md)
 - [Training and Validating the Model](MLTraining.md)
 - [Testing the Model](MLDesktopTesting.md)
-- [Deploying the Model to the Robot](MLDeployment.md)
+- [Raspberry Pi Deployment](MLDeployment.md)
+- [Jetson Nano Deployment](MLJetsonDeployment.md)
 - [Machine Learning Based Control](MLControl.md)
 
 ## References

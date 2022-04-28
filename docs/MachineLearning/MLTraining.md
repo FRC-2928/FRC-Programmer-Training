@@ -15,7 +15,7 @@ This process will show how to train a [Yolo](https://pjreddie.com/darknet/yolo/)
 
 ![Training](../images/FRCMachineLearning/FRCMachineLearning.010.jpeg)
 
-Make sure that you're familiar with how Colab works. For a quick introduction watch this [Google Colab](https://www.youtube.com/watch?v=RLYoEyIHL6A&ab_channel=CodewithDogaOzgon) YouTube video. 
+Make sure that you're familiar with how Colab works. For a quick introduction watch this [Google Colab](https://www.youtube.com/watch?v=RLYoEyIHL6A&ab_channel=CodewithDogaOzgon) YouTube video. Also see the [Basic operations in Colaboratory notebook](https://colab.research.google.com/github/pycroscopy/AICrystallographer/blob/master/Tutorials/ColabNotebooks_BasicOperations.ipynb#scrollTo=hkcI78C4Sybk) tutorial page.
 
 Use the [Roboflow-YOLOv3-tiny-Darknet-to-OAK.ipynb](https://colab.research.google.com/drive/1Sc6B-clNJZ3OBxCxIoddhLFxIYoJJzRT#scrollTo=JlPEcD7UkE4Q) Colab Notebook to train the model.  Once the Colab notebook loads save a copy of the it in your Google Drive.  When you execute the first cell it will allocate a GPU for you. You should try and complete all of the training steps in a single session.  If your page is inactive for more than an hour the session will disconnect and you will have to start over.  Once you have the Colab notebook loaded it will guide you through the following steps to train, validate, and export the model.
 
@@ -53,10 +53,15 @@ The next step is to train a custom YOLOv4 object detector.
 As the training progresses files with the suffix `.weights` will show up in the `darknet/backup` directory.  As soon as you have a file with a name of `<dataset>_best.weights` you can stop the training process.
 
 ### Run Inference to Test the Model
-The process of validating an image with a model is called *Inference*. This step will load the YOLOv4 trained weights and do inference on the validation image set.  
+The process of validating an image with a model is called *Inference*. This step will load the YOLOv4 trained weights and do inference on the validation image set. 
+
+## Converting the Model
+When you are satisfied with the model's testing results you can convert it to a file format that's suitable for your deployment platform.  The next sections will show how to convert the Yolo Tiny model to run in various environments as illustrated in the following graphic.
+
+![Generating Dataset](../images/FRCMachineLearning/FRCMachineLearning.016.jpeg)
 
 ### Convert to OpenVino Blob File
-When you are satisfied with the model's testing results you can convert it to a file format that runs on the OAK-D camera. This model file format can be moved to a PC for further testing or directly to the Raspberry Pi for deployment. A small microprocessor such as a Raspberry, Jetson Nano, or cell phone is referred to as an *edge* device. In order to deploy to an edge device we must use a model file that has a small memory footprint that can be run efficiently on a device that has limited storage and compute capacity.  Save and download the `.weights` file that was created in *Train Detector Model* step.  This file can be converted to other formats suitable for deployment.
+To convert to a format that runs on the OAK-D camera. This model file format can be moved to a PC for further testing or directly to the Raspberry Pi for deployment. A small microprocessor such as a Raspberry, Jetson Nano, or cell phone is referred to as an *edge* device. In order to deploy to an edge device we must use a model file that has a small memory footprint that can be run efficiently on a device that has limited storage and compute capacity.  Save and download the `.weights` file that was created in *Train Detector Model* step.  This file can be converted to other formats suitable for deployment.
 
 Before creating the *blob* file you need to convert the `.weights` file to a `.pb`.  `pb` stands for *protobuf*. In TensorFlow, the protbuf file contains the graph definition as well as the weights of the model. This step requires the installation of Tensorflow into Colab.
 
