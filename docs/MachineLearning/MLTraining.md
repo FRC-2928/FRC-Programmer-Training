@@ -20,10 +20,13 @@ Make sure that you're familiar with how Colab works. For a quick introduction wa
 Use the [Roboflow-YOLOv3-tiny-Darknet-to-OAK.ipynb](https://colab.research.google.com/drive/1Sc6B-clNJZ3OBxCxIoddhLFxIYoJJzRT#scrollTo=JlPEcD7UkE4Q) Colab Notebook to train the model.  Once the Colab notebook loads save a copy of the it in your Google Drive.  When you execute the first cell it will allocate a GPU for you. You should try and complete all of the training steps in a single session.  If your page is inactive for more than an hour the session will disconnect and you will have to start over.  Once you have the Colab notebook loaded it will guide you through the following steps to train, validate, and export the model.
 
 ### Setup the Colab Notebook for Training
+This requires three steps:
 
-- Configure our GPU environment on Google Colab
+- Configure a GPU environment on Google Colab
 
 - Install the [Darknet](https://github.com/pjreddie/darknet) YOLOv4 training environment.  The darknet software is cloned from GitHub and then compiled.  After install you'll see the `darknet` directory structure in the *Files* sidebar menu.
+
+- Download the YOLOv4 *Convolution Network* weights. These weights are the starting point for training the model.  We will be using [Transfer Learning](https://en.wikipedia.org/wiki/Transfer_learning), which is a machine learning method where a model developed for a task is reused as the starting point for a model on a related task.
 
 ### Importing the Dataset
 In order to train the dataset in Colab it has to be exported to a format compatible with the training model.  In our case, we'll be using the YoloV4 training model, so we'll export it in *YOLO Darknet* format. The export process generates a `.txt` file along with each image that describe the bounding boxes and the label identifier. The txt file will have the same name as the image and contains one line per bounding box.
@@ -32,19 +35,19 @@ Once the export is complete you will be displayed a token that can be used to im
 
 ![Generating Dataset](../images/FRCMachineLearning/FRCMachineLearning.006.jpeg)
 
-- Download custom dataset for YOLOv4 and set up directories. This is where you get your dataset from Roboflow into the Colab notebook.  Copy the export key from the Roboflow export and paste it into the notebook.  Your key should look something like this:
+Download your custom dataset for YOLOv4 and set up directories. This is where you get your dataset from Roboflow into the Colab notebook.  Copy the export key from the Roboflow export and paste it into the notebook.  Your key should look something like this:
 
         !pip install roboflow
 
         from roboflow import Roboflow
         rf = Roboflow(api_key="yourkey")
-        project = rf.workspace("martin-white").project("infinte-recharge")
+        project = rf.workspace("your-name").project("rapid-react")
         dataset = project.version(2).download("darknet")
 
-Set up training file directories for custom dataset
+The next step sets up training file directories for your custom dataset.
 
 ### Setup Configuration Files for Training
-The weights file for YoloV4-tiny is downloaded in order to generate a custom training configuration file for Darknet.  The configuration file contains a set of parameters for the training process. These parameters are customized for your dataset will contain good default values so there shouldn't be much need to change them.
+The weights file for YoloV4-tiny is downloaded in order to generate a custom training configuration file for Darknet.  The configuration file contains a set of parameters for the training process. These parameters are customized for your dataset that will contain good default values so there shouldn't be much need to change them.
 
 
 ### Train Detector Model
@@ -63,7 +66,9 @@ When you are satisfied with the model's testing results you can convert it to a 
 ### Convert to OpenVino Blob File
 To convert to a format that runs on the OAK-D camera. This model file format can be moved to a PC for further testing or directly to the Raspberry Pi for deployment. A small microprocessor such as a Raspberry, Jetson Nano, or cell phone is referred to as an *edge* device. In order to deploy to an edge device we must use a model file that has a small memory footprint that can be run efficiently on a device that has limited storage and compute capacity.  Save and download the `.weights` file that was created in *Train Detector Model* step.  This file can be converted to other formats suitable for deployment.
 
-Before creating the *blob* file you need to convert the `.weights` file to a *protobuf* `.pb`format.  In TensorFlow, the protbuf file contains the graph definition as well as the weights of the model. This step requires the installation of Tensorflow into Colab.
+Before creating the *blob* file you need to convert the `.weights` file to a *protobuf* `.pb`format.  In TensorFlow, the protbuf file contains the graph definition as well as the weights of the model. This step requires the installation of Tensorflow and `numpy` into Colab. 
+
+After conversion the `.pb` file will appear under the `yolo2openvino` directory.  If you want to create a *TFLite* file at a later time, right click the file and download it.
 
 The next step is to install the [yolo2openvino](https://github.com/luxonis/yolo2openvino) library into the Colab environment.  This library will convert the `.pb` file into the OpenVINO *Intermediate Representation* IR format. A JSON configuration file is required for the conversion. The most important parameter to check in the configuration file is the number of classes.  This should match the number of object types that you're tracking, for example, if you have *Blueballs* and *Redballs* then the number of classes should be 2.
 
@@ -90,8 +95,16 @@ The full weights file to OAK blob file conversion process is shown below.
 
 ![Converting Model](../images/FRCMachineLearning/FRCMachineLearning.008.jpeg)
 
+## Next Steps
+
+## Desktop Deployment
+
+In order to make the training and validation workflow more efficient it's useful to have a desktop enviroment setup into which you can plug the OAK-D camera.  Here is a list of options that you can employ for that purpose.
+
+[Desktop Deployment Options](MLDesktopDeployment.md)
 
 ## References
+- Roboflow Blog [How to Train YOLOv4 on a Custom Dataset](https://blog.roboflow.com/training-yolov4-on-a-custom-dataset/)
 - Roboflow [Training](https://www.youtube.com/watch?v=njWwmKLWVyE) - Youtube Video
 
 - [Google Colab](https://www.youtube.com/watch?v=RLYoEyIHL6A&ab_channel=CodewithDogaOzgon) - YouTube Video

@@ -1,4 +1,4 @@
-# Object Detection Inference Script
+# The Inference Script Explained
 Once we have an object detection model file for the target platform a python script must be deployed to run the inference.  The inference script follows the general flow pattern as seen in the next graphic.  The key addition is that we put data coming in from the inference pipeline into *Network Tables* for use in our WPI program.  The following sections will step you through each part of the script flow.
 
 ![Object Detection Script](../images/FRCMachineLearning/FRCMachineLearning.018.jpeg)
