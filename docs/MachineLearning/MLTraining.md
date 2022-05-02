@@ -58,12 +58,12 @@ The process of validating an image with a model is called *Inference*. This step
 ## Converting the Model
 When you are satisfied with the model's testing results you can convert it to a file format that's suitable for your deployment platform.  The next sections will show how to convert the Yolo Tiny model to run in various environments as illustrated in the following graphic.
 
-![Generating Dataset](../images/FRCMachineLearning/FRCMachineLearning.016.jpeg)
+![Generating Dataset](../images/FRCMachineLearning/FRCMachineLearning.017.jpeg)
 
 ### Convert to OpenVino Blob File
 To convert to a format that runs on the OAK-D camera. This model file format can be moved to a PC for further testing or directly to the Raspberry Pi for deployment. A small microprocessor such as a Raspberry, Jetson Nano, or cell phone is referred to as an *edge* device. In order to deploy to an edge device we must use a model file that has a small memory footprint that can be run efficiently on a device that has limited storage and compute capacity.  Save and download the `.weights` file that was created in *Train Detector Model* step.  This file can be converted to other formats suitable for deployment.
 
-Before creating the *blob* file you need to convert the `.weights` file to a `.pb`.  `pb` stands for *protobuf*. In TensorFlow, the protbuf file contains the graph definition as well as the weights of the model. This step requires the installation of Tensorflow into Colab.
+Before creating the *blob* file you need to convert the `.weights` file to a *protobuf* `.pb`format.  In TensorFlow, the protbuf file contains the graph definition as well as the weights of the model. This step requires the installation of Tensorflow into Colab.
 
 The next step is to install the [yolo2openvino](https://github.com/luxonis/yolo2openvino) library into the Colab environment.  This library will convert the `.pb` file into the OpenVINO *Intermediate Representation* IR format. A JSON configuration file is required for the conversion. The most important parameter to check in the configuration file is the number of classes.  This should match the number of object types that you're tracking, for example, if you have *Blueballs* and *Redballs* then the number of classes should be 2.
 
