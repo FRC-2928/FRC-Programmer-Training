@@ -76,9 +76,9 @@ nav:
             - MachineLearning/MLIndex.md
             - MachineLearning/MLProcessImages.md
             - MachineLearning/MLTraining.md
-            - MachineLearning/MLDeploymentOAK.md
+            - MachineLearning/MLRomiDeploymentOAK.md
             - MachineLearning/MLJetsonDeploymentOAK.md
-            - MachineLearning/MLDeployment.md
+            - MachineLearning/MLRomiDeployment.md
             - MachineLearning/MLJetsonDeployment.md
             - MachineLearning/MLControl.md    
 

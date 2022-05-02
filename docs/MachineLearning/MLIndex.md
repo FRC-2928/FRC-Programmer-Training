@@ -33,9 +33,9 @@ The deployment process for *Roboflow*, *Google Colab*, with the *OAK-D Camera* a
 - [Preparing the Image Dataset](MLProcessImages.md)
 - [Training and Validating the Model](MLTraining.md)
 - [Testing the Model](MLDesktopTesting.md)
-- [OAK Camera Deployment for Raspberry Pi](MLDeploymentOAK.md)
+- [OAK Camera Deployment for Raspberry Pi](MLRomiDeploymentOAK.md)
 - [OAK Camera Deployment for Jetson Nano ](MLJetsonDeployment.md)
-- [USB Camera Deployment for Raspberry Pi](MLDeployment.md)
+- [USB Camera Deployment for Raspberry Pi](MLRomiDeployment.md)
 - [USB Camera Deployment for Jetson Nano](MLJetsonDeployment.md)
 - [Machine Learning Based Control](MLControl.md)
 

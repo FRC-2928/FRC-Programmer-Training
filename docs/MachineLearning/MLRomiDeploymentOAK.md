@@ -101,7 +101,7 @@ The camera streamed output can be viewed from `http://10.0.0.2:8080` or `http://
 > Note: The camera stream does not work from a Safari browser, use Chrome or Firefox.
 
 ## The Inference Script
-This script connects to the OAK-D camera and streams images to the inference model.  If an object of interest is detected a bounding box is drawn on the image together with positional data.  The positional data is put into the Network Tables so as it can be made use of by your WPILib program.  The overlayed images can be viewed in a Web browser.
+This script connects to the OAK-D camera and passes images to the inference model.  If an object-of-interest is detected a bounding box is drawn on the image together with positional data.  The positional data is put into the Network Tables so as it can be made use of by the WPILib robot program.  The overlayed images can be viewed in a Web browser.
 
 The [python inference script](https://github.com/FRC-2928/FRC-OAK-Deployment-Models/blob/main/oak_yolo_spacial.py) can be found on FRC-2928 GitHub account. For a descripton of how this script works see [The Inference Script Explained](MLDeploymentScript.md).
 

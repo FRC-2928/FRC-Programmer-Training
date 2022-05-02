@@ -76,7 +76,7 @@ A default model is supplied in the *FRC-Jetson-Deployment-Models* package that d
 To run the inference using an attached Raspberry Pi camera.  
 
     cd ${HOME}tensorrt_demos
-    python3 trt_yolo_mjpeg.py --onboard 0 -m rapid-react
+    python3 trt_yolo_wpi.py --onboard 0 -m rapid-react
 
 For a USB camera:    
 
@@ -85,6 +85,11 @@ For a USB camera:
 You can display the output stream in a desktop gui window like this:  
 
     python3 trt_yolo_wpi.py --usb 1 -m rapid-react --gui
+
+## The Inference Script
+This script connects to the USB camera and passes images to the inference model.  If an object-of-interest is detected a bounding box is drawn on the image together with positional data.  The positional data is put into the Network Tables so as it can be made use of by the WPILib robot program.  The overlayed images can be viewed in a Web browser.
+
+The [python inference script](https://github.com/FRC-2928/FRC-Jetson-Deployment-Models/blob/main/trt_yolo_wpi.py) can be found on FRC-2928 GitHub account. For a descripton of how this script works see [The Inference Script Explained](MLDeploymentScript.md).
 
 ## References
 
