@@ -11,8 +11,6 @@ The first step is to [Configuring the Project](https://docs.wpilib.org/en/stable
 
 [Deploying the Project](https://docs.wpilib.org/en/stable/docs/software/pathplanning/robot-characterization/configuring-project.html#deploying-project).
 
-<!-- Load the characterization program [Romi Characterization](https://github.com/mjwhite8119/romi-examples/tree/main/romi-characterization).  This program was sourced from [Romi Characterization](https://github.com/bb-frc-workshops/romi-examples/tree/main/romi-characterization), which includes the instructions for running it and gathering the data. -->
-
 #### Analysis the Data
 [Analysing Data](https://docs.wpilib.org/en/stable/docs/software/pathplanning/robot-characterization/analyzing-data.html)
 

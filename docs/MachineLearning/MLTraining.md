@@ -1,23 +1,34 @@
 # Training and Validating the Model
-Once you have a dataset of the images that you're happy with it can be used to train and validate a model. For the training and validation process you have two options.  You can train and validate in *Roboflow* or you can export it for training and validation in *Google Colab*.  In order to deploy a model to the competition robot it must be trained using Colab since you'll need to have a model file that can be used offline.  However, during the testing phase you can also use Roboflow.
+Once you have a dataset of the images that you're happy with it can be used to train and validate a detection model. A detection model is used to identify objects of interest in the field-of-view of the camera.  The model will be trained to recognize these objects, for example, the red and blue balls in the Rapid React competition.  In order to deploy a model to the competition robot it must be trained using *Google Colab* since you'll need to have a model file that can be used offline.  Google Colab uses Jupyter Notebooks that are run directly their online servers.  The Colab platform has GPU processors available that significantly speed up the training process.  It would be very expensive to setup a comparable training environment at home.
 
-## Training Model in Roboflow
-To train a model in Roboflow watch the [Training](https://www.youtube.com/watch?v=njWwmKLWVyE)  YouTube Video and read the [Train](https://docs.roboflow.com/train) documentation. Once you have a trained model it can be validated directly on the Roboflow site by uploading a test image. It's very important that the test image was never used in the training or validation set.  
+However, during the testing phase you can also use [Roboflow Train](https://docs.roboflow.com/train).
 
-To validate, go to the **Versions** section of your Roboflow account, select an image of the objects that you want to run inference on and upload it to the site.  If your model is properly trained you should see bounding boxes around the objects of interest.
+Make sure that you're familiar with how Google Colab works. For a quick introduction watch this [Google Colab](https://www.youtube.com/watch?v=RLYoEyIHL6A&ab_channel=CodewithDogaOzgon) YouTube video. Also see the [Basic operations in Colaboratory notebook](https://colab.research.google.com/github/pycroscopy/AICrystallographer/blob/master/Tutorials/ColabNotebooks_BasicOperations.ipynb#scrollTo=hkcI78C4Sybk) tutorial page.
 
-![Test API](../images/FRCMachineLearning/FRCMachineLearning.011.jpeg)
+You can use various model types for training.  You need a model that's very fast at processing the streamed video coming from your robot's camera.  The most popular models for this are *Yolo Darknet, EfficientDet*, and *MobilNetSSD*. During the training process you'll import your annotated dataset, train the model, and validate it.  The end result will be a weights file that you'll need to convert to deploy to your target platform.
 
-See the next section on [Testing the Model](MLDesktopTesting.md) for more testing options.
+![Training Models](../images/FRCMachineLearning/FRCMachineLearning.019.jpeg)
 
 ## Training Model in Colab
-This process will show how to train a [Yolo](https://pjreddie.com/darknet/yolo/) model for deployment on a Raspberry Pi with a connected [Luxonis OAK](https://shop.luxonis.com/collections/usb) camera.   The training process in Google Colab follows these steps.
+<!-- This process will show how to train a [Yolo](https://pjreddie.com/darknet/yolo/) model for deployment on a Raspberry Pi with a connected [Luxonis OAK](https://shop.luxonis.com/collections/usb) camera.   The training process in Google Colab follows these steps.
 
 ![Training](../images/FRCMachineLearning/FRCMachineLearning.010.jpeg)
 
-Make sure that you're familiar with how Colab works. For a quick introduction watch this [Google Colab](https://www.youtube.com/watch?v=RLYoEyIHL6A&ab_channel=CodewithDogaOzgon) YouTube video. Also see the [Basic operations in Colaboratory notebook](https://colab.research.google.com/github/pycroscopy/AICrystallographer/blob/master/Tutorials/ColabNotebooks_BasicOperations.ipynb#scrollTo=hkcI78C4Sybk) tutorial page.
+Use the [Roboflow-YOLOv3-tiny-Darknet-to-OAK.ipynb](https://colab.research.google.com/drive/1Sc6B-clNJZ3OBxCxIoddhLFxIYoJJzRT#scrollTo=JlPEcD7UkE4Q) Colab Notebook to train the model.  Once the Colab notebook loads save a copy of the it in your Google Drive.   -->
 
-Use the [Roboflow-YOLOv3-tiny-Darknet-to-OAK.ipynb](https://colab.research.google.com/drive/1Sc6B-clNJZ3OBxCxIoddhLFxIYoJJzRT#scrollTo=JlPEcD7UkE4Q) Colab Notebook to train the model.  Once the Colab notebook loads save a copy of the it in your Google Drive.  When you execute the first cell it will allocate a GPU for you. You should try and complete all of the training steps in a single session.  If your page is inactive for more than an hour the session will disconnect and you will have to start over.  Once you have the Colab notebook loaded it will guide you through the following steps to train, validate, and export the model.
+In order to train our models we use Jupyter Notebooks that are run on the Google Colab online server.  Here are the Roboflow notebooks that can be used to train each of the model types:
+
+- [YoloV4 Tiny Darknet](https://colab.research.google.com/drive/1PWOwg038EOGNddf6SXDG5AsC8PIcAe-G#scrollTo=Cdj4tmT5Cmdl)
+
+- [EfficientDet](https://colab.research.google.com/drive/1sLqFKVV94wm-lglFq_0kGo2ciM0kecWD#scrollTo=fF8ysCfYKgTP&uniqifier=1)
+
+- [MobileNetSSD](https://colab.research.google.com/drive/1wTMIrJhYsQdq_u7ROOkf0Lu_fsX5Mu8a)
+
+The first thing to do once the notebook loads in Colab is to save a copy of it into your Google Drive. At the top left of the Colab page go to **File -> Save a copy in Drive**.  Once the copy is created you should rename it, i.e. you might change `Copy of Roboflow-TensorFlow2-Object-Detection.ipynb` to `Rapid-React-Roboflow-TensorFlow2-Object-Detection.ipynb`.
+
+When you execute the first cell it will allocate a GPU for you. You should try and complete all of the training steps in a single session.  If your page is inactive for more than an hour the session will disconnect and you will have to start over.  Once you have the Colab notebook loaded it will guide you through the following steps to train, validate, and export the model.
+
+The next sections will walk you through the training notebook for the *Yolov4 Tiny Darknet* model, however, the process is similar if you'd like to use a different model.
 
 ### Setup the Colab Notebook for Training
 This requires three steps:
@@ -47,7 +58,9 @@ Download your custom dataset for YOLOv4 and set up directories. This is where yo
 The next step sets up training file directories for your custom dataset.
 
 ### Setup Configuration Files for Training
-The weights file for YoloV4-tiny is downloaded in order to generate a custom training configuration file for Darknet.  The configuration file contains a set of parameters for the training process. These parameters are customized for your dataset that will contain good default values so there shouldn't be much need to change them.
+The weights file for YoloV4-tiny is downloaded in order to generate a custom training configuration file for Darknet.
+
+Next, we write a specialized training configuration file based on our type of an object detection model. The configuration file contains a set of parameters for the training process. These parameters are customized for your dataset that will contain good default values so there shouldn't be much need to change them.
 
 
 ### Train Detector Model
@@ -95,6 +108,15 @@ The full weights file to OAK blob file conversion process is shown below.
 
 ![Converting Model](../images/FRCMachineLearning/FRCMachineLearning.008.jpeg)
 
+## Training Model in Roboflow
+ During the testing phase you can train and validate your model in *Roboflow*. To train a model in Roboflow watch the [Training](https://www.youtube.com/watch?v=njWwmKLWVyE)  YouTube Video and read the [Train](https://docs.roboflow.com/train) documentation. Once you have a trained model it can be validated directly on the Roboflow site by uploading a test image. It's very important that the test image was never used in the training or validation set.  
+
+To validate, go to the **Versions** section of your Roboflow account, select an image of the objects that you want to run inference on and upload it to the site.  If your model is properly trained you should see bounding boxes around the objects of interest.
+
+![Test API](../images/FRCMachineLearning/FRCMachineLearning.011.jpeg)
+
+See the next section on [Testing the Model](MLDesktopTesting.md) for more testing options.
+
 ## Next Steps
 
 ## Desktop Deployment
@@ -105,6 +127,10 @@ In order to make the training and validation workflow more efficient it's useful
 
 ## References
 - Roboflow Blog [How to Train YOLOv4 on a Custom Dataset](https://blog.roboflow.com/training-yolov4-on-a-custom-dataset/)
+
 - Roboflow [Training](https://www.youtube.com/watch?v=njWwmKLWVyE) - Youtube Video
 
 - [Google Colab](https://www.youtube.com/watch?v=RLYoEyIHL6A&ab_channel=CodewithDogaOzgon) - YouTube Video
+
+- Roboflow [Computer Vision Model Library](https://models.roboflow.com) - Colab Notebooks
+

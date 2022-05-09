@@ -158,7 +158,7 @@ We now have to connect our local Git repository with the remote GitHub repositor
 
 ![Remote Push](../images/FRCTools/FRCTools.006.jpeg)
 
-`$ git remote add origin https://github.com/mjwhite8119/MyProject.git`
+`$ git remote add origin https://github.com/FRC-2928/MyProject.git`
 
 You can confirm the remote repository location by typing:
 
@@ -195,7 +195,7 @@ Then create a local directory in which to store the repository and change into t
 
 Clone the repository:
 
-`$ git clone https://github.com/mjwhite8119/MyProject.git`
+`$ git clone https://github.com/FRC-2928/MyProject.git`
 
       Cloning into 'MyProject'...
       remote: Enumerating objects: 6, done.

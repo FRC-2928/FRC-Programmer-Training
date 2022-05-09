@@ -8,7 +8,7 @@ The code must be run on an ESP32 NodeMCU development board, which is an embedded
 Once you have the PlatformIO plugin installed the FRCRobot code can be cloned from Github following these instructions:
 - From VSCode go to `View->Command Palette`.
 - Type in `git clone` ,which will bring up a text box.
-- Put in https://github.com/mjwhite8119/FRCRobot.git and press enter.
+- Put in https://github.com/FRC-2928/FRCRobot.git and press enter.
 - You'll then be prompted to enter a directory location on your local machine in which to store the project.  Call it <i>FRCRobot</i>.
 - Finally, click the button to open the project in VSCode.
 

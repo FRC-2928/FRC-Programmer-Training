@@ -27,6 +27,10 @@ This model detects 80 common objects.  You should see a camera stream pop up on 
 ### Test your Custom Model 
 The script that that you executed above is specific to the test model that contains the 80 common objects.  Our models will contain different objects so we'll need a more customizable script in order to load and run them. To deploy this script follow these steps:
 
+- Install robotpy-cscore on MacOS:
+
+        conda install -c conda-forge robotpy-cscore
+
 - Clone the models and python scripts from GitHub:
 
         cd <install_path>/depthai-python/examples
