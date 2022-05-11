@@ -69,9 +69,10 @@ To view your configuration you can use:
 
 These configuration variables are stored in the `.gitconfig` file that can be found in your HOME directory.
 
-If you'd like to hide your email address then in GitHub go to **Settings – Email – Keep my email address private**.
+If you don’t want to expose your GitHub email address in the commit logs you can hide your email address. In GitHub go to **Settings – Email – Keep my email address private**.
 
-![Hide Email](../images/Tools/hideGitEmail.png)
+![Hide Email](../images/FRCTools/FRCTools.019.jpeg)
+<!-- ![Hide Email](../images/Tools/hideGitEmail.png) -->
 
 You’ll notice a new email address `<nnn>-username@users.noreply.github.com` for you to use for your Git commits.
 
