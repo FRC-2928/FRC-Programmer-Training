@@ -82,9 +82,6 @@ nav:
             - 'Deployment':
                 - MachineLearning/MLDeploymentIndex.md
                 - MachineLearning/MLDeploymentScript.md
-                # - MachineLearning/MLRomiDeploymentOAK.md
-                # - MachineLearning/MLJetsonDeploymentOAK.md
-                # - MachineLearning/MLRomiDeployment.md
                 - MachineLearning/MLJetsonDeployment.md
             - MachineLearning/MLControl.md    
 
