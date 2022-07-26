@@ -95,4 +95,8 @@ The [python inference script](https://github.com/FRC-2928/FRC-Jetson-Deployment-
 
 - [Depthai Jetson Install](https://docs.luxonis.com/projects/api/en/latest/install/#jetson)
 
-- [Tensorrt Demos](https://github.com/jkjung-avt/tensorrt_demos) - JK Jung Blog
+- JK Jung [Tensorrt Demos](https://github.com/jkjung-avt/tensorrt_demos) -  Github
+
+- JK Jung [TensorRT YOLO For Custom Trained Models](https://jkjung-avt.github.io/trt-yolo-custom-updated/) blog post
+
+- [SSD MobileNet to TensorRT Conversion](https://neuralet.com/article/deploying-a-custom-ssd-mobilenet-model-on-the-nvidia-jetson-nano?id=0)

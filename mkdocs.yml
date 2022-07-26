@@ -75,11 +75,17 @@ nav:
         - 'Machine Learning':
             - MachineLearning/MLIndex.md
             - MachineLearning/MLProcessImages.md
-            - MachineLearning/MLTraining.md
-            - MachineLearning/MLRomiDeploymentOAK.md
-            - MachineLearning/MLJetsonDeploymentOAK.md
-            - MachineLearning/MLRomiDeployment.md
-            - MachineLearning/MLJetsonDeployment.md
+            - 'Training the Model':
+                - MachineLearning/MLTrainingIndex.md
+                - MachineLearning/MLColabTraining.md
+                - MachineLearning/MLAxonTraining.md
+            - 'Deployment':
+                - MachineLearning/MLDeploymentIndex.md
+                - MachineLearning/MLDeploymentScript.md
+                # - MachineLearning/MLRomiDeploymentOAK.md
+                # - MachineLearning/MLJetsonDeploymentOAK.md
+                # - MachineLearning/MLRomiDeployment.md
+                - MachineLearning/MLJetsonDeployment.md
             - MachineLearning/MLControl.md    
 
 theme: readthedocs

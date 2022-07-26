@@ -10,7 +10,7 @@ To install the *Luxonis OAK* software on your PC operating system follow the [In
 
 It's recommended that you install the dependencies in a virtual environment, so that they don’t interfere with other Python tools/environments on your system.
 
-        virtualenv venv && source venv/bin/activate
+        virtualenv oakenv && source oakenv/bin/activate
 
 Using a virtual environment run the following to install the requirements for this example repository:
 
@@ -24,10 +24,19 @@ To test the install run the default model:
 
 This model detects 80 common objects.  You should see a camera stream pop up on your desktop.  Point it at yourself and it should recognize a `person`.  
 
-### Test your Custom Model 
+### Install your Custom Model 
 The script that that you executed above is specific to the test model that contains the 80 common objects.  Our models will contain different objects so we'll need a more customizable script in order to load and run them. To deploy this script follow these steps:
 
-- Install robotpy-cscore on MacOS:
+- Ensure that you are in the virtual environment.  You should see something similar to `(oakenv) (base)` at the start of your command prompt.  If not, then: 
+
+        cd <install path>
+        source oakenv/bin/activate
+
+- Install `robotpy`:
+
+        pip install robotpy
+
+- Install `robotpy-cscore` on MacOS:
 
         conda install -c conda-forge robotpy-cscore
 
@@ -41,6 +50,12 @@ The script that that you executed above is specific to the test model that conta
         cd FRC-OAK-Deployment-Models/
         python3 -m pip install -r requirements.txt        
 
+### Test your Custom Model 
+Ensure that you are in the virtual environment.  You should see something similar to `(oakenv) (base)` at the start of your command prompt.  If not, then: 
+
+        cd <install path>
+        source oakenv/bin/activate
+        
 There is a custom model that is supplied in the *FRC-OAK-Deployment-Models* package that detects the *Rapid-React* balls from the 2022 competition.  To use that model run the following commands:
 
         python3 spacial_tiny_yolo_tester.py

@@ -4,7 +4,9 @@ This section explains the development environment that we'll be using for the pr
 ![Development Environment](../../images/Romi/Romi.002.jpeg)
 
 ## Hardware Platforms
-We'll be using two hardware platforms for our training.  During training we are likely to make some mistakes so we need a platform that will not cause any damage, for this we will be using the *Romi Robot Kit*.  After testing things out on the Romi we'll move to the RoboRIO robot that is very similar to the one used in competition.
+We'll be using two hardware platforms for our training.  During training we are likely to make some mistakes so we need a platform that will not cause any damage, for this we will be using the *Romi Robot Kit*.  
+
+<!-- After testing things out on the Romi we'll move to the RoboRIO robot that is very similar to the one used in competition. -->
 
 ### Romi Robot Kit
 The [Romi Robot Kit for FIRST](https://www.pololu.com/product/4022).  The Romi robot is a robot base that can be used by FRC teams preparing for competitions. The kit includes an Arduino compatible 32U4 Control Board and a Raspberry Pi together with software that is maintained by WPILib.
@@ -13,8 +15,8 @@ The control board has two H-bridge motor drivers and is designed to connect to t
 
 When we move onto the Vision section of the tutorials we'll also make use of a Raspberry Pi camera.
 
-### RoboRIO Robot
-The RobiRIO robot is very similar to that used in competition.
+<!-- ### RoboRIO Robot
+The RobiRIO robot is very similar to that used in competition. -->
 
 ## Software Development IDE
 
@@ -27,11 +29,6 @@ In order to develop programs for the Romi you have to use and IDE. An Integrated
 - Some will have code completion, which will actually fill in some code for you. 
 
 Visual Studio Code is the supported IDE for programming an FRC robot. If you don't have VSCode installed on your computer the best way of doing this is to follow the instructions on the [FRC Documentation Website](https://docs.wpilib.org/en/latest/docs/zero-to-robot/step-2/wpilib-setup.html). These instructions will also install the WPI Library which is used for programming the FRC robot. Additional information is also found at [FRC Documentation VSCode Overview](https://docs.wpilib.org/en/latest/docs/software/vscode-overview/index.html). The link to download the latest software is somewhat hidden, you can find it under [Prerequisites](https://docs.wpilib.org/en/latest/docs/zero-to-robot/step-2/wpilib-setup.html#prerequisites) and click on the *Github* link.  Scroll all the way down to the bottom of the Github release page to find the downloads.
-
-#### Upgrading VSCode
-It's important that everyone has the latest software otherwise you won't be able to work on other team mates code.  After upgrading VSCode will import each project to the latest version.  Answer *Yes* to each prompt.
-
-![After Upgrade](../../images/FRCTools/FRCTools.011.jpeg)
 
 ## Robot Simulator
  Communication with the Romi is done via the [WPILib Simulation](https://docs.wpilib.org/en/latest/docs/software/wpilib-tools/robot-simulation/index.html) framework to communicate with the Romi robot.  We'll learn a lot more about the Robot Simulator shortly.

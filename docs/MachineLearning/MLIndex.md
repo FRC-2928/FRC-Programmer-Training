@@ -1,5 +1,7 @@
-# Introduction to Machine Learning
-**Machine Learning** is a powerful tool that can accomplish computational tasks that traditional algorithms cannot. In the FIRST Robotics Competition, machine learning can be used to detect game pieces, scoring locations, or even other robots.  In order to implement a machine learning model on an FRC robot you don't need to know a lot about the science behind it, but if you'd like to learn more a good starting point is Brendan Fortuner's [Machine Learning Glossary](https://ml-cheatsheet.readthedocs.io/en/latest/nn_concepts.html).  Also see an [Introduction to Machine Learning](https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/axon/machine-learning.html) in the FRC Documentation. 
+# Introduction
+*Machine Learning* has greatly expanded what is possible in the field of robotics. Robots have traditionally operated in very controlled environments using well defined algorithms.  These algorithms must be written to anticipate every scenario that may occur during the robot's operation. This has limited the type of operations that the robot can perform and has largely prevented the widespread use of robots in uncontrolled environments. 
+
+In the FIRST Robotics Competition, machine learning can be used to detect game pieces, scoring locations, or even other robots.  In order to implement machine learning on an FRC robot you don't need to know all of the details about the technology behind it, but if you'd like to learn more there are some resources in the page reference section. 
 
 In order to implement a Machine Learning application we need to setup an efficient workflow. Creating a successful machine learning application is an iterative process that is continued until you have a satisfactory outcome.  This workflow will generally conform to the following set of processes:
 
@@ -49,5 +51,7 @@ The deployment process for *Roboflow*, *Google Colab*, with the *OAK-D Camera* a
 - Roboflow [OpenCV AI Kit Training Course](https://roboflow.com/course)
 
 - OAK-D Camera [Luxonis](https://www.luxonis.com)
+
+- [Deep Learning Explainer](https://poloclub.github.io/cnn-explainer/)
 
 <!-- - Zebra Labs [ZebraVision 7.0](https://drive.google.com/file/d/1a6TjJwKlH-76vkAthQSiNZgopLMd_BW_/view) -->

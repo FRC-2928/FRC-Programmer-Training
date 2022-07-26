@@ -78,13 +78,15 @@ You’ll notice a new email address `<nnn>-username@users.noreply.github.com` fo
 
 Next, you’ll need to update Git to use this new noreply email instead of your real one. From the command line, type:
 
-` git config –global user.email “<nnn>-username@users.noreply.github.com”`
+      git config –global user.email “<nnn>-username@users.noreply.github.com”
 
 This will change your email address globally across all repositories.
 
 To verify, type
 
-`git config –global user.email`
+      git config --global user.email
+
+> Note: If you still get the message "Failed to authenticate to get remote" in VSCode you can try the following: Go to *Settings -> Authentification -> Git: Terminal Authentification* and uncheck it.      
 
 ## Staging and Committing
 Now that we have initialized and configured the repository we can now stage and commit our files.  We're going to move our files to a staging area in preparation for a commit to the repository.

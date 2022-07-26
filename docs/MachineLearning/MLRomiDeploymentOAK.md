@@ -1,4 +1,44 @@
 # OAK Camera Deployment for Raspberry Pi
+
+Intro...
+
+## Converting the Model
+When you are satisfied with the model's testing results you can convert it to a file format that's suitable for your deployment platform.  The next sections will show how to convert the Yolo Tiny model to run in various environments as illustrated in the following graphic.
+
+![Generating Dataset](../images/FRCMachineLearning/FRCMachineLearning.017.jpeg)
+
+### Convert to OpenVino Blob File
+To convert to a format that runs on the OAK-D camera. This model file format can be moved to a PC for further testing or directly to the Raspberry Pi for deployment. A small microprocessor such as a Raspberry, Jetson Nano, or cell phone is referred to as an *edge* device. In order to deploy to an edge device we must use a model file that has a small memory footprint that can be run efficiently on a device that has limited storage and compute capacity.  Save and download the `.weights` file that was created in *Train Detector Model* step.  This file can be converted to other formats suitable for deployment.
+
+Before creating the *blob* file you need to convert the `.weights` file to a *protobuf* `.pb`format.  In TensorFlow, the protbuf file contains the graph definition as well as the weights of the model. This step requires the installation of Tensorflow and `numpy` into Colab. 
+
+After conversion the `.pb` file will appear under the `yolo2openvino` directory.  If you want to create a *TFLite* file at a later time, right click the file and download it.
+
+The next step is to install the [yolo2openvino](https://github.com/luxonis/yolo2openvino) library into the Colab environment.  This library will convert the `.pb` file into the OpenVINO *Intermediate Representation* IR format. A JSON configuration file is required for the conversion. The most important parameter to check in the configuration file is the number of classes.  This should match the number of object types that you're tracking, for example, if you have *Blueballs* and *Redballs* then the number of classes should be 2.
+
+        [
+                {
+                        "id": "TFYOLOV3",
+                        "match_kind": "general",
+                        "custom_attributes": {
+                        "classes": 2,
+                        "anchors": [10, 14, 23, 27, 37, 58, 81, 82, 135, 169, 344, 319],
+                        "coords": 4,
+                        "num": 6,
+                        "masks": [[3, 4, 5], [0, 1, 2]],
+                        "entry_points": ["detector/yolo-v4-tiny/Reshape", "detector/yolo-v4-tiny/Reshape_4"]
+                        }
+                }
+        ]
+
+Once conversion to OpenVINO IR is successful we can install the *blobconverter* library and use it to convert the IR files to a blob format that can be run on OAK devices. After this step is complete the *IR* and *blob* files can be downloaded to your PC.
+
+> There is also a [Web App](https://blobconverter.luxonis.com/) where you can convert the model using the *blobconverter*. Select OpenVINO 2021.3 > OpenVINO Model > Continue, upload .xml and .bin, and convert.
+
+The full weights file to OAK blob file conversion process is shown below.
+
+![Converting Model](../images/FRCMachineLearning/FRCMachineLearning.008.jpeg)
+
 This section shows how to deploy the detection model using an [OAK-D](https://shop.luxonis.com/products/1098obcenclosure) camera provided by [Luxonis](https://www.luxonis.com/).  Luxonis has detailed documentation for its [Depthai](https://docs.luxonis.com/en/latest/) software.  The OAK-D is a powerfull depth camera with an on-board processor that removes the need to have a **Coral TPU** attached to the Raspberry Pi.
 
 The model will be deployed on a Raspberry Pi4 using the [WPILibPi](https://github.com/wpilibsuite/WPILibPi/releases) Romi image.  There are two images, one is used for *Vision* that you would use on a competition robot, and the other is for the *Romi* robot.  The Romi image has everyting that the Vision image has but also includes additional software to operate the Romi. For instructions on installing the Romi image go to [Imaging your Romi](https://docs.wpilib.org/en/stable/docs/romi-robot/imaging-romi.html) on the FRC Documentation site. I recommend that you use the Romi image since it is easier to install additional software on.  You can just login using `ssh pi@wpilibpi.local` with password `raspberry` as soon as the image boots up. 
@@ -64,7 +104,7 @@ To deploy the script follow these steps:
 
         cp FRC-OAK-Deployment-Models/runCamera .
 
-- Install the python package requirements.  This just installs the python *Pillow* package into your environment:
+- Install the python package requirements.  This installs the python `Pillow` and `av` packages into your environment.  `av` is used to record videos:
 
         cd FRC-OAK-Deployment-Models/
         python3 -m pip install -r requirements.txt        

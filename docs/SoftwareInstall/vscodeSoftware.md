@@ -18,3 +18,8 @@ After upgrading VSCode will import each project to the latest version.  Answer *
 ![After Upgrade](../images/FRCTools/FRCTools.011.jpeg)
 
 As soon as you open the upgraded project VSCode will start to run a compile.  This will often produce build errors that you need to resolve. You will probably have to import 3rd party software like *Pheonix* and *REVLib*.  Instructions on installing and configuring these libraries is detailed in the next section. Also see [Importing a Gradle Project](https://docs.wpilib.org/en/stable/docs/software/vscode-overview/importing-gradle-project.html) for more details on importing projects from previous season.
+
+<!-- #### Upgrading VSCode
+It's important that everyone has the latest software otherwise you won't be able to work on other team mates code.  After upgrading VSCode will import each project to the latest version.  Answer *Yes* to each prompt.
+
+![After Upgrade](../images/FRCTools/FRCTools.011.jpeg) -->
