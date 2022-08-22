@@ -1,0 +1,31 @@
+# Programming Team Presentations
+This is an index to the set of presentations that can be given to the FRC Programming Team.  The goal is to create 26 presentations that can be given to new and current students prior to the build season.
+
+- [Course Outline](courseOutline.md)
+- [Programming Environment Setup](envSetup.md)
+- [Romi Example Program](romiExample.md)
+- [RoboRIO Example Program](roboRIOExample.md)
+- [Basic Java Programming](basicJava.md)
+- [Robot Structure](robotStructure.md)
+- [Actuators and Sensors](actuatorsSensors.md)
+- [Subsystems and Commands](subsystemsCommands.md)
+- [Control Planning and Command Groups](commandGroups.md)
+- [Telemetry](telemetry.md)
+- [Motion Control PID](pid.md)
+- [Robot Geometry and Kinematics](geometryKinematics.md)
+- [Robot Characterization](characterization.md)
+- [Path Planning and Trajectories](trajectories.md) 
+<!-- manually input trajectory -->
+- [Pathweaver](pathweaver.md)
+- [State Space](stateSpace.md)
+- [Robot Simulation](simulation.md)
+- [Robot Localization](localization.md)
+- [Vision Processing Overview](visionOverview.md)
+<!-- Include image processing and feature extraction -->
+- [Limelight](limelight.md)
+- [PhotonVision](photonvision.md)
+- [Line Following](lineFollowing.md)
+- [Machine Learning Overview](mlOverview.md)
+- [Data Collection and Annotation](annotation.md)
+- [Model Training and Deployment](training.md)
+- [Vision-Based Control](control.md)
