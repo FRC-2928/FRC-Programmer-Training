@@ -1,3 +1,0 @@
-# Programming Course Outline
-
-## References

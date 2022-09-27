@@ -3,18 +3,20 @@ site_url: https://2928-frc-programmer-training.readthedocs.io
 nav:
     - Home: 
         - index.md
-        - 'Software Install':
+        - 'Setup Development Environment':
             - SoftwareInstall/softwareIndex.md
             - SoftwareInstall/vscodeSoftware.md
-            - SoftwareInstall/romiPiSoftware.md
-            - SoftwareInstall/romiFirmware.md
-            - SoftwareInstall/rioSoftware.md
             - SoftwareInstall/vendorSoftware.md
             - SoftwareInstall/visionSoftware.md
+        - 'Setup Testing Environment': 
+            - SoftwareInstall/testingIndex.md
+            - Romi/SC/romiDev.md
+            - SoftwareInstall/romiPiSoftware.md
+            - SoftwareInstall/romiFirmware.md
+            - SoftwareInstall/rioSoftware.md   
 # - Romi Robot:
         - 'Romi Robot Basics': 
             - Romi/SC/romiSCIndex.md
-            - Romi/SC/romiDev.md
             - Romi/SC/romiExample.md
             - Romi/SC/romiStructure.md
             - Romi/SC/romiSubsystems.md

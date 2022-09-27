@@ -1,5 +1,5 @@
-# Development Environment
-This section explains the development environment that we'll be using for the programming tutorials.
+# Romi Testing Environment
+This section explains the testing environment that we'll be using for the Romi programming tutorials.
 
 ![Development Environment](../../images/Romi/Romi.002.jpeg)
 
@@ -28,7 +28,7 @@ In order to develop programs for the Romi you have to use and IDE. An Integrated
 - Applies colour schemes to your code so it’s easier to interpret.
 - Some will have code completion, which will actually fill in some code for you. 
 
-Visual Studio Code is the supported IDE for programming an FRC robot. If you don't have VSCode installed on your computer the best way of doing this is to follow the instructions on the [FRC Documentation Website](https://docs.wpilib.org/en/latest/docs/zero-to-robot/step-2/wpilib-setup.html). These instructions will also install the WPI Library which is used for programming the FRC robot. Additional information is also found at [FRC Documentation VSCode Overview](https://docs.wpilib.org/en/latest/docs/software/vscode-overview/index.html). The link to download the latest software is somewhat hidden, you can find it under [Prerequisites](https://docs.wpilib.org/en/latest/docs/zero-to-robot/step-2/wpilib-setup.html#prerequisites) and click on the *Github* link.  Scroll all the way down to the bottom of the Github release page to find the downloads.
+Visual Studio Code is the supported IDE for programming an FRC robot. If you don't have VSCode installed on your computer refer to [VSCode and WPILib Install](../../SoftwareInstall/vscodeSoftware.md) section.
 
 ## Robot Simulator
  Communication with the Romi is done via the [WPILib Simulation](https://docs.wpilib.org/en/latest/docs/software/wpilib-tools/robot-simulation/index.html) framework to communicate with the Romi robot.  We'll learn a lot more about the Robot Simulator shortly.

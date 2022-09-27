@@ -3,7 +3,6 @@ The [Romi Robot](https://www.pololu.com/product/4022) is designed to be used as 
 
 The Subsystems and Command modules are the starting point for the programmer training with the Romi Robot.  After setting up the development environment we use a code example supplied by WPI to get the robot up and running. This example serves as a starting point upon which to build additional functionality.
 
-- [Development Environment](romiDev.md)
 - [Example Code](romiExample.md)
 - [Basic Robot Structure](romiStructure.md)
 - [Subsystems](romiSubsystems.md)
