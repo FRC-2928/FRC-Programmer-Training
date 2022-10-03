@@ -20,6 +20,7 @@ Documentation is a very important part of a development environment.  It explain
 - [Install RoboRIO & Radio Software](rioSoftware.md)
 - [Install Third-Party Libraries](vendorSoftware.md)
 - [Install Vision Software](visionSoftware.md)
+- [The Git Repository and Github](../Tools/git.md)
 
 <!-- - [Romi RaspberryPi Software](romiPiSoftware.md)
 - [Romi Micro Controller Firmware](romiFirmware.md) -->

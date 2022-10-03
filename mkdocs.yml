@@ -8,6 +8,7 @@ nav:
             - SoftwareInstall/vscodeSoftware.md
             - SoftwareInstall/vendorSoftware.md
             - SoftwareInstall/visionSoftware.md
+            - Tools/git.md
         - 'Setup Testing Environment': 
             - SoftwareInstall/testingIndex.md
             - Romi/SC/romiDev.md
@@ -45,7 +46,6 @@ nav:
             - Programming/objects.md
             - Programming/stateMachines.md  
             - Tools/vscode.md     
-            - Tools/git.md
 
         # - 'Robotics Concepts': 
         - 'Robot Systems': 

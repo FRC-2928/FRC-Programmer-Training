@@ -13,7 +13,7 @@ If you are on Windows you may need to download git bash from the following URL:
 
 [Git bash for Windows](https://gitforwindows.org)
 
-This module will step through the process of creating an repository, committing code and pushing it to a remote repository on GitHub.  We'll look at how to do this at the command line and within VSCode.
+The following sections will step through the process of creating an repository, committing code and pushing it to a remote repository on GitHub.  We'll look at how to do this at the command line and within VSCode.
 
 ## Initializing the Repository
 To start a new project at the command line:
