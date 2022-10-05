@@ -10,15 +10,16 @@ An Integrated Development Environment (IDE) is a piece of software that is used 
 
 Visual Studio Code is the supported IDE for programming an FRC robot. If you don't have VSCode installed on your computer then follow the [WPILib Installation Guide](https://docs.wpilib.org/en/latest/docs/zero-to-robot/step-2/wpilib-setup.html) on the FRC Documentation Website. If you're using Windows then these instructions will also install the WPI Library which is used for programming the FRC robot.  The link to download the latest software is somewhat hidden, you can find it under [Prerequisites](https://docs.wpilib.org/en/latest/docs/zero-to-robot/step-2/wpilib-setup.html#prerequisites) on the WPILib Installation Guide pages, click on the Github link.  Or try the [Latest Releases](https://github.com/wpilibsuite/allwpilib/releases) page. Scroll down the Github release page to find the downloads.  Additional information is also found at [FRC Documentation VSCode Overview](https://docs.wpilib.org/en/latest/docs/software/vscode-overview/index.html).
 
+The offline installer sets up a separate copy of VS Code for WPILib development, even if you already have VS Code on your machine. This is done because some of the settings that make the WPILib setup work may break existing workflows if you use VS Code for other projects.
+
 ### Notes for MacOS
-For MacOS you would need to install the WPI library via the *Extensions* option in VSCode. Follow the link to the [Visual Studio Code extensions fail to install on macOS](https://docs.wpilib.org/en/latest/docs/yearly-overview/known-issues.html#visual-studio-code-extensions-fail-to-install-on-macos) issue to install the WPI library. 
+For MacOS you would need to install the WPI library via the *Extensions* option in VSCode. Follow the link to the [Visual Studio Code extensions fail to install on macOS](https://docs.wpilib.org/en/latest/docs/yearly-overview/known-issues.html#visual-studio-code-extensions-fail-to-install-on-macos) issue to install the WPI library. You may need to add your home directory to the *Finder* sidebar.  To do this go to Preferences->Sidebar->"Show in sidebar".
 
-Additionally, you will need to install the *XCode Command Line Tools* in order to run the simulator.  To check if you have them installed type `xcode-select -p`.  It should display `/Library/Developer/CommandLineTools` if you already have them installed.
+You will need to install the *XCode Command Line Tools* in order to run the simulator.  To check if you have them installed type `xcode-select -p`.  It should display `/Library/Developer/CommandLineTools` if you already have them installed.
 
-If you don't have the *XCode Command Line Tools* on your machine then enter the command `xcode-select --install` to install. The package is about 1.2 GB.
+If you don't have the *XCode Command Line Tools* on your machine then enter the command `xcode-select --install` to install. The package is about 1.2 GB.  For additional information see [How to Install Xcode Command Line Tools on a Mac](https://www.freecodecamp.org/news/install-xcode-command-line-tools/).
 
-
-For additional information see [How to Install Xcode Command Line Tools on a Mac](https://www.freecodecamp.org/news/install-xcode-command-line-tools/).
+If the simulator crashes try [Simulation crashes on Mac after updating WPILib](https://docs.wpilib.org/en/stable/docs/yearly-overview/known-issues.html#simulation-crashes-on-mac-after-updating-wpilib) to resolve the issue.
 
 ## Upgrading Software
 A new version of the WPILib is released each year on the same day that the new competition is announced. It's important that everyone has the latest software.  Upgrading to the new version is essentially the same as doing a new install.  Here's a direct link to the latest  [Release down load page](https://github.com/wpilibsuite/allwpilib/releases).  Follow the instructions for [Running the Installer](https://docs.wpilib.org/en/latest/docs/zero-to-robot/step-2/wpilib-setup.html#running-the-installer).
