@@ -36,15 +36,12 @@ Let's look at code from the Romi project to see an example of a State Machine.  
       return Math.abs(m_drive.getAverageDistanceInch()) >= m_distance;
     }
 
-Other prime examples of State Machines are [PID Controllers](../Tools/romiPID) used for motion control or [Kalman Filters](../Concepts/kalmanFilters) used for [Robot Localization](../Concepts/localization).
+Other prime examples of State Machines are [PID Controllers](../Romi/Control/romiPID.md) used for motion control or [Kalman Filters](../Concepts/OptimalEstimation/kalmanFilters.md) used for *Robot Localization*.
+
+<!-- [Robot Localization](../Concepts/LocalizationMapping/localization.md). -->
 
 ## References
 
 - Wikipedia [Finite State Machines](https://en.wikipedia.org/wiki/Finite-state_machine)
 
 - FRC Documentation - [The Command Scheduler](https://docs.wpilib.org/en/latest/docs/software/commandbased/command-scheduler.html)
-
-<!-- <h3><span style="float:left">
-<a href="objects">Previous</a></span>
-<span style="float:right">
-<a href="../index">Home</a></span></h3> -->
