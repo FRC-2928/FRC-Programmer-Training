@@ -1,5 +1,5 @@
 # Pose Estimation
-A basic requirement for a mobile robot is to measure its own motion. This allows a robot to determine which way to go and if it ever got there. It'll use its *Pose* which is defined as its [Position and Orientation](../Dynamics/geometry) from some reference frame. 
+A basic requirement for a mobile robot is to measure its own motion. This allows a robot to determine which way to go and if it ever got there. It'll use its *Pose* which is defined as its [Position and Orientation](../Dynamics/geometry.md) from some reference frame. 
 
 This module will explore two methods for determining the robot's pose, Odometry and Pose Estimation.  The WPILib classes *DifferentialDriveOdometry* and *DifferentialDrivePoseEstimator* are used for this purpose.
 
@@ -30,7 +30,7 @@ It's important that this calculation is done based on the change in heading sinc
 ![Translation Calculation](../../images/FRCKinematics&Odometry/FRCKinematics&Odometry.012.jpeg)
 
 ## The Pose Estimator
-Pose estimators are designed to be drop-in replacements for odometry classes, and can behave identically to their corresponding odometry classes if only update is called on these estimators.  Pose estimators utilize an [Unscented Kalman Filter](kalmanFilters#UKF) to fuse latency-compensated robot pose estimates with encoder and gyro measurements. These estimators can account for encoder drift and noisy vision data. 
+Pose estimators are designed to be drop-in replacements for odometry classes, and can behave identically to their corresponding odometry classes if only update is called on these estimators.  Pose estimators utilize an [Unscented Kalman Filter](kalmanFilters.md#UKF) to fuse latency-compensated robot pose estimates with encoder and gyro measurements. These estimators can account for encoder drift and noisy vision data. 
 
 ## <a name="lab"></a>Pose Estimation Lab
 We're going to setup the robot with two methods of esitmating its Pose.  The first uses the *DifferentialDriveOdometry* class and the second uses the *DifferentialDrivePoseEstimator*.  

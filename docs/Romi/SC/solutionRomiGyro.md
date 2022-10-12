@@ -35,5 +35,5 @@ You'll need to create an object variable `m_gyroSimDevice` placed before the con
 
     private SimDevice m_gyroSimDevice;
 
-<span style="float:right">
-<a href="romiSubsystems">Back</a></span></h3>
+<!-- <span style="float:right">
+<a href="romiSubsystems">Back</a></span></h3> -->

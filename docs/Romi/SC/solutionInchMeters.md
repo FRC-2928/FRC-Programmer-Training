@@ -38,5 +38,5 @@ You'll also need to update the *TurnDegrees* command with the new Drivetrain met
 
 In the *DriveDistance* command do a group change of the variable `inches` over to `meters`. You should also change the distance specified in the *AutonoumousDistance* command from `10` to `0.5`, since this is now meters.  
 
-<span style="float:right">
-<a href="romiStructure">Back</a></span></h3>
+<!-- <span style="float:right">
+<a href="romiStructure">Back</a></span></h3> -->

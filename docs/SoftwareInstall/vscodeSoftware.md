@@ -10,6 +10,8 @@ An Integrated Development Environment (IDE) is a piece of software that is used 
 
 Visual Studio Code is the supported IDE for programming an FRC robot. If you don't have VSCode installed on your computer then follow the [WPILib Installation Guide](https://docs.wpilib.org/en/latest/docs/zero-to-robot/step-2/wpilib-setup.html) on the FRC Documentation Website. If you're using Windows then these instructions will also install the WPI Library which is used for programming the FRC robot.  The link to download the latest software is somewhat hidden, you can find it under [Prerequisites](https://docs.wpilib.org/en/latest/docs/zero-to-robot/step-2/wpilib-setup.html#prerequisites) on the WPILib Installation Guide pages, click on the Github link.  Or try the [Latest Releases](https://github.com/wpilibsuite/allwpilib/releases) page. Scroll down the Github release page to find the downloads.  Additional information is also found at [FRC Documentation VSCode Overview](https://docs.wpilib.org/en/latest/docs/software/vscode-overview/index.html).
 
+![WPI Installer](../images/FRCTools/FRCTools.022.jpeg)
+
 The offline installer sets up a separate copy of VS Code for WPILib development, even if you already have VS Code on your machine. This is done because some of the settings that make the WPILib setup work may break existing workflows if you use VS Code for other projects.
 
 ### Notes for MacOS

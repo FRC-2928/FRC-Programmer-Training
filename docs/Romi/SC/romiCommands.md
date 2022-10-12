@@ -1,12 +1,12 @@
 # Commands
-Commands define high-level robot actions or behaviors that utilize the methods defined by the subsystems. Before looking at the commands that are implemented on the Romi you should be very familiar with [Procedures](../Programming/procedures) and [State Machines](../Programming/stateMachines) from the programming sections.  You should also review the FRC Documentation on [Commands](https://docs.wpilib.org/en/latest/docs/software/commandbased/commands.html) before continuing.
+Commands define high-level robot actions or behaviors that utilize the methods defined by the subsystems. Before looking at the commands that are implemented on the Romi you should be very familiar with [Procedures](../../Programming/procedures.md) and [State Machines](../../Programming/stateMachines.md) from the programming sections.  You should also review the FRC Documentation on [Commands](https://docs.wpilib.org/en/latest/docs/software/commandbased/commands.html) before continuing.
 
-A command is a simple state machine that is either *Initializing*, *Executing*, *Ending*, or *Idle*. Users write code specifying which action should be taken in each state.  Commands run when scheduled or in response to buttons being pressed on a gamepad or from [Shuffleboard](../Tools/shuffleboard). Each command has code in its `execute()` method to move it further along towards its goal and a method `isFinished()` that determines if the command has reached the goal. The `execute()` and `isFinished()` methods are called repeatedly.
+A command is a simple state machine that is either *Initializing*, *Executing*, *Ending*, or *Idle*. Users write code specifying which action should be taken in each state.  Commands run when scheduled or in response to buttons being pressed on a gamepad or from [Shuffleboard](../../Tools/shuffleboard.md). Each command has code in its `execute()` method to move it further along towards its goal and a method `isFinished()` that determines if the command has reached the goal. The `execute()` and `isFinished()` methods are called repeatedly.
 
 ![Commands](../../images/Romi/Romi.015.jpeg)
 
 ## The DriveDistance Command
-Let's take a look at the *DriveDistance* command to see how this all works. This command is used to drive the robot for a specified distance.  This is where [Parameters](https://www.w3schools.com/java/java_methods_param.asp) are very useful since we can decide how far to drive when the program runs.  This command demonstrates the classic [State Machine](../Programming/stateMachines) programming paradigm where we have an **Initialization Step** `initialize()` followed the **Next Step** `execute()` and an **Input Update** that repeatedly calls `execute()` until that threshold is met `isFinished()` and transititions it to the next major state `end()`.  After this state the command becomes *Idle*.
+Let's take a look at the *DriveDistance* command to see how this all works. This command is used to drive the robot for a specified distance.  This is where [Parameters](https://www.w3schools.com/java/java_methods_param.asp) are very useful since we can decide how far to drive when the program runs.  This command demonstrates the classic [State Machine](../../Programming/stateMachines.md) programming paradigm where we have an **Initialization Step** `initialize()` followed the **Next Step** `execute()` and an **Input Update** that repeatedly calls `execute()` until that threshold is met `isFinished()` and transititions it to the next major state `end()`.  After this state the command becomes *Idle*.
 
         public DriveDistance(double speed, double inches, Drivetrain drive) {
             m_distance = inches;
@@ -112,51 +112,23 @@ As the robot drives around it might be useful to view its position and orientati
 
 ## Commands Lab
 There are two objectives for this lab:
-- Add a command to reset the Odometry
-- Implement a slew rate filter
+
+- Add a command to reset the Odometry.
+- Implement a slew rate filter.
 
 ### Add Reset Odometry Command
-Create an *InstantCommand* called *ResetOdometry* from the left files panel in VSCode, and make the following changes:
+For testing purposes it's useful to have a command that resets the odometry back to zero.  This command should be executable from the dropdown menu in the Simulator and Shuffleboard.  Create an instant command to do this and have it display on the Simulator via the *SendableChooser* menu.
 
-        private static Drivetrain m_drive;
-
-        public ResetOdometry(Drivetrain drive) {
-            m_drive = drive;
-            addRequirements(drive);
-        }
-
-        // Called when the command is initially scheduled.
-        @Override
-        public void initialize() {
-            m_drive.resetGyro();
-            m_drive.resetEncoders();
-        }
-
-We'll execute this command from the *SendableChooser* menu.
-
-    m_chooser.addOption("Reset Odometry", new ResetOdometry(m_drivetrain));
+[Reset Odometry solution](solutionResetOdometry.md)
 
 ### Implement Slew Rate Limiter Filter
 You may have noticed that the movements of the robot are very sudden.  So much so that the tyres may even skid a little at the start of each motion.  In order to reduce that we can add a SkewRateLimiter filter.  Refer to the FRC [Slew Rate Limiter](https://docs.wpilib.org/en/latest/docs/software/advanced-controls/filters/slew-rate-limiter.html) documentation to learn more about these filters.  In this lab we'll create a slew rate filter to give more control over the speed of the robot.
 
-You'll need a separate filter for the forward and backwards driving and for the turns.  These are defined as member variables in the *Drivetrain* class.  The rate parameter adjusts the speed.  You can increase this if you want the robot to go faster.
+You'll need a separate filter for the forward and backwards driving and for the turns.  These are defined as member variables in the *Drivetrain* class.  
 
-        private final SlewRateLimiter m_filter = new SlewRateLimiter(0.5);
-        private final SlewRateLimiter m_filter_turn = new SlewRateLimiter(0.5);
+We don't want to use this filter unless we're very specific about it so create a new method in the *Drivetrain* class called `rateLimitedArcadeDrive()` to use the filters.  You'll also need to update the *ArcadeDrive* command to use the new `rateLimitedArcadeDrive()` method of the Drivetrain.
 
-We don't want to use this filter unless we're very specific about it so create a new method called `rateLimitedArcadeDrive()` to use the filters
-
-    public void rateLimitedArcadeDrive(double xaxisSpeed, double zaxisRotate) {
-        m_diffDrive.arcadeDrive(m_filter.calculate(xaxisSpeed), 
-                                m_filter_turn.calculate(zaxisRotate));
-    }
-
-Update the *ArcadeDrive* command to use the new `rateLimitedArcadeDrive()` method of the Drivetrain.
-
-    public void execute() {
-        m_drivetrain.rateLimitedArcadeDrive(m_xaxisSpeedSupplier.get(), m_zaxisRotateSupplier.get());
-    }
-
+[Slew Rate Filter solution](solutionSlewRateFilter.md)
 
 ## References
 
@@ -167,8 +139,3 @@ Update the *ArcadeDrive* command to use the new `rateLimitedArcadeDrive()` metho
 - FRC Documentation - [Command Groups](https://docs.wpilib.org/en/latest/docs/software/commandbased/command-groups.html)
 
 - [Amazon Example](https://s3.amazonaws.com/screensteps_live/exported/Wpilib/2078/2286/Command_based_programming.pdf?1478686718)
-
-<!-- <h3><span style="float:left">
-<a href="romiSubsystems">Previous</a></span>
-<span style="float:right">
-<a href="romiCommandGroups">Next</a></span></h3> -->

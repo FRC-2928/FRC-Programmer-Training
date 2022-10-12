@@ -50,24 +50,22 @@ You may need to change the second `getRawAxis()` to suit your controller.
 ## Lab - Robot Structure.
 There are three tasks for this lab:
 
-- Modify Drivetrain to change inches to meters.
+- Modify the *Drivetrain* class to change inches to meters.
 - Move constants to the *Constants* file.
 - Rename the Joystick variable.
 
 ### Change Inches to Meters
 This is an exercise to change the distance from inches to meters. 
 
-[Inches to meters solution](solutionInchMeters)
+[Inches to meters solution](solutionInchMeters.md)
 
 ### Move constants to Constants File
 There are a few values in the *romiReference* program that really should be in the Constants file.  Move the two constants `kWheelDiameterInch` and `kCountsPerRevolution` that are in the DriveTrain class into the Constants.java file. 
 
-[Move constants solution](solutionMoveConstants)
+[Move constants solution](solutionMoveConstants.md)
 
 ### Rename Joystick Variable
-Also, we should change the name of the Joystick variable name to `m_joystick` instead of `m_controller`.  The reason for this will become clear in later lessons.
-
-
+Also, we should change the name of the Joystick variable name to `m_joystick` instead of `m_controller`.  In later lessons a *Controller* is a class that manages the movement of the robot.  Renaming this variable to `m_joystick` will avoid future confusion.
 
 ## References
 - FRC Documentation - [Structuring a Command-Based Robot Project](https://docs.wpilib.org/en/latest/docs/software/commandbased/structuring-command-based-project.html?highlight=RobotContainer)

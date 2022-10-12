@@ -1,15 +1,26 @@
 # Sensors
-Sensors extract data...
+There are two broad categories of sensors used in robotics:
 
-We're mostly concerned with [Sensor Software](https://docs.wpilib.org/en/stable/docs/software/sensors/sensor-overview-software.html)
+- **Proprioceptive** sensors measure values internal to the robot; e.g. motor speed, acceleration, direction, battery voltage.
+
+- **Exteroceptive** sensors acquire information from the robot’s environment; e g. distance measurements, light intensity, sound amplitude. Exteroceptive sensor measurements are interpreted by the robot in order to extract meaningful features from its surroundings.
+
+![Sensor Categories](../../images/FRCConcepts/FRCConcepts.003.jpeg)
+
+### Sensor Interaction
+There are two main ways in which sensors interact with the surrounding world:
+
+- **Passive** sensors measure ambient environmental energy entering the sensor. Examples of passive sensors include temperature probes, microphones, contact switches, compasses, and cameras.
+
+- **Active** sensors emit energy into the environment, then measure the environmental reaction.  Examples would be ultrasonic sensors, laser rangefinders, and optical encoders.
+
+![Sensor Types](../../images/FRCConcepts/FRCConcepts.006.jpeg)
 
 ## Encoders
 FRC Documentation - [Encoders](https://docs.wpilib.org/en/latest/docs/software/hardware-apis/sensors/encoders-software.html)
 
 ## <a name="gyros"></a>Gyros
 FRC Documentation - [Gyros](https://docs.wpilib.org/en/latest/docs/software/hardware-apis/sensors/gyros-software.html)
-
-Also QUT Robot Academy [Measuring Motion](https://robotacademy.net.au/masterclass/measuring-motion/)
 
 ## Accelerometers
 FRC Documentation - [Accelerometers](https://docs.wpilib.org/en/latest/docs/software/hardware-apis/sensors/accelerometers-software.html)
@@ -23,7 +34,7 @@ Robots rely heavily on <i>Active Ranging</i> for obstacle detection and avoidanc
 ![Time of Flight](../../images/FRCConcepts/FRCConcepts.009.jpeg)
 
 ## Laser Distance Sensors (LDS)
-Edit all of this....
+<!-- Edit this section -->
 Laser Distance Sensors (LDS) are referred to various names such as Light Detection And Ranging (LiDAR), Laser Range Finder (LRF) and Laser Scanner. LDS is a sensor used to measure the distance to an object using a laser as its source. The LDS sensor has the advantage of high performance, high speed, real time data acquisition, so it has a wide range of applications in relation to distance measurement. This is a sensor widely used in the field of robots for recognition of objects and people, and distance sensor based SLAM (distance-based sensor), and also widely used in unmanned vehicles due to its real time data acquisition.
 
 The LDS sensor calculates the difference of the wavelength when the laser source is reflected by the object. A typical LDS consists of a single laser source, a reflective mirror, and a motor. When you drive the LDS, you can hear the sound of the rotating motor, because it rotates the inner mirror and scans the laser in a horizontal plane. Typically measures from 180 to 360 degrees, depending on the product.
@@ -36,6 +47,8 @@ There are infinite usages of LDS, and SLAM (Simultaneous Localization And Mappin
 
 ## References
 - FRC Documentation - [Sensors](https://docs.wpilib.org/en/latest/docs/software/hardware-apis/sensors/index.html)
+
+- QUT Robot Academy [Measuring Motion](https://robotacademy.net.au/masterclass/measuring-motion/)
 
 - Alonzo Kelly [Mobile Robotics](https://www.cambridge.org/core/books/mobile-robotics/5BF238489F9BC337C0736432C87B3091) Chapter 6.2
 
