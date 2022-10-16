@@ -31,8 +31,8 @@ You'll also need to update the *TurnDegrees* command with the new Drivetrain met
     }
 
     private double getAverageTurningDistance() {
-      double leftDistance = Math.abs(m_drive.getLeftDistance());
-      double rightDistance = Math.abs(m_drive.getRightDistance());
+      double leftDistance = Math.abs(m_drive.getLeftDistanceMeters());
+      double rightDistance = Math.abs(m_drive.getRightDistanceMeters());
       return (leftDistance + rightDistance) / 2.0;
     }
 

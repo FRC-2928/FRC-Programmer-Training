@@ -15,6 +15,10 @@ Create an *InstantCommand* called *ResetOdometry* from the left files panel in V
             m_drive.resetEncoders();
         }
 
-We'll execute this command from the *SendableChooser* menu.
+Execute this command from the *SendableChooser* menu in *RobotContainer*.
 
     m_chooser.addOption("Reset Odometry", new ResetOdometry(m_drivetrain));
+
+We'll need to import the command.
+
+    import frc.robot.commands.ResetOdometry;

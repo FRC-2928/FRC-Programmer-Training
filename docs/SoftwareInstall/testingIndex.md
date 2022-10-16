@@ -12,7 +12,7 @@ The [Romi Robot Kit for FIRST](https://www.pololu.com/product/4022) is a robot p
 Once you have your code working in the simulator and Romi robot you can start *porting* it to the RoboRIO competition robot.  In software the word *Porting* generally means to adapt code to a different hardware platform.  Code used on the Romi would need to have some changes since the motors and other hardware will require different libraries.  However the structure of your code will remain the same it's just the way that your code interacts with the hardware is different.
 
 - **Shuffleboard**  
-When you are running code on a robot it's very useful to view how data is passing through the system as it operates.  This is refered to as *Telemetry*.  Telemetry is the science of using automatic equipment to make measurements and transmit them to a receiving station.  Telemetry is critical to fine tuning a system and figuring out what went wrong in the event of a crash.  The main FRC tool for telemetry is [Shuffleboard](https://docs.wpilib.org/en/stable/docs/software/telemetry/index.html).
+When you are running code on a robot it's very useful to view how data is passing through the system as it operates.  This is referred to as *Telemetry*.  Telemetry is the science of using automatic equipment to make measurements and transmit them to a receiving station.  Telemetry is critical to fine tuning a system and figuring out what went wrong in the event of a crash.  The main FRC tool for visualizing telemetry is [Shuffleboard](https://docs.wpilib.org/en/stable/docs/software/dashboards/shuffleboard/index.html).
 
 - **Phoenix Tuner**   
 
