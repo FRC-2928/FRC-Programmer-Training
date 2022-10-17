@@ -1,4 +1,4 @@
-## Introduction to Robot Vision
+# Introduction to Robot Vision
 There are various [Strategies for Vision Programming](https://docs.wpilib.org/en/stable/docs/software/vision-processing/introduction/strategies-for-vision-programming.html) that we can use.  The strategy that we'll make use of is the Raspberry Pi as a co-processor which uses the [WPILibPi](https://docs.wpilib.org/en/stable/docs/software/vision-processing/wpilibpi/index.html) library for vision processing.
 
 We will use the camera for two purposes:
@@ -16,6 +16,8 @@ On the FRC game field they will use [Retroflective](https://docs.wpilib.org/en/s
 
 ## Using the Limelight
 Refer to the Limelight [Documentation](https://docs.limelightvision.io/en/latest/index.html), which is very comprehensive.  Our interface can be reached at `http://10.TE.AM.33:5801/` after connecting to the robot's access point.  Where `TE.AM` is replaced with the team number, e.g. `29.28`.
+
+- [Install Vision Software](../SoftwareInstall/visionSoftware.md)
 
 ## References
 - FRC Documentation - [Introduction to Vision](https://docs.wpilib.org/en/stable/docs/software/vision-processing/introduction/what-is-vision.html)

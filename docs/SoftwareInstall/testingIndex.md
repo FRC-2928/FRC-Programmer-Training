@@ -24,4 +24,3 @@ When you are running code on a robot it's very useful to view how data is passin
 - [Romi Micro Controller Firmware](romiFirmware.md)
 - [Install RoboRIO & Radio Software](rioSoftware.md)
 - [Install Third-Party Libraries](vendorSoftware.md)
-- [Install Vision Software](visionSoftware.md)

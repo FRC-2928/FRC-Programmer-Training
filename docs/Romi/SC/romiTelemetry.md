@@ -1,9 +1,9 @@
 # Telemetry
-When you are running code on a robot it's very useful to track how data is passing through the system as it operates.  This is referred to as *Telemetry*, which is the science of automatically collecting measurements and transmitting them to a receiving station.  Telemetry is critical to fine tuning a system and figuring out what went wrong in the event of a crash. Remember that robots are data driven machines, so in order to test our code we'll need to see the data.  
+When you are running code on a robot it's very useful to track how data is passing through the system as it operates.  This is referred to as *Telemetry*, which is the science of automatically collecting measurements and transmitting them to a receiving station.  Telemetry is critical for fine tuning a system and figuring out why a system isn't operating the way is should. Remember that robots are data driven machines, so in order to test our code we'll need to see the data.  
 
-When creating Commands and Subsystems for our robot it's important to build in telemetry functions so as to see the data that the system is generating. The FRC documentaton has instructions on [Adding Telemetry to Robot Code](https://docs.wpilib.org/en/stable/docs/software/telemetry/telemetry.html#adding-telemetry-to-robot-code). Most of this is done using the Sendable class that is documented in [Robot Telemetry with Sendable](https://docs.wpilib.org/en/stable/docs/software/telemetry/robot-telemetry-with-sendable.html#robot-telemetry-with-sendable).
+When creating Commands and Subsystems for our robot it's important to build in telemetry functions so as to see the data that the system is generating. The FRC documentaton has instructions on [Adding Telemetry to Robot Code](https://docs.wpilib.org/en/stable/docs/software/telemetry/telemetry.html#adding-telemetry-to-robot-code). Most of this is done using the *Sendable* interface provided by WPILib that is documented in [Robot Telemetry with Sendable](https://docs.wpilib.org/en/stable/docs/software/telemetry/robot-telemetry-with-sendable.html#robot-telemetry-with-sendable). The Sendable interface automatically sends telemetry values every robot loop, removing the need to handle the periodic logic of sending and receiving values from the dashboard.  For simple data structures you can also directly output values to the SmartDashboard from the `periodic()` loop.  
 
-
+## Shuffleboard
 FRC has developed a tool called [Shuffleboard](https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/shuffleboard/index.html), which will allow us to view all of the data coming from the robot in real time.  It also enables you to send data to the robot in order to make commands more flexible and change the behaviour of the robot.
 
 The documentation explains how to [start Shuffleboard](https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/shuffleboard/getting-started/shuffleboard-tour.html#starting-shuffleboard) depending on your development laptop.  
@@ -13,7 +13,7 @@ The documentation explains how to [start Shuffleboard](https://docs.wpilib.org/e
     If it crashes from *Start Tool* on MacOS you have to use `~/wpilib/2022/jdk/bin/java -jar ~/wpilib/2022/tools/shuffleboard.jar` 
 
 ## Tracking Robot Position and Heading
-Let's create some telemetry to track the current position and heading of the robot.  The data will be output to the *SmartDashboard*, which is now part of Shuffleboard.  Putting the data out to SmartDashboard will automatically place it into the Network Tables.  Whenever you create telemetry data it's preferrable to create a function to keep it all in one place.  We'll output details for the left and right encoders together with the robot heading.
+Let's create some simple telemetry to track the current position and heading of the robot.  The data will be output to the *SmartDashboard*, which is now part of Shuffleboard.  Putting the data out to SmartDashboard will automatically place it into the Network Tables.  Whenever you create telemetry data it's preferrable to create a function to keep it all in one place.  We'll output details for the left and right encoders together with the robot heading.
  
     public void publishTelemetry() {
         

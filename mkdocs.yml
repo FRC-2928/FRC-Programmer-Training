@@ -14,7 +14,7 @@ nav:
             - Romi/SC/romiDev.md
             - SoftwareInstall/romiPiSoftware.md
             - SoftwareInstall/romiFirmware.md
-            - SoftwareInstall/rioSoftware.md   
+            - SoftwareInstall/rioSoftware.md  
 # - Romi Robot:
         - 'Romi Robot Basics': 
             - Romi/SC/romiSCIndex.md
@@ -53,9 +53,9 @@ nav:
             - Concepts/RobotSystem/intro.md
             - Concepts/RobotSystem/sensors.md
             - Concepts/RobotSystem/actuators.md
-            - Concepts/RobotSystem/drivetrains.md
+            # - Concepts/RobotSystem/drivetrains.md
             - Concepts/RobotSystem/control.md
-            - Concepts/RobotSystem/communications.md
+            # - Concepts/RobotSystem/communications.md
         - 'Dynamics': 
             - Concepts/Dynamics/dynamicsIndex.md
             - Concepts/Dynamics/kinematics.md
