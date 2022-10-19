@@ -54,15 +54,14 @@ There are three tasks for this lab:
 - Move constants to the *Constants* file.
 - Rename the Joystick variable.
 
-### Change Inches to Meters
-This is an exercise to change the distance from inches to meters. 
-
-[Inches to meters solution](solutionInchMeters.md)
-
 ### Move constants to Constants File
-There are a few values in the *romiReference* program that really should be in the Constants file.  Move the two constants `kWheelDiameterInch` and `kCountsPerRevolution` that are in the DriveTrain class into the Constants.java file. 
+There are a few values in the *romiReference* program that really should be in the Constants file.  Move the two constants `kWheelDiameterInch` and `kCountsPerRevolution` that are in the DriveTrain class into the Constants.java file. Constants are defined as [public](https://www.w3schools.com/java/ref_keyword_public.asp) [static](https://www.w3schools.com/java/ref_keyword_static.asp) [final](https://www.w3schools.com/java/ref_keyword_final.asp) in Java.  The `static` keyword creates attributes that can be accessed without creating an object of a class, whereas the `final` keyword makes attributes non-changeable.  You can declare any classes, attributes, methods and constructors, as `public` making them accessible by any other class.
 
 [Move constants solution](solutionMoveConstants.md)
+### Change Inches to Meters
+This is an exercise to change the distance from inches to meters. You'll learn about object methods, which are methods that can only be accessed after you have created a class object.
+
+[Inches to meters solution](solutionInchMeters.md)
 
 ### Rename Joystick Variable
 Also, we should change the name of the Joystick variable name to `m_joystick` instead of `m_controller`.  In later lessons a *Controller* is a class that manages the movement of the robot.  Renaming this variable to `m_joystick` will avoid future confusion.

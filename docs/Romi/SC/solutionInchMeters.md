@@ -3,12 +3,12 @@ Add a new constant to the *Constants* class.
 
     public static final double kWheelDiameterMeters = 0.07; // 70 mm
 
-and initialize the encoder in the *Drivetrain* class with the new value.
+and initialize the encoder in the *Drivetrain* class constructor with the new value.
 
-    m_leftEncoder.setDistancePerPulse((Math.PI * Constants.DriveConstants.kWheelDiameterMeters) / Constants.DriveConstants.kCountsPerRevolution);
-    m_rightEncoder.setDistancePerPulse((Math.PI * Constants.DriveConstants.kWheelDiameterMeters) / Constants.DriveConstants.kCountsPerRevolution);
+    m_leftEncoder.setDistancePerPulse((Math.PI * DriveConstants.kWheelDiameterMeters) / DriveConstants.kCountsPerRevolution);
+    m_rightEncoder.setDistancePerPulse((Math.PI * DriveConstants.kWheelDiameterMeters) / DriveConstants.kCountsPerRevolution);
 
-Change the methods in the Drivetrain class to get the metric distances instead of the distances measured in inches. 
+Change the methods in the *Drivetrain* class to get the metric distances instead of the distances measured in inches. 
 
     public double getLeftDistanceMeters() {
       return m_leftEncoder.getDistance();

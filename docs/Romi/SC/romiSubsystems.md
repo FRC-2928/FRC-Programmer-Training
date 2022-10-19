@@ -29,6 +29,8 @@ There are two tasks for this lab:
 - Create a method to get the current heading of the robot.
 
 ### Add Interface to RomiGyro
+For this update we will use the *Gyro* [interface](https://www.w3schools.com/java/java_interface.asp) supplied by WPILib.  An interface is an [abstract class](https://www.w3schools.com/java/java_abstract.asp) used to group related methods that specify the behavior of a class.  You can think of an interface as a blueprint of a class.  Like a class, an *interface* can have methods and variables, but the methods declared in an interface are by default abstract which means that it only has the name of the method and not the code to implement it.  The code gets implemented by the class that `implements` it. 
+
 [RomiGyro Interface solution](solutionRomiGyro.md)
 
 ### <a name="heading"></a>Create Heading Method

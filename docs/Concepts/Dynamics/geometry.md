@@ -1,4 +1,4 @@
-## Robot Geometry
+# Robot Geometry
 
 In order to control a robot it’s necessary to know its position and orientation — where it is at any particular time.  Its position in 3-D space is defined using the set of coordinates X, Y, and Z.  This coordinate system is called the Cartesian coordinate system.  When the robot moves from one position to another it’s referred to as a translation.  When it rotates about its center point then it has changed orientation. 
 
