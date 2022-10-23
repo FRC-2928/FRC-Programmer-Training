@@ -177,7 +177,7 @@ And now we can push our code to the remote GitHub repository:
       Compressing objects: 100% (2/2), done.
       Writing objects: 100% (4/4), 383 bytes | 383.00 KiB/s, done.
       Total 4 (delta 0), reused 0 (delta 0)
-      To https://github.com/mjwhite8119/MyProject.git
+      To https://github.com/FRC-2928/MyProject.git
       * [new branch]      master -> master
       Branch 'master' set up to track remote branch 'master' from 'origin'.
 

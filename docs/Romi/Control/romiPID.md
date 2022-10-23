@@ -1,7 +1,7 @@
 # Motion Control PID
 In this lesson we're going to add a new commands that'll give us more control over how the robot moves.  We'll be using a *PID Controller* that enables the robot to constantly monitor its current state as it drives towards its goal. For a more in-depth explaination refer to [Classical Control](../../Concepts/Control/classicalControl.md) module of this training guide.
 
-In this module we'll create three new commands that we'll test from the *AutonomousDistance* group command.
+In this module we'll create two new commands that we'll test from the *AutonomousDistance* group command.
 
 - *DriveDistancePID* that will drive the robot in a straight line.
 
@@ -14,7 +14,7 @@ After that, we'll create two commands to move the robot more smoothly to the des
 - *TurnToAngleProfiled* that will allow the robot to turn to a specified angle using a Trapezoid Profile trajectory.
 
 ## PID Controller
-Before looking at the PID controller supplied by the WPI library, it would be useful to get an understanding of what PID control is by watching the [PID Introduction Video by WPI](https://docs.wpilib.org/en/stable/docs/software/advanced-controls/introduction/pid-video.html). A schematic of WPIlib PIDController is below with a detailed explaination found in the [Introduction to PID](https://docs.wpilib.org/en/stable/docs/software/advanced-controls/introduction/introduction-to-pid.html) section of the FRC® documentation.
+Before looking at the PID controller supplied by the WPI library, it would be useful to get an understanding of what PID control is by watching the [PID Introduction Video by WPI](https://docs.wpilib.org/en/stable/docs/software/advanced-controls/introduction/pid-video.html). A schematic of WPIlib PIDController is shown below with a detailed explaination found in the [Introduction to PID](https://docs.wpilib.org/en/stable/docs/software/advanced-controls/introduction/introduction-to-pid.html) section of the FRC documentation.
 
 ![PID Controller](../../images/Romi/Romi.042.jpeg)
 
@@ -23,8 +23,7 @@ To create a *PIDCommand* in VSCode right click under the commands folder and sel
 
 ![Commands](../../images/Romi/Romi.041.jpeg)
 
-The first thing we need is the *PIDController* class that simply requires to know what the ***P**roportional*, ***I**ntegral*, and ***D**erivative* 
-values are.  We're going to start with the **P** set to *2.0* and **I**, **D** set to zero.  Since these values are constants they should be put in the *Constants* file.  The *PIDController* class is where all of the work is done and was explained in the previous section.
+The first thing we need is the *PIDController* class that simply requires to know what the **P**roportional, **I**ntegral, and **D**erivative values are.  We're going to start with the **P**  value set to *2.0* and the **I**, and **D** values set to zero.  Since these values are constants they should be put in the *Constants* file.  The *PIDController* class is where all of the work is done and was explained in the previous section.
 
 We add the *Drivetrain* as a requirement and tell the command what distance we want to drive.  This distance becomes the *setpoint* for the PID controller.  These two parameters are passed in when the *DriveDistancePID* constructor is called and the Command object is created.
 
@@ -41,7 +40,7 @@ The full constructor for our **DriveDistancePID** command is listed below.
                               DriveConstants.kDistanceI, 
                               DriveConstants.kDistanceD),
 
-            // This should return the measurement
+            // This returns the measurement from the encoders
             drive::getAverageDistanceMeters,
 
             // This should return the setpoint (can also be a constant)
@@ -49,7 +48,7 @@ The full constructor for our **DriveDistancePID** command is listed below.
 
             // This uses the output
             output -> {
-              // Use the output here
+              // Use the output here to drive the motors
               arcadeDrive(output, 0);
             },
             drive);
@@ -58,29 +57,29 @@ The full constructor for our **DriveDistancePID** command is listed below.
                                     DriveConstants.kVelocityToleranceInchPerS);
       }
 
-The `setTolerance()` method sets the position and velocity error which is considered tolerable for use with the setpoint. For more details on what we've just done read the [PID Control through PIDSubsystems and PIDCommands](https://docs.wpilib.org/en/latest/docs/software/commandbased/pid-subsystems-commands.html#) section of the FRC® documentation.
+The `setTolerance()` method sets the position and velocity error which is considered tolerable for use with the setpoint. For more details on what we've just done read the [PID Control through PIDSubsystems and PIDCommands](https://docs.wpilib.org/en/latest/docs/software/commandbased/pid-subsystems-commands.html#) section of the FRC documentation.
 
-In the `execute()` method of the command the position error and whether the command is finished is output to the Simulator. When you run this command you may find that the command never finishes, which means that it never gets to the setpoint.  This is because with just the **P** parameter set the output value gets so small that it can no longer drive the motors.  In order to have it complete you would need to add a value to the **I** parameter.  Adding a value of *0.1* should be enough to get it to finish.  Making the **I** parameter non-zero is normally not recommended, we have a better solution called *Feedforward* that we'll look at later.
+The command's `execute()` method shows the position error, how far the robot is from the setpoint, which can be tracked in the Simulator. When you run this command you may find that the command never finishes, which means that it never gets to the setpoint.  This is because with just the **P** parameter set the output value gets so small that it can no longer drive the motors.  In order to have it complete you would need to add a value to the **I** parameter.  Adding a value of *0.2* should be enough to get the command to finish.  Making the **I** parameter non-zero must be done with caution since it may introduce other problems.  There is a better solution called *Feedforward* that we'll look at later.
 
 ## Profiled PID Controller
-A major difference between a standard *PIDController* and a *ProfiledPIDController* is that the actual setpoint of the control loop is not directly specified by the user. Rather, the user specifies a goal position or state, and the setpoint for the controller is computed automatically from the generated motion profile between the current state and the goal. 
+With the *DriveDistancePID* command there's no way of avoiding the sudden changes in velocity at the start and end of the path.  This makes it difficult to tune the PID controller to precisely arrive at a setpoint.  It would be better if we can move more smoothly to the setpoint by gradually accelerating at the beginning and decelerating at the end. To do this we need to bring in the additional parameter of velocity. So instead of just specifying a distance we need to specify both a position and velocity.  This turns our path into a trajectory. Remember, a trajectory has both direction and speed.
+
+This is where the *ProfiledPIDController* comes in.  This controller sets up a trajectory where the position and velocity is recomputed at multiple points along the path.  Although the direction may be a straight line, the velocity will change at various points throughout the trajectory.  The command accepts a *TrapezoidProfile* class to help implement the trajectory.  See [Trapezoid Motion Profile](../../Concepts/Dynamics/pathsTrajectories.md#trapezoidProfile) for more information.
+
+The *ProfiledPIDController* works in the following manner. Instead of using a setpoint it uses a goal to determine when the robot has reached its destination.  The goal value is not the current setpoint of the loop - rather, it is the eventual setpoint once the generated profile terminates.
 
 ![PID Command](../../images/Romi/Romi.043.jpeg)
 
-The specified goal value is not necessarily the current setpoint of the loop - rather, it is the eventual setpoint once the generated profile terminates.
-
-A common FRC® controls solution is to pair a [Trapezoid Motion Profile](../../Concepts/Dynamics/pathsTrajectories.md#trapezoidProfile) with a PID controller for tracking the setpoint.
-
 ## The DriveDistanceProfiled Command
-With the *DriveDistancePID* command there's no way of avoiding the sudden accelerations and changes in velocity at the beginning of the move, which makes it difficult to tune the PID controller to arrive at the setpoint.  It would be better if we can move more smoothly to the setpoint by gradually accelerating and decelerating at the beginning and end of the movement. To facilitate this, WPILib includes its own *ProfiledPIDController* class. Let's see if we can improve upon the results of the *DriveDistancePID* command.  
-
-Instead of using the *PIDController* class we'll use the *ProfiledPIDController* that we just looked at.  This class specifies **P, I**, and **D** values together with the *TrapezoidProfile.Constraints* that specify velocity and acceleration.  Set these constraints to 0.5 and 0.05 respectively, which was obtained during *Robot Characterization*.  The *TrapezoidProfile.Constraints* are a constant so can be put into the *Constants* file like so.
+The *ProfiledPIDController* class specifies **P, I**, and **D** values together with the *TrapezoidProfile.Constraints* that specify maximum velocity and acceleration that the robot is capable of.  For the Romi these constraints to 0.5 and 0.05 respectively, which were obtained during *Robot Characterization*.  The *TrapezoidProfile.Constraints* are a constant so can be put into the *Constants* file like so.
 
     public static final TrapezoidProfile.Constraints kTrapezoidProfileConstraints =
             new TrapezoidProfile.Constraints(DrivetrainConstants.kMaxSpeedMetersPerSecond,
                                             DrivetrainConstants.kMaxAccelMetersPerSecondSquared);
 
-We'll again add the *Drivetrain* and *targetDistance* parameters to the constructor.  However, this time the targetDistance will be passed into the ProfiledPIDController as a *TrapezoidProfile.state*.  We'll use the encoders as the measurement source as we did in the last command.
+We'll again add the *Drivetrain* and *targetDistance* parameters to the constructor.  However, this time the *targetDistance* will be passed into the command as a *TrapezoidProfile.state* that specifies its final position and velocity.  The final velocity is usually set to zero and the end state is the new position to which we want to move.  The `initialize()` method of the command sets the starting position and velocity of the system to zero.
+
+We'll use the encoders as the measurement source as we did in the last command. 
 
 ![PID Command](../../images/Romi/Romi.048.jpeg)
 
@@ -129,7 +128,11 @@ One problem with this profiled motion command is that the robot more than likely
 ### Tuning the PID Controller
 To get the PID controller to perform properly it will will most likely need to be tuned.  The [Tuning a PID Controller](https://docs.wpilib.org/en/stable/docs/software/advanced-controls/introduction/tuning-pid-controller.html) documentation gives some information on the process.
 
-Tuning the PID controller can be done in the Simulator or Shuffleboard. The PID Controller parameters *setpoint, P, I*, and *D* can be found under LiveWindow.  You can pull these onto the *Drive* tab if you wish.  We would want to change the PID values from Shuffleboard and see the results without restarting our program.  To do this we will add in the Network Tables instance and table to our program:
+Tuning the PID controller can be done in the Simulator or Shuffleboard. The PID Controller parameters *setpoint, P, I*, and *D* can be found under LiveWindow in Shuffleboard.  You can pull these onto the *Drive* tab if you wish.  In the Simulator you can find the PID tuning parameters under *NetworkTables->Shuffleboard->Drivetrain*. Prior to re-running each test you have to reset the odometry, which can be done by selecting it from the *SendableChooser* menu and running **Autonomous**.
+
+![Tuning PID](../../images/Romi/Romi.071.jpeg)
+
+<!-- We would want to change the PID values from Shuffleboard and see the results without restarting our program.  To do this we will add in the Network Tables instance and table to our program:
 
     private static NetworkTableInstance inst = NetworkTableInstance.getDefault();
     private static NetworkTable table = inst.getTable("Shuffleboard/Drivetrain");
@@ -149,15 +152,15 @@ You can also override the `execute()` method to add Shuffleboard diagnostics.
       super.execute();
       SmartDashboard.putNumber("Pos. Error", getController().getPositionError());
       SmartDashboard.putBoolean("atGoal", getController().atGoal());
-    }
+    } -->
 
 View [Testing and Tuning PID Loops](https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/shuffleboard/advanced-usage/shuffleboard-tuning-pid.html) for more information.
 
 ## The TurnToAnglePID Command
-We again need a **PID Controller** with the ***P**roportional*, ***I**ntegral*, and ***D**erivative* 
+We again need a *PIDController* with the **P**roportional, **I**ntegral, and **D**erivative 
 values.  For turning we'll start with the **P** set to *0.05* and **I**, **D** set to zero.  Since these values are constants they should be put in the *Constants* file.  
 
-We add the *Drivetrain* as a requirement and tell the command what angle we want to rotate to.  This angle becomes the *setpoint* for the PID controller.  These two parameters are passed in when the *TurnToAngle* constructor is called and our command object is created.
+We add the *Drivetrain* as a requirement and tell the command what angle we want to rotate to.  This angle becomes the *setpoint* for the PID controller.  These two parameters are passed in when the *TurnToAnglePID* constructor is called and our command object is created.
 
 The *measurementSource* and *output* setup a looping arrangement which moves the robot towards the *setpoint*.  In our case, the measurement source is a gyro and the output is sent to the motors in order to turn the robot. Once the setpoint is reached the command will finish.
 
@@ -191,9 +194,6 @@ The full constructor for our **TurnToAngle** command is listed below.
 
 The command tends to overshoot the target angle by about 10 degrees.  To improve that result you can try adding a very small amount to the **D** parameter.  Try a value of *0.005* to begin with.
 
-### The TurnToAngleProfiled Command
-This is very similar to the *DriveDistanceProfiled* command in that it uses a *TrapezoidProfile* to make the turn.  Be aware of the maximum turn rate and acceleration used with TrapezoidProfile constraint, which must be specified in degrees.  For the Romi, values of 360 for turn rate and 250 for acceleration seem to work.
-
 ### Setting up the Gyro    
 We have already setup the getHeading() method in the [Subsystems](romiSubsystems#heading) module but there are a few of things we need to do in order to setup the gyro as a measurement source.  
 
@@ -202,6 +202,20 @@ We have already setup the getHeading() method in the [Subsystems](romiSubsystems
 - Set `enableContinuousInput(-180, 180)` Rather then using the max and min input range as constraints, it considers them to be the same point and automatically calculates the shortest route to the setpoint.
 
 - Reset the gyro angles each time we start the program.  This is done in the Drivetrain constructor where is calls its own `resetGyro()` method.
+
+## Motion Control PID Lab
+There are two tasks for this lab:
+
+- Create a profiled command called *TurnToAngleProfiled* to turn the robot to a specified angle.  This profiled command should make smooth turns as opposed to the *TurnToAnglePID* command where the turns are very abrupt.
+
+- Use the *TurnToAngleProfiled* command to make the robot drive in a square.  This task will require the use of a Group Command.
+
+### TurnToAngleProfiled Command
+This is very similar to the *DriveDistanceProfiled* command in that it uses a *TrapezoidProfile* to make the turn.  Be aware of the maximum turn rate and acceleration used with TrapezoidProfile constraint, which must be specified in degrees.  For the Romi, values of 360 for turn rate and 250 for acceleration seem to work.
+
+### AutonomousDriveSquare Command
+
+
 
 ## References
 
@@ -219,4 +233,4 @@ We have already setup the getHeading() method in the [Subsystems](romiSubsystems
 
 - FRC Programming Done Right -[PID Control](https://frc-pdr.readthedocs.io/en/latest/control/pid_control.html)
 
-- TexasRobots - [Motion Magic Video](https://www.youtube.com/watch?v=xlQW8vGJWEs&ab_channel=texasRobots)
+- TexasRobots - [Motion Magic Video](https://www.youtube.com/watch?v=xlQW8vGJWEs&ab_channel=texasRobots) YouTube

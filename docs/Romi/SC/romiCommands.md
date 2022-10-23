@@ -6,7 +6,7 @@ A command is a simple state machine that is either *Initializing*, *Executing*, 
 ![Commands](../../images/Romi/Romi.015.jpeg)
 
 ## The DriveDistance Command
-Let's take a look at the *DriveDistance* command to see how this all works. This command is used to drive the robot for a specified distance.  This is where [Parameters](https://www.w3schools.com/java/java_methods_param.asp) are very useful since we can decide how far to drive when the program runs.  This command demonstrates the classic [State Machine](../../Programming/stateMachines.md) programming paradigm where we have an **Initialization Step** `initialize()` followed the **Next Step** `execute()` and an **Input Update** that repeatedly calls `execute()` until that threshold is met `isFinished()` and transititions it to the next major state `end()`.  After this state the command becomes *Idle*.
+Let's take a look at the *DriveDistance* command to see how this all works. This command is used to drive the robot for a specified distance.  This is where [Parameters](https://www.w3schools.com/java/java_methods_param.asp) are very useful since we can decide how far to drive when the program runs.  This command demonstrates the classic [State Machine](../../Programming/stateMachines.md) programming paradigm where we have an **Initialization Step** `initialize()` followed the **Next Step** `execute()` and an **Input Update** that repeatedly calls `execute()` until a threshold is met.  The `isFinished()` method transititions it to the next major state `end()`, at which time the command moves to the *Idle* state.
 
         public DriveDistance(double speed, double inches, Drivetrain drive) {
             m_distance = inches;
@@ -75,6 +75,9 @@ The `setDefaultCommand()` method sets the default Command of the subsystem. The 
 
     m_drivetrain.setDefaultCommand(getArcadeDriveCommand());
 
+## Instant Commands
+An *Instant Command* works similarly to a regular command except that there is no `execute()` method and the `isFinished()` method always returns TRUE.  The purpose of Instant Commands commands is to quickly alter some robot state such as activating, deactivating, resetting, or initializing a subsystem.  Instant Commands are used quite often.
+
 ## Command Groups
 Simple commands can be composed into [Command Groups](https://docs.wpilib.org/en/latest/docs/software/commandbased/command-groups.html) to accomplish more-complicated tasks. There are several ways in which Command Groups can be composed, as shown the documentation.  We'll look at a full example of a **Sequential** Command Group from the Romi sample code.
 
@@ -117,7 +120,7 @@ There are two objectives for this lab:
 - Implement a slew rate filter.
 
 ### Add Reset Odometry Command
-For testing purposes it's useful to have a command that resets the odometry back to zero.  This command should be executable from the dropdown menu in the Simulator and Shuffleboard.  Create an instant command to do this and have it display on the Simulator via the *SendableChooser* menu.
+For testing purposes it's useful to have a command that resets the odometry back to zero.  This command should be executable from the dropdown menu in the Simulator and Shuffleboard.  Create an Instant Command to do this add it the *SendableChooser* menu in *RobotContainer*.
 
 [Reset Odometry solution](solutionResetOdometry.md)
 
