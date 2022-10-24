@@ -21,7 +21,7 @@ You will need to install the *XCode Command Line Tools* in order to run the simu
 
 If you don't have the *XCode Command Line Tools* on your machine then enter the command `xcode-select --install` to install. The package is about 1.2 GB.  For additional information see [How to Install Xcode Command Line Tools on a Mac](https://www.freecodecamp.org/news/install-xcode-command-line-tools/).
 
-If the simulator crashes try [Simulation crashes on Mac after updating WPILib](https://docs.wpilib.org/en/stable/docs/yearly-overview/known-issues.html#simulation-crashes-on-mac-after-updating-wpilib) to resolve the issue.
+If the simulator crashes try [Simulation crashes on Mac after updating WPILib](https://docs.wpilib.org/en/stable/docs/yearly-overview/known-issues.html#simulation-crashes-on-mac-after-updating-wpilib) to resolve the issue.  If that doesn't work then try the solution in [macOS Simulation fails to launch in Visual Studio Code](https://docs.wpilib.org/en/2020/docs/software/wpilib-overview/known-issues.html#macos-simulation-fails-to-launch-in-visual-studio-code).
 
 ## Upgrading Software
 A new version of the WPILib is released each year on the same day that the new competition is announced. It's important that everyone has the latest software.  Upgrading to the new version is essentially the same as doing a new install.  Here's a direct link to the latest  [Release down load page](https://github.com/wpilibsuite/allwpilib/releases).  Follow the instructions for [Running the Installer](https://docs.wpilib.org/en/latest/docs/zero-to-robot/step-2/wpilib-setup.html#running-the-installer).

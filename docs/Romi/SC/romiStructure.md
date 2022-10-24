@@ -48,11 +48,28 @@ A method is created in the class that uses the joystick to control the robot:
 You may need to change the second `getRawAxis()` to suit your controller.    
 
 ## Lab - Robot Structure.
-There are three tasks for this lab:
+There are four tasks for this lab:
 
+- Add comments to divide the *Drivetrain* class into subsections.
 - Modify the *Drivetrain* class to change inches to meters.
 - Move constants to the *Constants* file.
 - Rename the Joystick variable.
+
+### Add Comments
+In the Drivetrain class we'll add the following comments to make it easier to find methods that are logically related.  The comment sections will be:
+
+- **Initialization** - Includes everything required to construct and initialize the *Drivetrain* object.
+- **Control Input** - Any method that causes the robot, or subsystem, to react in some way.
+- **System State** - Methods that give information on what the current state of the *Drivetrain*  object is.
+- **Process Logic** - Mostly logic that occurs during the `periodic()` loop, or processes/interprets incoming data before performing some kind of *Control Input* to the robot.  Incoming data will normally be provided by methods found in the *System State* subsection.
+
+The comments will span most of the line width to form a separator and will look like this:
+
+    // -----------------------------------------------------------
+    // Control Input
+    // -----------------------------------------------------------
+
+Think about what code will go in each section.
 
 ### Move constants to Constants File
 There are a few values in the *romiReference* program that really should be in the Constants file.  Move the two constants `kWheelDiameterInch` and `kCountsPerRevolution` that are in the DriveTrain class into the Constants.java file. Constants are defined as [public](https://www.w3schools.com/java/ref_keyword_public.asp) [static](https://www.w3schools.com/java/ref_keyword_static.asp) [final](https://www.w3schools.com/java/ref_keyword_final.asp) in Java.  The `static` keyword creates attributes that can be accessed without creating an object of a class, whereas the `final` keyword makes attributes non-changeable.  You can declare any classes, attributes, methods and constructors, as `public` making them accessible by any other class.
