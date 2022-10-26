@@ -141,4 +141,6 @@ We don't want to use this filter unless we're very specific about it so create a
 
 - FRC Documentation - [Command Groups](https://docs.wpilib.org/en/latest/docs/software/commandbased/command-groups.html)
 
+- Java Tutorial on [W3Schools](https://www.w3schools.com/java/default.asp)
+
 - [Amazon Example](https://s3.amazonaws.com/screensteps_live/exported/Wpilib/2078/2286/Command_based_programming.pdf?1478686718)

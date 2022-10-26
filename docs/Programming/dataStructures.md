@@ -31,8 +31,3 @@ An Enum is a special data type that represents a group of predefined constants. 
 ## References
 
 Java Tutorial on [W3Schools](https://www.w3schools.com/java/default.asp)
-
-<!-- <h3><span style="float:left">
-<a href="introProgramming">Home</a></span>
-<span style="float:right">
-<a href="procedures">Next</a></span></h3> -->

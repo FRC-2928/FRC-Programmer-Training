@@ -23,10 +23,11 @@ Other procedures in the Drivetrain class will take care of resetting and reading
 The RomiGyro subsystem reads values from its gyro in order to perform [Pose Estimation](../../Concepts/OptimalEstimation/poseEstimation.md). The raw data that comes from gyros is very complex and difficult to intepret.  The RomiGyro subsystem translates the data into simple angles and rates-of-turn that are much easier to understand.
 
 ## Subsystems Lab
-There are two tasks for this lab:
+There are three tasks for this lab:
 
 - Update the RomiGyro to make use of an Interface.
 - Create a method to get the current heading of the robot.
+- Add comments to divide the *Drivetrain* class into subsections.
 
 ### Add Interface to RomiGyro
 For this update we will use the *Gyro* [interface](https://www.w3schools.com/java/java_interface.asp) supplied by WPILib.  An interface is an [abstract class](https://www.w3schools.com/java/java_abstract.asp) used to group related methods that specify the behavior of a class.  You can think of an interface as a blueprint of a class.  Like a class, an *interface* can have methods and variables, but the methods declared in an interface are by default abstract which means that it only has the name of the method and not the code to implement it.  The code gets implemented by the class that `implements` it. 
@@ -38,6 +39,21 @@ In future modules we're going to need to get the current heading of the Drivetra
 
 [Add heading solution](solutionCreateHeading.md)
 
+### Add Comments
+In the Drivetrain class we'll add the following comments to make it easier to find methods that are logically related.  The comment sections will be:
+
+- **Initialization** - Includes everything required to construct and initialize the *Drivetrain* object.
+- **Control Input** - Any method that causes the robot, or subsystem, to react in some way.
+- **System State** - Methods that give information on what the current state of the *Drivetrain*  object is.
+- **Process Logic** - Mostly logic that occurs during the `periodic()` loop, or processes/interprets incoming data before performing some kind of *Control Input* to the robot.  Incoming data will normally be provided by methods found in the *System State* subsection.
+
+The comments will span most of the line width to form a separator and will look like this:
+
+    // -----------------------------------------------------------
+    // Control Input
+    // -----------------------------------------------------------
+
+Think about what code will go in each section.
 
 ## References
 - FRC Documentation - [Subsystems](https://docs.wpilib.org/en/latest/docs/software/commandbased/subsystems.html)
@@ -45,5 +61,7 @@ In future modules we're going to need to get the current heading of the Drivetra
 - FRC Documentation - [Differential Drive Robots](https://docs.wpilib.org/en/stable/docs/software/actuators/wpi-drive-classes.html)
 
 - FRC Documentation - [Using the WPILib Classes to Drive your Robot](https://docs.wpilib.org/en/stable/docs/software/actuators/wpi-drive-classes.html?highlight=speedcontroller#multi-motor-differentialdrive-with-speedcontrollergroups)
+
+- Java Tutorial on [W3Schools](https://www.w3schools.com/java/default.asp)
 
 - QUT Robot Academy [Measuring Motion](https://robotacademy.net.au/masterclass/measuring-motion/)
