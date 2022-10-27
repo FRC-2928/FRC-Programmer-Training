@@ -17,7 +17,7 @@ The primary job of the *Drivetrain* subsystem is to send speed commands to its m
         m_diffDrive.arcadeDrive(xaxisSpeed, zaxisRotate);
       }
 
-Other procedures in the Drivetrain class will take care of resetting and reading the wheel encoders.  It'll also translate the wheel encoder values into distances, as explained in the [Pose Estimation](../Concepts/OptimalEstimation/odometry) module.  Also checkout [Using the WPILib Classes to Drive your Robot](https://docs.wpilib.org/en/stable/docs/software/actuators/wpi-drive-classes.html?highlight=speedcontroller#multi-motor-differentialdrive-with-speedcontrollergroups) for more information on implementing a drive train in FRC.
+Other procedures in the Drivetrain class will take care of resetting and reading the wheel encoders.  It'll also translate the wheel encoder values into distances, as explained in the [Pose Estimation](../../Concepts/OptimalEstimation/poseEstimation.md) module.  Also checkout [Using the WPILib Classes to Drive your Robot](https://docs.wpilib.org/en/stable/docs/software/actuators/wpi-drive-classes.html?highlight=speedcontroller#multi-motor-differentialdrive-with-speedcontrollergroups) for more information on implementing a drive train in FRC.
 
 ## RomiGyro Subsystem
 The RomiGyro subsystem reads values from its gyro in order to perform [Pose Estimation](../../Concepts/OptimalEstimation/poseEstimation.md). The raw data that comes from gyros is very complex and difficult to intepret.  The RomiGyro subsystem translates the data into simple angles and rates-of-turn that are much easier to understand.
@@ -31,7 +31,7 @@ There are three updates for this lab:
 - Add comments to divide the *Drivetrain* class into subsections.
 
 ### Add an Interface to RomiGyro
-For this update we're going to have the *RomiGyro* class implement WPILib's *Gyro* interface.  An [interface](https://www.w3schools.com/java/java_interface.asp) is an [abstract class](https://www.w3schools.com/java/java_abstract.asp) used to group together related methods that specify the behavior of a class.  Any class that uses the interface must implement all of the methods and variables that are in that interface. You can think of an interface as a contract for a class.  Like a class, an *interface* can have methods and variables, but the methods declared are by default abstract. This means that it only defines the method name and not the code required to implement it.  The code gets implemented by the class that `implements` the interface.
+For this update we're going to have the *RomiGyro* class implement WPILib's *Gyro* interface.  An [interface](https://www.w3schools.com/java/java_interface.asp) is an [abstract class](https://www.w3schools.com/java/java_abstract.asp) used to group together related methods that specify the behavior of a class.  You can think of an interface as a contract for a class that uses it. Any class that uses the interface must implement all of the methods and variables that are in that interface.   Like a class, an *interface* can have methods and variables, but the methods declared are by default abstract. This means that it only defines the method's name and not the code required to implement it.  The code gets implemented by the class that `implements` the interface.
 
 Why would we want the *RomiGyro* class to implement this interface?  The *Gyro* interface defines methods that we're going to use later as we build out our robot project, and we want to make sure that these methods are available to us.
 
