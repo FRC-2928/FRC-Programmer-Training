@@ -3,7 +3,18 @@ Objects are programming constructs that are used to represent physical objects a
 
 ![Programming Concepts](../images/FRCProgramming/FRCProgramming.018.jpeg)
 
-All Objects are derived from [Classes](classes.md) that provide a common template for their creation.  The W3 Schools Java Tutorial has an introduction to [Object Oriented Programming (OOP)](https://www.w3schools.com/java/java_oop.asp).  The tutorial also explains [Attributes](https://www.w3schools.com/java/java_class_attributes.asp) and [Methods](https://www.w3schools.com/java/java_class_methods.asp), OOP name for **Procedures**. 
+All Objects are derived from [Classes](classes.md) that provide a common template for their creation.  There are three major components of a Java class.
+
+- **Constructor**  
+A constructor is a special method that is used to create and initialize an object of a Java class.  Every Java class must have a constructor, and if we don’t declare one the compiler creates a default constructor for us.  A constructor must have the same name as the Java class. 
+
+- **Attributes**  
+These are the data structures that describe the object's physical appearance and maintain its current state.  All attributes must be initialize when an object is constructed, otherwise the object would be in an inconsistent state.
+
+- **Methods**  
+A method is a block of code which only runs when it's called. You can pass data, known as parameters, into a method. Methods are used to perform certain actions, and they are also known as functions.
+
+The W3 Schools Java Tutorial has an introduction to [Object Oriented Programming (OOP)](https://www.w3schools.com/java/java_oop.asp).  The tutorial also explains [Attributes](https://www.w3schools.com/java/java_class_attributes.asp) and [Methods](https://www.w3schools.com/java/java_class_methods.asp), the OOP name for a **Procedures**. 
 
 ## References
 

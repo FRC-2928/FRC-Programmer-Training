@@ -4,6 +4,8 @@ Robots are driven by data.  They receive data from external sensors like cameras
 
 ![Programming Concepts](../images/FRCProgramming/FRCProgramming.010.jpeg)
 
+We use *variables* to hold data in our programs. A variable is a reserved memory location to hold a value. In other words, when we want to store any value and give it a name, that value takes a reserved space in memory and it’s retrieved using the variable name.
+
 ## Primitive Data Types
 The most basic type of data is a single value such as the number 42. This can be stored in a location of memory that is pointed to by a named variable such as `age`. The number 42 is an integer but a number can also have decimal places such as 3.14, which we call a floating point number. All of the primitive data types and the way that they are created in Java are explained on the W3 Schools Website under [Java Variables](https://www.w3schools.com/java/java_variables.asp) and [Java Data Types](https://www.w3schools.com/java/java_data_types.asp).
 

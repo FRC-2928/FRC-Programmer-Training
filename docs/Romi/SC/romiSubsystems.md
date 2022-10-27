@@ -23,7 +23,16 @@ Other procedures in the Drivetrain class will take care of resetting and reading
 The RomiGyro subsystem reads values from its gyro in order to perform [Pose Estimation](../../Concepts/OptimalEstimation/poseEstimation.md). The raw data that comes from gyros is very complex and difficult to intepret.  The RomiGyro subsystem translates the data into simple angles and rates-of-turn that are much easier to understand.
 
 ## Lab - Subsystems
-This lab builds on what you did in the [Basic Robot Structure](romiStructure.md) lab.
+This lab builds on the lab that you did in the [Basic Robot Structure](romiStructure.md) section of the training guide.  You'll learn about the following Java programming concepts:
+
+- [Java Objects](../../Programming/objects.md) are programming constructs used to represent physical objects and ideas in the real world.
+
+- [Java Methods](https://www.w3schools.com/java/java_methods.asp), are declared within a class, and are used to perform certain actions.
+
+- [Abstract Classes](https://www.w3schools.com/java/java_abstract.asp) that show only essential things to the user and hides the internal details.  Abstraction lets you focus on what the object does instead of how it does it.
+
+- [Interfaces](https://www.w3schools.com/java/java_interface.asp), which are used to group together related methods that specify the behavior of a class.
+
 There are three updates for this lab:
 
 - Update the *RomiGyro* to make use of an Interface.
@@ -80,12 +89,26 @@ We're now done with this update!
 <!-- [RomiGyro Interface solution](solutionRomiGyro.md) -->
 
 ### <a name="heading"></a>Create Heading Method
-In future modules we're going to need to get the current heading of the Drivetrain.  This heading is obtained from the Gyro that is defined as a subsystem of the Drivetrain as indicated above.
+In later programs we're going to need to get the current heading of our robot.  The heading is obtained from the *RomiGyro* class that we modified in the previous lab.  The *RomiGyro* is defined as a subsystem of the *Drivetrain* class.
 
-[Add heading solution](solutionCreateHeading.md)
+Update the *Drivetrain* class with a new method called `getHeading()` that will be used to get the current heading of the robot.  You can place this method at around line `132` of the *Drivetrain* class just after the `getGyroAngleZ()` method.  The method will return a `double` value and be defined as `public`.  The return value will be whatever we get from the `getRotation2d().getDegrees()` method that was defined in the *Gyro* interface.  That's why we implemented that interface in the *RomiGyro* class.  When you're done it should look like this:
+
+    public double getHeading() {
+      return m_gyro.getRotation2d().getDegrees();
+    }
+
+We also may need to reset the heading, so create another method named `zeroHeading()` to accomplish this.  Notice that the name "zeroHeading" describes exactly *what* we want the method to do and not *how* we want it to be done.  The *how* part is hidden within the function. The function has a return type of `void`, which means that it does **not** return any value.  Call the `reset()` function of the gyro object.  Like so:
+
+    public void zeroHeading() {
+      m_gyro.reset();
+    }
+
+We're now done creating the heading methods!
+
+<!-- [Add heading solution](solutionCreateHeading.md) -->
 
 ### Add Comments
-In the Drivetrain class we'll add the following comments to make it easier to find methods that are logically related.  The comment sections will be:
+As you add functionality to your code some of the files may get quite long, so it's a good idea to divide them into sections by using comment separators.  In the *Drivetrain* class we'll add the following comment separators to group together methods that are logically related.  This will make them easier to find.  The comment sections will be:
 
 - **Initialization** - Includes everything required to construct and initialize the *Drivetrain* object.
 - **Control Input** - Any method that causes the robot, or subsystem, to react in some way.
@@ -98,7 +121,11 @@ The comments will span most of the line width to form a separator and will look 
     // Control Input
     // -----------------------------------------------------------
 
-Think about what code will go in each section.
+Think about where these file separators will go and what code will go in each section.  Here are a couple tips:
+
+- If a method is returning a value, such as `double`, then it's most likely describing the System's State.
+
+- If a method return type is declared as `void` then it's probably some kind of Control Input.
 
 ## References
 - FRC Documentation - [Subsystems](https://docs.wpilib.org/en/latest/docs/software/commandbased/subsystems.html)

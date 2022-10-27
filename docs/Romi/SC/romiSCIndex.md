@@ -7,4 +7,4 @@ The Subsystems and Command modules are the starting point for the programmer tra
 - [Basic Robot Structure](romiStructure.md)
 - [Subsystems](romiSubsystems.md)
 - [Commands](romiCommands.md)
-- [Shuffleboard](romiShuffleboard.md)
+- [Telemetry](romiTelemetry.md)

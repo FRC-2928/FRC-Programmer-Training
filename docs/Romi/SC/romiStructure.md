@@ -77,7 +77,7 @@ Now, if you look at the tab for the *Drivetrain* you'll notice that it has turne
     m_leftEncoder.setDistancePerPulse((Math.PI * Constants.kWheelDiameterMeters) / Constants.kCountsPerRevolution);
     m_rightEncoder.setDistancePerPulse((Math.PI * Constants.kWheelDiameterMeters) / Constants.kCountsPerRevolution);
 
-So what's happening in the these two lines?  On lines `24` and `25` of our *Drivetrain* class you'll find two encoder objects created from the *Encoder* class.  These are called [Inner Classes](https://www.w3schools.com/java/java_inner_classes.asp), sometimes referred to as **Nested Classes**, and are used to group together functionality. Since we have two motor encoders attached to our drivetrain, it makes sense that they're nested within the *Drivetrain* class.  Here's how we create the encoder objects.  The number parameters tells us what GPIO pins the encoders are connected to.  
+So what's happening in the these two lines?  On lines `24` and `25` of our *Drivetrain* class you'll find two encoder objects created from the *Encoder* class.  Since we have two motor encoders attached to our drivetrain, it makes sense that they're made accessible from within the *Drivetrain* class.  Here's how we create the encoder objects.  The number parameters tells us what GPIO pins the encoders are connected to.  
 
     private final Encoder m_leftEncoder = new Encoder(4, 5);
     private final Encoder m_rightEncoder = new Encoder(6, 7);
