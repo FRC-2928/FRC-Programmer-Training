@@ -47,15 +47,15 @@ A method is created in the class that uses the joystick to control the robot:
 
 You may need to change the second `getRawAxis()` to suit your controller.    
 
-## Lab - Robot Structure.
-There are three tasks for this lab:
+## Lab - Basic Robot Structure.
+In this lab we're going to build on the *RomiReference* project that you created in the previous section.  There are three updates for this lab:
 
 - Move constants to the *Constants* file.
-- Modify the *Drivetrain* class to change inches to meters.
-- Rename the Joystick variable.
+- Modify the *Drivetrain* class to change the distance travelled from inches to meters.
+- Rename the *Joystick* variable.
 
 ### Move constants to Constants File
-The *Constants* file is where we keep variables that don't change during the execution of the program.  There are two such variables in the *Drivetrain* class that really should be in the *Constants* file.  You'll find these variables on lines 15 and 16:
+Open the *RomiReference* project in VSCode and place the `Drivetrain.java` and `Constants.java` files into the editor window. The *Constants* file is where we keep variables that don't change during the execution of the program.  There are two such variables in the *Drivetrain* class that really should be moved into the *Constants* file.  You'll find these variables on lines 15 and 16 of the *Drivetrain* file:
 
     private static final double kCountsPerRevolution = 1440.0;
     private static final double kWheelDiameterInch = 2.75591; // 70 mm
@@ -84,6 +84,7 @@ So what's happening in the these two lines?  On lines `24` and `25` of our *Driv
 
 One of the methods of the Encoder class is `setDistancePerPulse()`, which tells us how far we've travelled for each encoder pulse. We set it with one very long parameter that does all the math to work out what this value is.    
 
+We're now done with this update!
 <!-- [Move constants solution](solutionMoveConstants.md) -->
 
 ### Change Inches to Meters
@@ -111,6 +112,7 @@ Another change to make is on line `58` of the *TurnDegrees* class.   Change `inc
 
 Finally, since we're using meters now instead of inches we need to change the values passed in the *AutonomousDistance* command from `10` to `1`. 
 
+We're now done with this update!
 <!-- [Inches to meters solution](solutionInchMeters.md) -->
 
 ### Rename Joystick Variable
