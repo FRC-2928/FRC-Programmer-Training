@@ -13,6 +13,11 @@ There are additional GPIO pins available for general purpose use that can be uti
 
 ![External IO](../../images/Romi/Romi.020.jpeg)
 
+## Lab - Romi GPIO
+
+There is currently no lab for this section.
+
+
 ## References
 
 - Wikipedia - [GPIO](https://en.wikipedia.org/wiki/General-purpose_input/output)

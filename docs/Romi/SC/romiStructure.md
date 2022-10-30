@@ -48,7 +48,15 @@ A method is created in the class that uses the joystick to control the robot:
 You may need to change the second `getRawAxis()` to suit your controller.    
 
 ## Lab - Basic Robot Structure.
-In this lab we're going to build on the *RomiReference* project that you created in the previous section.  There are three updates for this lab:
+In this lab we're going to build on the *RomiReference* project that you created in the [Romi Example Code](romiExample.md) section of the training guide.  You'll learn about the following Java programming concepts:
+
+- The syntax for creating an object from a class.
+
+- The [private](https://www.w3schools.com/java/ref_keyword_private.asp) and [public](https://www.w3schools.com/java/ref_keyword_public.asp) keywords that defines a variable's accessibility.
+
+- The [final](https://www.w3schools.com/java/ref_keyword_final.asp) keyword to prevent a variable from being modified.
+
+There are three updates for this lab:
 
 - Move constants to the *Constants* file.
 - Modify the *Drivetrain* class to change the distance travelled from inches to meters.

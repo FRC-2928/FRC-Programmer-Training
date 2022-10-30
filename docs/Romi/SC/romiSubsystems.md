@@ -27,6 +27,8 @@ This lab builds on the lab that you did in the [Basic Robot Structure](romiStruc
 
 - [Java Objects](../../Programming/objects.md) are programming constructs used to represent physical objects and ideas in the real world.
 
+- [Java Constructors](https://www.w3schools.com/java/java_constructors.asp) special methods that are used to initialize objects.
+
 - [Java Methods](https://www.w3schools.com/java/java_methods.asp), are declared within a class, and are used to perform certain actions.
 
 - [Abstract Classes](https://www.w3schools.com/java/java_abstract.asp) that show only essential things to the user and hides the internal details.  Abstraction lets you focus on what the object does instead of how it does it.
@@ -97,13 +99,15 @@ Update the *Drivetrain* class with a new method called `getHeading()` that will 
       return m_gyro.getRotation2d().getDegrees();
     }
 
-We also may need to reset the heading, so create another method named `zeroHeading()` to accomplish this.  Notice that the name "zeroHeading" describes exactly *what* we want the method to do and not *how* we want it to be done.  The *how* part is hidden within the function. The function has a return type of `void`, which means that it does **not** return any value.  Call the `reset()` function of the gyro object.  Like so:
+We also may need to reset the heading, so create another method named `zeroHeading()` to accomplish this.  Notice that the name "zeroHeading" describes exactly **what** we want the method to do and not **how** we want it to be done.  The **how** part is hidden within the function. This is an example of [Declarative Programming](https://en.wikipedia.org/wiki/Declarative_programming).
+
+The function has a return type of `void`, which means that it does **not** return any value.  Our function should call the `reset()` method of the gyro object, like so:
 
     public void zeroHeading() {
       m_gyro.reset();
     }
 
-We're now done creating the heading methods!
+We're now done creating our new heading method!
 
 <!-- [Add heading solution](solutionCreateHeading.md) -->
 
@@ -127,6 +131,8 @@ Think about where these file separators will go and what code will go in each se
 
 - If a method return type is declared as `void` then it's probably some kind of Control Input.
 
+That's all for this update!
+
 ## References
 - FRC Documentation - [Subsystems](https://docs.wpilib.org/en/latest/docs/software/commandbased/subsystems.html)
 
@@ -137,3 +143,5 @@ Think about where these file separators will go and what code will go in each se
 - Java Tutorial on [W3Schools](https://www.w3schools.com/java/default.asp)
 
 - QUT Robot Academy [Measuring Motion](https://robotacademy.net.au/masterclass/measuring-motion/)
+
+- Code Example - [RomiSubsystems](https://github.com/FRC-2928/RomiExamples/tree/main/RomiSubsystems)
