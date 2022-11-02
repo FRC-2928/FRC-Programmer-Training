@@ -28,10 +28,11 @@ nav:
             - Romi/Control/romiControlIndex.md
             - Romi/Control/romiCharacterization.md
             - Romi/Control/romiPID.md
+            - Romi/Control/romiProfiledPID.md
             - Romi/Control/romiTrajectory.md
             - Romi/Control/romiStateSpace.md
-            - Romi/Control/romiServos.md
-            - Romi/Control/romiArm.md
+            # - Romi/Control/romiServos.md
+            # - Romi/Control/romiArm.md
         - 'Romi Vision Processing':
             - Romi/Vision/romiVisionIndex.md
             - Romi/Vision/romiBasicVision.md

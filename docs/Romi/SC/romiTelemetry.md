@@ -25,7 +25,7 @@ Prior to the release of the *Shuffleboard* tool FRC used an application called [
 ## The Sendable Interface
 The FRC documentaton has instructions on [Adding Telemetry to Robot Code](https://docs.wpilib.org/en/stable/docs/software/telemetry/telemetry.html#adding-telemetry-to-robot-code). Most of this is done using the *Sendable* interface provided by WPILib that's documented in [Robot Telemetry with Sendable](https://docs.wpilib.org/en/stable/docs/software/telemetry/robot-telemetry-with-sendable.html#robot-telemetry-with-sendable). The *Sendable* interface automatically sends telemetry values every robot loop, removing the need to handle the periodic logic of sending and receiving values from the dashboard.  
 
-For simple data structures you can directly output values to the *SmartDashboard* from the `periodic()` loop, which is how we'll be doing it in the following labs.  
+For simple data structures however, you can directly output values to the *SmartDashboard* from the `periodic()` loop, which is how we'll be doing it in the following labs.  
 
 ## Lab - Telemetry
 This lab builds on the code that you wrote in the [Commands](romiCommands.md) section of the training guide.  You'll learn about the following Java programming concepts:
@@ -103,9 +103,9 @@ Telemetry data needs to be put into the NetworkTables to become visible in Shuff
 
     m_headingEntry.setDouble(getHeading());
 
-Since `publishTelemetry()` is called from the `periodic()` function, this statement will populate the NetworkTable entry every 50 milliseconds giving you a Real-Time view of the data. You can now check this out by running the Romi robot.
+Since `publishTelemetry()` is called from the `periodic()` function, this statement will populate the NetworkTable entry every 50 milliseconds giving you a Real-Time view of the data. 
 
-Continue on and add some more telemetry data to the **Drivetrain** tab.  Add two variables `m_leftWheelPositionEntry` and `m_rightWheelPositionEntry` to track how far each wheel has travelled.  Use the methods `getLeftDistanceMeters()` and `getRightDistanceMeters()` to populate the data entries.  Follow the example above to add the entries to the **Drivetrain** tab.
+Continue on and add some more telemetry data to the **Drivetrain** tab.  Add three variables `m_leftWheelPositionEntry`, `m_rightWheelPositionEntry`, and `m_avgDistanceEntry` to track how far we've travelled.  Use the methods `getLeftDistanceMeters()`, `getRightDistanceMeters()`, and `getAverageDistanceMeters()` to populate the data entries.  Follow the example above to add the entries to the **Drivetrain** tab.
 
 Here's how the entries should look once you've added them.  
 
@@ -119,6 +119,11 @@ Here's how the entries should look once you've added them.
         .withSize(3,3)
         .withPosition(7, 0)
         .getEntry(); 
+    m_avgDistanceEntry = m_driveTab.add("Average Distance", getAverageDistanceMeters())
+        .withWidget(BuiltInWidgets.kGraph)      
+        .withSize(3,3)
+        .withPosition(10, 0)
+        .getEntry();     
 
 Once again, the entries are of type NetworkTableEntry, which need to be defined as attributes of the *Drivetrain* class. 
 
@@ -127,8 +132,11 @@ Place the following statements in the `publishTelemetry()` method to put the dat
     // Display the distance travelled for each wheel
     m_leftWheelPositionEntry.setDouble(getLeftDistanceMeters());
     m_rightWheelPositionEntry.setDouble(getRightDistanceMeters()); 
+    m_avgDistanceEntry.setDouble(getAverageDistanceMeters());
 
-<!-- [Telemetry Lab Solution](solutionTelemetry.md) -->
+You can now check out the telemetry data by running the Romi robot. 
+
+You're now done with this task!
 
 ## References
 - FRC Documentation - [Telemetry](https://docs.wpilib.org/en/stable/docs/software/telemetry/index.html)

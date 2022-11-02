@@ -1,8 +1,7 @@
 # Classical Control
 <!-- Generic controller block diagram and explaination...
 Alonzo Kelly [Mobile Robotics](https://www.cambridge.org/core/books/mobile-robotics/5BF238489F9BC337C0736432C87B3091) Chapter 7.1 -->
-
-In the [Geometry](../Dynamics/geometry.md) section we descibed the Pose of an object in 2D and 3D space.  Now we look at how the Pose changes as a function of time.  For robotic systems we are concerned with how we can ensure a smooth transition from one pose to another, which we call **Motion Profiling**.  Our primary mechanism for doing that is the PID Controller that is explained in the [Advanced Controls](https://docs.wpilib.org/en/stable/docs/software/advanced-controls/introduction/index.html) section of the FRC Documentation.  There's also an introduction to [Control Systems](https://docs.wpilib.org/en/stable/docs/software/advanced-controls/introduction/control-system-basics.html) in the documentation.
+Control Theory deals with the question of "How do we get a system to do what we want"?  For robotic systems that normally means how do we move it, or one of its subsystems, from one position to another?  In the [Geometry](../Dynamics/geometry.md) section we descibed the Pose of an object, which is the position and orientation of an object in 2D and 3D space.  For robotic systems we are concerned with how we can ensure a smooth transition from one pose to another.  Or more technically, how can we get the Pose of the system to change as a function of time. Our primary mechanism for doing that is the PID Controller, which is a commonly used feedback controller.  There's an excellent set of videos on Control Theory called [Everything You Need to Know About Control Theory](https://resourcium.org/journey/companion-resources-everything-you-need-know-about-control-theory) by Brian Douglas. There's also an introduction to [Control Systems](https://docs.wpilib.org/en/stable/docs/software/advanced-controls/introduction/control-system-basics.html) in the FRC documentation.  
 
 ## Feedback Control - PID
 Before looking at the PID controller supplied by the WPI library, it would be useful to get an overview by watching the [PID Introduction Video by WPI](https://docs.wpilib.org/en/stable/docs/software/advanced-controls/introduction/pid-video.html).  The [Introduction to PID](https://docs.wpilib.org/en/stable/docs/software/advanced-controls/introduction/introduction-to-pid.html) section of the FRC documentation provides more details.
@@ -78,6 +77,8 @@ You may have noticed that we rarely use the *Integral* part of the PID controlle
 
 
 ## References
+- Video resource - [Everything You Need to Know About Control Theory](https://resourcium.org/journey/companion-resources-everything-you-need-know-about-control-theory) by Brian Douglas.
+
 - FRC Documentation - [Control Systems](https://docs.wpilib.org/en/stable/docs/software/advanced-controls/introduction/control-system-basics.html)
 
 - FRC Documentation - [PID Basics](https://docs.wpilib.org/en/stable/docs/software/advanced-controls/introduction/index.html)
