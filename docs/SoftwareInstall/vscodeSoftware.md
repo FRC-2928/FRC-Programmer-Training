@@ -23,6 +23,8 @@ If you don't have the *XCode Command Line Tools* on your machine then enter the 
 
 If the simulator crashes try [Simulation crashes on Mac after updating WPILib](https://docs.wpilib.org/en/stable/docs/yearly-overview/known-issues.html#simulation-crashes-on-mac-after-updating-wpilib) to resolve the issue.  If that doesn't work then try the solution in [macOS Simulation fails to launch in Visual Studio Code](https://docs.wpilib.org/en/2020/docs/software/wpilib-overview/known-issues.html#macos-simulation-fails-to-launch-in-visual-studio-code).
 
+Occasionally, the system will throw a **Killed: 9** when trying to start the Simulator.  In most cases, rebooting your Mac will solve the issue.
+
 ## Upgrading Software
 A new version of the WPILib is released each year on the same day that the new competition is announced. It's important that everyone has the latest software.  Upgrading to the new version is essentially the same as doing a new install.  Here's a direct link to the latest  [Release down load page](https://github.com/wpilibsuite/allwpilib/releases).  Follow the instructions for [Running the Installer](https://docs.wpilib.org/en/latest/docs/zero-to-robot/step-2/wpilib-setup.html#running-the-installer).
 

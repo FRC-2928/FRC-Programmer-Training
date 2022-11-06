@@ -1,17 +1,19 @@
-# Robot Characterization
-*Characterization* or, more formally, *System Identification* - is the process of determining a mathematical model for the behavior of a system through statistical analysis of its inputs and outputs.
+# System Identification
+*System Identification* is the process of determining a mathematical model for the behavior of a system through statistical analysis of its inputs and outputs.  FRC has developed the [System Identification Tool](https://docs.wpilib.org/en/stable/docs/software/pathplanning/robot-characterization/introduction.html#introduction-to-robot-characterization) to aid in identifying the characterics of our robot systems.  Before starting this section you should view the [System Identification](https://www.youtube.com/playlist?list=PLlmlmzye-q9gC7DwJ0xObASeOWUeADxJW) videos by Brian Douglas.
 
 ## Running the System Identification Tool
-The System Identification Tool is installed with WPILib read [Introduction to Robot Characterization](https://docs.wpilib.org/en/stable/docs/software/pathplanning/robot-characterization/introduction.html#introduction-to-robot-characterization) for an overview of what the tool does.  The tool only supports Windows. The system identification tool can be opened from the **Start Tool** option in VS Code or by using the shortcut inside the WPILib Tools desktop folder (Windows).  Starting the tool creates a directory under your project called `.SysId`.
+The *System Identification Tool* (SysId) can be opened from the **Start Tool** option in VS Code. On MacOS you'll need to start it from the terminal.  Go to `~/wpilib/2022/tools` and run `python3 SysID.py`. 
 
-#### Configuring the Project
+Starting the tool creates a directory under your project called `.SysId`.
+
+## Configuring the Project
 The first step is to [Configuring the Project](https://docs.wpilib.org/en/stable/docs/software/pathplanning/robot-characterization/configuring-project.html#configuring-a-project). 
 
-#### Deploying the Project
+## Deploying the Project
 
 [Deploying the Project](https://docs.wpilib.org/en/stable/docs/software/pathplanning/robot-characterization/configuring-project.html#deploying-project).
 
-#### Analysis the Data
+## Analysis the Data
 [Analysing Data](https://docs.wpilib.org/en/stable/docs/software/pathplanning/robot-characterization/analyzing-data.html)
 
 <!-- ## Robot Characterization Lab
@@ -27,6 +29,8 @@ Run robot characterization for your Romi.  Look at the results and add the follo
     public static final double kvVoltSecondsPerRadian = 0.345; -->
 
 ## References
+- Videos [System Identification](https://www.youtube.com/playlist?list=PLlmlmzye-q9gC7DwJ0xObASeOWUeADxJW) by Brian Douglas
+
 - FRC Documentation - [Robot Charactization](https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/robot-characterization/index.html)
 
 - FRC Documentation - [Feedforward Control in WPILib](https://docs.wpilib.org/en/stable/docs/software/advanced-controls/controllers/feedforward.html#feedforward-control-in-wpilib)
