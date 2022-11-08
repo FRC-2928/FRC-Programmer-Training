@@ -52,8 +52,8 @@ There are two tasks for this lab:
 
 - *TurnToAnglePID* that will allow the robot to turn to a specified angle.  
 
-### The DriveDistancePID Command
-To create a *PIDCommand* in VSCode right click under the commands folder and select *Create a new class/command*.  Then select **PIDCommand (new)** from the drop down list.  Call the command *DriveDistancePID*.  The constructor of the new *DriveDistancePID* command is shown in the diagram.  
+### Drive Robot a Specified Distance
+To create a *PIDCommand* in VSCode right click under the commands folder and select *Create a new class/command*.  Then select **PIDCommand (New)** from the drop down list.  Call the command *DriveDistancePID*.  The constructor of the new command is shown in the diagram.  
 
 ![Commands](../../images/Romi/Romi.041.jpeg)
 
@@ -134,7 +134,7 @@ In order to run the command you'll need to add it to the SendableChooser in the 
 
     m_chooser.addOption("Drive Distance PID", new DriveDistancePID(0.5, m_drivetrain));
 
-#### Testing the DriveDistancePID Command
+#### <a name="driveDistance"></a>Testing the DriveDistancePID Command
 Now connect your laptop to a Romi and test your code.  When the Simulator starts we'll need to pull some components onto the dashboard in order to see how the command is functioning.  First make sure that you have the dropdown list of commands by selecting *NetworkTables->SmartDashboard->SendableChooser*.  Then from *NetworkTables->LiveWindow* select the two components shown on the picture below.  When you're done your dashboard should show the following four components:
 
 ![Testing PID Command](../../images/Romi/Romi.073.jpeg)
@@ -152,7 +152,7 @@ For more details on what we've just done read the [PID Control through PIDSubsys
 
 When you're happy with how the robot is moving you've now completed this task!
 
-### The TurnToAnglePID Command
+### Rotate the Robot to a Specified Angle
 The process for creating this command will be very similar to the DriveDistancePID command.  This command will rotate the robot to a specified angle.  
 
 Create a new PIDCommand using the method in the previous lab and call it *TurnToAnglePID*.  We again need a *PIDController* with the **P**roportional, **I**ntegral, and **D**erivative values.  We'll start with the **P** set to `0.04` and **I**, **D** set to zero.  These values will be very different from the ones used to drive distance so create a new set of constants in the *Constants* file.  
@@ -213,7 +213,7 @@ Before testing the command add it to the SendableChooser in the *RobotContainer*
 
         m_chooser.addOption("Turn To Angle PID", new TurnToAnglePID(90, m_drivetrain));
 
-#### Testing the TurnToAnglePID Command
+#### <a name="turnToAngle"></a>Testing the TurnToAnglePID Command
 Ensure that you have the *SendableChooser* and *LiveWindow/Drivetrain* components are displayed on your Simulator, as in the previous test.  For this test you'll select *PIDController[2]* instead of *PIDController[1]*.  This time, we're going to use a plot to track the heading of the robot as it turns.  From the topbar click **Plot** and then **Add plot**.  Drag the **Heading Deg.** value into the plot window.  Next, edit the plot by right clicking on the plot window topbar and change the range values to `-400` and `400`.  This will show the full range of the robot heading.
 
 ![Testing PID Plot](../../images/Romi/Romi.074.jpeg) 
@@ -231,7 +231,7 @@ Keep tuning until you're happy with the results, each robot will react different
 
 Once you've finishied tuning you're done with this task!
 
-<!-- ### Bonus Lap - Changing the PID Values from the Simulator -->
+<!-- ### Bonus Lab - Changing the PID Values from the Simulator -->
 <!-- We would want to change the PID values from Shuffleboard and see the results without restarting our program.  To do this we will add in the Network Tables instance and table to our program:
 
     private static NetworkTableInstance inst = NetworkTableInstance.getDefault();
