@@ -11,7 +11,7 @@ Git is a <i>Version Control System (VCS)</i> for keeping track of changes in fil
 
 If you are on Windows you may need to download git bash from the following URL:
 
-[Git bash for Windows](https://gitforwindows.org)
+[Git for Windows](https://gitforwindows.org)
 
 The following sections will step through the process of creating an repository, committing code and pushing it to a remote repository on GitHub.  We'll look at how to do this at the command line and within VSCode.
 
@@ -86,7 +86,7 @@ To verify, type
 
       git config --global user.email
 
-> Note: If you still get the message "Failed to authenticate to get remote" in VSCode you can try the following: Go to *Settings -> Authentification -> Git: Terminal Authentification* and uncheck it.      
+<!-- > Note: If you still get the message "Failed to authenticate to get remote" in VSCode you can try the following: Go to *Settings -> Authentification -> Git: Terminal Authentification* and uncheck it.       -->
 
 ## Staging and Committing
 Now that we have initialized and configured the repository we can now stage and commit our files.  We're going to move our files to a staging area in preparation for a commit to the repository.
@@ -157,7 +157,7 @@ Leave the add README and .gitignore unchecked.  We'll add these later.
 
 ![Readme File](../images/FRCTools/FRCTools.005.jpeg)
 
-We now have to connect our local Git repository with the remote GitHub repository.
+We now have to connect our local Git repository with the remote GitHub repository.  First, go to settings in VSCode and type `git enable` in the search bar.  Make sure that *git enable* is checked.
 
 ![Remote Push](../images/FRCTools/FRCTools.006.jpeg)
 

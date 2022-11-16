@@ -254,7 +254,7 @@ Adjust the PID parameters and tolerance until you have a satisfactory result.
 
 Once you're happy with the results you're done with this task!
 
-### Bonus Lab - Drive a Square Path
+### Bonus Task - Drive a Square Path
 
 This lab still to be written.
 

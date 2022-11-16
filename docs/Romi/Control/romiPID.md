@@ -46,11 +46,15 @@ This lab builds on the code that you wrote in the [Telemetry](romiTelemetry.md) 
 
 - *Functional Interfaces* specifically the *Supplier* and *Consumer* interfaces.
 
-There are two tasks for this lab:
+- The Java keyword [super](https://www.w3schools.com/java/ref_keyword_super.asp) to call superclass (parent) class methods.
+
+There are three tasks for this lab:
 
 - *DriveDistancePID* that will drive the robot a specified distance.
 
-- *TurnToAnglePID* that will allow the robot to turn to a specified angle.  
+- *TurnToAnglePID* that will allow the robot to turn to a specified angle. 
+
+- Change the PID gains from the Simulator or Shuffleboard to make PID tuning more efficient.
 
 ### Drive Robot a Specified Distance
 To create a *PIDCommand* in VSCode right click under the commands folder and select *Create a new class/command*.  Then select **PIDCommand (New)** from the drop down list.  Call the command *DriveDistancePID*.  The constructor of the new command is shown in the diagram.  
@@ -231,28 +235,47 @@ Keep tuning until you're happy with the results, each robot will react different
 
 Once you've finishied tuning you're done with this task!
 
-<!-- ### Bonus Lab - Changing the PID Values from the Simulator -->
-<!-- We would want to change the PID values from Shuffleboard and see the results without restarting our program.  To do this we will add in the Network Tables instance and table to our program:
+### Changing the PID Gains from the Simulator
+While we're tuning the PID gain values we are constantly having to recompile the program and restart the Simulator in order to check the results.  It would be useful if we could change PID gains from the Simulator or Shuffleboard without restarting the program.  We can do this by adding the values to Shuffleboard.  These values need to be available prior to running the commands, so add them to the `setupShuffleboard()` method in the *Drivetrain*.  The following code sample adds the PID gains for the *DriveDistancePID* command. They'll be added to the *Drivetrain* tab. You should also add the PID gains for the *TurnToAnglePID* command.  Make sure that you give them a different name and position on Shuffleboard.
+
+    // Add PID tuning parameters (distance)
+    m_distanceP = m_driveTab.add("DistancekP", Constants.kPDriveVel)
+      .withPosition(0, 3)
+      .getEntry();  
+
+    m_distanceI = m_driveTab.add("DistancekI", Constants.kIDriveVel)
+      .withPosition(0, 4)
+      .getEntry();  
+
+    m_distanceD = m_driveTab.add("DistancekD", Constants.kDDriveVel)
+      .withPosition(0, 5)
+      .getEntry();    
+
+We need to add Network Tables to each of our PID commands in order to communicate with the robot. Create a member variable called `m_table` to each of the commands where you need to tune PID.  The following lines are placed within the class above the constructor.  You'll need to import the Network Table classes.  The values will be retrieved from the *Drivetrain* tab in Shuffleboard.  You can get more detailed information on [Network Tables](https://docs.wpilib.org/en/stable/docs/software/networktables/index.html) in the FRC documentation.
 
     private static NetworkTableInstance inst = NetworkTableInstance.getDefault();
-    private static NetworkTable table = inst.getTable("Shuffleboard/Drivetrain");
+    private static NetworkTable m_table = inst.getTable("Shuffleboard/Drivetrain");
 
-Then override the PID command's `initialize()` method to update the *P* and *D* parameters:
+Now create a new `initialize()` method in your command.  This method is inherited (extended) from *PIDCommand* class.  You must call the superclass's `initialize()` method since it resets the PID controller prior to each run of the command.  You do this by using the Java keyword [super](https://www.w3schools.com/java/ref_keyword_super.asp). The `initialize()` method calls `getController()` from the *PIDCommand* class to set the PID gains prior to executing the command.  The following code example sets the `DriveVel` gains that would be placed in the *DriveDistancePID* command.
 
     public void initialize() {
-      super.initialize();
-      // Override PID parameters from Shuffleboard
-      getController().setP(table.getEntry("kP").getDouble(1.0));
-      getController().setD(table.getEntry("kD").getDouble(0.0));
+        super.initialize();
+        // Override PID parameters from Shuffleboard
+        getController().setSetpoint(m_table.getEntry("Distance").getDouble(0.0));
+        getController().setP(m_table.getEntry("kP").getDouble(Constants.kPDriveVel));
+        getController().setI(m_table.getEntry("kI").getDouble(Constants.kIDriveVel));
+        getController().setD(m_table.getEntry("kD").getDouble(Constants.kDDriveVel));
     }
 
-You can also override the `execute()` method to add Shuffleboard diagnostics.
+Run the Simulator to test your change.  The new PID gain values will show up under the *NetworkTables->Shuffleboard->Drivetrain* window.  You can change these values and rerun your PID command without having to restart the Simulator.  Prior to re-running each test you have to reset the odometry.  You created the *ResetOdometry* command in a previous lab, so you can run it by selecting it from the *SendableChooser* menu and running **Autonomous**.
 
-    public void execute() {
-      super.execute();
-      SmartDashboard.putNumber("Pos. Error", getController().getPositionError());
-      SmartDashboard.putBoolean("atGoal", getController().atGoal());
-    } -->
+You can also change the PID gains from Shuffleboard.  Once you move to the competition robot you won't be using the Simulator so you'll only be able to change these values from Shuffleboard.
+
+![SysID Tool](../../images/FRCTools/FRCTools.026.jpeg)
+
+Run the commands several times testing the new PID gain values.  Try tuning it to run on the floor carpet and the desktop.  You may find that the PID gain values are different.
+
+You're now done with the Basic PID command tasks!
 
 ## References
 

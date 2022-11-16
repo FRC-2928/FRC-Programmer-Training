@@ -62,7 +62,7 @@ nav:
             - Concepts/Dynamics/kinematics.md
             - Concepts/Dynamics/geometry.md
             - Concepts/Dynamics/dynamicalSystems.md
-            - Concepts/Dynamics/pathsTrajectories.md
+            # - Concepts/Dynamics/pathsTrajectories.md
         - 'Optimal Estimation':
             - Concepts/OptimalEstimation/optimalEstimationIndex.md
             - Concepts/OptimalEstimation/poseEstimation.md

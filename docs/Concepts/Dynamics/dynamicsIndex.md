@@ -7,7 +7,7 @@ We'll start by looking at the Position and Orientation of the robot referred to 
 - [Position & Orientation](geometry.md)
 - [Dynamical Systems](dynamicalSystems.md)
 <!-- - [Motion Profiles](motionProfiles.md) -->
-- [Paths and Trajectories](pathsTrajectories.md)
+<!-- - [Paths and Trajectories](pathsTrajectories.md) -->
 <!-- - [System Identification](systemId) -->
 ## References
 <!-- 
