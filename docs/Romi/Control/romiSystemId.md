@@ -25,8 +25,7 @@ The *SysID Tool* display should look like this:
 The first step is to [Configuring the Project](https://docs.wpilib.org/en/stable/docs/software/pathplanning/robot-characterization/configuring-project.html#configuring-a-project) for your specific mechanism. You'll need to know some details about your system, such as the motors, encoders, and gyro.  You can get most of this information from the electrical team.
 
 ## Deploying the Project
-
-[Deploying the Project](https://docs.wpilib.org/en/stable/docs/software/pathplanning/robot-characterization/configuring-project.html#deploying-project).
+Once your project has been configured, you can deploy the robot project that gathers the data for System Identification. See [Deploying the Project](https://docs.wpilib.org/en/stable/docs/software/pathplanning/robot-characterization/configuring-project.html#deploying-project) in the FRC Documentation.  If you're deploying to the RoboRIO the data gathering project code is uploaded and ran directly on the RoboRIO.  For the Romi, the code is executed from VSCode and which communicates with the Romi via the Simulator.
 
 ## Analysis the Data
 [Analysing Data](https://docs.wpilib.org/en/stable/docs/software/pathplanning/robot-characterization/analyzing-data.html)
@@ -44,25 +43,23 @@ There are three tasks for this lab:
 Ensure that the gyro has been [calibrated using the web UI](https://docs.wpilib.org/en/stable/docs/romi-robot/web-ui.html#imu-calibration)
 
 ### Use the System Identification Tool
-For this task we're going to run system identification on the Romi.  We'll need to run some code in the Simulator that will run the Romi and collect analysis data. Open the *romi-characterization-sysid* project from [RomiExamples](https://github.com/FRC-2928/RomiExamples).  Connect to a Romi and run the Simulator.
+For this task we're going to run system identification for the Romi.  As noted above, the data gathering code will be executed from VSCode and the Simulator will be used to communicate with the Romi.  Open the *romi-characterization-sysid* project from [RomiExamples](https://github.com/FRC-2928/RomiExamples).  Connect to a Romi and execute the code.
 
 Next, start the **SysID Tool**, see [Starting SysID](romiSystemId.md#startSysid).  We'll first need to configure the tool for the Romi, which is done from the **Generator** window.  Select Romi for the **Analysis Type**.  You'll notice that all of the other sections in the **Generator** window will go away.  This is because all of the components on the Romi are already known to the tool.  Consequently, there's no *Save* button for the configuration.
 
 ![Configure SysID](../../images/FRCTools/FRCTools.024.jpeg)
 
-In the **Logger** window, change mode from *Disabled* to *Client* and type `localhost` into *Team/IP* field. Click on *Apply* and the status field will change from **NT Disconnected** to **NT Connected**.  
+We're now ready to run the tests that gather the data.  In the **Logger** window, change mode from *Disabled* to *Client* and type `localhost` into *Team/IP* field. Click on *Apply* and the status field will change from **NT Disconnected** to **NT Connected**.  
 
 The encoder data that gets sent to *SysId* is in terms of wheel rotations (and not distance traveled), so you would need to change *Unit* in *Project Parameters* section to *Rotations*. Leave the Units per Rotation at `1.0` meters, since that is accounted for in the *romi-characterization-sysid* code. 
-
-<!-- I should add that we designed our encoder-reading functions so that they all return in units of meters (i.e. all gearing, counts per revolution information, etc. is accounted for in the robot code so the units to choose in SysId are Unit Type=Meters and UnitsPerRotation=1.0) -->
-
-<!-- The diameter of the wheels on the Romi is `0.07` meters, therefore the *Units per Rotation* will be `0.07 * Pi = 0.22` rounded to two decimal places. -->
 
 Before running the tests, it's best to get the Simulator and SysID tool displays onto one screen of your laptop, since you'll need to switch quickly between them.  Also, place the Romi on the floor and make sure that you have at least 10 feet of space.  Start with the *Quasistatic forward* test and follow the instructions.  Switch to the Simulator and put the Romi in **Autonomous** mode.  Click **Disabled** before the Romi runs out of space.  Go back to the SysID Tool and click **End**.  Run the other three tests in a similar manner.  Read the [Instructions](https://docs.wpilib.org/en/stable/docs/software/pathplanning/system-identification/identification-routine.html#running-tests) in the FRC documentation for more information.  
 
 After running the tests, save the results into the *romi-characterization-sysid* project folder.
 
-We're now going to analyze the data...
+Let's analyze the data.  The Feedforward analysis gives you the `Ks`, `Ks`, and `Ka` voltage values required to drive the Romi forward. These values are explained in the [Feedforward Control](../../Concepts/Dynamics/geometry.md#feedforward) module of the training guide.
+
+![Romi Analyzed Data](../../images/FRCTools/FRCTools.027.jpeg)
 
 ### Use Cascade Control
 One problem with the *DriveDistanceProfiled* command that you created in the last lab is that the robot may not drive straight. One way we can fix this is to use *Cascade Control*, where we nest one PID controller inside another.  The outer PID controller will control the distance and the inner PID controller will control the motor speeds. For a more detailed explaination of this process see [Cascade Control](../../Concepts/Control/classicalControl.md#cascadeLoops) in this training guide.

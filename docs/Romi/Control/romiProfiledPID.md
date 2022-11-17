@@ -131,9 +131,9 @@ The `isFinished()` method will return a different value from our previous PID co
       return getController().atGoal();
     }
 
-Before testing, add the command to the SendableChooser in the *RobotContainer* class.  Have the robot travel for distance of `0.5` meters.
+Before testing, add the command to the SendableChooser in the *RobotContainer* class.  Have the robot travel for distance of `1.0` meter.  This should be enough distance to see the three phases of the trapezoid profile; acceleration, coast, and deceleration.
 
-    m_chooser.addOption("Profiled Distance PID", new DriveDistanceProfiled(0.5, m_drivetrain));
+    m_chooser.addOption("Profiled Distance PID", new DriveDistanceProfiled(1.0, m_drivetrain));
 
 That should be all, so go ahead and test the command.
 
