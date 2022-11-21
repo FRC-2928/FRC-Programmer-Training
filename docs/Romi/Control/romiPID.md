@@ -235,7 +235,7 @@ Keep tuning until you're happy with the results, each robot will react different
 
 Once you've finishied tuning you're done with this task!
 
-### Changing the PID Gains from the Simulator
+### <a name="pidGains"></a>Changing the PID Gains from the Simulator
 While we're tuning the PID gain values we are constantly having to recompile the program and restart the Simulator in order to check the results.  It would be useful if we could change PID gains from the Simulator or Shuffleboard without restarting the program.  We can do this by adding the values to Shuffleboard.  These values need to be available prior to running the commands, so add them to the `setupShuffleboard()` method in the *Drivetrain*.  The following code sample adds the PID gains for the *DriveDistancePID* command. They'll be added to the *Drivetrain* tab. You should also add the PID gains for the *TurnToAnglePID* command.  Make sure that you give them a different name and position on Shuffleboard.
 
     // Add PID tuning parameters (distance)
@@ -262,9 +262,9 @@ Now create a new `initialize()` method in your command.  This method is inherite
         super.initialize();
         // Override PID parameters from Shuffleboard
         getController().setSetpoint(m_table.getEntry("Distance").getDouble(0.0));
-        getController().setP(m_table.getEntry("kP").getDouble(Constants.kPDriveVel));
-        getController().setI(m_table.getEntry("kI").getDouble(Constants.kIDriveVel));
-        getController().setD(m_table.getEntry("kD").getDouble(Constants.kDDriveVel));
+        getController().setP(m_table.getEntry("DistancekP").getDouble(Constants.kPDriveVel));
+        getController().setI(m_table.getEntry("DistancekI").getDouble(Constants.kIDriveVel));
+        getController().setD(m_table.getEntry("DistancekD").getDouble(Constants.kDDriveVel));
     }
 
 Run the Simulator to test your change.  The new PID gain values will show up under the *NetworkTables->Shuffleboard->Drivetrain* window.  You can change these values and rerun your PID command without having to restart the Simulator.  Prior to re-running each test you have to reset the odometry.  You created the *ResetOdometry* command in a previous lab, so you can run it by selecting it from the *SendableChooser* menu and running **Autonomous**.

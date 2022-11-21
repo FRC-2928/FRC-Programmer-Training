@@ -27,20 +27,32 @@ The first step is to [Configuring the Project](https://docs.wpilib.org/en/stable
 ## Deploying the Project
 Once your project has been configured, you can deploy the robot project that gathers the data for System Identification. See [Deploying the Project](https://docs.wpilib.org/en/stable/docs/software/pathplanning/robot-characterization/configuring-project.html#deploying-project) in the FRC Documentation.  If you're deploying to the RoboRIO the data gathering project code is uploaded and ran directly on the RoboRIO.  For the Romi, the code is executed from VSCode and which communicates with the Romi via the Simulator.
 
+There are four tests that you run to gather the data.  The first two gradually accelerate the robot up to its maximum speed in both the forward and backward directions.  This is designed to access voltage verses speed.  The second two tests abuptly accelerate the robot up to full speed in the forward and backward directions.
+
 ## Analysis the Data
-[Analysing Data](https://docs.wpilib.org/en/stable/docs/software/pathplanning/robot-characterization/analyzing-data.html)
+The analysis will tell us how much Feedforward voltage is required to move the robot. It'll also tell us the maximum speed of the robot and suggest some starting PID values that we can try for our Feedback loops.  See [Analysing Data](https://docs.wpilib.org/en/stable/docs/software/pathplanning/robot-characterization/analyzing-data.html) in the FRC documentation.
 
 ## Lab - System Identification
-There are three tasks for this lab:
+In this lab we're going to run System Identification on the Romi.  We'll analyze the data and use it to create a cascaded PID loop to drive the robot in a straight line.
+
+In this lab you'll learn about the following Java programming concepts:
+
+- Java example of returning an object from a method and extracting its attributes.
+
+There are four tasks for this lab:
 
 - Calibrate the gyro.
 
-- Configure and run the System Identification Tool for the Romi.
+- Configure and run the *System Identification* Tool for the Romi.
 
-- Use *Cascade Control* to drive the Romi in a straight line.
+- Log telemetry data on wheel speeds using the WPILib *DifferentialDriveWheelSpeeds* class.
+
+- Use [Cascade Control](../../Concepts/Control/classicalControl.md#cascadeLoops) and the data that you get from *System Identification* to drive the Romi in a straight line.
 
 ### Calibrate the Gyro
-Ensure that the gyro has been [calibrated using the web UI](https://docs.wpilib.org/en/stable/docs/romi-robot/web-ui.html#imu-calibration)
+Ensure that the gyro has been [calibrated using the web UI](https://docs.wpilib.org/en/stable/docs/romi-robot/web-ui.html#imu-calibration).  This will stop it from drifting.
+
+That's all for this task!
 
 ### Use the System Identification Tool
 For this task we're going to run system identification for the Romi.  As noted above, the data gathering code will be executed from VSCode and the Simulator will be used to communicate with the Romi.  Open the *romi-characterization-sysid* project from [RomiExamples](https://github.com/FRC-2928/RomiExamples).  Connect to a Romi and execute the code.
@@ -55,18 +67,86 @@ The encoder data that gets sent to *SysId* is in terms of wheel rotations (and n
 
 Before running the tests, it's best to get the Simulator and SysID tool displays onto one screen of your laptop, since you'll need to switch quickly between them.  Also, place the Romi on the floor and make sure that you have at least 10 feet of space.  Start with the *Quasistatic forward* test and follow the instructions.  Switch to the Simulator and put the Romi in **Autonomous** mode.  Click **Disabled** before the Romi runs out of space.  Go back to the SysID Tool and click **End**.  Run the other three tests in a similar manner.  Read the [Instructions](https://docs.wpilib.org/en/stable/docs/software/pathplanning/system-identification/identification-routine.html#running-tests) in the FRC documentation for more information.  
 
-After running the tests, save the results into the *romi-characterization-sysid* project folder.
+After running the tests, save the results into the *FRCProjects* folder that you created to keep your projects.
 
-Let's analyze the data.  The Feedforward analysis gives you the `Ks`, `Ks`, and `Ka` voltage values required to drive the Romi forward. These values are explained in the [Feedforward Control](../../Concepts/Dynamics/geometry.md#feedforward) module of the training guide.
+Let's examine the data starting with the **Feedforward** analysis.  The Feedforward analysis gives you the `Ks`, `Kv`, and `Ka` voltage values required to drive the Romi forward.  You'll use these values in your project (see the next task for this lab). These values will be called `ksVolts`, `kvVoltSecondsPerMeter`, and `kaVoltSecondsSquaredPerMeter` respectively in our project.  These values are explained in the [Feedforward Control](../../Concepts/Control/classicalControl.md#feedforward) module of the training guide. 
 
-![Romi Analyzed Data](../../images/FRCTools/FRCTools.027.jpeg)
+The analysis gives you the readout for each wheel. This will be useful in getting the Romi to go straight, since the wheels are commonly not going to be exactly the same leading to the Romi to curve either left or right.
+
+Prior to viewing the data you may need to change the "*Velocity Threashold*" value. Changing this value excludes data that is below a certain velocity. See [Improperly set Motion Threashold](https://docs.wpilib.org/en/stable/docs/software/pathplanning/system-identification/viewing-diagnostics.html#improperly-set-motion-threshold) in the FRC documetation.
+
+![Romi Feedforward Analysis](../../images/FRCTools/FRCTools.027.jpeg)
+
+Now we'll look at the **Feedback** analysis, which will give us the **P** and **D** gain values for the system. The **I** gain cannot be assessed with System Identification. The *Gain Preset* represents how the feedback gains are calculated for your specific controller.  Since we're using the WPILib PIDController for the Romi you can leave the *Gain Preset* at `Default`.  There are **P** and **D** gain values available for both a Position and Velocity loop. These values will be put into the *Constants* file of your project.
+
+![Romi Feedback Analysis](../../images/FRCTools/FRCTools.028.jpeg)
+
+Another interesting chart is the "*Dynamic Velocity vs. Time*" analysis.  This tells us the maximum velocity of the Romi.  On a smooth surface, like a desktop, you'll find the maximum velocity to be approximately `0.594` meters per second.  On a carpet that has more resistance the maximum velocity could be as low as `0.4` meters per second. How do we get that number?  The chart shows that there are approximately `2.7` wheel rotations per second. The Romi's wheel diameter is `0.07` meters, so to get the distance travelled per wheel rotation do the following calculation:
+
+        Distance travelled per wheel rotation = 0.07 * Pi = 0.22 meters
+
+Now multiple that by the number of wheel rotations per second to get meters per second:
+
+        Meters per second = 0.22 * 2.7 ~ 0.59 
+
+So the maximum speed of the Romi is approximately `0.59` meters per second.  Create a variable in the *Constants* file called  `kMaxSpeedMetersPerSecond` and set it equal to that value.  We'll use that as a speed constraint in some of our projects.
+
+![Romi Dynamic Analysis](../../images/FRCTools/FRCTools.029.jpeg)
+
+Record all of the feedback values `Ks`, `Kv`, and `Ka` for the **Combined**, **Left**, and **Right** wheel.  Also record the PID values `kP`, `kD`.  You'll need all of these values for the next task.  Calculate the meters per second by taking the maximum "*Velocity (rot p/s)*" from the "*Dynamic Velocity vs. Time*" chart and doing the following calculation:
+
+        "Meters per second" = "Velocity (rot p/s)" * "Meters per wheel rotation (0.22)"
+
+That's all for this task! 
+
+### Log Wheel Speeds
+It's sometimes useful to have a single data structure that includes both the left and right wheel speeds of a differential drive robot.  There's a WPILib data structure called *DifferentialDriveWheelSpeeds* that can be used for that purpose. See [Robot Kinematics](../../Concepts/Dynamics/kinematics.md) for more information. Create a method called `getWheelSpeeds()` that returns the left and right encoder rates in a single data structure.
+
+    /**
+    * Returns the current wheel speeds of the robot.
+    *
+    * @return The current wheel speeds
+    */
+    public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+        return new DifferentialDriveWheelSpeeds(m_leftEncoder.getRate(), m_rightEncoder.getRate());
+    }
+
+In the [Telemetry](../SC/romiTelemetry.md) lab we had already created some output for the wheel speeds.  Replace these with the return value from *DifferentialDriveWheelSpeeds*.
+
+        DifferentialDriveWheelSpeeds wheel_speeds = getWheelSpeeds();
+        SmartDashboard.putNumber("Left Wheel Speed", wheel_speeds.leftMetersPerSecond);
+        SmartDashboard.putNumber("Right Wheel Speed", wheel_speeds.rightMetersPerSecond);
+
+Start the Simulator and create a plot to view the wheel speeds.  Edit the plot by clicking on its window topbar and call it "*Wheel Speeds*".  Set the Y axis range between `-0.6` to `0.6`, since our maximum velocity was assessed at around 0.6 meters per second during System Identification.  Click on "*Add Plot*" and drag the *Left* and *Right Wheel Speed* telemetry values into the window.  Run one of the Autonomous commands to test the plot output.
+
+![Simulator Wheel Speeds](../../images/FRCTools/FRCTools.031.jpeg)
+
+You're now done with this task!
+
+<!-- In the Drivetrain's `setupShuffleboard()` method, create two data value to show the telemetry for the left and right wheel speeds.
+
+    m_leftWheelSpeedsEntry = m_driveTab.add("Left Wheel Speed", getWheelSpeeds().leftMetersPerSecond)
+        .withWidget(BuiltInWidgets.kGraph)      
+        .withSize(3,3)
+        .withPosition(13, 0)
+        .getEntry();
+    m_rightWheelSpeedsEntry = m_driveTab.add("Right Wheel Speed", getWheelSpeeds().rightMetersPerSecond)
+        .withWidget(BuiltInWidgets.kGraph)      
+        .withSize(3,3)
+        .withPosition(15, 0)
+        .getEntry();    
+
+Don't forget to record the data in the Drivetrain's `publishTelemetry()` method.
+
+        m_leftWheelSpeedsEntry.setDouble(getWheelSpeeds().leftMetersPerSecond);
+        m_rightWheelSpeedsEntry.setDouble(getWheelSpeeds().rightMetersPerSecond); -->
 
 ### Use Cascade Control
-One problem with the *DriveDistanceProfiled* command that you created in the last lab is that the robot may not drive straight. One way we can fix this is to use *Cascade Control*, where we nest one PID controller inside another.  The outer PID controller will control the distance and the inner PID controller will control the motor speeds. For a more detailed explaination of this process see [Cascade Control](../../Concepts/Control/classicalControl.md#cascadeLoops) in this training guide.
+One problem with the *DriveDistanceProfiled* command that you created in the [Drive Robot a Specified Distance](romiProfiledPID.md#driveDistanceProfiled) lab is that the robot may not drive straight. One way we can fix this is to use *Cascade Control*, where we nest one PID controller inside another.  The outer PID controller will control the distance and the inner PID controllers will control the motor speeds. For a more detailed explaination of this process see [Cascade Control](../../Concepts/Control/classicalControl.md#cascadeLoops) in this training guide.
 
 ![Cascade PID Controller](../../images/FRCControlSystems/FRCControlSystems.012.jpeg)
 
-Create the method `tankDriveVolts()` to send a voltage to each of the motors.
+Instead of using a percent output value with `arcadeDrive()` to drive the motors, we're going to need a method that accepts a voltage value.  Create the method called `tankDriveVolts()` to send voltages to each of the motors.  Log the voltage values to SmartDashboard so as we can debug our code.
 
     /**
     * Controls the left and right sides of the drive directly with voltages.
@@ -75,43 +155,56 @@ Create the method `tankDriveVolts()` to send a voltage to each of the motors.
     * @param rightVolts the commanded right output
     */
     public void tankDriveVolts(double leftVolts, double rightVolts) {
+        SmartDashboard.putNumber("Volts left", leftVolts);
+        SmartDashboard.putNumber("Volts right", rightVolts);
 
-      // Apply the voltage to the wheels
-      m_leftMotor.setVoltage(leftVolts);
-      m_rightMotor.setVoltage(rightVolts); 
-      m_diffDrive.feed();
+        // Apply the voltage to the wheels
+        m_leftMotor.setVoltage(leftVolts);
+        m_rightMotor.setVoltage(rightVolts); 
+        m_diffDrive.feed();
     }
 
-When we ran the SysId tool in the previous task we calculated the *Feedforward Gains* `kV`, `kS`, and `kA`.  We'll be using these gains to create a *SimpleMotorFeedforward* object.  The *SimpleMotorFeedforward* class calculates the amount of power required to drive the robot forward.  It takes into account factors like friction and inertia.  More information on the [SimpleMotorFeedforward](https://docs.wpilib.org/en/stable/docs/software/advanced-controls/controllers/feedforward.html#simplemotorfeedforward) class can be found in the FRC documentation. Add the feedforward gains and *SimpleMotorFeedforward* object to the *Constants* file.  
+When we ran the SysId tool in the previous task we calculated the *Feedforward Gains* `kV`, `kS`, and `kA`.  We'll be using these gains to create a *SimpleMotorFeedforward* object.  The *SimpleMotorFeedforward* class calculates the amount of power required to drive the robot forward.  It takes into account factors like friction and inertia.  More information on the [SimpleMotorFeedforward](https://docs.wpilib.org/en/stable/docs/software/advanced-controls/controllers/feedforward.html#simplemotorfeedforward) class can be found in the FRC documentation. Add the feedforward gains and *SimpleMotorFeedforward* object to the *Constants* file. Use the values that you recorded during System Identification.  These will differ from the example below for your robot. Create three *SimpleMotorFeedforward* objects, using the parameters shown below.
 
-    // The linear inertia gain, volts
-    public static final double ksVolts = 0.461;
+        // The linear inertia gain, volts
+        public static final double ksVolts = 0.5;
+        public static final double ksVoltsLeft = 0.50;
+        public static final double ksVoltsRight = 0.44;
 
-    // The linear velocity gain, volts per (meter per second)
-    // Increase this if you drive short
-    public static final double kvVoltSecondsPerMeter = 6.93;
+        // The linear velocity gain, volts per (meter per second)
+        public static final double kvVoltSecondsPerMeter = 1.888;
+        public static final double kvVoltSecondsPerMeterLeft = 1.888;
+        public static final double kvVoltSecondsPerMeterRight = 1.892;
 
-    // The linear acceleration gain, volts per (meter per second squared).
-    public static final double kaVoltSecondsSquaredPerMeter = 0.0737;
+        // The linear acceleration gain, volts per (meter per second squared).
+        public static final double kaVoltSecondsSquaredPerMeter = 0.46138;
+        
+        // Combined left and right volts feedforward
+        public static final SimpleMotorFeedforward kFeedForward = 
+            new SimpleMotorFeedforward(ksVolts, 
+                                        kvVoltSecondsPerMeter, 
+                                        kaVoltSecondsSquaredPerMeter);
 
-    public static final SimpleMotorFeedforward kFeedForward = 
-        new SimpleMotorFeedforward(ksVolts, 
-                                    kvVoltSecondsPerMeter, 
-                                    kaVoltSecondsSquaredPerMeter);
+        // Left and Right motors are very different, so each has its own FF.
+        public static final SimpleMotorFeedforward kLeftFeedForward = 
+            new SimpleMotorFeedforward(ksVoltsLeft, 
+                                        kvVoltSecondsPerMeterLeft, 
+                                        kaVoltSecondsSquaredPerMeter);
 
-We're going to need a PID controller for each wheel, so create them as attributes of the *Drivetrain* class by placing them above the constructor.  You had previously created PID controllers within a command.  This time they'll be used inline within our new *Drivetrain* method.
+        public static final SimpleMotorFeedforward kRightFeedForward = 
+            new SimpleMotorFeedforward(ksVoltsRight, 
+                                        kvVoltSecondsPerMeterRight, 
+                                        kaVoltSecondsSquaredPerMeter);
+
+We're going to need a PID controller for each wheel, so create them as attributes of the *Drivetrain* class by placing them above the constructor.  You had previously created PID controllers within a command.  This time they'll be used **Inline** within a new *Drivetrain* method that you're about to create.  For these controllers, place the PID gain values directly in the definition.  This will make things a little clearer during the tuning process. We'll be using different gain values for the outer PID loop that controls the travel distance. Since we'll be using feedforward, the **I** and **D** gain values can be set to zero.
 
     private final PIDController m_leftController =
-      new PIDController(Constants.kPDriveProfiled, 
-                        Constants.kIDriveProfiled, 
-                        Constants.kDDriveProfiled);
+        new PIDController(1.2, 0.0, 0.0);
 
     private final PIDController m_rightController =
-      new PIDController(Constants.kPDriveProfiled, 
-                        Constants.kIDriveProfiled, 
-                        Constants.kDDriveProfiled);   
+        new PIDController(1.2, 0.0, 0.0); 
 
-Now we have all of the components to create a new method that will accept a velocity and calculate a voltage value required for each motor.  It will first calculate the feedforward power and then adjust the power to get to the required velocity.  The feedforward is our best estimate of how much power we need to obtain the required velocity.  The PID controller looks at the actual velocity and adjusts accordingly.  These two values are added together to send the voltage to each wheel. 
+We now have all of the components needed to create our cascaded loops.  You may notice that there are multiple of ways to fine tune the control of our robot. There are several parameters that we can adjust to dial things in. To constuct the cascaded loops we'll need a new method that will accept a velocity and calculate a voltage value required for each motor.  It'll first calculate the feedforward power, which is our best estimate of how much voltage we need to obtain the required velocity.  The PID controllers then look at the actual velocity and adjusts accordingly.  These two values are added together to send the voltage to each wheel. Log all of the calculated values to the SmartDashboard for debugging.
 
     /**
     * Drives a straight line at the requested velocity by applying feedforward
@@ -122,30 +215,44 @@ Now we have all of the components to create a new method that will accept a velo
     */
     public void setOutputMetersPerSecond(double velocity) {
       
-      // Calculate feedforward voltage
-      double leftFeedforward = Constants.kFeedForward.calculate(velocity);
-      double rightFeedforward = Constants.kFeedForward.calculate(velocity);
-    
-      // Send it through a PID controller
-      double leftVelocity = m_leftController.calculate(m_leftEncoder.getRate(), velocity);
-      double rightVelocity = m_rightController.calculate(m_rightEncoder.getRate(), velocity);
-      
-      // double calibratedRightSpeed = output * Constants.rightVoltsGain;
-      tankDriveVolts(leftFeedforward + leftVelocity, rightFeedforward + rightVelocity);
+        // Calculate feedforward voltage
+        double leftFeedforward = Constants.kFeedForward.calculate(velocity);
+        double rightFeedforward = Constants.kFeedForward.calculate(velocity);
+        SmartDashboard.putNumber("Left Feedforward Volts", leftFeedforward);
+        SmartDashboard.putNumber("Right Feedforward Volts", rightFeedforward);
+  
+        // Send it through a PID controller
+        double leftPIDVolts = m_leftController.calculate(m_leftEncoder.getRate(), velocity);
+        double rightPIDVolts = m_rightController.calculate(m_rightEncoder.getRate(), velocity);
+        SmartDashboard.putNumber("Left PID Volts", leftPIDVolts);
+        SmartDashboard.putNumber("Right PID Volts", rightPIDVolts);
+        
+        // Add the voltage values and send them to the motors
+        tankDriveVolts(leftFeedforward + leftPIDVolts, rightFeedforward + rightPIDVolts);
     }
 
-So now we have a cascaded PID loops 
+Now we have cascaded PID loops.  The outer loop controls the distance and the inner loops control the amount of voltage that goes to each wheel motor. 
 
-Try this out by changing the output method in the *DriveDistanceProfiled* command from `arcadeDrive()` to `setOutputMetersPerSecond()`.
+Try this out by changing the output method in the *DriveDistanceProfiled* command.  Comment out `arcadeDrive()`.
 
-        drivetrain.arcadeDrive(output, 0);
+        // drivetrain.arcadeDrive(output, 0);
 
-Use the new method.
+Use the new `setOutputMetersPerSecond()` method.
 
-        drivetrain.setOutputMetersPerSecond(output, 0);
+        drivetrain.setOutputMetersPerSecond(output);
 
 #### Testing Cascade Control
+<!-- Make the PID gain values visible as shown in [Changing the PID Gains from the Simulator](romiPID.md#pidGains) -->
 
+Start the Simulator and run the *DriveDistanceProfiled* command one time to populate the voltage data into the SmartDashboard.  Create two plots to log the output from the command.  Call them *Left Volts* and *Right Volts*.  Set the Y axis range between `-7` to `7`, since 7 volts is the maximum value that the Romi puts out.  Drag the *Left* and *Right Feedforward Volts*, *PID Volts*, and *Volts* onto the each plot window.  Run the command again to see the results.  The plot windows should look like the following.
+
+![Simulator Wheel Voltages](../../images/FRCTools/FRCTools.032.jpeg)
+
+The reason we layed out the telemetry data in this way is so that we can see how the Feedforward and PID voltages contribute to the final voltage sent to each motor.  This helps us tune the control loops.  Try changing the PID values and the voltage values to get the robot running straight. 
+
+You should also open the plot that you created in the last task that shows the left and right wheel speeds to aid in tuning.
+
+Once you've got the Romi to go in a straight line you're done with this task!
 
 ## References
 - Videos [System Identification](https://www.youtube.com/playlist?list=PLlmlmzye-q9gC7DwJ0xObASeOWUeADxJW) by Brian Douglas

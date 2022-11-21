@@ -43,17 +43,17 @@ In this task you'll use telemetry to track the current position and heading of t
  
  It's preferrable to keep all of the telemetry data in one place, so create a function named `publishTelemetry()` at the bottom of the *Drivetrain* file.  The function should be `public void`, since it will return no data when it's invoked by the calling function. We'll use the *SmartDashboard* class to output details for the left and right encoders together with the robot heading.  
 
- If you examine the *SmartDashboard* class you'll notice that all of the methods are defined as `public static`.  This means that its methods can be accessed without creating an object of the class first.  This allows us to convenienty use the SmartDashboard functionality anywhere in our code.  Use SmartDashboard's `putNumber()` method to output the left encoder rate.  The encoder rate tells us the robot's velocity.  Here's an example of the syntax:
+ If you examine the *SmartDashboard* class you'll notice that all of the methods are defined as `public static`.  This means that its methods can be accessed without creating an object of the class first.  This allows us to convenienty use the SmartDashboard functionality anywhere in our code.  Use SmartDashboard's `putNumber()` method to output the left encoder rate.  The encoder rate tells us the wheel speed.  Here's an example of the syntax:
 
-        SmartDashboard.putNumber("Left Encoder Velocity", m_leftEncoder.getRate());
+        SmartDashboard.putNumber("Left Wheel Speed", m_leftEncoder.getRate());
  
 Remember that we're putting this in the `publishTelemetry()` method. Also publish the right encoder rate and the heading.  The robot heading can be obtained from the `getHeading()` method of the *Drivetrain*. When you're done the code should look like this:
 
     public void publishTelemetry() {
         
         // Display the meters per/second for each wheel and the heading
-        SmartDashboard.putNumber("Left Encoder Velocity", m_leftEncoder.getRate());
-        SmartDashboard.putNumber("Right Encoder Velocity", m_rightEncoder.getRate());
+        SmartDashboard.putNumber("Left Wheel Speed", m_leftEncoder.getRate());
+        SmartDashboard.putNumber("Right Wheel Speed", m_rightEncoder.getRate());
         SmartDashboard.putNumber("Heading", getHeading());
     }
 

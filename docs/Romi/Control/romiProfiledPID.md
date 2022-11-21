@@ -38,7 +38,7 @@ There are three tasks for this lab:
 
 - Use the *TurnToAngleProfiled* command to make the robot drive in a square path.  This task will require the use of a Group Command.
 
-## Drive Robot a Specified Distance
+## <a name="driveDistanceProfiled"></a>Drive Robot a Specified Distance
 To create a *ProfiledPIDCommand* in VSCode right click under the commands folder and select *Create a new class/command*.  Then select **ProfiledPIDCommand (New)** from the drop down list.  Call the command *DriveDistanceProfiled*.  The constructor of the new command is shown in the diagram.  
 
 ![Commands](../../images/Romi/Romi.050.jpeg)
@@ -253,6 +253,19 @@ Setup the Simulator in the same way that you did to test the [TurnToAnglePID](ro
 Adjust the PID parameters and tolerance until you have a satisfactory result.
 
 Once you're happy with the results you're done with this task!
+
+### Reset Odometry from a Command
+Create a method variable called `m_drivetrain` and initialize it to `drivetrain` in the constructor.
+
+Added the following code in the `initialize()` method to reset the odometry at the start of the command.  Place it before the call to `super`, since the parent method resets the controller odometry.
+
+    public void initialize() { 
+      // Reset the Odometry 
+      m_drivetrain.resetEncoders();
+      m_drivetrain.resetGyro();
+
+      super.initialize();
+    }
 
 ### Bonus Task - Drive a Square Path
 
