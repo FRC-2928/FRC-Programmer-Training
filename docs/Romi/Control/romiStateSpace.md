@@ -27,6 +27,18 @@ The *LinearSystemLoop* class constructs a state-space loop with the given plant,
 
 ![Linear System Loop](../../images/Romi/Romi.059.jpeg)
 
+## Lab - State Space Controllers
+
+There is currently no lab for this module.
+
+<!-- The code to create the trajectory configuration constraint:
+
+    public static final TrajectoryConfig config =
+      new TrajectoryConfig(kMaxSpeedMetersPerSecond, 
+                            kMaxAccelMetersPerSecondSquared)
+          .setKinematics(kDriveKinematics)
+          .addConstraint(kAutoVoltageConstraint); -->
+
 ## References
 - FRC Documentation - [State Space Controllers](https://docs.wpilib.org/en/stable/docs/software/advanced-controls/state-space/state-space-intro.html)
 

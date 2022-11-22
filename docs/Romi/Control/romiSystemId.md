@@ -25,11 +25,11 @@ The *SysID Tool* display should look like this:
 The first step is to [Configuring the Project](https://docs.wpilib.org/en/stable/docs/software/pathplanning/robot-characterization/configuring-project.html#configuring-a-project) for your specific mechanism. You'll need to know some details about your system, such as the motors, encoders, and gyro.  You can get most of this information from the electrical team.
 
 ## Deploying the Project
-Once your project has been configured, you can deploy the robot project that gathers the data for System Identification. See [Deploying the Project](https://docs.wpilib.org/en/stable/docs/software/pathplanning/robot-characterization/configuring-project.html#deploying-project) in the FRC Documentation.  If you're deploying to the RoboRIO the data gathering project code is uploaded and ran directly on the RoboRIO.  For the Romi, the code is executed from VSCode and which communicates with the Romi via the Simulator.
+Once your project has been configured, you can deploy the robot project that gathers the data for System Identification. See [Deploying the Project](https://docs.wpilib.org/en/stable/docs/software/pathplanning/robot-characterization/configuring-project.html#deploying-project) in the FRC Documentation.  If you're deploying to the RoboRIO the data gathering project code is uploaded and ran directly on the RoboRIO.  For the Romi, the code is executed from VSCode and communicates with the Romi via the Simulator.
 
 There are four tests that you run to gather the data.  The first two gradually accelerate the robot up to its maximum speed in both the forward and backward directions.  This is designed to access voltage verses speed.  The second two tests abuptly accelerate the robot up to full speed in the forward and backward directions.
 
-## Analysis the Data
+## Analysing the Data
 The analysis will tell us how much Feedforward voltage is required to move the robot. It'll also tell us the maximum speed of the robot and suggest some starting PID values that we can try for our Feedback loops.  See [Analysing Data](https://docs.wpilib.org/en/stable/docs/software/pathplanning/robot-characterization/analyzing-data.html) in the FRC documentation.
 
 ## Lab - System Identification
@@ -50,18 +50,18 @@ There are four tasks for this lab:
 - Use [Cascade Control](../../Concepts/Control/classicalControl.md#cascadeLoops) and the data that you get from *System Identification* to drive the Romi in a straight line.
 
 ### Calibrate the Gyro
-Ensure that the gyro has been [calibrated using the web UI](https://docs.wpilib.org/en/stable/docs/romi-robot/web-ui.html#imu-calibration).  This will stop it from drifting.
+Ensure that the gyro has been [calibrated using the web UI](https://docs.wpilib.org/en/stable/docs/romi-robot/web-ui.html#imu-calibration).  Gyros usually have some sort of zero-offset error that causes them to drift even when the robot is standing still.  With the Romi this is quite significant.  Calibrating the gyro will prevent most of the drifting. 
 
-That's all for this task!
+Once the calibration has been done this task is complete!
 
 ### Use the System Identification Tool
-For this task we're going to run system identification for the Romi.  As noted above, the data gathering code will be executed from VSCode and the Simulator will be used to communicate with the Romi.  Open the *romi-characterization-sysid* project from [RomiExamples](https://github.com/FRC-2928/RomiExamples).  Connect to a Romi and execute the code.
+For this task we're going to run system identification for the Romi.  As noted above, the data gathering code will be executed from VSCode, and the Simulator will be used to communicate with the Romi.  Open the *romi-characterization-sysid* project from [RomiExamples](https://github.com/FRC-2928/RomiExamples).  Connect to a Romi and execute the code.
 
 Next, start the **SysID Tool**, see [Starting SysID](romiSystemId.md#startSysid).  We'll first need to configure the tool for the Romi, which is done from the **Generator** window.  Select Romi for the **Analysis Type**.  You'll notice that all of the other sections in the **Generator** window will go away.  This is because all of the components on the Romi are already known to the tool.  Consequently, there's no *Save* button for the configuration.
 
 ![Configure SysID](../../images/FRCTools/FRCTools.024.jpeg)
 
-We're now ready to run the tests that gather the data.  In the **Logger** window, change mode from *Disabled* to *Client* and type `localhost` into *Team/IP* field. Click on *Apply* and the status field will change from **NT Disconnected** to **NT Connected**.  
+We're now ready to run the tests that gather the data.  In the **Logger** window, change mode from *Disabled* to *Client* and type `localhost` into *Team/IP* field. In our case, the client is the Simulator that's running on the same PC as the SysId tool. Click on *Apply* and the status field will change from **NT Disconnected** to **NT Connected**.  
 
 The encoder data that gets sent to *SysId* is in terms of wheel rotations (and not distance traveled), so you would need to change *Unit* in *Project Parameters* section to *Rotations*. Leave the Units per Rotation at `1.0` meters, since that is accounted for in the *romi-characterization-sysid* code. 
 
@@ -71,7 +71,7 @@ After running the tests, save the results into the *FRCProjects* folder that you
 
 Let's examine the data starting with the **Feedforward** analysis.  The Feedforward analysis gives you the `Ks`, `Kv`, and `Ka` voltage values required to drive the Romi forward.  You'll use these values in your project (see the next task for this lab). These values will be called `ksVolts`, `kvVoltSecondsPerMeter`, and `kaVoltSecondsSquaredPerMeter` respectively in our project.  These values are explained in the [Feedforward Control](../../Concepts/Control/classicalControl.md#feedforward) module of the training guide. 
 
-The analysis gives you the readout for each wheel. This will be useful in getting the Romi to go straight, since the wheels are commonly not going to be exactly the same leading to the Romi to curve either left or right.
+The analysis gives you the readout for each wheel. This will be useful in getting the Romi to go straight, since the wheels are commonly not going to be exactly the same leading to the Romi curving either left or right.
 
 Prior to viewing the data you may need to change the "*Velocity Threashold*" value. Changing this value excludes data that is below a certain velocity. See [Improperly set Motion Threashold](https://docs.wpilib.org/en/stable/docs/software/pathplanning/system-identification/viewing-diagnostics.html#improperly-set-motion-threshold) in the FRC documetation.
 
@@ -81,21 +81,19 @@ Now we'll look at the **Feedback** analysis, which will give us the **P** and **
 
 ![Romi Feedback Analysis](../../images/FRCTools/FRCTools.028.jpeg)
 
-Another interesting chart is the "*Dynamic Velocity vs. Time*" analysis.  This tells us the maximum velocity of the Romi.  On a smooth surface, like a desktop, you'll find the maximum velocity to be approximately `0.594` meters per second.  On a carpet that has more resistance the maximum velocity could be as low as `0.4` meters per second. How do we get that number?  The chart shows that there are approximately `2.7` wheel rotations per second. The Romi's wheel diameter is `0.07` meters, so to get the distance travelled per wheel rotation do the following calculation:
+Another interesting chart is the "*Dynamic Velocity vs. Time*" analysis.  This tells us the maximum velocity of the Romi.  On a smooth surface, like a desktop, you'll find the maximum velocity to be approximately `0.6` meters per second.  On a carpet that has more resistance the maximum velocity could be as low as `0.4` meters per second. How do we get that number?  The chart shows that there are approximately `2.7` wheel rotations per second. The Romi's wheel diameter is `0.07` meters, so to get the distance travelled per wheel rotation do the following calculation:
 
-        Distance travelled per wheel rotation = 0.07 * Pi = 0.22 meters
+        Meters per wheel rotation = 0.07 * Pi = 0.22 meters
 
-Now multiple that by the number of wheel rotations per second to get meters per second:
+Now multiple meters per wheel rotation by the number of wheel rotations per second shown in the graph to get meters per second:
 
-        Meters per second = 0.22 * 2.7 ~ 0.59 
+        "Meters per second" = "Velocity (rot p/s)" * "Meters per wheel rotation (0.22)"
 
-So the maximum speed of the Romi is approximately `0.59` meters per second.  Create a variable in the *Constants* file called  `kMaxSpeedMetersPerSecond` and set it equal to that value.  We'll use that as a speed constraint in some of our projects.
+So in this example the maximum speed of the Romi is approximately `0.59` meters per second.  Create a variable in the *Constants* file called  `kMaxSpeedMetersPerSecond` and set it equal to that value.  We'll use that as a speed constraint in some of our projects.
 
 ![Romi Dynamic Analysis](../../images/FRCTools/FRCTools.029.jpeg)
 
-Record all of the feedback values `Ks`, `Kv`, and `Ka` for the **Combined**, **Left**, and **Right** wheel.  Also record the PID values `kP`, `kD`.  You'll need all of these values for the next task.  Calculate the meters per second by taking the maximum "*Velocity (rot p/s)*" from the "*Dynamic Velocity vs. Time*" chart and doing the following calculation:
-
-        "Meters per second" = "Velocity (rot p/s)" * "Meters per wheel rotation (0.22)"
+Record all of the feedback values `Ks`, `Kv`, and `Ka` for the **Combined**, **Left**, and **Right** wheel.  Also record the PID values `kP`, `kD`.  You'll need all of these values for the next task.  
 
 That's all for this task! 
 
@@ -111,7 +109,7 @@ It's sometimes useful to have a single data structure that includes both the lef
         return new DifferentialDriveWheelSpeeds(m_leftEncoder.getRate(), m_rightEncoder.getRate());
     }
 
-In the [Telemetry](../SC/romiTelemetry.md) lab we had already created some output for the wheel speeds.  Replace these with the return value from *DifferentialDriveWheelSpeeds*.
+In the [Telemetry](../SC/romiTelemetry.md) lab we had already logged output values for the wheel speeds.  Replace these with the *DifferentialDriveWheelSpeeds* object returned from `getWheelSpeeds()`.
 
         DifferentialDriveWheelSpeeds wheel_speeds = getWheelSpeeds();
         SmartDashboard.putNumber("Left Wheel Speed", wheel_speeds.leftMetersPerSecond);
@@ -204,7 +202,7 @@ We're going to need a PID controller for each wheel, so create them as attribute
     private final PIDController m_rightController =
         new PIDController(1.2, 0.0, 0.0); 
 
-We now have all of the components needed to create our cascaded loops.  You may notice that there are multiple of ways to fine tune the control of our robot. There are several parameters that we can adjust to dial things in. To constuct the cascaded loops we'll need a new method that will accept a velocity and calculate a voltage value required for each motor.  It'll first calculate the feedforward power, which is our best estimate of how much voltage we need to obtain the required velocity.  The PID controllers then look at the actual velocity and adjusts accordingly.  These two values are added together to send the voltage to each wheel. Log all of the calculated values to the SmartDashboard for debugging.
+We now have all of the components needed to create our cascaded loops.  You may notice that there are multiple of ways to fine tune the control of our robot. There are several parameters that we can adjust to dial things in. To constuct the cascaded loops we'll need a new method that will accept a velocity and calculate a voltage value required for each motor.  It'll first calculate the feedforward power, which is our best estimate of how much voltage we need to obtain the required speed.  The PID controllers then look at the actual wheel speeds and adjusts accordingly.  These two voltage values are added together and sent to each wheel. Log all of the calculated values to the SmartDashboard for debugging.
 
     /**
     * Drives a straight line at the requested velocity by applying feedforward
@@ -231,7 +229,7 @@ We now have all of the components needed to create our cascaded loops.  You may 
         tankDriveVolts(leftFeedforward + leftPIDVolts, rightFeedforward + rightPIDVolts);
     }
 
-Now we have cascaded PID loops.  The outer loop controls the distance and the inner loops control the amount of voltage that goes to each wheel motor. 
+Now we have a cascaded PID loop.  The outer loop controls the distance and the inner loop controls the voltage that goes to each wheel motor. 
 
 Try this out by changing the output method in the *DriveDistanceProfiled* command.  Comment out `arcadeDrive()`.
 

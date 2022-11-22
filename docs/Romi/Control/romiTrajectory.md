@@ -54,9 +54,9 @@ The chassis speeds become the next setpoint for the PID controllers that get the
 
 ![Drivetrain Updates](../../images/Romi/Romi.055.jpeg)
 
+## Lab - Robot Trajectory
 
-
-
+There is currently no lab for this module.
 
 ## References
 

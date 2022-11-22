@@ -16,18 +16,8 @@ To improve the handling of our mechanisms, we often wish to command mechanisms t
 See [Trapezoidal Motion Profiles in WPILib](https://docs.wpilib.org/en/stable/docs/software/advanced-controls/controllers/trapezoidal-profiles.html) in the FRC documentation.
 
 
+<!-- ## <a name="trajectories"></a>Multi-Dimensional Trajectories -->
 
-## <a name="trajectories"></a>Multi-Dimensional Trajectories
-
-
-## <a name="lab"></a>Paths and Trajectories Lab
-The code to create the trajectory configuration constraint:
-
-    public static final TrajectoryConfig config =
-      new TrajectoryConfig(kMaxSpeedMetersPerSecond, 
-                            kMaxAccelMetersPerSecondSquared)
-          .setKinematics(kDriveKinematics)
-          .addConstraint(kAutoVoltageConstraint);
 
 ## References
 - FRC Documentation [Trajectory Generation and Following with WPILib](https://docs.wpilib.org/en/latest/docs/software/advanced-controls/trajectories/index.html)
