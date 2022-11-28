@@ -13,8 +13,8 @@ nav:
             - SoftwareInstall/testingIndex.md
             - Romi/SC/romiDev.md
             - SoftwareInstall/romiPiSoftware.md
-            - SoftwareInstall/romiFirmware.md
-            - SoftwareInstall/rioSoftware.md  
+            - SoftwareInstall/rioSoftware.md 
+            - SoftwareInstall/vendorSoftware.md   
 # - Romi Robot:
         - 'Romi Robot Basics': 
             - Romi/SC/romiSCIndex.md
@@ -39,6 +39,15 @@ nav:
             - Romi/Vision/romiImageProcessing.md
             - Romi/Vision/romiLineFollow.md
         
+        - 'RoboRIO Robot':
+            - RoboRIO/roboRIOIndex.md
+            - RoboRIO/driverStation.md
+            - RoboRIO/motorConfig.md
+            - RoboRIO/motorControl.md
+            - RoboRIO/pneumatics.md
+            - RoboRIO/gamepads.md  
+            - RoboRIO/pathWeaver.md      
+            - RoboRIO/limelight.md
 
         - 'Programming': 
             - Programming/introProgramming.md

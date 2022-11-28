@@ -20,7 +20,6 @@ When you are running code on a robot it's very useful to view how data is passin
 ![Testing Components](../images/FRCTools/FRCTools.021.jpeg)
 
 - [Romi Testing Environment](../Romi/SC/romiDev.md)
-- [Romi RaspberryPi Software](romiPiSoftware.md)
-- [Romi Micro Controller Firmware](romiFirmware.md)
+- [Romi Software](romiPiSoftware.md)
 - [Install RoboRIO & Radio Software](rioSoftware.md)
 - [Install Third-Party Libraries](vendorSoftware.md)

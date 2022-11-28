@@ -1,28 +1,12 @@
-# RoboRIO
-Driver Station and code deploy on the RIO
+# Introduction
+This section provides training on the competition robot powered by the *roboROI* processor.
 
-Configuring the motors and Encoders
+- [Driver Station](driverStation.md)
+- [Configuring Motors and Encoders](motorConfig.md)
+- [Motor Control](motorControl.md)
+- [Pneumatics Control](pneumatics.md)
+- [Joysticks & Gamepads](gamepads.md)   
+- [Trajectories and PathWeaver](pathWeaver.md)      
+- [Limelight Camara](limelight.md)
 
-Motor Control
-    Position, Velocity, Motion Magic.
-    setOutputMetersPerSecond
-
-- [Pheonix Examples](https://github.com/CrossTheRoadElec/Phoenix-Examples-Languages)    
-
-- [Pheonix Documentation](https://docs.ctre-phoenix.com/en/stable/)
-
-Pheonix Tuner
-- [Pheonix Tuner](https://docs.ctre-phoenix.com/en/stable/ch03_PrimerPhoenixSoft.html#what-is-phoenix-tuner)
-
-Gyro Pigeon
-- [Pigeon IMU](https://docs.ctre-phoenix.com/en/stable/ch11_BringUpPigeon.html)
-
-Transmission
-    Pneumatics
-
-DriverOI
-    Joysticks   
-
-Trajectories and PathWeaver      
-
-Limelight Camara
+## References
