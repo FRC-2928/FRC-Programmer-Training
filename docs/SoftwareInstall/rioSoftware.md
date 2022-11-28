@@ -54,29 +54,31 @@ This lab will get you familiar with how the software is installed and configured
 - Learn about the FRC Radio Configuration Utility
 
 ### Understand the roboRIO Imaging Tool
-Start the roboRIO robot and connect to it's IP address from your laptop.
+1. Start the roboRIO robot and connect to it's IP address from your laptop.
 
-Start the roboRIO Imaging Tool by clicking on the desktop icon. Once the tool starts make sure that it has connected to a *roboRIO Target*, top left panel. Also check the team number to see that it's correct.
+2. Launch the roboRIO Imaging Tool by clicking on the desktop icon. Once the tool starts make sure that it has connected to a *roboRIO Target*, top left panel. Also check the team number to see that it's correct.
 
-Next, take a note of the current *Firmware Version* and *Image Version*. You'll need these in the next task. It's important that the firmware and image software is kept up-to-date. 
-
-Answer the folling questions:
-
-Is the Firmware version up-to-date?  The firmware should be at the required minimum version. See [Updating Firmware](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-3/imaging-your-roborio.html#updating-firmware) to answer this question.
-
-Is the Image version up-to-date?  The image software should reflect the year that we are currently in.  If it's not up-to-date, read [Imaging the roboRIO](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-3/imaging-your-roborio.html#imaging-the-roborio) to learn how to update the Image software.  Work with a mentor or senior student programming lead to do the update.
+3. Take a note of the current *Firmware Version* and *Image Version*. You'll need these in the next task. It's important that the firmware and image software is kept up-to-date. 
 
 ![roboRIO Imaging Tool](../../images/FRCroboRIO/FRCroboRIO.001.jpeg)
 
-Read the [roboRIO Imaging Tool](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-3/imaging-your-roborio.html#roborio-imaging-tool) documentation and make sure that you understand each part of the tool.
+4. Answer the folling questions:
+
+- Is the Firmware version up-to-date?  The firmware should be at the required minimum version. See [Updating Firmware](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-3/imaging-your-roborio.html#updating-firmware) to answer this question.
+
+- Is the Image version up-to-date?  The image software should reflect the year that we are currently in.  If it's not up-to-date, read [Imaging the roboRIO](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-3/imaging-your-roborio.html#imaging-the-roborio) to learn how to update the Image software.  Work with a mentor or senior student programming lead to do the update.
+
+5. Read the [roboRIO Imaging Tool](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-3/imaging-your-roborio.html#roborio-imaging-tool) documentation and make sure that you understand each part of the tool.
 
 
 ### View the roboRIO Web Dashboard
-The *roboRIO Web Dashboard* gives detailed information on the configuration of the roboRIO. Open a web browser and enter the address of the roboRIO into the address bar `172.22.11.2` for USB, or `roboRIO-2928-FRC.local`.
+The *roboRIO Web Dashboard* gives detailed information on the configuration of the roboRIO. 
 
-Compare the *Firmware Version* and the *Image Version* with what you recorded in the last task. They should be the same if you're connected to the same robot. Read the documentation on [System Configuration Tab](https://docs.wpilib.org/en/stable/docs/software/roborio-info/roborio-web-dashboard.html#system-configuration-tab) and understand the purpose of each setting. Do NOT change any of the settings.
+1. Open a web browser and enter the address of the roboRIO into the address bar `172.22.11.2` for USB, or `roboRIO-2928-FRC.local`.
 
-Click on the Network icon in the left sidebar to view the network settings.  Read the [Network Settings Tab](https://docs.wpilib.org/en/stable/docs/software/roborio-info/roborio-web-dashboard.html#network-configuration) documentation to understand the purpose of each setting. Do NOT change any of the settings.
+2. Compare the *Firmware Version* and the *Image Version* with what you recorded in the last task. They should be the same if you're connected to the same robot. Read the documentation on [System Configuration Tab](https://docs.wpilib.org/en/stable/docs/software/roborio-info/roborio-web-dashboard.html#system-configuration-tab) and understand the purpose of each setting. Do NOT change any of the settings.
+
+3. Click on the Network icon in the left sidebar to view the network settings.  Read the [Network Settings Tab](https://docs.wpilib.org/en/stable/docs/software/roborio-info/roborio-web-dashboard.html#network-configuration) documentation to understand the purpose of each setting. Do NOT change any of the settings.
 
 ### Learn the FRC Radio Configuration Utility
 
