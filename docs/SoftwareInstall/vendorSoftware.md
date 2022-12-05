@@ -28,3 +28,5 @@ The install of the REV Robotics libraries is similar to that of the Phoenix soft
 Note, that you may have to uninstall and reinstall the libraries using **Manage Vendor Libraries** -> **Manage Current Libraries** in order to get IntelliSense to recognise them.
 
 ## References
+
+- CTRE - [Create a Project](https://docs.ctre-phoenix.com/en/latest/ch05a_CppJava.html)

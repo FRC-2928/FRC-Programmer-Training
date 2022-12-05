@@ -15,7 +15,7 @@ If you are on Windows you may need to download git bash from the following URL:
 
 The following sections will step through the process of creating an repository, committing code and pushing it to a remote repository on GitHub.  We'll look at how to do this at the command line and within VSCode.
 
-## Initializing the Repository
+## <a name="gitInit"></a>Initializing the Repository
 To start a new project at the command line:
 
 `$ mkdir MyProject`
@@ -52,7 +52,7 @@ You can also initialize a repository in VSCode.  This is usually done after you 
 
 ![VSCode Initialize Repository](../images/FRCTools/FRCTools.012.jpeg)
 
-## Configuring Username and Email
+## <a name="gitEmail"></a>Configuring Username and Email
 Before continuing with Git you’ll want to do a few things to customize your Git environment. You should only have to do these things only once on any given computer. You can also change them at any time by running through the commands again.
 
 Git comes with a tool called `git config` that lets you get and set configuration variables that control all aspects of how Git looks and operates. 
@@ -88,7 +88,7 @@ To verify, type
 
 <!-- > Note: If you still get the message "Failed to authenticate to get remote" in VSCode you can try the following: Go to *Settings -> Authentification -> Git: Terminal Authentification* and uncheck it.       -->
 
-## Staging and Committing
+## <a name="gitCommit"></a>Staging and Committing
 Now that we have initialized and configured the repository we can now stage and commit our files.  We're going to move our files to a staging area in preparation for a commit to the repository.
 
 ![Stage and Commit](../images/FRCTools/FRCTools.002.jpeg)
@@ -108,7 +108,7 @@ First, let's get a status from Git by typing the following command and reviewing
 
       nothing added to commit but untracked files present (use "git add" to track)
 
-The output is telling use that we are on the master branch, we'll look at branches later, and that there have been no commits. It also lists the untracked files.  These are files that have not yet been added to Gits' staging area. Let's do that now:
+The output is telling us that we are on the main branch, we'll look at branches later, and that there have been no commits. It also lists the untracked files.  These are files that have not yet been added to Gits' staging area. Let's do that now:
 
 `$ git add .`
 
@@ -144,8 +144,8 @@ The previous process can be done in VSCode by carrying out the steps in the foll
 
 ![Create GitHub Repository](../images/FRCTools/FRCTools.014.jpeg)
 
-## Pushing to the Remote Repository
-Before we can push our code to GitHub we need to go there and create a repository.
+## <a name="gitPush"></a>Pushing to the Remote Repository
+Before we can push code to our GitHub account we need to login and create a repository.  Click on the + (plus) icon at the top of the your Github home page and select "Create a Repository".
 
 ![Create GitHub Repository](../images/FRCTools/FRCTools.003.jpeg)
 
@@ -153,11 +153,13 @@ Enter the repository name and a description.  Select a Public repository.
 
 ![Name the Repository](../images/FRCTools/FRCTools.004.jpeg)
 
-Leave the add README and .gitignore unchecked.  We'll add these later.
+Leave the add README and .gitignore unchecked.  We'll add these later.  Click on "Create repository".
 
 ![Readme File](../images/FRCTools/FRCTools.005.jpeg)
 
-We now have to connect our local Git repository with the remote GitHub repository.  First, go to settings in VSCode and type `git enable` in the search bar.  Make sure that *git enable* is checked.
+We now have to connect our local Git repository with the remote GitHub repository.  After the repository is created is displays the commands required to set your local repository to the remote.  Copy and paste these commands one at a time into a terminal on your laptop and execute them.  The `<repository>` part of the remote origin URL should be your Github account name.
+
+Note: You may have to go to settings in VSCode and type `git enable` in the search bar.  Make sure that *git enable* is checked.
 
 ![Remote Push](../images/FRCTools/FRCTools.006.jpeg)
 
@@ -169,7 +171,7 @@ You can confirm the remote repository location by typing:
 
 And now we can push our code to the remote GitHub repository:
 
-`$ git push -u origin master`
+`$ git push -u origin main`
 
       Enumerating objects: 4, done.
       Counting objects: 100% (4/4), done.
@@ -185,7 +187,7 @@ You can setup VSCode to push to a remote repository using the following steps.  
 
 ![Setting Remote Repository](../images/FRCTools/FRCTools.013.jpeg)
 
-## Cloning a Repository
+## <a name="gitClone"></a>Cloning a Repository
 The primary reason for creating repositories is so that other people can view and edit your code.  The way we do that is to `clone` the repository.  You first need to get the URL of the repository that you want to clone. 
 
 ![Remote Push](../images/FRCTools/FRCTools.007.jpeg)

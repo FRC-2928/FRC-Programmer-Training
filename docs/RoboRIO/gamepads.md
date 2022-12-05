@@ -1,3 +1,0 @@
-# Joysticks and Gamepads
-
-## References

@@ -74,7 +74,7 @@ This lab will get you familiar with how the software is installed and configured
 ### View the roboRIO Web Dashboard
 The *roboRIO Web Dashboard* gives detailed information on the configuration of the roboRIO. 
 
-1. Open a web browser and enter the address of the roboRIO into the address bar `172.22.11.2` for USB, or `roboRIO-2928-FRC.local`.
+1. Open a web browser and enter the address of the roboRIO into the address bar `172.22.11.2` for USB, or `roboRIO-2928-FRC.local`.  Or try `10.29.28.2` if you are connected to the OM5P-AN radio.
 
 2. Compare the *Firmware Version* and the *Image Version* with what you recorded in the last task. They should be the same if you're connected to the same robot. Read the documentation on [System Configuration Tab](https://docs.wpilib.org/en/stable/docs/software/roborio-info/roborio-web-dashboard.html#system-configuration-tab) and understand the purpose of each setting. Do NOT change any of the settings.
 

@@ -111,7 +111,7 @@ We're now done creating our new heading method!
 
 <!-- [Add heading solution](solutionCreateHeading.md) -->
 
-### Add Comments
+### <a name="addComments"></a>Add Comments
 As you add functionality to your code some of the files may get quite long, so it's a good idea to divide them into sections by using comment separators.  In the *Drivetrain* class we'll add the following comment separators to group together methods that are logically related.  This will make them easier to find.  The comment sections will be:
 
 - **Initialization** - Includes everything required to construct and initialize the *Drivetrain* object.

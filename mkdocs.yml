@@ -39,13 +39,14 @@ nav:
             - Romi/Vision/romiImageProcessing.md
             - Romi/Vision/romiLineFollow.md
         
-        - 'RoboRIO Robot':
+        - 'RoboRIO Training Robots':
             - RoboRIO/roboRIOIndex.md
             - RoboRIO/driverStation.md
+            - RoboRIO/roboRIOStructure.md
+            - RoboRIO/roboRIOJoysticks.md  
             - RoboRIO/motorConfig.md
+            - RoboRIO/pneumatics.md           
             - RoboRIO/motorControl.md
-            - RoboRIO/pneumatics.md
-            - RoboRIO/gamepads.md  
             - RoboRIO/pathWeaver.md      
             - RoboRIO/limelight.md
 

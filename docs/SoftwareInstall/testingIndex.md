@@ -14,7 +14,8 @@ Once you have your code working in the simulator and Romi robot you can start *p
 - **Shuffleboard**  
 When you are running code on a robot it's very useful to view how data is passing through the system as it operates.  This is referred to as *Telemetry*.  Telemetry is the science of using automatic equipment to make measurements and transmit them to a receiving station.  Telemetry is critical to fine tuning a system and figuring out what went wrong in the event of a crash.  The main FRC tool for visualizing telemetry is [Shuffleboard](https://docs.wpilib.org/en/stable/docs/software/dashboards/shuffleboard/index.html).
 
-- **Phoenix Tuner**   
+- **Phoenix Tuner**  
+The [Phoenix Tuner](https://docs.ctre-phoenix.com/en/stable/ch03_PrimerPhoenixSoft.html#what-is-phoenix-tuner) is used to configure and motors supplied by *Cross The Road Electronics CTRE*.
 
 
 ![Testing Components](../images/FRCTools/FRCTools.021.jpeg)
