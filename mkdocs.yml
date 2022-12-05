@@ -40,7 +40,7 @@ nav:
             - Romi/Vision/romiLineFollow.md
         
         - 'RoboRIO Training Robots':
-            - RoboRIO/roboRIOIndex.md
+            - RoboRIO/roboRIOIdx.md
             - RoboRIO/driverStation.md
             - RoboRIO/roboRIOStructure.md
             - RoboRIO/roboRIOJoysticks.md  
