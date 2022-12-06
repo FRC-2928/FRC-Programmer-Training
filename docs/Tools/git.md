@@ -190,15 +190,24 @@ You can setup VSCode to push to a remote repository using the following steps.  
 ## <a name="gitClone"></a>Cloning a Repository
 The primary reason for creating repositories is so that other people can view and edit your code.  The way we do that is to `clone` the repository.  You first need to get the URL of the repository that you want to clone. 
 
-![Remote Push](../images/FRCTools/FRCTools.007.jpeg)
+![Get Repository URL](../images/FRCTools/FRCTools.007.jpeg)
 
-Then create a local directory in which to store the repository and change into that directory:
+Then in VSCode, select *File->New Window* and click on the Github icon.  Click Clone Repository and enter the repository URL that you just copied.  You'll be asked to select a local folder in which to save the cloned repository.  The repository will download from Github and you can now open it.
+
+![Clone Repository](../images/FRCTools/FRCTools.033.jpeg)
+
+Conceptually, this looks like the following:    
+
+![Clone Repository Diagram](../images/FRCTools/FRCTools.008.jpeg)
+
+### Cloning from the Command Line
+You can do this from the command line if you prefer. Create a local directory in which to store the repository and change into that directory:
 
 `$ mkdir MyClonedProject`
 
 `$ cd MyClonedProject/`
 
-Clone the repository:
+Then clone the repository:
 
 `$ git clone https://github.com/FRC-2928/MyProject.git`
 
@@ -209,9 +218,7 @@ Clone the repository:
       remote: Total 6 (delta 0), reused 6 (delta 0), pack-reused 0
       Unpacking objects: 100% (6/6), done.
 
-The output will tell you how many file objects have been downloaded.  Conceptually, this looks like the following:    
-
-![Clone Repository](../images/FRCTools/FRCTools.008.jpeg)
+The output will tell you how many file objects have been downloaded.  
 
 ## Project Version Control Strategy
 
