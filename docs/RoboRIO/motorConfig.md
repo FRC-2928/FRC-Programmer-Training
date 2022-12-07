@@ -1,7 +1,11 @@
 # Configuring Motors and Encoders
-Our team primarily uses the Talon FX/SRX motors supplied supplied by *Cross The Road Electronics CTRE* for the competition robot. These motors have a lot of features that need to be configured. This can be done using the [Phoenix Tuner](https://docs.ctre-phoenix.com/en/stable/ch03_PrimerPhoenixSoft.html#what-is-phoenix-tuner) or from the your Java program code.  Although you can set them up in the Tuner during testing, it's highly recommended to ultimately set them via the program code. This way, in the event a device is replaced, you can rely on your software to properly configured the new device, without having to remember to use Tuner to apply the correct values.
+Our team primarily uses the **Falcon 500** motors with integrated **Talon FX** controllers and the **Talon SRX** controllers.  The Falcon 500 is a brushless motor, custom designed specifically for the FIRST Robotics Competition. The Talon SRX controller can be used with **CIM** or **775pro** motors.  The Falcon 500 motors are more compact and require less wiring.
 
-The code segment below shows how the motors are configured for our drivetrain.  There are four motors to configure, which is done inside of a parameterized loop so as not to duplicate code. We first call the `configFactoryDefault()` routine to ensure motor controller is restored to a known state, thus allowing you to only config the settings that you intend to change.  Here's an explaination of some of the configuration parameters.
+![Motors and Controllers](../../images/FRCroboRIO/FRCroboRIO.006.jpeg)
+
+These motors have a lot of features that need to be configured. This can be done using the [Phoenix Tuner](https://docs.ctre-phoenix.com/en/stable/ch03_PrimerPhoenixSoft.html#what-is-phoenix-tuner) or from the your program code.  Although you can set them up in the Tuner during testing, it's highly recommended to ultimately set them via the program code. This way, in the event a device is replaced, you can rely on your software to properly configure the new device, without having to remember to use Tuner to apply the correct values.
+
+The code segment below shows how the motors are configured for our drivetrain.  There are four motors to configure, which is done within a parameterized loop so as not to duplicate code. We first call the `configFactoryDefault()` routine to ensure motor controller is restored to a known state, thus allowing you to only configure the settings that you intend to change.  Here's an explaination of some of the other configuration parameters.
 
 - The voltage compensation saturation config `configVoltageCompSaturation()` is used to determine what voltage represents 100% output.  The motors will adjust their outputs in response to the battery voltage measurement.
 
@@ -9,7 +13,7 @@ The code segment below shows how the motors are configured for our drivetrain.  
 
 - A device’s neutral deadband is the region where the controller demotes its output to neutral. This is configured using the `configNeutralDeadband()` function. See [Neutral Deadband](https://docs.ctre-phoenix.com/en/latest/ch13_MC.html?highlight=configneutraldeadband#neutral-deadband) in the Phoenix documentation.
 
-You learn about the other configuration parameters during the lab.
+You'll learn about some of the other configuration parameters during the lab.
 
 
     // Configure the motors
@@ -57,14 +61,20 @@ You learn about the other configuration parameters during the lab.
     m_rightLeader.setInverted(InvertType.InvertMotorOutput);
 
 
-Each motor will play a different roll depending on its position in the drivetrain.  For a differential drive robot we want the rear motors to exactly follow the commands sent to the front motors. In addition, the motors on the left side of the drivetrain would need to be going in the opposite direction than those on the right.  The `follow()` and `setInverted(InvertType)` functions are used to implement this arrangement.  Note that the the `setInverted(InvertType)` will instruct the motor controller to either match or oppose the direction of the master. Detailed information can be found in [Open-Loop Features](https://docs.ctre-phoenix.com/en/latest/ch13_MC.html?highlight=setInverted#open-loop-features) of the Phoenix documentation.
+Each motor will play a different roll depending on its position in the drivetrain.  For a differential drive robot we want the rear motors to exactly follow the commands sent to the front motors. In addition, the motors on the left side of the drivetrain would need to be going in the opposite direction than those on the right.  The `follow()` and `setInverted(InvertType)` functions are used to implement this arrangement.  Note that `setInverted(InvertType.FollowMaster)` will instruct the motor controller to match the direction of the lead motor. Detailed information can be found in [Open-Loop Features](https://docs.ctre-phoenix.com/en/latest/ch13_MC.html?highlight=setInverted#open-loop-features) of the Phoenix documentation.
 
 ![Motor Configuration](../../images/FRCroboRIO/FRCroboRIO.004.jpeg)
 
 ## Lab - Configure Motors
-In this lab your task is to research some of the motor configuration parameters.  Go to the [Phoenix Documentation Website](https://docs.ctre-phoenix.com/en/latest/index.html).  Use the search field to find results for the `setNeutralMode()`, `configSupplyCurrentLimit()`, `configSelectedFeedbackSensor()` motor configuration parameters and read the information provided.  You may have to do a page search after clicking on the result to find the parameter.  After doing your research answer the following questions.
+In this lab your task is to research some of the motor configuration parameters.  Go to the [Phoenix Documentation Website](https://docs.ctre-phoenix.com/en/latest/index.html).  Use the search field to find results for the `setNeutralMode()`, `configSupplyCurrentLimit()`, `configSelectedFeedbackSensor()` motor configuration parameters and read the information provided.  You may have to do a page search after clicking on the result to find the parameter.  After doing your research consider the following questions.
 
-1. Why would you use **Coast** for `setNeutralMode()` in the drivetrain rather than **Brake**?
+1. What are the two Netural Modes set by `setNeutralMode()` and what is the difference between them?
+
+2. What condition does the `configSupplyCurrentLimit()` setting try to prevent?
+
+3. What does the `configSelectedFeedbackSensor()` configuration do?  What are the default sensors for the TalonFX and TalonSRX?
+
+After thinking about these questions you're done with this task!
 
 ## References
 
@@ -73,3 +83,7 @@ In this lab your task is to research some of the motor configuration parameters.
 - CTRE - [Phoenix Tuner](https://docs.ctre-phoenix.com/en/stable/ch03_PrimerPhoenixSoft.html#what-is-phoenix-tuner)
 
 - FRC Documentation [Motors APIs](https://docs.wpilib.org/en/stable/docs/software/hardware-apis/motors/index.html)
+
+- CTRE - [Falcon 500 Motor User Guide](https://robotics.choate.edu/wp-content/uploads/2020/01/Falcon500UserGuide-20191101.pdf)
+
+- CTRE - [Talon SRX - User’s Guide](https://store.ctr-electronics.com/content/user-manual/Talon%20SRX%20User's%20Guide.pdf)

@@ -4,7 +4,7 @@ This tutorial shows how to map keys on a game controller to commands that will b
 It can become difficult to keep track of this key mapping, especially as more commands are added, so there needs to be a good way of organizing them.
 
 ## The *DriverOI* Class
-The *DriverOI* class is used to accept **O**perator **I**nput from game controllers.  It's main purpose is to map keys on the game controller to function names that describe the operation that's to be performed.  It somewhat follows a functional programming paradigm which describes *what* the function is doing and not *how* to do it.
+The *DriverOI* class is used to accept **O**perator **I**nput from game controllers.  It's main purpose is to map keys on the game controller to function names that describe the operation that's to be performed.  It somewhat follows a functional programming paradigm which describes *what* the function is doing rather than *how* to do it.
 
 <!-- Talk about inline commands... -->
 

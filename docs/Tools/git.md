@@ -220,19 +220,39 @@ Then clone the repository:
 
 The output will tell you how many file objects have been downloaded.  
 
-## Project Version Control Strategy
+<!-- ## Project Version Control Strategy
 
-![Clone Repository](../images/FRCTools/FRCTools.015.jpeg)
+![Clone Repository](../images/FRCTools/FRCTools.015.jpeg) -->
 
 ## Branching
 
 To delete a remote branch use `git branch -d <branch name>`
 
-## Merging
+## <a name="gitFolk"></a>Folking a Repository
+A fork is a new repository that shares code and visibility settings with the original “upstream” repository. The term "upstream" just means the original Github repository.  In most cases you may not have write access to the original repository, so this is useful if you want to update the code and try out ideas without effecting the original repository.  To folk a repository navigate to the Github repository that you want to folk and click the **Fork** button.  On the next screen, select your own Github account as the destination of the folk.  You can keep the same repository name or use a different name.  Click "Create Folk" to copy the repository.  You should now have a copy of the repository in your own account.
+
+![Folk Repository](../images/FRCTools/FRCTools.034.jpeg)
+
+## <a name="gitChangeOrigin"></a>Changing the Remote Repository Origin
+In some cases you might want to change to remote origin of a repository.  To do this follow these steps:
+
+1. From VSCode open a New Terminal and execute the following command.  Where `<repository>` is you own repository account name, and `<MyProject>` is the name of your local project.
+
+        git remote set-url origin https://github.com/<repository>/<MyProject>.git
+
+    
+2. Type in `git remote -v` to check that the remote repository has changed to your account.       
+
+3. Push the code to new Github repository origin by executing the following command in the terminal:
+
+        git push -u origin main
+
+4. Check your Github repository to ensure that the new code has been pushed.
+<!-- ## Merging
 
 ## The README.md File
 
-## The `.gitignore` File
+## The `.gitignore` File -->
 
 ## References 
 

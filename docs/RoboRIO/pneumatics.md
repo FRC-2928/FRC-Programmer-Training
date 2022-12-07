@@ -63,3 +63,5 @@ There is currently no lab for this tutorial.
 
 ## References
 - FRC Documentation [Pheumatics APIs](https://docs.wpilib.org/en/stable/docs/software/hardware-apis/pneumatics/index.html)
+
+- FRC Video on [Pneumatics](https://docs.wpilib.org/en/stable/docs/hardware/hardware-tutorials/pneumatics.html)

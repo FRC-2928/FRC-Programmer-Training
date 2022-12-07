@@ -10,33 +10,31 @@ The game controllers will be mapped to commands via a class called *DriverOI*.  
 The *Drivetrain* subsystem uses comments to divide it into four logical subsections; **Initialization**, **Control Input**, **System State**, and **Process Logic**.  This is the same division that we did in an eariler tutorial on the Romi and is described in the [Subsystems - Add Comments Lab](../Romi/SC/romiSubsystems.md#addComments).  One notable difference between the roboRIO robot and the Romi is how the drivetrain motors are configured.  These motors are more complex that the ones used on the Romi and have many more features that can be customized.  The Drivetrain also includes a *Transmission* class that can put the robot into high or low gear.  We'll look at that in the [Pneumatics Control](pneumatics.md) tutorial.
 
 ## Lab - Robot Structure
-There are two tasks for this lab:
+There are three tasks for this lab:
 
-- Clone the reference program for the training roboRIO robot and put a copy of it into your own  Github repository.
+- Folk the *SweetpantsReference* program for the training roboRIO robot into your own Github account.
+
+- Clone to *SweetpantsReference* program to your laptop.
 
 - Look at the code from the training roboRIO robot to learn how it's structured.  
 
-### Clone the Reference Program
-We're going to start our training on the roboRIO robots by cloning a reference program for a robot that we call *Sweetpants*. You'll then upload this reference program to your own Github account so as you can make changes to it.
+### Folk the Reference Program
+We're going to start our training on the roboRIO robots by **Folking** a reference program for a robot that we call *Sweetpants*. This will put a copy of the program into your own Github account so as you can make changes to it.
 
-1. In VSCode, clone the reference program for the training roboRIO robot from the [SweetpantsReference](https://github.com/FRC-2928/SweetpantsReference) repository.  For a reminder on how to do this refer to [Cloning a Repository](../Tools/git.md#gitClone).
+1. Navigate to the [SweetpantsReference](https://github.com/FRC-2928/SweetpantsReference) program for the training roboRIO robot.  
 
-2. Create a repository in your own Github account called **SweetpantsReference**.  You can follow the instructions for [Pushing to the Remote Repository](../Tools/git.md#gitPush) in this training guide to see how to create a repository.  You'll need to login to your Github account first.
+2. Follow the instructions on [Folking a Repository](../Tools/git.md#gitFolk) in this training guide to get a copy of the program into your own Github account.
 
-3. Change the remote origin of the **SweetpantsReference** repository from `FRC-2928` to your own repository URL.  From a terminal execute the following command where `<repository>` is you own repository account name. 
-
-        git remote set-url origin https://github.com/<repository>/SweetpantsReference.git
-
-    
-4. Type in `git remote -v` to check that the remote repository has changed to your account.       
-
-5. Push the code to your Github repository by executing the following command in the terminal:
-
-        git push -u origin main
-
-6. Check your Github repository to ensure that the new code has been pushed.
+3. Check your Github account to ensure that the new repository has been copied.  While you're there copy the repository URL by clicking on the **Code** button.
 
 You're now done with this task!
+
+### Clone the Reference Program
+Now that you have your own copy of the reference program you can clone it onto your laptop and make changes to it.
+
+In VSCode, clone the reference program for the training roboRIO robot from your own *SweetpantsReference* repository.  For a reminder on how to do this refer to [Cloning a Repository](../Tools/git.md#gitClone).
+
+Once you have your own personal copy to the reference program you're done with this task!
 
 ### Learn the roboRIO Code Structure
 The purpose of this task is to familiarize youself with the roboRIO code.
