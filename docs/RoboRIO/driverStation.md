@@ -14,8 +14,8 @@ The [Messages Tab](https://docs.wpilib.org/en/stable/docs/software/driverstation
 ## Lab - Driver Station
 There are two tasks for this lab:
 
-- Understand the Driver Station
-- Upload code to the roboRIO
+- Understand the Driver Station layout and controls.
+- Deploy code to the roboRIO.
 
 ## Understand the Driver Station
 This task is designed to get you familiar with the Driver Station.  The Driver Station is required to control the competition robot and is only available on Windows.
@@ -35,7 +35,7 @@ This task is designed to get you familiar with the Driver Station.  The Driver S
 You're now done with this task!
 <!-- [roboRIO Status Lights](https://docs.wpilib.org/en/stable/docs/hardware/hardware-basics/status-lights-ref.html#roborio) -->
 
-## Upload code to the roboRIO
+## Deploy Code to the roboRIO
 This task demonstraits how to upload your robot code to the roboRIO.
 
 1. Connect to the roboRIO robot and launch the Driver Station by double-clicking the icon on the Desktop.

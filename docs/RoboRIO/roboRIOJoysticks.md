@@ -51,8 +51,13 @@ In the `configureDrivetrain()` method add the button commands to shift the *Tran
     m_operatorOI.getShiftHighButton().whenPressed(new InstantCommand(m_transmission::setHigh, m_transmission));
 
 #### Testing the OperatorOI Class
+Start the DriveStation application and connect to the roboRIO robot.
 
-    
+Plug two game controllers into the laptop and view the [USB Devices Tab](https://docs.wpilib.org/en/stable/docs/software/driverstation/driver-station.html#usb-devices-tab) to ensure that the driver's controller is assigned to port `0` and the operator's controller is assigned to port `1`.
+
+Test that both the driver's and operator's controller can change the Transmission gears.
+
+You're now done with this task!
 
 ## References
 - [Joysticks](https://docs.wpilib.org/en/latest/docs/software/basic-programming/joystick.html#joysticks) - FRC Documentation 
