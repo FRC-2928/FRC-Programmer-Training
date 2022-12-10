@@ -36,7 +36,7 @@ Constraints can be position constraints (something in the way), control constrai
 
 A nonholonomic constraint does not restrain the possible configurations of the system, but rather the manner in which those configurations can be reached. While a holonomic constraint reduces the number of degrees of freedom of a system by one, a nonholonomic constraint does not.
 
-## <a name="lab"></a>Kinematics Lab
+<!-- ## <a name="lab"></a>Kinematics Lab
 In a previous module we setup methods to get the distance travelled in meters.  It would also be usefull to know how fast we're moving by getting the wheel speeds.  To do that we setup the following methods.
 
     public double getLeftEncoderRate() {
@@ -67,13 +67,8 @@ Add the DifferentialDriveKinematics constraint that you just created and the fee
                                           kvVoltSecondsPerMeter, 
                                           kaVoltSecondsSquaredPerMeter),
               kDriveKinematics,
-              10);
+              10); -->
 
 ## References
 
 - FRC Documentation - [Kinematics and Odometry](https://docs.wpilib.org/en/latest/docs/software/kinematics-and-odometry/index.html)
-
-<!-- <h3><span style="float:left">
-<a href="dynamicsIndex">Previous</a></span>
-<span style="float:right">
-<a href="geometry">Next</a></span></h3> -->

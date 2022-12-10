@@ -16,25 +16,29 @@ Let's take a look at the *DriveDistance* command to see how this all works. This
         }
 
         // Called when the command is initially scheduled.
+        @Override
         public void initialize() {
             m_drive.arcadeDrive(0, 0);
             m_drive.resetEncoders();
         }
 
         // Called every time the scheduler runs while the command is scheduled.
+        @Override
         public void execute() {
             m_drive.arcadeDrive(m_speed, 0);
         }
 
         // Called once the command ends or is interrupted.
+        @Override
         public void end(boolean interrupted) {
             m_drive.arcadeDrive(0, 0);
         }
 
         // Returns true when the command should end.
+        @Override
         public boolean isFinished() {
             // Compare distance travelled from start to desired distance
-            return Math.abs(m_drive.getAverageDistanceInch()) >= m_distance;
+            return Math.abs(m_drive.getAverageDistanceMeters()) >= m_distance;
         }
 
 
