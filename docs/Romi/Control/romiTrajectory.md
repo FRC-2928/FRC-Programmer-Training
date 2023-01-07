@@ -1,12 +1,47 @@
-# Path Planning and Trajectory Following
-Up until this point we've been doing straight line paths and point turns to get to our destination.  Ideally, we would want to follow a smooth curved path, which is more direct and efficient.  The methods used to do this is expained in this section.  View the first part of the video [Paths & Trajectories](https://robotacademy.net.au/masterclass/paths-and-trajectories/?lesson=109) to understand the difference between a Path and a Trajectory. The [Trajectory Tutorial](https://docs.wpilib.org/en/latest/docs/software/pathplanning/trajectory-tutorial/index.html) FRC documentation provides the outline for this module.
+# Trajectory Following
+Up until this point we've been doing straight line paths and point turns to get to our destination.  Ideally, we would want to follow a smooth curved path, which is more direct and efficient.  The methods used to do this is expained in this section.  The [Trajectory Tutorial](https://docs.wpilib.org/en/latest/docs/software/pathplanning/trajectory-tutorial/index.html) FRC documentation provides the outline for this module.  There are four steps to getting trajectory following working. You'll implement these steps in the lab for this module.
 
-## Setting up the Drivetrain Subsystem
+1. Add the parameters that were obtained from robot system identification
+
+2. Configure a drive subsystem to track the robot’s pose using WPILib’s odometry library.
+
+3. Generate a simple trajectory through a set of waypoints using WPILib’s TrajectoryGenerator class.
+
+4. Create a command to follow the generated trajectory.
+
+## Step 1. Add System Identification Parameters
+The trajectory following routine needs several parameters, some of which were obtained from doing System Identification.
+
+The robot needs to know about how many volts are required to move the drivetrain forward. It uses the *SimpleMotorFeedforward* class to compute the feedforward voltage.  The *Ramsete* command uses [Feedforward](../../Concepts/Control/classicalControl.md#feedforward) control to maintain its trajectory. Since we already know information about the computed trajectory the feedforward handles the control actions that we already know must be applied to make the system track its reference trajectory.  
+ 
+The *DifferentialDriveKinematics* of the robot is required, which allows us to use the trackwidth (horizontal distance between the wheels) to convert from chassis speeds to wheel speeds.  The following example can be used for the Romi.      
+
+    public static final double kTrackwidthMeters = 0.142072613;
+    public static final DifferentialDriveKinematics kDriveKinematics =
+        new DifferentialDriveKinematics(kTrackwidthMeters);
+
+For more information on differential drive kinematics see the [Kinematics](../../Concepts/Dynamics/kinematics.md) module.          
+
+We need to set the nominal max acceleration and max velocity for the robot during path-following. The maximum velocity value should be set somewhat below the nominal free-speed of the robot. The following parameter values were obtained from System Identification on the Romi.
+
+      // Max speed and acceleration of the robot
+      public static final double kMaxSpeedMetersPerSecond = 0.5;
+      public static final double kMaxAccelMetersPerSecondSquared = 0.5;
+
+The *Ramsete* controller requires two parameters to compute its trajectory waypoints.  These are tuning parameters for the trajectory following algorithm and assume all distances have been measured in meters  Do NOT change these parameters from the following values.  For more information see [Constructing the Ramsete Controller Object](https://docs.wpilib.org/en/latest/docs/software/advanced-controls/trajectories/ramsete.html#constructing-the-ramsete-controller-object) in the FRC documentation.
+
+      // Reasonable baseline values for a RAMSETE follower in units of meters and seconds
+      public static final double kRamseteB = 2;
+      public static final double kRamseteZeta = 0.7;
+
+See [Entering the Calculated Constants](https://docs.wpilib.org/en/latest/docs/software/pathplanning/trajectory-tutorial/entering-constants.html#step-2-entering-the-calculated-constants) from the FRC documentation for more information.
+
+## Step 2. Setting up the Drivetrain Subsystem Pose
 There are two additions that need to be made to the Drivetrain class in order to implement trajectory following.  The Drivetrain needs to keep track of the current Pose of the robot.  This is done in the *DifferentialDriveOdometry* class that continuously updates the current Pose via the Drivetrain's `periodic()` loop.  The odometry must be initiated with a starting Pose.  Look at [Differential Drive Odometry](https://docs.wpilib.org/en/stable/docs/software/kinematics-and-odometry/differential-drive-odometry.html#differential-drive-odometry) for more information.  
 
 ![Drivetrain Updates](../../images/Romi/Romi.051.jpeg) 
 
-Odometry update in Drivetrain's  `periodic()` method.  We can also view the odometry data in the Simulator or Shuffleboard by using the [Field2d Widget](https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/glass/field2d-widget.html).
+We can also view the odometry data in the Simulator or Shuffleboard by using the [Field2d Widget](https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/glass/field2d-widget.html).
 
     public void periodic() {
       // Update the odometry in the periodic block
@@ -27,36 +62,104 @@ Finally, a method called tankDriveVolts() is implemented so as to drive each whe
       m_diffDrive.feed();
     }
 
-## Adding Constraints
-In order to compute the trajectory the WPILib uses a class called the *TrajectoryGenerator*.  The TrajectoryGenerator needs to know about the characteristics of the robot.  This is done by passing in the robot's constraints. 
-
-We first need to know about how many volts are required to move the drivetrain forward together with the maximum voltage that can be applied. The code to define these constraints were added in the [Kinematics](../../Concepts/Dynamics/kinematics.md) module.  It uses the *SimpleMotorFeedforward* class to compute the feedforward voltage.  The Ramsete command mostly uses [Feedforward](../../Concepts/Control/classicalControl.md#feedforward) control to maintain its trajectory. Since we already know information about the computed trajectory the feedforward handles the control actions that we already know must be applied to make the system track its reference trajectory.
-
-Once we have the voltage constraints we can pass it into the trajectory configuration that defines in maximum speed and acceleration constraints. We added these constraints in the [Paths and Trajectories](../../Concepts/Dynamics/pathsTrajectories.md#lab) module.
+## Step 3. Generating the Trajectory
+In order to compute the trajectory the WPILib uses a class called the *TrajectoryGenerator*.  The *TrajectoryGenerator* needs to know about the characteristics of the robot.  This is done by passing in the robot's constraints and kinematics. The constraints will include the robot's maximum speed and acceleration. 
 
 ![Trajectory Config](../../images/Romi/Romi.064.jpeg)
 
-These constraints will be passed into the next step that generates our required trajectory.
+These constraints are passed into the *TrajectoryGenerator* that generates our required trajectory. The *TrajectoryGenerator* takes in an initial and final Pose and outputs a smooth curve with velocities and accelerations at each point along the curve connecting two endpoints. Read the [Trajectory Generation](https://docs.wpilib.org/en/latest/docs/software/advanced-controls/trajectories/trajectory-generation.html) section of the FRC documentation for more details.
 
 ![Trajectory Generation](../../images/Romi/Romi.053.jpeg) 
 
-## Creating the Trajectory
-The next step is to create a trajectory for the robot to follow.  This is done using the *TrajectoryGenerator* that takes in an initial and final Pose and outputs a smooth curve with velocities and accelerations at each point along the curve connecting two endpoints. Read the [Trajectory Generation](https://docs.wpilib.org/en/latest/docs/software/advanced-controls/trajectories/trajectory-generation.html) section of the FRC documentation for more details.
+Conceptually, the trajectory generation looks like the following diagram.
 
 ![Trajectories](../../images/Romi/Romi.052.jpeg) 
 
-## Create the Ramsete Command
+## Step 4. Create the Ramsete Command
 The *RamseteCommand* pulls in all of the components needed to create a trajectory. It uses the *RamseteController* that takes in the current robot Pose and compares it to the next Pose required to carry out the trajectory. The outputs from the controller are **chassis speeds** that the robot should follow to complete the next step of the trajectory. 
 
 ![Ramsete Controller](../../images/Romi/Romi.054.jpeg) 
 
 The chassis speeds become the next setpoint for the PID controllers that get their measurement input from the `getWheelSpeeds()` method of the Drivetrain. There's a PID controller for each wheel.  Note that the PID controller is tracking on wheel **velocity** in this case, not position as in our previous encounters with PID control.  See [Create the Ramsete Command](https://docs.wpilib.org/en/latest/docs/software/pathplanning/trajectory-tutorial/creating-following-trajectory.html#creating-the-ramsetecommand) FRC documentation for more information. 
 
-![Drivetrain Updates](../../images/Romi/Romi.055.jpeg)
+![Ramsete Command](../../images/Romi/Romi.055.jpeg)
 
-## Lab - Robot Trajectory
 
-There is currently no lab for this module.
+## Lab - Path Planning and Trajectory Following
+In this lab we'll setup the code required to run a trajectory-following command.  There are four tasks for this lab that follow the steps outlined above.
+
+- Add the parameters that were obtained from robot system identification
+
+- Configure a drive subsystem to track the robot’s pose using WPILib’s odometry library.
+
+- Generate a simple trajectory through a set of waypoints using WPILib’s TrajectoryGenerator class.
+
+- Create a command called *RunRamseteTrajectory* to follow the generated trajectory.
+
+### Add Parameters from System Identification
+Before setting up the trajectory-following command we need to add a new subclass to the *Constants* file. These two constants are for ...
+
+    public static final class AutoConstants {    
+        public static final double kRamseteB = 2;
+        public static final double kRamseteZeta = 0.7;
+    }   
+
+Add the differential drive kinematics.
+
+    public static final double kTrackwidthMeters = 0.142072613;    
+    public static final DifferentialDriveKinematics kDriveKinematics =
+        new DifferentialDriveKinematics(kTrackwidthMeters);
+
+### Setup Robot Odometry
+In this task we'll setup the odometry in order to track the robot's position on the field and report it out to the dashboards.  There are three steps.  Create Odometry objects, update, reset.
+
+This is placed in the contructor.
+
+    Pose2d initialPose = new Pose2d(0, 1.5, m_gyro.getRotation2d()); 
+    m_odometry = new DifferentialDriveOdometry(m_gyro.getRotation2d(), 
+                   getLeftDistanceMeters(), getRightDistanceMeters(), 
+                   initialPose);
+    m_field2d.setRobotPose(initialPose);
+
+Update the Pose.
+
+    // Update the odometry in the periodic block
+    Pose2d currentPose = m_odometry.update(m_gyro.getRotation2d(), 
+                                           m_leftEncoder.getDistance(), 
+                                           m_rightEncoder.getDistance());
+    
+    m_field2d.setRobotPose(currentPose); 
+
+To reset the odometry.
+
+    public void resetOdometry(Pose2d pose) {
+        resetEncoders();
+        zeroHeading();
+        m_odometry.resetPosition(m_gyro.getRotation2d(),
+            getLeftDistanceMeters(), getRightDistanceMeters(), 
+            pose);
+    }
+
+### Create a Trajectory
+To create the trajectory.  
+
+Add the voltage constraints.    
+        
+    public static final DifferentialDriveVoltageConstraint kAutoVoltageConstraint =
+      new DifferentialDriveVoltageConstraint(
+          kFeedForward,
+          kDriveKinematics,
+          10);
+
+    // Setup trajectory constraints
+    public static final TrajectoryConfig kTrajectoryConfig =
+      new TrajectoryConfig(kMaxSpeedMetersPerSecond, 
+                           kMaxAccelMetersPerSecondSquared)
+          .setKinematics(kDriveKinematics)
+          .addConstraint(kAutoVoltageConstraint);
+
+### Create the *RunRamseteTrajectory* Command
+
 
 ## References
 

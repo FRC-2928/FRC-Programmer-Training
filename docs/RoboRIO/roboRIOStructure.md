@@ -12,7 +12,7 @@ The *Drivetrain* subsystem uses comments to divide it into four logical subsecti
 ## Lab - Robot Structure
 The purpose of this lab is to learn about the roboRIO training robot's code structure and practice deploying your own code to the robot.  There are four tasks for this lab:
 
-- Folk the *SweetpantsReference* program for the roboRIO training robot into your own Github account.
+- Fork the *SweetpantsReference* program for the roboRIO training robot into your own Github account.
 
 - Clone to *SweetpantsReference* program to your laptop.
 
@@ -20,12 +20,12 @@ The purpose of this lab is to learn about the roboRIO training robot's code stru
 
 - Drive the *Sweetpants* training robot from your own laptop.  Execute the *AutonomousTime* and *AutonomousDistance* command to ensure that they work.  Then drive the robot around with a game controller.
 
-### Folk the Reference Program
-We're going to start our training on the roboRIO robots by **Folking** a reference program for a robot that we call *Sweetpants*. This will put a copy of the program into your own Github account so as you can make changes to it.
+### Fork the Reference Program
+We're going to start our training on the roboRIO robots by **Forking** a reference program for a robot that we call *Sweetpants*. This will put a copy of the program into your own Github account so as you can make changes to it.
 
 1. Navigate to the [SweetpantsReference](https://github.com/FRC-2928/SweetpantsReference) program for the training roboRIO robot.  
 
-2. Follow the instructions on [Folking a Repository](../Tools/git.md#gitFolk) to get a copy of the program into your own Github account.
+2. Follow the instructions on [Forking a Repository](../Tools/git.md#gitFork) to get a copy of the program into your own Github account.
 
 3. Check your Github account to ensure that the new repository has been copied.  While you're there copy the repository URL by clicking on the **Code** button.
 

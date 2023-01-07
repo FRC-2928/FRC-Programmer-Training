@@ -13,7 +13,7 @@ The code segment below shows how the motors are configured for our drivetrain.  
 
 - A device’s neutral deadband is the region where the controller demotes its output to neutral. This is configured using the `configNeutralDeadband()` function. See [Neutral Deadband](https://docs.ctre-phoenix.com/en/latest/ch13_MC.html?highlight=configneutraldeadband#neutral-deadband) in the Phoenix documentation.
 
-- The `configSelectedFeedbackSensor()` parameter is used to select the encoder that's used with the motor.  The Talon FXs have intergrated encoders.  See [Talon FX/SRX Sensors](https://docs.ctre-phoenix.com/en/latest/ch14_MCSensor.html?highlight=configSelectedFeedbackSensor#bring-up-talon-fx-srx-sensors) in the Phoenix documentation.
+- The `configSelectedFeedbackSensor()` parameter is used to select the encoder that's used with the motor.  The Talon FX has a sensor integrated into the controller. This is necessary for the brushless commutation and allows the user to use the Talon FX with a high resolution sensor without attaching any extra hardware. See [Talon FX/SRX Sensors](https://docs.ctre-phoenix.com/en/latest/ch14_MCSensor.html?highlight=configSelectedFeedbackSensor#bring-up-talon-fx-srx-sensors) in the Phoenix documentation.
 
 You'll learn about some of the other configuration parameters during the lab.
 
@@ -80,7 +80,7 @@ In this lab your task is to research some of the motor configuration parameters.
 
 2. What condition does the `configSupplyCurrentLimit()` setting try to prevent?
 
-3. What does the `configSelectedFeedbackSensor()` configuration do?  What are the default sensors for the TalonFX and TalonSRX?
+3. What does the `configSelectedFeedbackSensor()` configuration do?  What are the default sensors for the TalonFX and TalonSRX?  See [Talon FX/SRX Sensors](https://docs.ctre-phoenix.com/en/latest/ch14_MCSensor.html?highlight=configSelectedFeedbackSensor#bring-up-talon-fx-srx-sensors) in the Phoenix documentation.
 
 Once you understand the configuration parameters you're done with this task!
 

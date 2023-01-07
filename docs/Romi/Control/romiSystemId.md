@@ -140,7 +140,7 @@ Don't forget to record the data in the Drivetrain's `publishTelemetry()` method.
         m_rightWheelSpeedsEntry.setDouble(getWheelSpeeds().rightMetersPerSecond); -->
 
 ### Use Cascade Control
-One problem with the *DriveDistanceProfiled* command that you created in the [Drive Robot a Specified Distance](romiProfiledPID.md#driveDistanceProfiled) lab is that the robot may not drive straight. One way we can fix this is to use *Cascade Control*, where we nest one PID controller inside another.  The outer PID controller will control the distance and the inner PID controllers will control the motor speeds. For a more detailed explaination of this process see [Cascade Control](../../Concepts/Control/classicalControl.md#cascadeLoops) in this training guide.
+One problem with the *DriveDistanceProfiled* command that you created in the [Drive Robot a Specified Distance](romiProfiledPID.md#driveDistanceProfiled) lab is that the robot may not drive straight. One way we can fix this is to use *Cascade Control*, where we nest one PID controller inside another.  For a more detailed explaination of this process see [Cascade Control](../../Concepts/Control/classicalControl.md#cascadeLoops) in this training guide.
 
 ![Cascade PID Controller](../../images/FRCControlSystems/FRCControlSystems.012.jpeg)
 
