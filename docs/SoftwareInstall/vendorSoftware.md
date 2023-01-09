@@ -1,6 +1,6 @@
-# Installing Phoenix Software
+# Installing Phoenix Libraries
 
-The **Cross The Road Electronics** vendor libraries must be installed installed into the `wpilib/20YY` directory.  Here are the [Phoenix Software](https://store.ctr-electronics.com/software/) releases for each platform. 
+The **CTRE Phoenix Framework Installer** is a zip file download that contains files that must be installed into the `wpilib/20YY` directory.  Here are the [Phoenix Software](https://store.ctr-electronics.com/software/) releases for each platform. 
 
 When you run the Phoenix software installer for Windows it installs the software in the requisit directories.  For Mac and Linux follow the *Install Phoenix on Mac and Linux* instructions below once you've downloaded the zip file.
 
@@ -12,12 +12,15 @@ There are three folders contained in this archive-
 - "vendordeps"
 - "Robotbuilder"
 
-Place the `maven/com/ctre` and `vendordeps/Pheonix.json` folders inside the WPILib installation folder.
-This is typically located in `~/wpilib/2022`.
+Place the `maven/com/ctre` and `vendordeps/Pheonix.json` folders inside of the respective directories of the WPILib installation folder.  This is typically located in `~/wpilib/202Y` directory.
 
 Instructions on adding Phoenix to your FRC vscode project can be found [here](https://phoenix-documentation.readthedocs.io/en/latest/ch05a_CppJava.html).
 
 The **Robotbuilder** folder contains Robotbuilder extensions for using CTRE classes. It currently contains the Talon FX, CANCoder, Talon SRX, Victor SPX, CANifier, and Pigeon IMU extensions. Take the desired extension folder (eg. "Talon SRX") and place it in `~\wpilib\2022\Robotbuilder\extensions`.
+
+## Installing the Phoenix Tuner
+
+
 
 ## Install REV Robotics Software
 The install of the REV Robotics libraries is similar to that of the Phoenix software for Mac and Linux.  

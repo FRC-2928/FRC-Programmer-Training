@@ -6,7 +6,6 @@ nav:
         - 'Setup Development Environment':
             - SoftwareInstall/softwareIndex.md
             - SoftwareInstall/vscodeSoftware.md
-            - SoftwareInstall/vendorSoftware.md
             - SoftwareInstall/visionSoftware.md
             - Tools/git.md
         - 'Setup Testing Environment': 
