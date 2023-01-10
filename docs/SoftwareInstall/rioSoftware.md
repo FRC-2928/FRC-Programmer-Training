@@ -9,7 +9,7 @@ Here is a step-by-step guide for accomplishing the install.
 ![After Upgrade](../../images/FRCTools/FRCTools.017.jpeg)
 
 #### Step 1. Install the FRC Game Tools
-The first step is to [Install the FRC Game Tools](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/frc-game-tools.html).  These can be down loaded from the [NI FRC Game Tools](https://www.ni.com/en-us/support/downloads/drivers/download.frc-game-tools.html#440024) releases site, and only supports Windows.  After the install it asks you to login to your **NI Activation** account and enter a serial number.  It's not clear why you need the account, but here's information on [getting the serial number](https://knowledge.ni.com/KnowledgeArticleDetails?id=kA00Z0000019OJTSA2&l=en-US).  Once you have the serial number you can use the [Activation Wizard](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/labview-setup.html#ni-activation-wizard). 
+The first step is to [Install the FRC Game Tools](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/frc-game-tools.html).  These can be down loaded from the [NI FRC Game Tools](https://www.ni.com/en-us/support/downloads/drivers/download.frc-game-tools.html#473762) releases site, and only supports Windows.  After the install it asks you to login to your **NI Activation** account and enter a serial number.  It's not clear why you need the account, but here's information on [getting the serial number](https://knowledge.ni.com/KnowledgeArticleDetails?id=kA00Z0000019OJTSA2&l=en-US).  Once you have the serial number you can use the [Activation Wizard](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/labview-setup.html#ni-activation-wizard). 
 
 Installed tools include:  
 
@@ -18,15 +18,17 @@ Installed tools include:
 - FRC Driver Station
 
 #### Step 2. Image the RoboRio
-The *Imaging Tool* is used to install the roboRIO Firmware and the Image.  The image is the equivalent of the operating system.  If you have the older roboRIO then all of the imaging is done from the *Imaging Tool*. If you have a roboRIO 2 then the first time it's imaged (or if the microSD card is replaced with a new card), it must be imaged using the [roboRIO 2.0 microSD](https://docs.wpilib.org/en/stable/docs/software/roborio-info/roborio2-imaging.html) card imaging process. If the RoboRio has already been imaged from a previous year and already has an SD card inserted then the Imaging Tool can be used to update the software. Open the [RoboRIO Imaging Tool](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-3/imaging-your-roborio.html#roborio-imaging-tool) and follow the instructions.  
+The *Imaging Tool* is used to install the roboRIO Firmware and the Image.  The image is the equivalent of the operating system.  The roboRIO 2 must be imaged using the [roboRIO 2.0 microSD](https://docs.wpilib.org/en/stable/docs/software/roborio-info/roborio2-imaging.html) card imaging process.  This also applies if you're upgrading from a previous year.  Once the image is flashed to a microSD card and inserted the team number will need to be set using the RoboRIO imaging tool. See [Setting the roboRIO Team Number](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-3/roborio2-imaging.html#setting-the-roborio-team-number) in the FRC documentation.  If you have any problems with the install checkout the [Troubleshooting](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-3/imaging-your-roborio.html#troubleshooting) steps.
 
-This step sets up the [RoboRIO Web Dashboard](https://docs.wpilib.org/en/stable/docs/software/roborio-info/roborio-web-dashboard.html#roborio-web-dashboard), which is a webpage built into the roboRIO that can be used for checking status and updating settings of the roboRIO. 
+ If you have the older roboRIO then all of the imaging is done from the *Imaging Tool*.  If the RoboRio has already been imaged from a previous year and already has an microSD card inserted then the Imaging Tool can be used to update the software. Open the [RoboRIO Imaging Tool](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-3/imaging-your-roborio.html#roborio-imaging-tool) and follow the instructions.  
+
+Once the RoboRIO is imaged it sets up the [RoboRIO Web Dashboard](https://docs.wpilib.org/en/stable/docs/software/roborio-info/roborio-web-dashboard.html#roborio-web-dashboard), which is a webpage built into the roboRIO that can be used for checking status and updating settings of the roboRIO. 
 
 #### Step 3. Install Phoenix Framework Software
 
-Install the [Phoenix Framework Software](https://store.ctr-electronics.com/software/) onto your PC.  This framework is only supported on Windows and includes:  
+Install the [Phoenix Framework Software](https://store.ctr-electronics.com/software/) onto your PC. Linux and MacOS only includes the C++/Java Phoenix API and CTRE Support of RobotBuilder. The full framework is only supported on Windows and includes the following components. 
 
-- The C++/Java Phoenix API.  These libraries get installed into the `~/wpilib/20XX` directory. For Linux and MacOS the C++/Java API can be installed separatelly.  See [VSCode Installing Pheonix Software](../../Tools/vscode.md#pheonix).
+- The C++/Java Phoenix API.  These libraries get installed into the `~/wpilib/20XX` directory. For Linux and MacOS the C++/Java API can be installed separatelly.
 - Device Firmware Files (that were tested with the release)
 - CTRE Support of RobotBuilder
 - Phoenix Tuner
@@ -36,7 +38,7 @@ Install the [Phoenix Framework Software](https://store.ctr-electronics.com/softw
 - Device ID and field-upgrade
 
 #### Step 4. Install Phoenix Firmware
-Once you have the **Phoenix Tuner** installed you can install/update the firmware on the CTRE hardware devices.  The firmware can be found in `C:\Users\Public\Documents\FRC`.  Or can be downloaded from the [Phoenix Framework Software](https://store.ctr-electronics.com/software/) releases page.  The firmware is documented in the [Firmware Release Notes](https://docs.ctre-phoenix.com/en/stable/ch22_SoftReleaseNote.html#ch22-softreleasenote).
+Once you have the **Phoenix Tuner** installed you can install/update the firmware on the CTRE hardware devices.  The firmware can be found in the directory `C:\Users\Public\Documents\FRC`.  Or can be downloaded from the [Phoenix Framework Software](https://store.ctr-electronics.com/software/) releases page.  The firmware is documented in the [Firmware Release Notes](https://docs.ctre-phoenix.com/en/stable/ch22_SoftReleaseNote.html#ch22-softreleasenote).
 
 Start the [Phoenix Tuner](https://docs.ctre-phoenix.com/en/stable/ch05_PrepWorkstation.html#frc-windows-open-phoenix-tuner). Refer to the [Field Upgrade Devices](https://docs.ctre-phoenix.com/en/stable/ch08_BringUpCAN.html#field-upgrade-devices) section of the CTRE documentation.
 

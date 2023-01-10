@@ -225,10 +225,14 @@ The output will tell you how many file objects have been downloaded.
 ![Clone Repository](../images/FRCTools/FRCTools.015.jpeg) -->
 
 ## Branching
+When you want to add new features to the code base it's a good idea to create a new branch.  A new branch can be created from VSCode as shown in the following graphic. Once the branch is created you'll be switched over to that branch automatically and you can start making changes.  You can give the branch any name you want, but it should be somewhat descriptive of the new feature.
 
-To delete a remote branch use `git branch -d <branch name>`
+![Create Branch](../images/FRCTools/FRCTools.035.jpeg)
 
-## <a name="gitFrlk"></a>Forking a Repository
+You'll be prompted to publish the branch to GitHub.  You can do this immediatelly or after you have made some changes.
+<!-- To delete a remote branch use `git branch -d <branch name>` -->
+
+## <a name="gitFork"></a>Forking a Repository
 A fork is a new repository that shares code and visibility settings with the original “upstream” repository. The term "upstream" just means the original Github repository.  In most cases you may not have write access to the original repository, so this is useful if you want to update the code and try out ideas without effecting the original repository.  To fork a repository navigate to the Github repository that you want to fork and click the **Fork** button.  On the next screen, select your own Github account as the destination of the fork.  You can keep the same repository name or use a different name.  Click "Create Fork" to copy the repository.  You should now have a copy of the repository in your own account.
 
 ![Fork Repository](../images/FRCTools/FRCTools.034.jpeg)
@@ -254,9 +258,48 @@ In some cases you might want to change to remote origin of a repository.  To do 
 
 ## The `.gitignore` File -->
 
+## Pull Requests
+Pull requests let you tell others about changes you've pushed to a branch in a repository on GitHub. Once a pull request is opened, you can discuss and review the potential changes with collaborators and add follow-up commits before your changes are merged into the base branch.  
+
+In order to add new features to the code base you need to create a new branch. For our team the branch name will be `feature-<new-feature>`, where `new-feature` is somewhat descriptive of what needs to be added. You can now add your new feature and possibly test it out on the robot.  Since your branch was created from the `main` branch you should have the basic functionality to test is on a robot. 
+
+Once you have created the branch and added your new feature you can merge it back into the `main` branch by creating a *Pull Request*. See [Creating a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request) in the GitHub documentation.
+
+The Pull Request will be reviewed by the lead developer, and if everything looks good it will be merged into the `main` branch of the code.  See [Merging a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/merging-a-pull-request) in the GitHub documentation. The Pull Request process is shown below.
+
+![Pull Request Process](../images/FRCTools/FRCTools.036.jpeg)
+
+You can link a pull request to an issue.
+
+When thinking about branches, remember that the base branch is where changes should be applied, the head branch contains what you would like to be applied.
+
+<!-- Project maintainers can add a pull request template for a repository. Templates include prompts for information in the body of a pull request. For more information, see "About issue and pull request templates." -->
+
+## Lab - Git Repository and GitHub
+
+- Clone a repository.
+
+- Create a feature branch and commit some changes.
+
+- Create a pull request.
+
+- Merge the pull request.
+
+### Create a Branch
+In this task you'll create a new branch from the `Main` branch in order to add new features.  This is 
+
+### Create a Pull Request
+
+See [Creating a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request)
+
+### Merging a pull request
+
+See [Merging a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/merging-a-pull-request)
+
 ## References 
 
-
 - FRC Documentation - [Git Version Control](https://docs.wpilib.org/en/latest/docs/software/basic-programming/git-getting-started.html)
+
+- GitHub [Creating a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request)
 
 - YouTube video - [VSCode and Github](https://www.youtube.com/watch?v=Fk12ELJ9Bww)
