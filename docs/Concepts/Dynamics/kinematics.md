@@ -29,7 +29,7 @@ At any instance in time we can compute the distance to the ICC <span style="colo
 
 These formulars are used in the <i>DifferentialDriveKinematics</i> class of the WPI library.
 
-![Global Frame](../../images/FRCKinematics&Odometry/FRCKinematics&Odometry.007.jpeg)
+![DifferentialDriveKinematics](../../images/FRCKinematics&Odometry/FRCKinematics&Odometry.007.jpeg)
 
 ## Constraints
 Constraints can be position constraints (something in the way), control constraints (limited amount of torque), model constraints (system kinematics, holonomic constraint).

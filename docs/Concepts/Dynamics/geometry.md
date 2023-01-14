@@ -51,36 +51,6 @@ A robot that can move in all three dimensions of space and can orient itself abo
 
 Each Yaw, Pitch, Roll maneuver can be represented by a rotation matrix that uses sines and cosines to describe the offset from the previous orientation.
 
-## <a name="lab"></a>Geometry Lab
-Add a class to show the position of the robot on the field.  This is defined in the Drivetrain class
-
-    private final Field2d m_field2d = new Field2d();
-
-and initialized in the Drivetrain's constructor. We'll also use the Odometry class, which was setup in the [Odometry](../OptimalEstimation/odometry) module of this training guide.
-
-    public Drivetrain() {
-      ...
-      m_odometry = new DifferentialDriveOdometry(m_gyro.getRotation2d());
-      SmartDashboard.putData("field", m_field2d);
-    }
-
-In order for the field information to update in the simulator we need to update it in the `periodic()` method of the Drivetrain.
-
-    public void periodic() {
-      // Update the odometry in the periodic block
-      m_odometry.update(m_gyro.getRotation2d(), m_leftEncoder.getDistance(), m_rightEncoder.getDistance());
-      
-      // Also update the Field2D object (so that we can visualize this in sim)
-      m_field2d.setRobotPose(getPose());
-    }
-
-There needs to be a method to reset the odometry back to the starting point.  This method will also reset the encoders.
-
-    public void resetOdometry(Pose2d pose) {
-      resetEncoders();
-      m_odometry.resetPosition(pose, m_gyro.getRotation2d());
-    }
-
 ## References
 - FRC Documentation [Geometry](https://docs.wpilib.org/en/latest/docs/software/advanced-controls/geometry/index.html)
 

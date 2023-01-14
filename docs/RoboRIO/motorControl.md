@@ -23,42 +23,9 @@ On the roboRIO robot the motor controllers will implement the necessary PID loop
 
 - Motion Magic - Motion Magic is a control mode for Talon SRX that provides the benefits of Motion Profiling without needing to generate motion profile trajectory points. When using Motion Magic, Talon SRX / Victor SPX will move to a set target position using a motion profile, while honoring the user specified acceleration, maximum velocity (cruise velocity), and optional S-Curve smoothing.  See [Motion Magic Control Mode](https://docs.ctre-phoenix.com/en/stable/ch16_ClosedLoop.html#motion-magic-control-mode) in the Phoenix documentation.
 
-All closed-loop modes update every 1ms (1000Hz) unless configured otherwise.
+The sensors used for closed-loop control are designated during motor configuration.  The most common sensor used with the FalconFX/SRX controller is the *Integrated Sensor*, which is an encoder that is physically attached to the motor.  We only need to pass in the Control-Mode and setpoint in order to run our closed loop.  
 
-<!-- The following example is used in the drivetrain to command each wheel to run at a specified meters per second.  The method `setOutputMetersPerSecond()` is sent the required meters per second for each wheel.  It then calculates the values to send to the motor controllers that are set to *ControlMode.Velocity*.  The Velocity control mode requires three parameters:
-
-- The velocity in encoder ticks per second.  This is calcuated from the requested meters per second.
-- A demand type of *ArbitraryFeedForward*.  The Arbitrary Feed Forward is a strategy for adding any arbitrary values to the motor output regardless of control mode. It can be used for gravity compensation, custom velocity and acceleration feed forwards, static offsets, and any other term desired. See [Arbitrary Feed Forward](https://docs.ctre-phoenix.com/en/stable/ch16_ClosedLoop.html?highlight=DemandType.ArbitraryFeedForward#arbitrary-feed-forward) in the Phoenix documentation for more details.
-- The feedforward amount.
-
-The parameter values are set separately for each wheel, since we may want them to go at different speeds in order to drive a curved path.  Once the power requirements are set they are sent to the motors.
-
-Use diagram here instead of code....
-
-    public void setOutputMetersPerSecond(double leftMetersPerSecond, double rightMetersPerSecond) {
-        
-        // Calculate feedforward for the left and right wheels.
-        double leftFeedForward = m_feedForward.calculate(leftMetersPerSecond);
-        double rightFeedForward = m_feedForward.calculate(rightMetersPerSecond);
-
-        // Convert meters per second to encoder ticks per second
-        var gearState = m_gearStateSupplier.get();
-        double leftVelocityTicksPerSec = wheelRotationsToEncoderTicks(metersToWheelRotations(leftMetersPerSecond), gearState);
-        double rightVelocityTicksPerSec = wheelRotationsToEncoderTicks(metersToWheelRotations(rightMetersPerSecond), gearState);
-
-        // Set the power for each wheel
-        m_leftLeader.set(ControlMode.Velocity, 
-                        leftVelocityTicksPerSec/10.0, 
-                        DemandType.ArbitraryFeedForward, 
-                        leftFeedForward / DrivetrainConstants.k_MaxVolts);
-        m_rightLeader.set(ControlMode.Velocity, 
-                        rightVelocityTicksPerSec/10.0, 
-                        DemandType.ArbitraryFeedForward, 
-                        rightFeedForward / DrivetrainConstants.k_MaxVolts);
-
-        // Feed the motors
-        m_differentialDrive.feed();
-    } -->
+![Integrated Sensor](../images/FRCroboRIO/FRCroboRIO.009.jpeg)
 
 #### Setting PID Gain Values
 The Talon FX/SRX can run two PID loops simultaneously, *PID[0]* and *PID[1]*.  You can set up multiple PID gain values and put them into memory slots within the Talon's motor controller.  You can then write code to assign the gain values from a selected slot for each of the PID loops. There are four slots to choose from, so you can configure up to four sets of PID gain values.
@@ -159,9 +126,11 @@ Both modes of this sensor (Relative and Absolute) have a resolution of `4096` ti
 
 ## Lab - Motor Control
 
-- Run drivetrain motors at a commanded velocity. Tune feedforward.
+- Run drivetrain motors using Velocity control. Tune feedforward.
 
-- Drive using MotionMagic.  
+- Drive using MotionMagic. 
+
+- Run drivetrain motors using Position control from a Gyro.
 
 ### Drive using Velocity Control
 Velocity control is used to drive a mechanism at a set velocity.  In this mode the controller will try and maintain the velocity regardless of the torque put on the motor.  In this task we'll use velocity control to drive each wheel of a drivetrain at a specified velocity.  The controller should maintain this velocity regardless of the mass of the robot or the friction against the wheels.  However, this will be constrained by the battery power or the motor's capabilities.
@@ -278,6 +247,131 @@ The outer PID controller will control the distance and the inner PID controllers
 - Once you get F set to a level where the motor runs about the commanded speed, you then command the motor to run several different speeds. Pick a low, mid, high depending on the intended speed range you plan to use. Look at the error on all three speeds and decide if you need to tweak F a little. The goal it to get the motor to run approximately the commanded speed. It won’t be exact. It is a “best fit” given the range of motor speeds you plan to use. -->
 
 <!-- [ChiefDelphi post](https://www.chiefdelphi.com/t/some-questions-about-motion-magic/400422) -->
+
+### Drive using Position Control
+In this task you'll control the drivetrain motors in order to keep the robot level.  For this we'll need to use a Gyro as the feedback sensor.
+
+Create a control output function in the Drivetrain.
+
+    public void tankDriveVolts(double leftVolts, double rightVolts) {
+        this.leftLeader.set(ControlMode.PercentOutput, leftVolts / 12);
+        this.rightLeader.set(ControlMode.PercentOutput, rightVolts / 12);
+        this.diffDrive.feed();
+    }
+    
+Create a command to balance the robot.  The constructor should look like this.
+
+    public Balance(Drivetrain drivetrain)
+        super(
+            // The controller that the command will use
+            new PIDController(0.018, 0, 0.001),
+            // This should return the measurement
+            () -> drivetrain.getPitch(),
+            // This should return the setpoint (can also be a constant)
+            () -> 0,
+            // This uses the output
+            output -> {
+                // Use the output here
+                drivetrain.tankDriveVolts(output, output);
+                });
+
+        // Use addRequirements() here to declare subsystem dependencies.
+        addRequirements(drivetrain);
+        m_drivetrain = drivetrain;
+        
+        // Configure additional PID options by calling `getController` here.
+    }
+
+    public void initialize() {
+        super.initialize();  
+        m_drivetrain.tankDriveVolts(0,0);
+        m_drivetrain.disableMotorSafety();   
+    }
+
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
+
+    public void end(boolean interrupted) {
+        super.end(interrupted);
+        m_drivetrain.tankDriveVolts(0,0);
+        m_drivetrain.enableMotorSafety();   
+    }
+
+### <a name="balance"></a>Balance Robot 
+[Viking Wiki](https://github.com/FRC-2928/VikingRobot2023/wiki#balance-robot)
+
+These go in the *Balance* command. We set the gyro pitch as a sensor and start the position loop with a setpoint of zero degrees. Once started it will just keep balancing until another command requiring the drivetrain gets executed.  The motors will switch back to use the encoders when the command gets interrupted.
+
+    public Balance(Drivetrain drivetrain) {
+        this.addRequirements(drivetrain);
+        m_drivetrain = drivetrain;
+    }
+    
+    // Switch over to gyro pitch as a sensor and start the loop
+    @Override
+    public void initialize() {
+        super.initialize();       
+        m_drivetrain.setPIDSlot(0);
+        m_drivetrain.setPigeonSensors();
+        m_drivetrain.disableMotorSafety(); 
+        m_drivetrain.setPosition(0);   
+    }
+
+    // Keep this command running until it gets overridden
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
+
+    // Set everything back
+    public void end(boolean interrupted) {
+        super.end(interrupted);
+        m_drivetrain.setPIDSlot(1);
+        m_drivetrain.setIntegratedSensors();
+        m_drivetrain.enableMotorSafety();   
+    }    
+
+These go in the Drivetrain.
+
+    // Revert back to the integrated sensors (encoders)
+    public void setIntegratedSensors() {
+        // Configure the motors
+        for (TalonFX fx : new TalonFX[] { m_leftLeader, m_leftFollower, m_rightLeader, m_rightFollower }) {    
+        // Use 1-to-1 coefficient for the encoders.
+        fx.configSelectedFeedbackCoefficient(1);
+        fx.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor); 
+        }
+    }
+
+    // Use Gyro Pitch as the sensor
+    public void setPigeonSensors() {
+        // Configure the motors
+        for (TalonFX fx : new TalonFX[] { m_leftLeader, m_rightLeader}) {    
+        // Configure the RemoteSensor0 and set it to the Pigeon pitch source
+        fx.configRemoteFeedbackFilter(m_pigeon.getDeviceID(), 
+                                        RemoteSensorSource.Pigeon_Pitch, 
+                                        0);
+        // Convert Yaw to tenths of a degree
+        fx.configSelectedFeedbackCoefficient(3600.0 / DrivetrainConstants.kPigeonUnitsPerRotation);                              
+        fx.configSelectedFeedbackSensor(FeedbackDevice.RemoteSensor0); 
+        }
+    }
+
+    public void setPIDSlot(int slot) {
+        int PID_PRIMARY = 0;
+        m_leftLeader.selectProfileSlot(slot, PID_PRIMARY);
+        m_rightLeader.selectProfileSlot(slot, PID_PRIMARY);
+    }
+
+    // Controls to the setpoint using the internal feedback sensor
+    public void setPosition(double setpoint) {
+        this.leftLeader.set(ControlMode.Position, setpoint);
+        this.rightLeader.set(ControlMode.Position, setpoint);
+        this.diffDrive.feed();
+    }
 
 ## References
 

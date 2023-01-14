@@ -22,6 +22,7 @@ nav:
             - Romi/SC/romiSubsystems.md
             - Romi/SC/romiCommands.md
             - Romi/SC/romiTelemetry.md
+            - Romi/SC/romiOdometry.md
             - Romi/SC/romiGPIO.md
         - 'Romi Robot Control':
             - Romi/Control/romiControlIndex.md

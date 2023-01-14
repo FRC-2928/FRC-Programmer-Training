@@ -118,7 +118,7 @@ Another change to make is on line `58` of the *TurnDegrees* class.   Change `inc
 
     double metersPerDegree = Math.PI * 0.141 / 360;
 
-Finally, since we're using meters now instead of inches we need to change the values passed in the *AutonomousDistance* command from `10` to `1`. 
+Since we're using meters now instead of inches we need to change the values passed in the *AutonomousDistance* command from `10` to `1`. Also change the variable name in the *DriveDistance* command from `inches` to `meters`.
 
 We're now done with this update!
 <!-- [Inches to meters solution](solutionInchMeters.md) -->
