@@ -29,15 +29,18 @@ The trackwidth of the robot is of course a constant value, so the following valu
     public static final DifferentialDriveKinematics kDriveKinematics =
         new DifferentialDriveKinematics(kTrackwidthMeters);
 
-Create the following method in the Drivetrain to use this class.
-
-    // Setup differential drive kinematics
-    public static final DifferentialDriveKinematics m_driveKinematics =
-        new DifferentialDriveKinematics(Constants.kTrackwidthMeters);
+Create the following method in the Drivetrain.  When we create commands to run trajectories later in the course we'll require a class that returns *DifferentialDriveWheelSpeeds*.
 
     public DifferentialDriveWheelSpeeds getWheelSpeeds() {
         return new DifferentialDriveWheelSpeeds(m_leftEncoder.getRate(), m_rightEncoder.getRate());
     }
+
+In our previous Telemetry lab we had created two commands in the `publishTelemetry()` function to output the wheel speeds of the drivetrain.  Now we'll replace those commands with the following code where we get the *DifferentialDriveWheelSpeeds*.
+
+    DifferentialDriveWheelSpeeds wheelSpeeds = getWheelSpeeds();
+    SmartDashboard.putNumber("Left wheel speed", wheelSpeeds.leftMetersPerSecond);
+    SmartDashboard.putNumber("Right wheel speed", wheelSpeeds.leftMetersPerSecond); 
+
 
 ### <a name="odometryTask"></a>Setup Robot Odometry
 In this task we'll setup the odometry in order to track the robot's position and orientation on the field and show it on the dashboards.  The dashboards will show a diagram of the field with the current position and orientation of the robot within it.  We'll use the [DifferentialDriveOdometry](https://docs.wpilib.org/en/latest/docs/software/kinematics-and-odometry/differential-drive-odometry.html#differential-drive-odometry) and [Field2d](https://docs.wpilib.org/en/latest/docs/software/dashboards/glass/field2d-widget.html#the-field2d-widget) classes of WPILib to accomplish this.
