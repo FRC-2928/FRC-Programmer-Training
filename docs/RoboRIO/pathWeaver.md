@@ -32,7 +32,7 @@ Alternatively, the trajectory points can be streamed into the motor controller a
 ## Lab - Trajectories and PathWeaver
 In this lab we'll setup the code required to run a trajectory-following command using PathWeaver.  It will have three tasks:
 
-- Add the parameters that were obtained from robot system identification
+- Run System Identification and add the parameters.
 
 - Configure a drive subsystem to track the robot’s pose using WPILib’s odometry library.
 
@@ -40,7 +40,9 @@ In this lab we'll setup the code required to run a trajectory-following command 
 
 - Create a command called *RunRamseteTrajectory* to follow the generated trajectory.
 
-### Add Parameters from System Identification
+### Run System Identification and add Parameters
+In a previous lab you ran [System Identification on the Romi](../../Romi/Control/romiSystemId).  We're going to run System Identification again but this time for the RoboRIO robot.  Start the SysId Tool from VSCode or the terminal command line.   
+
 Before setting up the trajectory-following command we need to add a new subclass to the *Constants* file. These two constants are for ...
 
     public static final class AutoConstants {    
@@ -50,12 +52,11 @@ Before setting up the trajectory-following command we need to add a new subclass
     
 ### Setup Robot Odometry
 
+See [Kinematics and Odometry](../../Romi/SC/romiOdometry)
+
 ### Create a Trajectory
 
 ### Create the *RunRamseteTrajectory* Command
-
-
-
 Create a new command called *RunRamseteTrajectory* from the left file menu.  This command will extend *RamseteCommand*, so replace *CommandBase* with *RamseteCommand*.  The command is going to need to know what the trajectory is and have access to the drivetrain, so pass in *Drivetrain* and *Trajectory* object.  Here's how the *RunRamseteTrajectory* constructor should look with these two parameters.
 
     public RunRamseteTrajectory(Drivetrain drivetrain, Trajectory trajectory) {
@@ -76,7 +77,7 @@ Now we need to construct the command.  Place the following code into the contruc
     m_trajectory = trajectory;
 
 
-
+Notice that it doesn't require the function `getWheelSpeeds()` as we did on the Romi, since the wheel speeds are obtained from the internal velocity loop of the TalonFX.
 
 Setup the function required to load a trajectory.
 

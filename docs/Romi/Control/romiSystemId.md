@@ -14,7 +14,7 @@ The WPILib [System Identification Tool](https://docs.wpilib.org/en/stable/docs/s
 ## <a name="startSysid"></a>Running the System Identification Tool
 The *System Identification Tool* (SysId) can be opened from the **Start Tool** option in VS Code.
 
-> On MacOS you'll need to start it from the terminal. Type `python3 ~/wpilib/2022/tools/SysID.py` in the terminal.
+> On MacOS you may need to start it from the terminal. Type `python3 ~/wpilib/2023/tools/SysID.py` in the terminal.  If the SysID Tool is not there then you can run `python3 ToolsUpdater.py` from the `~/wpilib/2023/tools/` directory.
 
 The *SysID Tool* display should look like this:
 
