@@ -121,24 +121,6 @@ Start the Simulator and create a plot to view the wheel speeds.  Edit the plot b
 
 You're now done with this task!
 
-<!-- In the Drivetrain's `setupShuffleboard()` method, create two data value to show the telemetry for the left and right wheel speeds.
-
-    m_leftWheelSpeedsEntry = m_driveTab.add("Left Wheel Speed", getWheelSpeeds().leftMetersPerSecond)
-        .withWidget(BuiltInWidgets.kGraph)      
-        .withSize(3,3)
-        .withPosition(13, 0)
-        .getEntry();
-    m_rightWheelSpeedsEntry = m_driveTab.add("Right Wheel Speed", getWheelSpeeds().rightMetersPerSecond)
-        .withWidget(BuiltInWidgets.kGraph)      
-        .withSize(3,3)
-        .withPosition(15, 0)
-        .getEntry();    
-
-Don't forget to record the data in the Drivetrain's `publishTelemetry()` method.
-
-        m_leftWheelSpeedsEntry.setDouble(getWheelSpeeds().leftMetersPerSecond);
-        m_rightWheelSpeedsEntry.setDouble(getWheelSpeeds().rightMetersPerSecond); -->
-
 ### Use Cascade Control
 One problem with the *DriveDistanceProfiled* command that you created in the [Drive Robot a Specified Distance](romiProfiledPID.md#driveDistanceProfiled) lab is that the robot may not drive straight. One way we can fix this is to use *Cascade Control*, where we nest one PID controller inside another.  For a more detailed explaination of this process see [Cascade Control](../../Concepts/Control/classicalControl.md#cascadeLoops) in this training guide.
 

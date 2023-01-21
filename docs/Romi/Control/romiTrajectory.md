@@ -14,14 +14,6 @@ The trajectory following routine needs several parameters, some of which were ob
 
 The robot needs to know about how many volts are required to move the drivetrain forward. It uses the *SimpleMotorFeedforward* class to compute the feedforward voltage.  The *Ramsete* command uses [Feedforward](../../Concepts/Control/classicalControl.md#feedforward) control to maintain its trajectory. Since we already know information about the computed trajectory the feedforward handles the control actions that we already know must be applied to make the system track its reference trajectory.  
  
-The *DifferentialDriveKinematics* of the robot is required, which allows us to use the trackwidth (horizontal distance between the wheels) to convert from chassis speeds to wheel speeds.  The following example can be used for the Romi.      
-
-    public static final double kTrackwidthMeters = 0.142072613;
-    public static final DifferentialDriveKinematics kDriveKinematics =
-        new DifferentialDriveKinematics(kTrackwidthMeters);
-
-For more information on differential drive kinematics see the [Kinematics](../../Concepts/Dynamics/kinematics.md) module.          
-
 We need to set the nominal max acceleration and max velocity for the robot during path-following. The maximum velocity value should be set somewhat below the nominal free-speed of the robot. The following parameter values were obtained from System Identification on the Romi.
 
       // Max speed and acceleration of the robot
@@ -37,11 +29,21 @@ The *Ramsete* controller requires two parameters to compute its trajectory waypo
 See [Entering the Calculated Constants](https://docs.wpilib.org/en/latest/docs/software/pathplanning/trajectory-tutorial/entering-constants.html#step-2-entering-the-calculated-constants) from the FRC documentation for more information.
 
 ## Step 2. Setting up the Drivetrain Subsystem Pose
-There are two additions that need to be made to the Drivetrain class in order to implement trajectory following.  The Drivetrain needs to keep track of the current Pose of the robot.  This is done in the *DifferentialDriveOdometry* class that continuously updates the current Pose via the Drivetrain's `periodic()` loop.  The odometry must be initiated with a starting Pose.  Look at [Differential Drive Odometry](https://docs.wpilib.org/en/stable/docs/software/kinematics-and-odometry/differential-drive-odometry.html#differential-drive-odometry) for more information.  
+There are two additions that need to be made to the Drivetrain class in order to implement trajectory following.  
+
+The *DifferentialDriveKinematics* class allows us to use the trackwidth (horizontal distance between the wheels) to convert from chassis speeds to wheel speeds.  The following example can be used for the Romi.      
+
+    public static final double kTrackwidthMeters = 0.142072613;
+    public static final DifferentialDriveKinematics kDriveKinematics =
+        new DifferentialDriveKinematics(kTrackwidthMeters);
+
+We setup *DifferentialDriveKinematics* in the [Kinematics and Odometry](../SC/romiOdometry.md#kinematicsTask) module.
+
+The Drivetrain needs to keep track of the current Pose of the robot.  This is done in the *DifferentialDriveOdometry* class that continuously updates the current Pose via the Drivetrain's `periodic()` loop.  The odometry must be initiated with a starting Pose.  For more information on the WPI libraries see [Differential Drive Odometry](https://docs.wpilib.org/en/stable/docs/software/kinematics-and-odometry/differential-drive-odometry.html#differential-drive-odometry) in the FRC documetation.  
 
 ![Drivetrain Updates](../../images/Romi/Romi.051.jpeg) 
 
-We can also view the odometry data in the Simulator or Shuffleboard by using the [Field2d Widget](https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/glass/field2d-widget.html).
+We can view the odometry data in the Simulator or Shuffleboard by using the [Field2d Widget](https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/glass/field2d-widget.html).  We setup odometry and the *Field2d* widget in the [Kinematics and Odometry](../SC/romiOdometry.md#odometryTask) module. 
 
     public void periodic() {
       // Update the odometry in the periodic block
@@ -52,9 +54,13 @@ We can also view the odometry data in the Simulator or Shuffleboard by using the
     }
 
 
-The second class is *DifferentialDriveWheelSpeeds* that implements the `getWheelSpeeds()` method to return the current speed of each wheel.  This will be needed for the measurement input to our trajectory controller. More information can be found in [Setting up the Drive System](https://docs.wpilib.org/en/latest/docs/software/pathplanning/trajectory-tutorial/creating-drive-subsystem.html) FRC documentation.
+The class *DifferentialDriveWheelSpeeds* is used the `getWheelSpeeds()` method to return the current speed of each wheel.  The `getWheelSpeeds()` method serves as the measurement input to our trajectory controller and is just a wrapper for each wheel speed. More information can be found in [Setting up the Drive System](https://docs.wpilib.org/en/latest/docs/software/pathplanning/trajectory-tutorial/creating-drive-subsystem.html) FRC documentation.
 
-Finally, a method called tankDriveVolts() is implemented so as to drive each wheel individually.
+    public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+        return new DifferentialDriveWheelSpeeds(m_leftEncoder.getRate(), m_rightEncoder.getRate());
+    }
+
+Finally, a method called `tankDriveVolts()` needs to be implemented so as to drive each wheel individually.  This function will be the output of the trajectory-following command.
 
     public void tankDriveVolts(double leftVolts, double rightVolts) {
       m_leftMotor.setVoltage(leftVolts);
@@ -85,66 +91,59 @@ The chassis speeds become the next setpoint for the PID controllers that get the
 ![Ramsete Command](../../images/Romi/Romi.055.jpeg)
 
 
-## Lab - Path Planning and Trajectory Following
-In this lab we'll setup the code required to run a trajectory-following command.  There are four tasks for this lab that follow the steps outlined above.
+## Lab - Trajectory Following
+In this lab we'll go through the four steps that are required to run a trajectory-following command.  We have mostly completed the first two steps in previous labs so most of the work will done for steps 3 and 4.
 
-- Add the parameters that were obtained from robot system identification
+**Step 1**. Add the parameters that were obtained from robot system identification
 
-- Configure a drive subsystem to track the robot’s pose using WPILib’s odometry library.
+**Step 2**. Configure a drive subsystem to track the robot’s pose using WPILib’s odometry library.
 
-- Generate a simple trajectory through a set of waypoints using WPILib’s TrajectoryGenerator class.
+**Step 3**. Generate a simple trajectory through a set of waypoints using WPILib’s *TrajectoryGenerator* class.
 
-- Create a command called *RunRamseteTrajectory* to follow the generated trajectory.
+**Step 4**. Create a command called *RunRamseteTrajectory* to follow the generated trajectory.
 
-### Add Parameters from System Identification
-Before setting up the trajectory-following command we need to add a new subclass to the *Constants* file. These two constants are for ...
+### Step 1. Add Parameters from System Identification
+Before setting up the trajectory-following command we need to add a new subclass to the *Constants* file. These two constants are used as tuning parameters by the *Ramsete* command.  They should not be changed.
 
-    public static final class AutoConstants {    
+    public static final class ControlConstants {    
         public static final double kRamseteB = 2;
         public static final double kRamseteZeta = 0.7;
     }   
 
-Add the differential drive kinematics.
+Ensure that you have added the *DifferentialDriveKinematics*, voltage requirements, and speed constraints to the *Constants* file.
 
     public static final double kTrackwidthMeters = 0.142072613;    
     public static final DifferentialDriveKinematics kDriveKinematics =
         new DifferentialDriveKinematics(kTrackwidthMeters);
 
-### Setup Robot Odometry
-In this task we'll setup the odometry in order to track the robot's position on the field and report it out to the dashboards.  There are three steps.  Create Odometry objects, update, reset.
+    // Max speed and acceleration of the robot
+    public static final double kMaxSpeedMetersPerSecond = 0.5;
+    public static final double kMaxAccelMetersPerSecondSquared = 0.5;
 
-This is placed in the contructor.
+    // The linear inertia gain, volts
+    public static final double ksVolts = 0.461;
+    // The linear velocity gain, volts per (meter per second)
+    public static final double kvVoltSecondsPerMeter = 6.93;
+    // The linear acceleration gain, volts per (meter per second squared).
+    public static final double kaVoltSecondsSquaredPerMeter = 0.0737;
 
-    Pose2d initialPose = new Pose2d(0, 1.5, m_gyro.getRotation2d()); 
-    m_odometry = new DifferentialDriveOdometry(m_gyro.getRotation2d(), 
-                   getLeftDistanceMeters(), getRightDistanceMeters(), 
-                   initialPose);
-    m_field2d.setRobotPose(initialPose);
+    // Setup constraints for feedforward and kinematics
+    public static final SimpleMotorFeedforward kFeedForward = 
+      new SimpleMotorFeedforward(ksVolts, 
+                                kvVoltSecondsPerMeter, 
+                                kaVoltSecondsSquaredPerMeter);    
 
-Update the Pose.
+That's all for step 1.
 
-    // Update the odometry in the periodic block
-    Pose2d currentPose = m_odometry.update(m_gyro.getRotation2d(), 
-                                           m_leftEncoder.getDistance(), 
-                                           m_rightEncoder.getDistance());
-    
-    m_field2d.setRobotPose(currentPose); 
+### Step 2. Setup Robot Odometry
+In this task we'll check that we have all of the odometry components in order to track the robot's position on the field and report it out to the dashboards.  We setup odometry and the *Field2d* widget in the [Kinematics and Odometry](../SC/romiOdometry.md#odometryTask) module. 
 
-To reset the odometry.
+When you have confirmed that you have the methods in your code you're done with step 2.
 
-    public void resetOdometry(Pose2d pose) {
-        resetEncoders();
-        zeroHeading();
-        m_odometry.resetPosition(m_gyro.getRotation2d(),
-            getLeftDistanceMeters(), getRightDistanceMeters(), 
-            pose);
-    }
-
-### Create a Trajectory
-To create the trajectory.  
-
-Add the voltage constraints.    
+### Step 3. Create a Trajectory
+To create the trajectory first add the voltage constraints to the *Constants* file.    
         
+    // Voltage constraints
     public static final DifferentialDriveVoltageConstraint kAutoVoltageConstraint =
       new DifferentialDriveVoltageConstraint(
           kFeedForward,
@@ -158,7 +157,30 @@ Add the voltage constraints.
           .setKinematics(kDriveKinematics)
           .addConstraint(kAutoVoltageConstraint);
 
-### Create the *RunRamseteTrajectory* Command
+Now we can create our trajectory. The example below will drive a curved path and then stop.
+
+    /**
+    * Drives a curved path
+    */
+    public Trajectory curvedTrajectory() {
+        // Note that all coordinates are in meters, and follow NWU conventions.
+        Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
+            // Start at the origin facing the +X direction
+            new Pose2d(0, 0, new Rotation2d(0)),
+            List.of(
+                new Translation2d(0.5, 0.25), // 1 Left
+                new Translation2d(1.0, -0.25), // 2 Right
+                new Translation2d(1.5, 0.25)  // 3 Left           
+            ),
+            new Pose2d(-0.0, -0.2, new Rotation2d(Math.PI)),
+            DrivetrainConstants.kTrajectoryConfig);
+
+        return trajectory;
+    }
+
+You're done with step 3.
+
+### Step 4. Create the *RunRamseteTrajectory* Command
 
 
 ## References

@@ -40,10 +40,21 @@ In this lab we'll setup the code required to run a trajectory-following command 
 
 - Create a command called *RunRamseteTrajectory* to follow the generated trajectory.
 
-### Run System Identification and add Parameters
-In a previous lab you ran [System Identification on the Romi](../../Romi/Control/romiSystemId).  We're going to run System Identification again but this time for the RoboRIO robot.  Start the SysId Tool from VSCode or the terminal command line.   
+### Run System Identification and Add Parameters
+In a previous lab you ran [System Identification on the Romi](../../Romi/Control/romiSystemId).  We're going to run System Identification again but this time for the RoboRIO robot.  Start the SysId Tool from VSCode or the terminal command line. The configuration for the RoboRIO robot needs to be entered.  The following configuration would be typical for the robots that our team uses.  
 
-Before setting up the trajectory-following command we need to add a new subclass to the *Constants* file. These two constants are for ...
+![Configure SysID](../../images/FRCTools/FRCTools.037.jpeg)
+
+Run the SysId tests and analyze the results.  Update the voltage values and speed constraints.  An example of these is shown below, but the values for your robot will be different.
+
+        public static final double ksVolts = 0.6024;
+        public static final double kvVoltSecondsPerMeter = 0.21907;
+        public static final double kaVoltSecondsSquaredPerMeter = 0.0096252;
+
+        public static final double kMaxSpeedMetersPerSecond = 2.0;
+        public static final double kMaxAccelMetersPerSecondSquared = 2.0;
+
+Before setting up the trajectory-following command we also need to add a new subclass to the *Constants* file. These two constants are used by the trajectory-following algorithm.
 
     public static final class AutoConstants {    
         public static final double kRamseteB = 2;
