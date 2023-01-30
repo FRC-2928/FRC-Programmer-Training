@@ -27,7 +27,7 @@ The sensors used for closed-loop control are designated during motor configurati
 
 ![Integrated Sensor](../images/FRCroboRIO/FRCroboRIO.009.jpeg)
 
-#### Setting PID Gain Values
+#### <a name="pidSlots"></a>Setting PID Gain Values
 The Talon FX/SRX can run two PID loops simultaneously, *PID[0]* and *PID[1]*.  You can set up multiple PID gain values and put them into memory slots within the Talon's motor controller.  You can then write code to assign the gain values from a selected slot for each of the PID loops. There are four slots to choose from, so you can configure up to four sets of PID gain values.
 
 ![PID Slots](../images/FRCroboRIO/FRCroboRIO.007.jpeg)
@@ -132,10 +132,23 @@ Both modes of this sensor (Relative and Absolute) have a resolution of `4096` ti
 
 - Run drivetrain motors using Position control from a Gyro.
 
-### Drive using Velocity Control
+### <a name="taskVelocity"></a>Drive using Velocity Control
 Velocity control is used to drive a mechanism at a set velocity.  In this mode the controller will try and maintain the velocity regardless of the torque put on the motor.  In this task we'll use velocity control to drive each wheel of a drivetrain at a specified velocity.  The controller should maintain this velocity regardless of the mass of the robot or the friction against the wheels.  However, this will be constrained by the battery power or the motor's capabilities.
 
 The velocity will be controlled with the TalonFX controller's built in PID loop, that uses the wheel encoders as feedback sensors.  The loop only needs to know how many encoder ticks that it should maintain every 100 milliseconds. It has no knowledge of the speed of the drivetrain.  Therefore, we'll need to convert our required meters per second into encoder ticks per second.  This will require information about the drivetrain gearing and the diameter of the wheels.
+
+The TalonFX's *ControlMode.Velocity* requires PIDF values to be set.  These values can be placed in one of the PID slots as explained in [Setting PID Gain Values](#pidSlots) above.  The following values seem to work well for our roboRIO training robot.
+
+    public void setWheelPIDF() {
+
+        // set the PID values for each individual wheel
+        for(TalonFX fx : new TalonFX[] {leftLeader, rightLeader}){           
+            fx.config_kP(0, 0.16, 0);
+            fx.config_kI(0, 0.0, 0);
+            fx.config_kD(0, 0.0, 0);
+            fx.config_kF(0, 0.0, 0);
+        }
+    }
 
 In order to lessen the work done by the PID loop we'll use *Feedforward* control.  See [Feedforward Control](../Concepts/Control/classicalControl.md#feedforward) for more information.  The whole process is illustrated in the following diagram.
 
@@ -147,7 +160,7 @@ The first thing is to setup the feedforward.  The WPILib *SimpleMotorFeedforward
     public static final SimpleMotorFeedforward kFeedForward = 
         new SimpleMotorFeedforward(ksVolts, kvVoltSecondsPerMeter, kaVoltSecondsSquaredPerMeter);
 
-Since the TalonFX/SRX controllers work in encoder ticks, we'll also need to convert the velocity in  meters per second to encoder ticks per second.  The following functions facilitate this conversion.  Notice, that the drivetrain wheel diameters and gearing are brought into this calculation.
+Since the TalonFX/SRX controllers work in encoder ticks, we'll also need to convert the velocity in  meters per second to encoder ticks per second.  The following functions facilitate this conversion.  Notice, that the drivetrain's wheel diameter and gearing are brought into this calculation.
 
     public double metersToWheelRotations(double metersPerSecond) {
         return metersPerSecond / (DrivetrainConstants.kWheelDiameterMeters * Math.PI);
@@ -160,10 +173,21 @@ Since the TalonFX/SRX controllers work in encoder ticks, we'll also need to conv
         return wheelRotations * DrivetrainConstants.kEncoderCPR * DrivetrainConstants.kLowGearRatio;
     }
 
+Now we use both methods to convert velocity meters per second to encoder ticks.
+
+    public double metersToEncoderTicks(double metersPerSecond) {
+		GearState gearState = this.gearStateSupplier.get();
+		double encoderTicks = this.wheelRotationsToEncoderTicks(
+			this.metersToWheelRotations(metersPerSecond),
+			gearState
+		);
+		return encoderTicks;
+	}
+
 
 We're now ready to create a method called `setOutputMetersPerSecond()` that accepts the meters per second for each wheel.  It calculates the values required for the velocity control loop.  The `set()` function of the motor controller is set to *ControlMode.Velocity*. The required velocity (in encoder ticks per 100ms) is then passed into the function for each wheel. The parameter values are set separately for each wheel, since we may want them to go at different speeds in order to drive a curved path. 
 
-A demand type of *ArbitraryFeedForward* is used to enable the feedforward control.  Units for the arbitrary feedforward term are a power value between [-1,+1]. See [Arbitrary Feed Forward](https://docs.ctre-phoenix.com/en/stable/ch16_ClosedLoop.html?highlight=DemandType.ArbitraryFeedForward#arbitrary-feed-forward) in the Phoenix documentation for more details.
+A demand type of *ArbitraryFeedForward* is used to enable the feedforward control.  Units for the arbitrary feedforward term are a value between `[-1,+1]`. See [Arbitrary Feed Forward](https://docs.ctre-phoenix.com/en/stable/ch16_ClosedLoop.html?highlight=DemandType.ArbitraryFeedForward#arbitrary-feed-forward) in the Phoenix documentation for more details.
 
  Once the power requirements are set they are sent to the motors using the *DifferentialDrive* `feed()` function.
 
@@ -174,11 +198,10 @@ A demand type of *ArbitraryFeedForward* is used to enable the feedforward contro
         double rightFeedForward = m_feedForward.calculate(rightMetersPerSecond);
 
         // Convert meters per second to encoder ticks per second
-        var gearState = m_gearStateSupplier.get();
-        double leftVelocityTicksPerSec = wheelRotationsToEncoderTicks(metersToWheelRotations(leftMetersPerSecond), gearState);
-        double rightVelocityTicksPerSec = wheelRotationsToEncoderTicks(metersToWheelRotations(rightMetersPerSecond), gearState);
+        double leftVelocityTicksPerSec = metersToEncoderTicks(leftMetersPerSecond);
+		double rightVelocityTicksPerSec = metersToEncoderTicks(rightMetersPerSecond);
 
-        // Set the power for each wheel
+        // Set the power for each wheel. Convert TicksPerSec to ticks per 100ms
         m_leftLeader.set(ControlMode.Velocity, 
                         leftVelocityTicksPerSec/10.0, 
                         DemandType.ArbitraryFeedForward, 

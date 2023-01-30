@@ -140,8 +140,8 @@ In this task we'll check that we have all of the odometry components in order to
 
 When you have confirmed that you have the methods in your code you're done with step 2.
 
-### Step 3. Create a Trajectory
-To create the trajectory first add the voltage constraints to the *Constants* file.    
+### Step 3. Generate a Trajectory
+In order to generate a trajectory we need to know trackwidth of the drivetrain together with its maximum speed and acceleration.  This information gets fed into the *TrajectoryGenerator* as a *TrajectoryConfig* so as it can compute velocities at each point of the trajectory. Add the voltage constraints to the *Constants* file.    
         
     // Voltage constraints
     public static final DifferentialDriveVoltageConstraint kAutoVoltageConstraint =
@@ -181,6 +181,44 @@ Now we can create our trajectory. The example below will drive a curved path and
 You're done with step 3.
 
 ### Step 4. Create the *RunRamseteTrajectory* Command
+We now need to create a command to run the trajectory.  Create a new command and call it *RunRamseteTrajectory*.  The command will extend the *RamseteCommand* and will require an object parameter for the *Drivetrain* and the *Trajectory*.  The command should look like the following when you're done.
+
+    public class RunRamseteTrajectory extends RamseteCommand {
+        Drivetrain m_drivetrain;
+        Trajectory m_trajectory;
+
+        /** Creates a new RunRamseteTrajectory. */
+        public RunRamseteTrajectory(Drivetrain drivetrain, Trajectory trajectory) {}
+    }
+
+Now insert the following code into the constructor that will run the trajectory.
+   
+    super(
+        trajectory,
+        drivetrain::getPose,
+        new RamseteController(ControlConstants.kRamseteB, ControlConstants.kRamseteZeta),
+        DrivetrainConstants.kFeedForward,
+        DrivetrainConstants.kDriveKinematics,
+        drivetrain::getWheelSpeeds,
+        new PIDController(DrivetrainConstants.kPDriveVelLeft, 0, 0),
+        new PIDController(DrivetrainConstants.kPDriveVelRight, 0, 0),
+        drivetrain::tankDriveVolts,
+        drivetrain);
+
+        m_drivetrain = drivetrain;
+        m_trajectory = trajectory;
+
+In the initalization method we will reset the odometry to the initial pose of the generated starting point of the trajectory.  This ensures that the robot is in-sync with the trajectory.
+
+    public void initialize() {
+        super.initialize();
+        m_drivetrain.resetOdometry(m_trajectory.getInitialPose());   
+    }
+
+Now in the *RobotContainer* class we can create an auto command to run the trajectory.  The command first calls the `curvedTrajectory()` method to generate the trajectory and then passes it to the *RunRamseteTrajectory* command that you just created.
+
+    m_chooser.addOption("Drive Curved Trajectory", new RunRamseteTrajectory(m_drivetrain, curvedTrajectory()));
+
 
 
 ## References

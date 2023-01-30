@@ -47,8 +47,8 @@ nav:
             - RoboRIO/motorConfig.md
             - RoboRIO/pneumatics.md           
             - RoboRIO/motorControl.md
-            - RoboRIO/pathWeaver.md      
-            - RoboRIO/limelight.md
+            - RoboRIO/pathWeaver.md  
+            - RoboRIO/roboRIOSimulation.md    
 
         - 'Programming': 
             - Programming/introProgramming.md
@@ -85,6 +85,7 @@ nav:
             - Concepts/Control/LQR.md
         - 'Vision': 
             - Vision/introVision.md
+            - Vision/limelight.md
         - 'Machine Learning':
             - MachineLearning/MLIndex.md
             - MachineLearning/MLProcessImages.md

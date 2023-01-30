@@ -22,21 +22,25 @@ The code used to construct the trajectory-following command looks like the follo
         m_trajectory = trajectory;
     }
 
-## PathWeaver
-WPILib contains a trajectory generation suite called [PathWeaver](https://docs.wpilib.org/en/latest/docs/software/pathplanning/pathweaver/introduction.html#introduction-to-pathweaver) that can be used to generate and follow trajectories.  
+## <a name="pathweaver"></a>PathWeaver
+WPILib contains a trajectory generation suite called [PathWeaver](https://docs.wpilib.org/en/latest/docs/software/pathplanning/pathweaver/introduction.html#introduction-to-pathweaver) that can be used to generate trajectories.  When you start PathWeaver you are prompted to create a new project as explained in [Creating a Pathweaver Project](https://docs.wpilib.org/en/latest/docs/software/pathplanning/pathweaver/creating-pathweaver-project.html#creating-a-pathweaver-project).  We'll use the VSCode project directory `PathWeaver` as our project directory and the `src/main/deploy/paths` directory as our output directory as shown below.
+
+![PathWeaver Configuration](../../images/FRCTools/FRCTools.038.jpeg)
+
+In order to generate a trajectory we need to know something about the physics of the drivetrain and it maximum speed and acceleration.  This information gets fed into the *TrajectoryGenerator* so as it can compute velocities at each point of the trajectory. We'll use `2.0` as our maximum speed and acceleration and `0.7` as the trackwidth of our RoboRIO training robot.  The project configuration is written to the `pathweaver.json` file under the `PathWeaver` directory.
 
 <!-- Each trajectory point holds the desired velocity, position, arbitrary feedforward, and time duration to honor said point until moving on to the next point. The point also holds targets for both the primary and auxiliary PID controller, allowing for differential control (drivetrain, differential mechanisms).
 
 Alternatively, the trajectory points can be streamed into the motor controller as the motor controller is executing the profile, so long as the robot controller sends the trajectory points faster than the Talon consumes them. This also means that there is no practical limit to how long a profile can be. -->
 
 ## Lab - Trajectories and PathWeaver
-In this lab we'll setup the code required to run a trajectory-following command using PathWeaver.  It will have three tasks:
+In this lab we'll setup the code required to run a trajectory-following command using PathWeaver. Prior to doing this lab you must have created the motor input function `setOutputMetersPerSecond()` as shown in the [Drive using Velocity Control](motorControl.md#taskVelocity) task. This lab will have three tasks:
 
 - Run System Identification and add the parameters.
 
 - Configure a drive subsystem to track the robot’s pose using WPILib’s odometry library.
 
-- Generate a simple trajectory through a set of waypoints using WPILib’s TrajectoryGenerator class.
+- Generate a simple trajectory through a set of waypoints using PathWeaver.
 
 - Create a command called *RunRamseteTrajectory* to follow the generated trajectory.
 
@@ -65,7 +69,9 @@ Before setting up the trajectory-following command we also need to add a new sub
 
 See [Kinematics and Odometry](../../Romi/SC/romiOdometry)
 
-### Create a Trajectory
+### Generate a Trajectory using PathWeaver
+Open a PathWeaver project as show above in [PathWeaver](#pathweaver) above.
+
 
 ### Create the *RunRamseteTrajectory* Command
 Create a new command called *RunRamseteTrajectory* from the left file menu.  This command will extend *RamseteCommand*, so replace *CommandBase* with *RamseteCommand*.  The command is going to need to know what the trajectory is and have access to the drivetrain, so pass in *Drivetrain* and *Trajectory* object.  Here's how the *RunRamseteTrajectory* constructor should look with these two parameters.
