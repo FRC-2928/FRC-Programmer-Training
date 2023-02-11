@@ -34,3 +34,5 @@ Create the simulated model for the drivetrain.
 	  );
 
 ## References
+
+- Phoenix Documentation [Simulation](https://docs.ctre-phoenix.com/en/latest/ch15a_Simulation.html#simulation)

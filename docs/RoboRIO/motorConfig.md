@@ -73,6 +73,54 @@ The Talon FX has a new set of inverts that are specific to it, see [Talon FX Spe
 
 ![Motor Configuration](../../images/FRCroboRIO/FRCroboRIO.004.jpeg)
 
+## Remote Sensors
+The TalonFX/SRX can execute closed-loop modes with sensor values sourced by other Talons, CANifiers, or Pigeon IMUs on the same CAN-bus.  This is useful when you want to use Auxiliary PID1 Closed-Loop (differential mechanisms) that requires more than one sensor source (including MotionProfileArc, and all other Closed-Loop control modes).
+
+See [Bring Up: Remote Sensors](https://docs.ctre-phoenix.com/en/latest/ch14a_BringUpRemoteSensors.html#bring-up-remote-sensors)
+
+Select what remote device and signal to assign to Remote Sensor 0 or Remote Sensor 1. After binding a remote device and signal to Remote Sensor X, you may select Remote Sensor X as a PID source for closed-loop features.  Once the remote sensor has been assigned you can select the feedback device for the motor controller.
+
+    talonLeader.configRemoteFeedbackFilter(m_pigeon.getDeviceID(), 
+                                    RemoteSensorSource.Pigeon_Pitch, 
+                                    0);
+
+    talonLeader.configSelectedFeedbackSensor(FeedbackDevice.RemoteSensor0);
+
+For instance, if using an absolute magnetic encoder you can use the following command.
+
+    fx.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
+
+## Limit Switches
+Configure the limit switch:
+
+    // Use a limit switch connected directly to the motor controller
+    talon1.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, 
+                                            LimitSwitchNormal.NormallyOpen, 0);
+
+    talon1.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, 
+                                            LimitSwitchNormal.NormallyOpen, 0); 
+
+    talon1.setInverted(true);
+    talon1.setSensorPhase(true);
+
+    talon1.configForwardSoftLimitThreshold(7300);
+    talon1.configReverseSoftLimitThreshold(-7300);
+    talon1.configForwardSoftLimitEnable(false, 0);
+    talon1.configReverseSoftLimitEnable(false, 0);
+    talon1.overrideSoftLimitsEnable(false);
+
+Test limit switch:
+
+    public boolean isLimitSwitchClosed(){
+        return talon1.getSensorCollection().isFwdLimitSwitchClosed() == 1;
+    }
+
+Enable limit switch:
+
+    public void setLimitSwitchEnabled(){
+        talon1.overrideLimitSwitchesEnable(true);
+    }
+
 ## Lab - Configure Motors
 In this lab your task is to research some of the motor configuration parameters.  Go to the [Phoenix Documentation Website](https://docs.ctre-phoenix.com/en/latest/index.html).  Use the search field to find results for the `setNeutralMode()`, `configSupplyCurrentLimit()`, `configSelectedFeedbackSensor()` motor configuration parameters and read the information provided.  You may have to do a page search after clicking on the result to find the parameter.  After doing your research consider the following questions.
 

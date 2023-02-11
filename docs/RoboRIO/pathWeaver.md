@@ -45,7 +45,7 @@ In this lab we'll setup the code required to run a trajectory-following command 
 - Create a command called *RunRamseteTrajectory* to follow the generated trajectory.
 
 ### Run System Identification and Add Parameters
-In a previous lab you ran [System Identification on the Romi](../../Romi/Control/romiSystemId).  We're going to run System Identification again but this time for the RoboRIO robot.  Start the SysId Tool from VSCode or the terminal command line. The configuration for the RoboRIO robot needs to be entered.  The following configuration would be typical for the robots that our team uses.  
+In a previous lab you ran [System Identification on the Romi](../../Romi/Control/romiSystemId).  We're going to run System Identification again but this time for the RoboRIO robot.  Start the *SysId Tool* from VSCode or the terminal command line. The configuration for the RoboRIO robot needs to be entered.  The following configuration would be typical for the robots that our team uses that have FalconFX motor controllers. 
 
 ![Configure SysID](../../images/FRCTools/FRCTools.037.jpeg)
 

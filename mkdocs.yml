@@ -48,7 +48,7 @@ nav:
             - RoboRIO/pneumatics.md           
             - RoboRIO/motorControl.md
             - RoboRIO/pathWeaver.md  
-            - RoboRIO/roboRIOSimulation.md    
+            # - RoboRIO/roboRIOSimulation.md    
 
         - 'Programming': 
             - Programming/introProgramming.md
