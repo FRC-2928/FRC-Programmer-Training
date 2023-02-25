@@ -33,7 +33,7 @@ nav:
             - Romi/Control/romiStateSpace.md
             # - Romi/Control/romiServos.md
             # - Romi/Control/romiArm.md
-        - 'Romi Vision Processing':
+        - 'Romi Vision Processing - PhotoVision':
             - Romi/Vision/romiVisionIndex.md
             - Romi/Vision/romiBasicVision.md
             - Romi/Vision/romiImageProcessing.md
@@ -49,6 +49,9 @@ nav:
             - RoboRIO/motorControl.md
             - RoboRIO/pathWeaver.md  
             # - RoboRIO/roboRIOSimulation.md    
+        - 'RoboRIO Vision Processing - Limelight': 
+            - Vision/introVision.md
+            - Vision/limelight.md
 
         - 'Programming': 
             - Programming/introProgramming.md
@@ -83,9 +86,6 @@ nav:
             - Concepts/Control/classicalControl.md
             - Concepts/Control/stateSpaceControl.md
             - Concepts/Control/LQR.md
-        - 'Vision': 
-            - Vision/introVision.md
-            - Vision/limelight.md
         - 'Machine Learning':
             - MachineLearning/MLIndex.md
             - MachineLearning/MLProcessImages.md
