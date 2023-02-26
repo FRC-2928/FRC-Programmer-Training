@@ -15,7 +15,9 @@ Visual Studio Code is the supported IDE for programming an FRC robot. If you don
 The offline installer sets up a separate copy of VS Code for WPILib development, even if you already have VS Code on your machine. This is done because some of the settings that make the WPILib setup work may break existing workflows if you use VS Code for other projects.
 
 ### Notes for MacOS
-For MacOS you would need to install the WPI library via the *Extensions* option in VSCode. Follow the link to the [Visual Studio Code extensions fail to install on macOS](https://docs.wpilib.org/en/latest/docs/yearly-overview/known-issues.html#visual-studio-code-extensions-fail-to-install-on-macos) issue to install the WPI library. You may need to add your home directory to the *Finder* sidebar.  To do this go to Preferences->Sidebar->"Show in sidebar".
+Ensure that you eject the WPILib Installer after install, otherwise you will run into problems when a new release is published and you run the new installer.
+
+<!-- For MacOS you would need to install the WPI library via the *Extensions* option in VSCode. Follow the link to the [Visual Studio Code extensions fail to install on macOS](https://docs.wpilib.org/en/latest/docs/yearly-overview/known-issues.html#visual-studio-code-extensions-fail-to-install-on-macos) issue to install the WPI library. You may need to add your home directory to the *Finder* sidebar.  To do this go to Preferences->Sidebar->"Show in sidebar". -->
 
 You will need to install the *XCode Command Line Tools* in order to run the simulator.  To check if you have them installed type `xcode-select -p`.  It should display `/Library/Developer/CommandLineTools` if you already have them installed.
 
@@ -34,7 +36,7 @@ After upgrading VSCode will import each project to the latest version.  Answer *
 
 As soon as you open the upgraded project VSCode will start to run a compile.  This will often produce build errors that you need to resolve. You will probably have to import 3rd party software like *Pheonix* and *REVLib*.  Instructions on installing and configuring these libraries is detailed in the next section. Also see [Importing a Gradle Project](https://docs.wpilib.org/en/stable/docs/software/vscode-overview/importing-gradle-project.html) for more details on importing projects from previous season.
 
-To upgrade from the kickoff 2023 release simply download and run the new installer and it will update your current installation. If you already have the 2023 WPILib vscode installed, it will detect it and you can simply click “next” for that installation step. After installation, vscode will prompt you when opening your robot project whether you want to upgrade it to this version. 
+To upgrade from the kickoff 2023 release simply download and run the new installer and it will update your current installation. If you already have the 2023 WPILib vscode installed, it will detect it and you can simply click “next” for that installation step. After installation, vscode will prompt you when opening your robot project whether you want to upgrade it to this version. During the build season there will most likely be new sub-releases published that require the use of the WPILib installer. 
 
 <!-- #### Upgrading VSCode
 It's important that everyone has the latest software otherwise you won't be able to work on other team mates code.  After upgrading VSCode will import each project to the latest version.  Answer *Yes* to each prompt.

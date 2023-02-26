@@ -29,4 +29,8 @@
                     new SimpleMotorFeedforward(ksVolts, 
                                                 kvVoltSecondsPerMeter, 
                                                 kaVoltSecondsSquaredPerMeter);
+
+
+        Exception in thread "JavaFX Application Thread" java.lang.NullPointerException: Cannot invoke "edu.wpi.first.pathweaver.Waypoint.isLockTangent()" because the return value of "javafx.beans.value.ObservableValue.getValue()" is null
+        at edu.wpi.first.pathweaver.EditWaypointController.lambda$enableSaving$11(EditWaypointController.java:170)
 - 

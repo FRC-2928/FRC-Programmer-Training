@@ -227,7 +227,7 @@ When you run the *TurnToAnglePID* command you'll find that it moves very abruptl
 Let's start by slowing things down a bit.  When the command starts out we're going to be a long way from the setpoint, 90 degrees in fact.  That's going to produce a very large value from the **P**roportional part of our PID calculation, giving us a maximum power output of `1.0` from the start.  We can clamp that output to `0.5` in either direction by using the `MathUtil.clamp` function.  Our output value will now look like this:
 
         // Use the output here
-        drivetrain.arcadeDrive(0, MathUtil.clamp(-output, -0.5, 5.0));
+        drivetrain.arcadeDrive(0, MathUtil.clamp(-output, -0.5, 0.5));
 
 Now, test the command again.  You should find some improvement.  The command may tend to overshoot the target angle by about 10 degrees.  To improve that result you can try reducing the **P** value slightly, or adding a very small amount to the **D** parameter.  Try a value of `0.002` to begin with.
 

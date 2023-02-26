@@ -33,6 +33,10 @@ Create the simulated model for the drivetrain.
 		null //VecBuilder.fill(0.001, 0.001, 0.001, 0.1, 0.1, 0.005, 0.005) //Uncomment this line to add measurement noise.
 	  );
 
+## Simulator GUI Setup
+Bring out Field2d object and AutoChooser.
+
+
 ## References
 
 - Phoenix Documentation [Simulation](https://docs.ctre-phoenix.com/en/latest/ch15a_Simulation.html#simulation)
