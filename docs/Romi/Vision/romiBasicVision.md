@@ -1,4 +1,4 @@
-# Vision Programming
+# Basic Vision Programming
 In this module we'll learn how to use the Raspberry Pi camera that's attached to the Romi.  We'll get it to stream camera images to [Shuffleboard](https://docs.wpilib.org/en/latest/docs/software/dashboards/shuffleboard/index.html), and use the Robotpy [Network Tables](https://robotpy.readthedocs.io/en/stable/guide/nt.html#networktables-guide) to send data to the [Simulator](https://docs.wpilib.org/en/latest/docs/software/wpilib-tools/robot-simulation/index.html) and to your robot program.  Lastly, we'll learn how to overlay a cross on the image to identify its center.  This will be a useful technique in subsequent learning modules to track image features that are captured by the camera.
 
 The camera program uses the open source software called [OpenCV](https://opencv.org/) and can be written in Java, Python, or C++.  We're going to use the Python programming language since most of the OpenCV programming examples that you'll find online will use Python, so if you run into any problems with your program chances you'll find the solution in Python. The camera program uses the [CameraServer](cameraServer.md) libraries from Robotpy.
@@ -42,8 +42,13 @@ The camera program can also send the image frames over to Shuffleboard in the fo
  
 Explain how the program works...It makes use of the [Camera Server](https://docs.wpilib.org/en/stable/docs/software/vision-processing/introduction/cameraserver-class.html) class from the WPI Library. 
 
+## <a name="lab"></a>Lab - Basic Vision Programming
+In this lab you'll upload the Python vision program that was explained in the previous section and view the camera output stream as you drive around the Romi.  The lab has two tasks:
 
-## <a name="upload"></a>Upload Python Program
+- Upload the Python vision program.
+- View the camera stream in Shuffleboard as you drive Romi.
+
+## <a name="upload"></a>Upload Python Vision Program
 You can't run the camera server code on your laptop since it's not currently supported.  You have to upload it to the Raspberry Pi to test it. In a terminal (Powershell):
 
 1. `cd ~/Documents/RomiExamples/BasicVision/Vision`.  If you opened up a terminal from VSCode then you should only need to `cd Vision`.
@@ -60,7 +65,7 @@ To confirm that the vision program is running you can view the output from the *
 
 ![View Vision output](../../images/FRCVision/FRCVision.005.jpeg)
 
-## Test your Program
+## View Camera Stream from Shuffleboard
 1. Run the your java program from VSCode by pressing the F5 key. In the **Simulator** you will see the Network Tables showing the `targetData` coming in from the python camera server program.  In later modules you will use this data to control the robot, but for now it just shows the coordinates for the center of the image.
 
 2. Start Shuffleboard and click on the Vision tab that was created from your java program. It should display the center position of the camera image.

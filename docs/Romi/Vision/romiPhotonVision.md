@@ -1,31 +1,28 @@
 # Using PhotoVision with Romi
-PhotonVision will be replacing GRIP going forward.  It has many advantages over GRIP and makes it much more streamlined to do vision processing on the Romi.  Refer to the [PhotonVision](https://docs.photonvision.org/en/latest/docs/getting-started/index.html) documentation for full details.
+*PhotonVision* is an easy-to-use vision processing solution for FRC.  In this training guide we'll be using [PhotonVision](https://docs.photonvision.org/en/latest/docs/getting-started/description.html) on the Romi to learn the basics of *Computer Vision*.  Many teams use PhotoVision on their competition robot since it can be used with a standard USB camera. To learm more about PhotoVision refer to the [Getting Started](https://docs.photonvision.org/en/latest/docs/getting-started/index.html) documentation.
 
-## Installation on the Romi
-First refer to [Installing PhotonVision on the Romi](https://github.com/PhotonVision/photonvision-docs/blob/ec29ff49e4a03f8d06e00818885efa774126c24c/source/docs/getting-started/installation/romi.rst). Also refer to [Debian-based install](https://docs.photonvision.org/en/latest/docs/getting-started/installation/coprocessor-image.html#other-debian-based-co-processor-installation) for the command line steps. To update an existing install read [Advanced Command Line Usage](https://docs.photonvision.org/en/latest/docs/getting-started/installation/advanced-cmd.html).
+ Note, that our team uses the [Limelight](https://limelightvision.io) camera on the competition robot, which we'll learn about later.  The Limelight camera uses its own software which is easy to install and maintain.
 
+## Installing PhotoVision on the Romi
+First refer to [Installing PhotonVision on the Romi](https://docs.photonvision.org/en/latest/docs/getting-started/installation/sw_install/romi.html). 
 Most of the documentation is there but a few things to emphasize are:
 
 - If Romi is setup as an access point you must plug in an ethernet cable before running the install.
 - Set the Romi to **Writable** mode before installing.
 - After editing the CameraServer `runCamera` script remember to put it back into **Read-Only** mode before rebooting.
 - The install on the Romi sets up the `photonvision.service` file in `/lib/systemd/system` to start PhotonVision on reboot.  You can also start it manually: `systemctl stop/start photonvision.service`
-- Make sure that you follow the [Update Steps](https://docs.photonvision.org/en/latest/docs/getting-started/installation/advanced-cmd.html) if you already have PhotonVision installed. Otherwise, you end up with a bad `photonvision.service` file and PhotonVision won't start.
+<!-- - Make sure that you follow the [Update Steps](https://docs.photonvision.org/en/latest/docs/getting-started/installation/advanced-cmd.html) if you already have PhotonVision installed. Otherwise, you end up with a bad `photonvision.service` file and PhotonVision won't start. -->
+
+To update PhotonVision refer to [Updating PhotonVision](https://docs.photonvision.org/en/latest/docs/getting-started/installation/sw_install/raspberry-pi.html#updating-photonvision).
+
 
 ## Creating a Pipeline
-A pipeline is created using the Web interface at `http://10.0.0.2:5800/`.  Here are a few notes on using the interface:
+A pipeline is created using the Web interface at `http://10.0.0.2:5800/`.  We'll go over this in the next section when we look at [Image Processing](romiImageProcessing). 
 
-- Team number can be set to 2928 and it still communicates with the Simulator even though we're using 10.0.0.2.
-- The Raspberry Pi must be in **Writable** mode to create a new pipeline.  I believe it can go back into **Read-Only** mode after the pipeline is created and you are executing your java program.
-- While creating the pipeline you must adjust the filtering controls until you've aquired one or more targets, otherwise you won't get anything in the Network Tables.
-- *Pipeline Type* must be **Reflective** mode otherwise there's no data.
-Try setting output mode to right (camera is offset)
-- If the stream is blank then try doing a browser reload.
-
-Documentation for [Creating a Pipeline](https://docs.photonvision.org/en/latest/docs/getting-started/pipeline-tuning/index.html)
 
 ## PhotonLib Programming
-Before you do any WPILib programming you have to install the PhotonLib Library. See the [PhotonLib Installation](https://docs.photonvision.org/en/latest/docs/programming/photonlib/adding-vendordep.html) page.
+Before you do any WPILib programming you have to install the PhotonLib Library. This library makes it easier for teams to retrieve vision data from their vision system. See the [PhotonLib Installation](https://docs.photonvision.org/en/latest/docs/programming/photonlib/adding-vendordep.html) page.
+
 In this section we're going to attempt to determine the position of the robot on the game field based only on what is viewed from its camera.  I say attempt because this will involve some estimation, so our results may not be acceptable without a lot tuning. The plan is to use visual targets on the field to estimate the position of the robot. There are a several pieces that must come together to make this work so this section may be a little complex.
 
 In order to pull this off we need to get data on the following things:
@@ -68,13 +65,12 @@ See [estimating distance](https://docs.limelightvision.io/en/latest/cs_estimatin
 
 ### The Pose2d of the Robot on the Field
 
-
 ![Robot Position on Field](../../images/FRCVision/FRCVision.024.jpeg)
 
 
 ## References
 
-- PhotonVision - [Install on the Romi](https://github.com/PhotonVision/photonvision-docs/blob/ec29ff49e4a03f8d06e00818885efa774126c24c/source/docs/getting-started/installation/romi.rst)
+- PhotonVision - [Install on the Romi](https://docs.photonvision.org/en/latest/docs/getting-started/installation/sw_install/romi.html)
 
 - PhotonVision - [Documentation](https://docs.photonvision.org/en/latest/)
 

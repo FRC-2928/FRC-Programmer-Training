@@ -36,6 +36,7 @@ nav:
         - 'Romi Vision Processing - PhotoVision':
             - Romi/Vision/romiVisionIndex.md
             - Romi/Vision/romiBasicVision.md
+            - Romi/Vision/romiPhotonVision.md
             - Romi/Vision/romiImageProcessing.md
             - Romi/Vision/romiLineFollow.md
         
@@ -48,10 +49,11 @@ nav:
             - RoboRIO/pneumatics.md           
             - RoboRIO/motorControl.md
             - RoboRIO/pathWeaver.md  
+            - RoboRIO/limelight.md
             # - RoboRIO/roboRIOSimulation.md    
-        - 'RoboRIO Vision Processing - Limelight': 
-            - Vision/introVision.md
-            - Vision/limelight.md
+        # - 'RoboRIO Vision Processing - Limelight': 
+        #     - LimelightVision/introVision.md
+            
 
         - 'Programming': 
             - Programming/introProgramming.md
