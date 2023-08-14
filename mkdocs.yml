@@ -50,7 +50,9 @@ nav:
             - RoboRIO/motorControl.md
             - RoboRIO/pathWeaver.md  
             - RoboRIO/limelight.md
-            # - RoboRIO/roboRIOSimulation.md    
+            - RoboRIO/swervedrive.md
+            # - RoboRIO/roboRIOSimulation.md   
+            # - RoboRIO/CoppeliaSim.md   
         # - 'RoboRIO Vision Processing - Limelight': 
         #     - LimelightVision/introVision.md
             

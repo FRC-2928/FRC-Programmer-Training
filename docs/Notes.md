@@ -31,6 +31,16 @@
                                                 kaVoltSecondsSquaredPerMeter);
 
 
-        Exception in thread "JavaFX Application Thread" java.lang.NullPointerException: Cannot invoke "edu.wpi.first.pathweaver.Waypoint.isLockTangent()" because the return value of "javafx.beans.value.ObservableValue.getValue()" is null
-        at edu.wpi.first.pathweaver.EditWaypointController.lambda$enableSaving$11(EditWaypointController.java:170)
+## CoppeliaSim
+Scene directory: 
+        /Applications/coppeliaSim.app/Contents/Resources/scenes/
+Must have Python 3.11 on m1 Mac to install robotpy libraries
+        python3 -m pip install pyntcore
+        python3 -m pip install pynetworktables
+
+[Installing ZeroMQ](https://www.coppeliarobotics.com/helpFiles/en/zmqRemoteApiOverview.htm)    
+
+Set PYTHONPATH in .bash_profile
+        PYTHONPATH="/Applications/coppeliaSim.app/Contents/Resources/programming/zmqRemoteApi/clients/python/"
+        export PYTHONPATH
 - 
