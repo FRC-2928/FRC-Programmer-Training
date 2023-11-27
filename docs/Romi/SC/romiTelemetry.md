@@ -72,7 +72,7 @@ First, we should again setup a function to keep all of the code together, so cre
 
 The syntax for adding data to a tab is quite complex.  Essentially, we have to define what data to display, how to display it, and where on the screen to place it.  See the [Shuffleboard](https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/shuffleboard/index.html) documentation for details on the code syntax.  Unlike SmartDashboard, you will have to explicitly create a NetworkTable entry to hold your data value.  This is done by creating the following attribute:
 
-    NetworkTableEntry m_headingEntry;
+    GenericEntry m_headingEntry;
 
 The next step is to create the Shuffleboard tab to show the data.  Place this in the `setupShuffleboard()` method.  You'll need to import a couple of classes.
 
@@ -125,7 +125,7 @@ Here's how the entries should look once you've added them.
         .withPosition(10, 0)
         .getEntry();     
 
-Once again, the entries are of type NetworkTableEntry, which need to be defined as attributes of the *Drivetrain* class. 
+Once again, the entries are of type GenericEntry, which need to be defined as attributes of the *Drivetrain* class. 
 
 Place the following statements in the `publishTelemetry()` method to put the data into the NetworkTables and see them in Shuffleboard.
 

@@ -18,9 +18,9 @@ The color sensor subsystems' primary purpose is to interpret and return the colo
 
     public MatchedColor getMatchedColor() {
         
-        NetworkTableEntry blueEntry = m_colorData.getEntry("Blue");
-        NetworkTableEntry greenEntry = m_colorData.getEntry("Green");
-        NetworkTableEntry redEntry = m_colorData.getEntry("Red");
+        GenericEntry blueEntry = m_colorData.getEntry("Blue");
+        GenericEntry greenEntry = m_colorData.getEntry("Green");
+        GenericEntry redEntry = m_colorData.getEntry("Red");
 
         if (redEntry.getDouble(0.0) > 8000.0) {
           return MatchedColor.RED;

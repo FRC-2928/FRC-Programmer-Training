@@ -30,6 +30,18 @@ A gyro is required to track the orientation of the robot within the game field.
 ## Drive Command
 The objective of the *Drive* command is to take input from the game controller and create a data structure that represents the required speeds and direction of the robot chassis.  This data structure is sent to the *SwerveDriveKinematics* class that can translate the required chassis speeds into instructions for each of the four wheel modules.  These instructions will tell the module how fast it should be going and what angle it should be at.  The instructions are carried out by the `swerve()` method of the *Drivetrain* class.  This method first ensures that none of the wheels exceed their max speed and then applies the state (speed and direction) to each motor in order to obtain the required chassis speeds.  An important thing to note is that the applied states are from the robots frame of reference not field frame of reference.
 
+<!-- *CTREModuleState* `optimize()` - Accepts the desired state and the current module angle. Minimize the change in heading the desired swerve module state would require by potentially reversing the direction the wheel spins.  
+
+Button to switch robot from field centric to robot centric. 
+
+Need position to encoder counts, and meters per/sec to encoder counts per/100 milliseconds.  Look at BaseFalconSwerve Conversions.java 
+
+Check CTREConfigs for motor and encoder. -->
+
+Azimuth motor should be *Position* in open and closed loop mode. Drive motor is *PercentOutput* in open loop and *Velocity* or *Position* in closed loop. 
+
+
+
 ![Drive Command](../images/SwerveDrive/SwerveDrive.004.jpeg)
 
 The drive command will use a PID controller to control the orientation of the robot relative to the game field.  The controller uses the Pigeon gyro as the sensor input. The robot's angle is considered to be zero when it is facing directly away from your alliance station wall.
