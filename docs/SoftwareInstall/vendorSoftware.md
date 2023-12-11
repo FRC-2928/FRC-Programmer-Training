@@ -26,7 +26,7 @@ Remove the `WPI_` from all of the class definitions.  Use the mouse over to `imp
 
 To apply a configurarion.  See [Configuration](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/api-usage/configuration.html) Phoenix6 documentation. Also see [Configuring Motors and Encoders](../RoboRIO/motorConfig.md) in this documentation.
 
-To apply a control request.  See the [Control Requests](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/api-usage/control-requests.html) documentation.  Also see [Motors Control](../RoboRIO/motorControl.md) in this documentation.
+To apply a control request.  See the [Control Requests](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/api-usage/control-requests.html) documentation.  Also see [Motor Control](../RoboRIO/motorControl.md) in this documentation.
 
 Another resource is the [Phoenix6](https://github.com/CrossTheRoadElec/Phoenix6-Examples/tree/main/java) example code on GitHub.
 
@@ -36,8 +36,7 @@ In order to select values from the Phoenix hardware you need to import these:
     import com.ctre.phoenix6.StatusSignal;
 
 ## Installing the Phoenix Tuner
-
-
+Phoenix Tuner is the companion application allowing you to configure, analyze, update and control device. See [Phoenix X Tuner](https://pro.docs.ctr-electronics.com/en/latest/docs/tuner/index.html) for installing the tuner.
 
 ## Install REV Robotics Software
 The install of the REV Robotics libraries is similar to that of the Phoenix software for Mac and Linux.  
