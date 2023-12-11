@@ -4,26 +4,30 @@ There are several control modes used to drive a motor. The control mode used wil
 ![Control Modes](../images/FRCControlSystems/FRCControlSystems.014.jpeg)
 
 ## Open Loop Modes
-Open-Loop modes are usually used in combination with a game controller.  The setup is very simple since there's no feedback sensor required.  Here's an example of sending a percentage power output to each motor.  
+Open-Loop modes are usually used in combination with a game controller.  The setup is very simple since there's no feedback sensor required.  Here's an example of sending a percentage power output to each motor using the *DutyCycleOut* class.  
 
-    public void setDriveTrainVoltage(double leftVolts, double rightVolts) {
-        m_leftLeader.set(ControlMode.PercentOutput, leftVolts/12);
-        m_rightLeader.set(ControlMode.PercentOutput, rightVolts/12);
-        m_differentialDrive.feed();
+    public void tankDriveVolts(double leftVolts, double rightVolts) {
+        var leftVoltsRequest = new DutyCycleOut(leftVolts / 12);
+        this.leftLeader.setControl(leftVoltsRequest);
+
+        var rightVoltsRequest = new DutyCycleOut(rightVolts / 12);
+        this.rightLeader.setControl(rightVoltsRequest);
     }
 
+See [Open Loop Control](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/device-specific/talonfx/open-loop-requests.html#open-loop-control) in the Phoenix6 documentation.
+
 ## Closed Loop Modes
-On the roboRIO robot the motor controllers will implement the necessary PID loops, so we don't have to use the WPILib PID controllers as we did on the Romi.  We still have to write a few lines of code to specify the control mode and a setpoint target, but the motor controller will mostly do the rest.  The following Closed-Loop modes can be used with the Talon FX and SPX motors. 
+On the roboRIO robot the motor controllers will implement the necessary PID loops, so we don't have to use the WPILib PID controllers as we did on the Romi.  We still have to write a few lines of code to specify the control mode and a setpoint target, but the motor controller will mostly do the rest.  The following Closed-Loop modes can be used with the Talon FX and SPX motors. For more details see the Phoenix6 [Closed Loop Control](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/device-specific/talonfx/closed-loop-requests.html#closed-loop-control) documentation.
 
-- Position - The Position Closed-Loop control mode can be used to abruptly servo to and maintain a target position.  Mainly used for mechanisms like elevators and arms that are subject to gravitational forces. See [Position Closed-Loop Control Mode](https://docs.ctre-phoenix.com/en/stable/ch16_ClosedLoop.html#position-closed-loop-control-mode) in the Phoenix documentation.
+- **Position** - The Position Closed-Loop control mode can be used to abruptly servo to and maintain a target position.  Mainly used for mechanisms like elevators and arms that are subject to gravitational forces. See [Position Closed-Loop Control](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/device-specific/talonfx/closed-loop-requests.html#position-control) in the Phoenix6 documentation.
 
-- Current - The Current Closed-Loop logic can be used to approach a target current-draw. This mode is not often used. See [Current Closed-Loop Control Mode](https://docs.ctre-phoenix.com/en/stable/ch16_ClosedLoop.html#current-closed-loop-control-mode) in the Phoenix documentation.
+- **Velocity** - Velocity Closed-Loop logic is used to maintain a target velocity. Often used for mechanisms like flywheels that need to be kept at a constant speed.  It's also used for the drivetrain where a continuous stream of velocity setpoints are sent drive a desired trajectory. In this mode the controller will try and maintain the velocity regardless of the torque put on the motor.  See [Velocity Closed-Loop Control](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/device-specific/talonfx/closed-loop-requests.html#velocity-control) in the Phoenix6 documentation.
 
-- Velocity - Velocity Closed-Loop logic is used to maintain a target velocity. Often used for mechanisms like flywheels that need to be kept at a constant speed.  It's also used for the drivetrain where a continuous stream of velocity setpoints are sent drive a desired trajectory. In this mode the controller will try and maintain the velocity regardless of the torque put on the motor.  See [Velocity Closed-Loop Control Mode](https://docs.ctre-phoenix.com/en/stable/ch16_ClosedLoop.html#velocity-closed-loop-control-mode) in the Phoenix documentation.
+- **Motion Magic** - Motion Magic is a control mode for Talon SRX that provides the benefits of Motion Profiling without needing to generate motion profile trajectory points. When using Motion Magic, Talon SRX / Victor SPX will move to a set target position using a motion profile, while honoring the user specified acceleration, maximum velocity (cruise velocity), and optional S-Curve smoothing.  See [Motion Magic](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/device-specific/talonfx/closed-loop-requests.html#motion-magic) in the Phoenix6 documentation.
 
-- Motion Magic - Motion Magic is a control mode for Talon SRX that provides the benefits of Motion Profiling without needing to generate motion profile trajectory points. When using Motion Magic, Talon SRX / Victor SPX will move to a set target position using a motion profile, while honoring the user specified acceleration, maximum velocity (cruise velocity), and optional S-Curve smoothing.  See [Motion Magic Control Mode](https://docs.ctre-phoenix.com/en/stable/ch16_ClosedLoop.html#motion-magic-control-mode) in the Phoenix documentation.
+- **Continuous Mechanism Wrap** - A continuous mechanism is a mechanism with unlimited travel in any direction, and whose rotational position can be represented with multiple unique position values. Some examples of continuous mechanisms are swerve drive steer mechanisms or turrets (without cable management). See [Continuous Mechanism Wrap](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/device-specific/talonfx/closed-loop-requests.html#continuous-mechanism-wrap) in the Phoenix6 documentation.
 
-The sensors used for closed-loop control are designated during motor configuration.  The most common sensor used with the FalconFX/SRX controller is the *Integrated Sensor*, which is an encoder that is physically attached to the motor.  We only need to pass in the Control-Mode and setpoint in order to run our closed loop.  
+The sensors used for closed-loop control are designated during motor configuration.  The most common sensor used with the FalconFX/SRX controller is the *RotorSensor*, formally referred to as the *Integrated Sensor*, which is an encoder that is physically attached to the motor.  We only need to pass in the Control-Mode and setpoint in order to run our closed loop.  
 
 ![Integrated Sensor](../images/FRCroboRIO/FRCroboRIO.009.jpeg)
 
@@ -32,57 +36,38 @@ The Talon FX/SRX can run two PID loops simultaneously, *PID[0]* and *PID[1]*.  Y
 
 ![PID Slots](../images/FRCroboRIO/FRCroboRIO.007.jpeg)
 
-The following code sets up the PID values for each of the four slots.  This example was used to setup the PID values for differing speed requirements of a flywheel.  The PID values were determined by experimentation. See [Closed-Loop configuration slots](https://docs.ctre-phoenix.com/en/stable/ch16_ClosedLoop.html#closed-loop-configs-per-slot-four-slots-available) in the Phoenix documentation for details on each parameter of the `config_k[X]()` function. 
+The following code sets up the PID values for Slot0 of the drivetrain's front wheels.  The PID values should be determined by experimentation. See [Closed-Loop Gain Slots](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/device-specific/talonfx/closed-loop-requests.html#gain-slots) in the Phoenix6 documentation for details.
 
-    public void setFlywheelPIDF() {
-        // Config the closed loop gains in slot0
-        m_flywheelTalon.config_kP(0, 0.1, 0);
-        m_flywheelTalon.config_kI(0, 0.0001, 0);
-        m_flywheelTalon.config_kD(0, 0.0, 0);
-        m_flywheelTalon.config_kF(0, 0.047, 0);
+    for (TalonFX fx : new TalonFX[] { this.leftLeader, this.rightLeader }) {
+      // in init function, set slot 0 gains
+      var slot0Configs = new Slot0Configs();
+      slot0Configs.kS = 0.05; // Add 0.05 V output to overcome static friction
+      slot0Configs.kV = 0.12; // A velocity target of 1 rps results in 0.12 V output
+      slot0Configs.kP = 0.11; // An error of 1 rps results in 0.11 V output
+      slot0Configs.kI = 0.5; // An error of 1 rps increases output by 0.5 V each second
+      slot0Configs.kD = 0.01; // An acceleration of 1 rps/s results in 0.01 V output
 
-        // Config the Velocity closed loop gains in slot1
-        m_flywheelTalon.config_kP(1, 0.15, 0);
-        m_flywheelTalon.config_kI(1, 0.0001, 0);
-        m_flywheelTalon.config_kD(1, 0.0, 0);
-        m_flywheelTalon.config_kF(1, 0.049, 0);
-
-        // Config the Velocity closed loop gains in slot2
-        m_flywheelTalon.config_kP(2, 0.08, 0);
-        m_flywheelTalon.config_kI(2, 0.0001, 0);
-        m_flywheelTalon.config_kD(2, 0.0, 0);
-        m_flywheelTalon.config_kF(2, 0.045, 0);
-
-        // Config the Velocity closed loop gains in slot3
-        m_flywheelTalon.config_kP(3, 0.2, 0);
-        m_flywheelTalon.config_kI(3, 0.0001, 0);
-        m_flywheelTalon.config_kD(3, 0.0, 0);
-        m_flywheelTalon.config_kF(3, 0.049, 0);
+      fx.getConfigurator().apply(slot0Configs);
     }
 
-We can switch between the PID slots in our code.  In this example we adjust the PID gains depending on the speed of the flywheel. The gains are assigned to the PID[0] loop.
+We can switch between the PID slots in our code when we make the velocity request to the motor.
 
+    // create a velocity closed-loop request, voltage output, slot 0 configs
+    var request = new VelocityVoltage(0).withSlot(0);
 
-    public void setPidGains(int flywheelTicksPer100ms) {
-        if(flywheelTicksPer100ms > 16000){
-            m_flywheelTalon.selectProfileSlot(3, 0);
-        } else if (flywheelTicksPer100ms > 13000) {
-            m_flywheelTalon.selectProfileSlot(1, 0);       
-        } else if (flywheelTicksPer100ms > 8500) {
-            m_flywheelTalon.selectProfileSlot(0, 0);        
-        } else {
-            m_flywheelTalon.selectProfileSlot(2, 0);    
-        }
-    }
+    // set velocity to 8 rps, add 0.5 V to overcome gravity
+    m_talonFX.setControl(request.withVelocity(8).withFeedForward(0.5));
 
 ## Sensors
 In order to do any Close-Loop control (Position, MotionMagic, Velocity, MotionProfile) you will need to have a sensor attached to the motor. There are several sensor types used in FRC.
 Our team mainly uses the **Talon FX Integrated Sensor** and the **CTRE Magnetic Encoder**.
 
-#### Talon FX Integrated Sensor
-As the name suggests, the [Talon FX Integrated Sensor](https://docs.ctre-phoenix.com/en/latest/ch14_MCSensor.html?highlight=configSelectedFeedbackSensor#talon-fx-integrated-sensor) has a sensor integrated into the controller. This is necessary for the brushless commutation and allows the user to use the Talon FX with a high resolution sensor without attaching any extra hardware. The selected “Feedback Device” defaults to Integrated Sensor for the Talon FX, but you can set it explicitly in code with the following API statement.
+#### Talon FX Rotory Sensor
+    RemoteCANcoder(1),
+    RemoteCANcoder(1),
+As the name suggests, the [Talon FX Integrated Sensor](https://docs.ctre-phoenix.com/en/latest/ch14_MCSensor.html?highlight=configSelectedFeedbackSensor#talon-fx-integrated-sensor) has a sensor integrated into the controller. This is necessary for the brushless commutation and allows the user to use the Talon FX with a high resolution sensor without attaching any extra hardware. The selected Feedback Device defaults to *Rotor Sensor*, previously *Integrated Sensor*, for the Talon FX, but you can set it explicitly in code with the following API statement.  Other options are RemoteCANcoder and FusedCANcoder.
 
-    fx.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+    Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
 
 This sensor has a resolution of `2048` ticks per revolution, so you should place a reference for this in the *Constants* file:
 
@@ -96,14 +81,20 @@ The [Cross The Road Electronics Magnetic Encoder](https://docs.ctre-phoenix.com/
 
 To select feedback sensor use the Phoenix API, call `configSelectedFeedbackSensor()`. The selected “Feedback Device” defaults to Quadrature Encoder for Talon SRX, which puts the sensor in Relative Mode. 
 
-    m_turretMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+    var fx_cfg = new TalonFXConfiguration();
+    fx_cfg.Feedback.FeedbackRemoteSensorID = m_cancoder.getDeviceID();
+    fx_cfg.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
+
+    m_talonFX.getConfigurator().apply(fx_cfg);
+
+<!-- m_turretMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 
 To put the sensor in Absolute mode, which uses the Pulse Width Encoder:
 
-    m_turretMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
+m_turretMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute); -->
 
 
-Use `setSensorPhase()` to set the phase of the sensor. A positive PercentOutput yields a positive change in sensor. Sensor phase is not the same as sensor direction. When `setInverted()` is called on a motor controller, the values reported by the selected sensor are also inverted. As a result, changing the SetInverted input does not require changing the sensor phase.
+<!-- Use `setSensorPhase()` to set the phase of the sensor. A positive PercentOutput yields a positive change in sensor. Sensor phase is not the same as sensor direction. When `setInverted()` is called on a motor controller, the values reported by the selected sensor are also inverted. As a result, changing the SetInverted input does not require changing the sensor phase.
 
     // Put the motor and sensor going in the same direction
     m_turretMotor.setSensorPhase(true);
@@ -111,12 +102,16 @@ Use `setSensorPhase()` to set the phase of the sensor. A positive PercentOutput 
     // The motor and sensor are both inverted since they are "in-phase".
     m_turretMotor.setInverted(true);
 
-See the Phoenix documentation for more information about the [Sensor Phase](https://docs.ctre-phoenix.com/en/latest/ch14_MCSensor.html?highlight=configSelectedFeedbackSensor#sensor-check-with-motor-drive).
+See the Phoenix documentation for more information about the [Sensor Phase](https://docs.ctre-phoenix.com/en/latest/ch14_MCSensor.html?highlight=configSelectedFeedbackSensor#sensor-check-with-motor-drive). -->
 
-Both modes of this sensor (Relative and Absolute) have a resolution of `4096` ticks per revolution, so you should place a reference for this in the Constants file:
+<!-- Both modes of this sensor (Relative and Absolute) have a resolution of `4096` ticks per revolution, so you should place a reference for this in the Constants file:
 
-    public static final int kEncoderCPR = 4096;
+    public static final int kEncoderCPR = 4096; -->
 
+See [Remote Sensors](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/device-specific/talonfx/remote-sensors.html#talonfx-remote-sensors) in the Phoenix6 documentation for each of the remote sensor options.
+
+### Fused Sensor
+New in Phoenix 6 is a feedback sensor type called *FusedCANcoder*. *FusedCANcoder* will fuse another CANcoder’s information with the motor’s internal rotor, which provides the best possible position and velocity for accuracy and bandwidth. This is useful in applications such as swerve azimuth. See [FusedCANcoder](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/device-specific/talonfx/remote-sensors.html#fusedcancoder) in the Phoenix6 documentation.
 
 <!-- ### Soft Limits
 - Soft limits (auto neutral motor if out of range) -->
@@ -398,13 +393,15 @@ These go in the Drivetrain.
 
 ## References
 
-- [Pheonix Examples](https://github.com/CrossTheRoadElec/Phoenix-Examples-Languages)    
+- [Phoenix6 Control](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/device-specific/talonfx/index.html)
 
-- [Pheonix Documentation](https://docs.ctre-phoenix.com/en/stable/)
+- [Pheonix6 Examples](https://github.com/CrossTheRoadElec/Phoenix6-Examples/tree/main/java)    
+
+<!-- - [Pheonix Documentation](https://docs.ctre-phoenix.com/en/stable/) -->
 
 - [Talon FX/SRX Sensors](https://docs.ctre-phoenix.com/en/latest/ch14_MCSensor.html?highlight=configSelectedFeedbackSensor#bring-up-talon-fx-srx-sensors) - Phoenix documentation.
 
-- [Pheonix Tuner](https://docs.ctre-phoenix.com/en/stable/ch03_PrimerPhoenixSoft.html#what-is-phoenix-tuner)
+- [Pheonix6 Tuner](https://pro.docs.ctr-electronics.com/en/latest/docs/tuner/index.html)
 
 - [Talon FX/Falcon 500 Motor User Guide](https://store.ctr-electronics.com/content/user-manual/Falcon%20500%20User%20Guide.pdf)
 

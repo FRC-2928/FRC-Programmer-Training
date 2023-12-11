@@ -18,6 +18,23 @@ Instructions on adding Phoenix to your FRC vscode project can be found [here](ht
 
 The **Robotbuilder** folder contains Robotbuilder extensions for using CTRE classes. It currently contains the Talon FX, CANCoder, Talon SRX, Victor SPX, CANifier, and Pigeon IMU extensions. Take the desired extension folder (eg. "Talon SRX") and place it in `~\wpilib\2022\Robotbuilder\extensions`.
 
+### Migrating to Phoenix6
+
+Install [Phoenix6](https://pro.docs.ctr-electronics.com/en/latest/docs/installation/installation.html) libraries in VSCode. Remove the older phoenix libraries.  Remove the red-underlined imports.
+
+Remove the `WPI_` from all of the class definitions.  Use the mouse over to `import` new classes.  Note that the second `c` in the *CANcoder* class is lowercase.
+
+To apply a configurarion.  See [Configuration](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/api-usage/configuration.html) Phoenix6 documentation. Also see [Configuring Motors and Encoders](../RoboRIO/motorConfig.md) in this documentation.
+
+To apply a control request.  See the [Control Requests](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/api-usage/control-requests.html) documentation.  Also see [Motors Control](../RoboRIO/motorControl.md) in this documentation.
+
+Another resource is the [Phoenix6](https://github.com/CrossTheRoadElec/Phoenix6-Examples/tree/main/java) example code on GitHub.
+
+In order to select values from the Phoenix hardware you need to import these:
+
+    import com.ctre.phoenix6.BaseStatusSignal;
+    import com.ctre.phoenix6.StatusSignal;
+
 ## Installing the Phoenix Tuner
 
 
