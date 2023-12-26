@@ -1,6 +1,6 @@
 # Installing Phoenix Libraries
 
-The **CTRE Phoenix Framework Installer** is a zip file download that contains files that must be installed into the `wpilib/20YY` directory.  Here are the [Phoenix Software](https://store.ctr-electronics.com/software/) releases for each platform. 
+The **CTRE Phoenix Framework Installer** is a zip file download that contains files that must be installed into the `wpilib/20YY` directory.  Here are the [Phoenix Software](https://pro.docs.ctr-electronics.com/en/latest/docs/installation/installation.html) releases for each platform. 
 
 When you run the Phoenix software installer for Windows it installs the software in the requisit directories.  For Mac and Linux follow the *Install Phoenix on Mac and Linux* instructions below once you've downloaded the zip file.
 
