@@ -93,10 +93,10 @@ We're now done with this update!
 ### <a name="heading"></a>Create Heading Method
 In later programs we're going to need to get the current heading of our robot.  The heading is obtained from the *RomiGyro* class that we modified in the previous lab.  The *RomiGyro* is defined as a subsystem of the *Drivetrain* class.
 
-Update the *Drivetrain* class with a new method called `getHeading()` that will be used to get the current heading of the robot.  You can place this method at around line `132` of the *Drivetrain* class just after the `getGyroAngleZ()` method.  The method will return a `double` value and be defined as `public`.  The return value will be whatever we get from the `getRotation2d().getDegrees()` method that was defined in the *Gyro* interface.  That's why we implemented that interface in the *RomiGyro* class.  When you're done it should look like this:
+<!-- Update the *Drivetrain* class with a new method called `getHeading()` that will be used to get the current heading of the robot.  You can place this method at around line `132` of the *Drivetrain* class just after the `getGyroAngleZ()` method.  The method will return a `double` value and be defined as `public`.  The return value will be whatever we get from the `getRotation2d().getDegrees()` method that was defined in the *Gyro* interface.  That's why we implemented that interface in the *RomiGyro* class.  When you're done it should look like this: -->
 
-    public double getHeading() {
-      return m_gyro.getRotation2d().getDegrees();
+    public Rotation2d getHeading() {
+        return new Rotation2d(getGyroAngleZ() * (Math.PI/180));
     }
 
 We also may need to reset the heading, so create another method named `zeroHeading()` to accomplish this.  Notice that the name "zeroHeading" describes exactly **what** we want the method to do and not **how** we want it to be done.  The **how** part is hidden within the function. This is an example of [Declarative Programming](https://en.wikipedia.org/wiki/Declarative_programming).

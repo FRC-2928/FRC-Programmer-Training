@@ -29,8 +29,8 @@ The trackwidth is a physical attribute of the robot so it can be represented as 
 Create the following method in the *Drivetrain* class.  We'll need to wrap the measured encoder values in a *DifferentialDriveWheelSpeeds* object for easier integration with the *RamseteCommand* class, which we'll look at later in the course.  Since `getWheelSpeeds()` tells you the current state of the system, it should go in the **System State** section of the *DriveTrain* class.
 
     public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-        return new DifferentialDriveWheelSpeeds(m_leftEncoder.getDistance(), 
-                                                m_rightEncoder.getDistance());
+        return new DifferentialDriveWheelSpeeds(m_leftEncoder.getRate(), 
+                                                m_rightEncoder.getRate());
     }
 
 We can now make use of this class to publish telemetry.  So place the following code in the `publishTelemetry()` function.
