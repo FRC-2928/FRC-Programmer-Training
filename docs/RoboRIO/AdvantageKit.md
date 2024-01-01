@@ -200,6 +200,10 @@ If you run your robot code in simulator mode using **Simulate Robot Code** from 
 
 ## References
 
-- [Advantage Kit](https://github.com/Mechanical-Advantage/AdvantageKit/blob/main/docs/WHAT-IS-ADVANTAGEKIT.md) documentation.
+- [AdvantageKit](https://github.com/Mechanical-Advantage/AdvantageKit/blob/main/docs/WHAT-IS-ADVANTAGEKIT.md) documentation.
+
+- [AdvantageKit](https://github.com/Mechanical-Advantage/AdvantageKit/tree/main/example_projects) example projects
 
 - [AdvantageScope](https://github.com/Mechanical-Advantage/AdvantageScope/blob/main/docs/INDEX.md) documentation
+
+- [AdvantageScope](https://github.com/Mechanical-Advantage/AdvantageScope/releases) releases

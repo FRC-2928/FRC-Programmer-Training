@@ -3,18 +3,14 @@ There are several control modes used to drive a motor. The control mode used wil
 
 ![Control Modes](../images/FRCControlSystems/FRCControlSystems.014.jpeg)
 
+The following picture shows the most commonly used Phoenix control modes.  Each control mode is represented by a data structure class that gets applied to the motor when requested. The *DutyCycleOut* and *VoltageOut* modes are would be used with direct input from a game controller. *VoltageOut* can also be used with a PID loop that was implemented in the user program.
+
+The *PositionVoltage* and *VelocityVoltage* requests will run the PID loop inside of the Pheonix controller.  One of four *Slots* can be choosen that hold the PID gain values.  A *FeedForward* value can also be submitted with the control request.
+
+![Control Modes](../images/FRCroboRIO/FRCroboRIO.011.jpeg)
+
 ## Open Loop Modes
-Open-Loop modes are usually used in combination with a game controller.  The setup is very simple since there's no feedback sensor required.  Here's an example of sending a percentage power output to each motor using the *DutyCycleOut* class.  
-
-    public void tankDriveVolts(double leftVolts, double rightVolts) {
-        var leftVoltsRequest = new DutyCycleOut(leftVolts / 12);
-        this.leftLeader.setControl(leftVoltsRequest);
-
-        var rightVoltsRequest = new DutyCycleOut(rightVolts / 12);
-        this.rightLeader.setControl(rightVoltsRequest);
-    }
-
-See [Open Loop Control](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/device-specific/talonfx/open-loop-requests.html#open-loop-control) in the Phoenix6 documentation.
+Open-Loop modes are usually used in combination with a game controller.  The setup is very simple since there's no feedback sensor required.  A percentage power output is sent to the motor using the *DutyCycleOut* class.  Percentage power is the proportion of supply voltage to apply in fractional units between -1 and +1.  See [Open Loop Control](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/device-specific/talonfx/open-loop-requests.html#open-loop-control) in the Phoenix6 documentation.
 
 ## Closed Loop Modes
 On the roboRIO robot the motor controllers will implement the necessary PID loops, so we don't have to use the WPILib PID controllers as we did on the Romi.  We still have to write a few lines of code to specify the control mode and a setpoint target, but the motor controller will mostly do the rest.  The following Closed-Loop modes can be used with the Talon FX and SPX motors. For more details see the Phoenix6 [Closed Loop Control](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/device-specific/talonfx/closed-loop-requests.html#closed-loop-control) documentation.
@@ -31,32 +27,37 @@ The sensors used for closed-loop control are designated during motor configurati
 
 ![Integrated Sensor](../images/FRCroboRIO/FRCroboRIO.009.jpeg)
 
+<!-- Set to true to use FOC commutation (requires Phoenix
+Pro), which increases peak power by ~15%. Set to false
+to use trapezoidal commutation.  FOC improves motor
+performance by leveraging torque (current) control. 
+However, this may be inconvenient for applications
+that require specifying duty cycle or voltage. 
+CTR-Electronics has developed a hybrid method that
+combines the performances gains of FOC while still
+allowing applications to provide duty cycle or voltage
+demand.  This not to be confused with simple
+sinusoidal control or phase voltage control which
+lacks the performance gains.
+
+Trapezoidal ESCs utilize a 6-step commutation sequence to energize the motor windings in a predetermined pattern. -->
+
 #### <a name="pidSlots"></a>Setting PID Gain Values
-The Talon FX/SRX can run two PID loops simultaneously, *PID[0]* and *PID[1]*.  You can set up multiple PID gain values and put them into memory slots within the Talon's motor controller.  You can then write code to assign the gain values from a selected slot for each of the PID loops. There are four slots to choose from, so you can configure up to four sets of PID gain values.
+All of the built-in *Closed Loop Control* modes require PID values configured into the motor controller.  You can set up multiple PID gain values and put them into memory slots within the Talon's motor controller.  You can then assign the gain values from a selected slot when you make the control request to the motor. There are four slots to choose from, so you can configure up to four sets of PID gain values.
 
 ![PID Slots](../images/FRCroboRIO/FRCroboRIO.007.jpeg)
 
-The following code sets up the PID values for Slot0 of the drivetrain's front wheels.  The PID values should be determined by experimentation. See [Closed-Loop Gain Slots](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/device-specific/talonfx/closed-loop-requests.html#gain-slots) in the Phoenix6 documentation for details.
+The following code sets up the PID values for Slot0 of the drivetrain's front wheels.  The PID values should be determined by experimentation. 
 
-    for (TalonFX fx : new TalonFX[] { this.leftLeader, this.rightLeader }) {
-      // in init function, set slot 0 gains
-      var slot0Configs = new Slot0Configs();
-      slot0Configs.kS = 0.05; // Add 0.05 V output to overcome static friction
-      slot0Configs.kV = 0.12; // A velocity target of 1 rps results in 0.12 V output
-      slot0Configs.kP = 0.11; // An error of 1 rps results in 0.11 V output
-      slot0Configs.kI = 0.5; // An error of 1 rps increases output by 0.5 V each second
-      slot0Configs.kD = 0.01; // An acceleration of 1 rps/s results in 0.01 V output
-
-      fx.getConfigurator().apply(slot0Configs);
-    }
-
-We can switch between the PID slots in our code when we make the velocity request to the motor.
+We can switch between the PID slots in our code when we make the velocity request to the motor. Most *Closed Loop Control* requests also allow you to add a *FeedForward* value.
 
     // create a velocity closed-loop request, voltage output, slot 0 configs
     var request = new VelocityVoltage(0).withSlot(0);
 
     // set velocity to 8 rps, add 0.5 V to overcome gravity
     m_talonFX.setControl(request.withVelocity(8).withFeedForward(0.5));
+
+See [Closed-Loop Gain Slots](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/device-specific/talonfx/closed-loop-requests.html#gain-slots) in the Phoenix6 documentation for details.
 
 ## Sensors
 In order to do any Close-Loop control (Position, MotionMagic, Velocity, MotionProfile) you will need to have a sensor attached to the motor. There are several sensor types used in FRC.
