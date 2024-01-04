@@ -30,7 +30,7 @@ The decision on where to place each of these steps is left up to the implementer
 
 ![Sequence Placement](../images/SwerveDrive/SwerveDrive.007.jpeg)
 
-## Drivetrain
+## Drivetrain Class
 The drivetrain requires an object for each of the four swerve modules.  There needs to be a way to translate the required speed and direction of the drivetrain chassis into the individual speed and direction of each of the four wheel modules.  This is the job of the *SwerveDriveKinematics* class, which takes in the locations of the wheels relative to the physical center of the robot in order to compute the required control input for each wheel. These control inputs tell the wheel how fast it should be going and what angle it should be at.
 
 After the wheel control inputs have been calculated by the *SwerveDriveKinematics* class the *Drivetrain* sets the wheel velocities.

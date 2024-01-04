@@ -55,43 +55,9 @@ We can switch between the PID slots in our code when we make the velocity reques
     var request = new VelocityVoltage(0).withSlot(0);
 
     // set velocity to 8 rps, add 0.5 V to overcome gravity
-    m_talonFX.setControl(request.withVelocity(8).withFeedForward(0.5));
+    talonFX.setControl(request.withVelocity(8).withFeedForward(0.5));
 
 See [Closed-Loop Gain Slots](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/device-specific/talonfx/closed-loop-requests.html#gain-slots) in the Phoenix6 documentation for details.
-
-## Feedback Sensors
-In order to do any Close-Loop control (Position, MotionMagic, Velocity, MotionProfile) you will need to have a sensor attached to the motor. There are several sensor types that can be used depending on the application.
-
-#### Rotor Sensor
-The TalonFX  has a sensor integrated into the controller. This is necessary for the brushless commutation and allows the user to use the Talon FX with a high resolution sensor without attaching any extra hardware. The selected Feedback Device defaults to *Rotor Sensor*, previously *Integrated Sensor*, for the Talon FX, but you can set it explicitly in code with the following code API statement. 
-
-    driveMotor.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
-
-#### Remote CANcoder
-To use another CANcoder on the same CAN bus choose *RemoteCANcoder*.  The TalonFX will update its position and velocity whenever CANcoder publishes its information on CAN bus.  This requires setting the *FeedbackRemoteSensorID*.  A typical use for this would be to control the angle of an arm that is being measured by an absolute encoder.
-
-See [Remote CANcoder](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/device-specific/talonfx/remote-sensors.html#remotecancoder) in the Phoenix documentation on how to set it up.
-
-#### Fused CANcoder
-The *FusedCANcoder* and Talon FX will fuse another CANcoder's information with the internal rotor, which provides the best possible position and velocity for accuracy and bandwidth.  FusedCANcoder was developed for applications such as swerve-azimuth.
-
-See [Fused CANcoder](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/device-specific/talonfx/remote-sensors.html#fusedcancoder) in the Phoenix documentation.
-
-#### Pigeon2 Gyro 
-*RemotePigeon2_Yaw*, *RemotePigeon2_Pitch*, or *RemotePigeon2_Roll* to use a Pigeon2 on the same CAN bus.  Talon FX will update its position to match the selected value whenever Pigeon2 publishes its information on CAN bus. Note that the Talon FX position will be in rotations and not degrees.  Here's an example of the setup.
-
-    var motorConfig = new TalonFXConfiguration();
-    motorConfig.Feedback.FeedbackRemoteSensorID = m_cancoder.getDeviceID();
-    motorConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemotePigeon2_Yaw;
-    talonMotor.getConfigurator().apply(motorConfig);
- 
-#### SyncCANcoder
-
-Choose SyncCANcoder (requires Phoenix Pro) and Talon FX will synchronize its internal rotor position against another CANcoder, then continue to use the rotor sensor for closed loop control (note this requires setting FeedbackRemoteSensorID).  The TalonFX will report if its internal position differs significantly from the reported CANcoder position.  SyncCANcoder was developed for mechanisms where there is a risk of the CANcoder failing in such a way that it reports a position that does not match the mechanism, such as the sensor mounting assembly breaking off. 
-
-## Actuator Limit Switches
-CTR Electronics actuators, such as the TalonFX, support various kinds of hardware and software limits. See
-[Actuator Limit Switches](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/api-usage/actuator-limits.html) for details.
 
 ## Status Signals
 Signals represent live data reported by a device; these can be yaw, position, etc. To make use of the live data, users need to know the value, timestamp, latency, units, and error condition of the data. See [Status Signals](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/api-usage/status-signals.html) for a detailed explaination.

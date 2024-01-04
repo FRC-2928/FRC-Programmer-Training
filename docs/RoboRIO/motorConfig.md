@@ -5,7 +5,7 @@ Our team primarily uses the **Falcon 500** motors with integrated **Talon FX** c
 
 These motors have a lot of features that need to be configured. This can be done using the [Phoenix6 Tuner](https://pro.docs.ctr-electronics.com/en/latest/docs/tuner/index.html) or from the your program code.  Although you can set them up in the Tuner during testing, it's highly recommended to ultimately set them via the program code. This way, in the event a device is replaced, you can rely on your software to properly configure the new device, without having to remember to use Tuner to apply the correct values.
 
-The code segment below shows how the motors are configured for our differential drivetrain.  To configure the motors we create a configuration object of a class called *TalonFXConfiguration* that is then applied to each motor.  
+The code segment below shows how the motors are configured for our DifferentialDrive drivetrain.  Some of the same configuration is done on the SwerveDrive robot.  To configure the motors we create a configuration object of a class called *TalonFXConfiguration* that is then applied to each motor.  
 
     /* Configure the devices */
     var leftConfiguration = new TalonFXConfiguration();
@@ -62,53 +62,39 @@ Implement motor safety via `setSafetyEnabled()`.  See [Motor Safety](https://pro
 
 ![Motor Configuration](../images/FRCroboRIO/FRCroboRIO.004.jpeg)
 
-## Remote Sensors
-The TalonFX/SRX can execute closed-loop modes with sensor values sourced by other Talons, CANifiers, or Pigeon IMUs on the same CAN-bus.  This is useful when you want to use Auxiliary PID1 Closed-Loop (differential mechanisms) that requires more than one sensor source (including MotionProfileArc, and all other Closed-Loop control modes).
+## Feedback Sensors
+In order to do any Close-Loop control (Position, MotionMagic, Velocity, MotionProfile) you will need to have a sensor attached to the motor. There are several sensor types that can be used depending on the application.
 
-See [Bring Up: Remote Sensors](https://docs.ctre-phoenix.com/en/latest/ch14a_BringUpRemoteSensors.html#bring-up-remote-sensors)
+#### Rotor Sensor
+The TalonFX  has a sensor integrated into the controller. This is necessary for the brushless commutation and allows the user to use the Talon FX with a high resolution sensor without attaching any extra hardware. The selected Feedback Device defaults to *Rotor Sensor*, previously *Integrated Sensor*, for the Talon FX, but you can set it explicitly in code with the following code API statement. 
 
-Select what remote device and signal to assign to Remote Sensor 0 or Remote Sensor 1. After binding a remote device and signal to Remote Sensor X, you may select Remote Sensor X as a PID source for closed-loop features.  Once the remote sensor has been assigned you can select the feedback device for the motor controller.
+    driveMotor.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
 
-    talonLeader.configRemoteFeedbackFilter(m_pigeon.getDeviceID(), 
-                                    RemoteSensorSource.Pigeon_Pitch, 
-                                    0);
+#### Remote CANcoder
+To use another CANcoder on the same CAN bus choose *RemoteCANcoder*.  The TalonFX will update its position and velocity whenever CANcoder publishes its information on CAN bus.  This requires setting the *FeedbackRemoteSensorID*.  A typical use for this would be to control the angle of an arm that is being measured by an absolute encoder.
 
-    talonLeader.configSelectedFeedbackSensor(FeedbackDevice.RemoteSensor0);
+See [Remote CANcoder](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/device-specific/talonfx/remote-sensors.html#remotecancoder) in the Phoenix documentation on how to set it up.
 
-For instance, if using an absolute magnetic encoder you can use the following command.
+#### Fused CANcoder
+The *FusedCANcoder* and Talon FX will fuse another CANcoder's information with the internal rotor, which provides the best possible position and velocity for accuracy and bandwidth.  FusedCANcoder was developed for applications such as swerve-azimuth.
 
-    fx.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
+See [Fused CANcoder](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/device-specific/talonfx/remote-sensors.html#fusedcancoder) in the Phoenix documentation.
 
-## Limit Switches
-Configure the limit switch:
+#### Pigeon2 Gyro 
+You can use a Pigeon2 on the same CAN bus, picking any one of the three axises (Yaw, Pitch, or Roll). The Talon FX will update its position to match the selected value whenever Pigeon2 publishes its information on CAN bus. Note that the Talon FX position will be in rotations and not degrees.  Here's an example of the setup using the Yaw axis.
 
-    // Use a limit switch connected directly to the motor controller
-    talon1.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, 
-                                            LimitSwitchNormal.NormallyOpen, 0);
+    var motorConfig = new TalonFXConfiguration();
+    motorConfig.Feedback.FeedbackRemoteSensorID = m_cancoder.getDeviceID();
+    motorConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemotePigeon2_Yaw;
+    talonMotor.getConfigurator().apply(motorConfig);
+ 
+#### SyncCANcoder
 
-    talon1.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, 
-                                            LimitSwitchNormal.NormallyOpen, 0); 
+Choose SyncCANcoder (requires Phoenix Pro) and Talon FX will synchronize its internal rotor position against another CANcoder, then continue to use the rotor sensor for closed loop control (note this requires setting FeedbackRemoteSensorID).  The TalonFX will report if its internal position differs significantly from the reported CANcoder position.  SyncCANcoder was developed for mechanisms where there is a risk of the CANcoder failing in such a way that it reports a position that does not match the mechanism, such as the sensor mounting assembly breaking off. 
 
-    talon1.setInverted(true);
-    talon1.setSensorPhase(true);
-
-    talon1.configForwardSoftLimitThreshold(7300);
-    talon1.configReverseSoftLimitThreshold(-7300);
-    talon1.configForwardSoftLimitEnable(false, 0);
-    talon1.configReverseSoftLimitEnable(false, 0);
-    talon1.overrideSoftLimitsEnable(false);
-
-Test limit switch:
-
-    public boolean isLimitSwitchClosed(){
-        return talon1.getSensorCollection().isFwdLimitSwitchClosed() == 1;
-    }
-
-Enable limit switch:
-
-    public void setLimitSwitchEnabled(){
-        talon1.overrideLimitSwitchesEnable(true);
-    }
+## Actuator Limit Switches
+CTR Electronics actuators, such as the TalonFX, support various kinds of hardware and software limits. See
+[Actuator Limit Switches](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/api-usage/actuator-limits.html) for details.
 
 <!-- ## Lab - Configure Motors -->
 <!-- In this lab your task is to research some of the motor configuration parameters.  Go to the [Phoenix Documentation Website](https://docs.ctre-phoenix.com/en/latest/index.html).  Use the search field to find results for the `setNeutralMode()`, `configSupplyCurrentLimit()`, `configSelectedFeedbackSensor()` motor configuration parameters and read the information provided.  You may have to do a page search after clicking on the result to find the parameter.  After doing your research consider the following questions.
