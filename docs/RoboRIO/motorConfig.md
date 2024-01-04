@@ -1,4 +1,4 @@
-# Configuring Motors and Encoders
+# Configuring Motors and Feedback Sensors
 Our team primarily uses the **Falcon 500** motors with integrated **Talon FX** controllers and the **Talon SRX** controllers.  The Falcon 500 is a brushless motor, custom designed specifically for the FIRST Robotics Competition. The Talon SRX controller can be used with **CIM** or **775pro** motors.  The Falcon 500 motors are more compact and require less wiring.
 
 ![Motors and Controllers](../images/FRCroboRIO/FRCroboRIO.006.jpeg)
