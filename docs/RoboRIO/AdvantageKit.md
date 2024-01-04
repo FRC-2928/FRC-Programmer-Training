@@ -7,15 +7,15 @@ To install the *Advantage Kit* libraries into your project go to [Advantage Kit 
 ## AdvantageKit Modes
 *AdvantageKit* runs in two modes, **Record** or **Playback**. 
 
-Record mode happens by running the real robot or by running a WPI Simulation.  While running on the real robot it's set to write out to log files on the RoboRio and can also publish to the Network Tables.  It's recommended that you use a thumb drive on the RoboRio to hold the log files. When running the WPI Simulator the log files are written to the project directory under the top level `logs` folder.
+Record mode happens by running the real robot or by running a *WPI Robot Simulator*.  While running on the real robot it's set to write out to log files on the RoboRio and can also publish to the Network Tables.  It's recommended that you use a thumb drive on the RoboRio to hold the log files. When running the WPI Simulator the log files are written to the project directory under the top level `logs` folder. Data can also be written to the Network Tables and viewed live in *AdvantageScope*.
 
 Once you have a log file you can simply play it back in *AdvantageScope*.  If you want to make changes, such as collecting more data, then you can use *AdvantageKit*'s playback mode to create a new logfile containing the additional data.
 
-In playback mode it reads the log file previously written during a match or simulation and plays it back to the robot code. You start the playback by running the **Simulate Robot Code** option in VSCode. When the playback runs it can create a new logfile that included any new data collection that was added.  Note that the code will run as fast as possible in the WPI Simulator and then exit, so the review must be done from *AdvantageScope*.
+In playback mode it reads the log file previously written during a match or in simulation and plays it back to the robot code. You start the playback by running the **Simulate Robot Code** option in VSCode. When the playback runs it can create a new logfile that includes any new data that was collected.  Note that the code will run as fast as possible in the WPI Simulator and then exit, so the review must be done from *AdvantageScope*.
 
 ![AdvantageKit IOLayer](../images/AdvantageKit/AdvantageKit.002.jpeg)
 
-Here's an example of how these modes can be enabled.  This code goes in the `initRobot()` function of the *Robot* class.
+Here's an example of how these modes can be enabled.  This code goes in the `initRobot()` function of the *Robot* class.  Log generation takes place when running the real robot or in simulation.  Once the data is collected it can be played back using the same user program that generated it.
 
     Logger.recordMetadata("ProjectName", "MyProject"); // Set a metadata value
 
@@ -45,16 +45,18 @@ Here's an example of how these modes can be enabled.  This code goes in the `ini
     Logger.start();
 
 ### Configure the Robot
-After installing *AdvantageKit* you need to configure the robot code in order to use it.  See [Configuring the Robot](https://github.com/Mechanical-Advantage/AdvantageKit/blob/main/docs/INSTALLATION.md#robot-configuration) in the *AdvantageKit* documentation.  There are two steps to this:
+After installing *AdvantageKit* you need to configure the robot code in order to use the framework.  See [Configuring the Robot](https://github.com/Mechanical-Advantage/AdvantageKit/blob/main/docs/INSTALLATION.md#robot-configuration) in the *AdvantageKit* documentation.  There are two steps to this:
 
-- Open the *Robot* class extend *LoggedRobot*.
+- Open the *Robot* class and extend *LoggedRobot*.
 
-- Add code into `robotInit()` in the *Robot* class.  Make sure that you import the AdvantageKit logger and not the system logger:
+- Add code into `robotInit()` in the *Robot* class.  Make sure that you import the *AdvantageKit* logger NOT the system logger:
 
       import org.littletonrobotics.junction.Logger;
 
 ### Setting up the IO Layers
-By necessity, any interaction with external hardware must be isolated such that all input data is logged and can be replayed in *AdvantageScope* where that hardware is not present. We need to restructure the subsystem such that hardware interfacing occurs in a separate object called the *IO Layer*. The IO layer includes an interface defining all methods used for interacting with the hardware along with one or more implementations that make use of vendor libraries to carry out commands and read data.
+By necessity, any interaction with external hardware must be isolated such that all input data is logged and can be replayed in *AdvantageScope* where that hardware is not present. It's recommended to restructure the subsystem such that hardware interfacing occurs in a separate object called the *IO Layer*. The IO layer includes an interface defining all methods used for interacting with the hardware along with one or more implementations that make use of vendor libraries to carry out commands and read data.
+
+![Extracting IO Layers](../images/AdvantageKit/AdvantageKit.004.jpeg)
 
 The following section shows how to set up an IO Layer for the gyro and implement it in the *Drivetrain* subsystem.
 

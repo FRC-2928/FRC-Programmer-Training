@@ -1,11 +1,16 @@
 # Swerve Drive
 This section describes how the *Swerve Drive* drivetrain works.  Swerve drive, also known as holonomic or omnidirectional drive, is a unique drive system used in the FIRST Robotics Competition (FRC). It allows for precise control of both translational and rotational movement. This precision is valuable for tasks that require accurate positioning, such as aligning to score game pieces or navigating in tight spaces.
 
-The programming team has a dedicated robot for learning and for preparing our code for competition.  We call this robot *Hotpants*, the hardware configuration of which is shown below.
+The programming team has a dedicated robot for learning and for preparing our code for competition.  The hardware configuration for this robot is shown below.
 
 For a full code example of a Swerve Drive chassis see this [Advanced SwerveDrive Example](https://github.com/Mechanical-Advantage/AdvantageKit/tree/main/example_projects/advanced_swerve_drive/src/main). This example also incorporates [AdvantageKit](https://github.com/Mechanical-Advantage/AdvantageKit/blob/main/docs/WHAT-IS-ADVANTAGEKIT.md), which is an advanced logging and simulation framework.
 
-## Hardware Configuration
+## Phoenix 6 Tuner X for Swerve Drive
+Before running any robot code the Swerve Drive chassis can be configured and verified in the *Phoenix6 Tuner X*.  The tuner gives you a view of the entire Swerve Drive chassis and ensures that all of the modules work together as a single unit.  Under the Mechanisms page in Tuner X is the *Swerve Project Generator*. This utility guides the user through configuring their modules, verifying their drivetrain, encoder inverts, drivetrain inverts and more.
+
+See the [Swerve Project Generator](https://pro.docs.ctr-electronics.com/en/latest/docs/tuner/tuner-swerve/index.html) for detailed instructions on running the configuration and verification of the drive train.
+
+## Hardware API Configuration
 The swerve drive robot uses four modules that are represented by the *SwerveModule* class in our code.  Each module consists of two Falcon500 motors.  One motor drives the wheel linearly and the other rotates the wheel in the desired direction.  There's a [CTRE CANcoder](https://store.ctr-electronics.com/cancoder/), which is a rotary sensor, that determines the angle of the wheel with respect to the robot chassis.
 
 Each module is assembled onto the chassis to implement the robot.  The drive motors will provide linear motion whereas the azimuth motor will rotate the wheel to the desired angle.  The numbering relates to the CANbus port of each device.  Since the rotary sensor is a different device from the motor it's allowed to have the same port number.  The port mappings are listed in the *Contants* file of the code.
@@ -26,22 +31,20 @@ The decision on where to place each of these steps is left up to the implementer
 ![Sequence Placement](../images/SwerveDrive/SwerveDrive.007.jpeg)
 
 ## Drivetrain
-The drivetrain requires an object for each of the four swerve modules.  There needs to be a way to translate the required speed and direction of the drivetrain chassis into the individual speed and direction of each of the four wheel modules.  This is the job of the *SwerveDriveKinematics* class, which takes in the locations of the wheels relative to the physical center of the robot in order to compute the required wheel control inputs.
+The drivetrain requires an object for each of the four swerve modules.  There needs to be a way to translate the required speed and direction of the drivetrain chassis into the individual speed and direction of each of the four wheel modules.  This is the job of the *SwerveDriveKinematics* class, which takes in the locations of the wheels relative to the physical center of the robot in order to compute the required control input for each wheel. These control inputs tell the wheel how fast it should be going and what angle it should be at.
 
-The main function of the *Drivetrain* is to set the wheel velocities after they are computed by the *SwerveDriveKinematics* class.
+After the wheel control inputs have been calculated by the *SwerveDriveKinematics* class the *Drivetrain* sets the wheel velocities.
 
 A gyro is required to track the orientation of the robot with respect to the game field.
 
 ![Drivetrain Class](../images/SwerveDrive/SwerveDrive.004.jpeg)
 
 ## SwerveModule Class
-The following picture shows the [MK4i Swerve Module](https://www.swervedrivespecialties.com/products/mk4i-swerve-module) that we use and it's representation by the *SwerveModule* class in the code.  The current distance travelled by the wheel and its current angle is given by the *SwerveModulePosition* class.  The *SwerveModuleState* data class holds the current wheel speed and angle.
+The following picture shows the [MK4i Swerve Module](https://www.swervedrivespecialties.com/products/mk4i-swerve-module) that we use and it's representation by the *SwerveModule* class in the code.  The current distance travelled by the wheel and its current angle is given by the *SwerveModulePosition* data structure.  The *SwerveModuleState* data structure holds the current wheel speed and angle.
 
 The wheel is turned to the required angle by a PID controller that is driven off of the rotary sensor.  This sensor will boot to it's absolute position, meaning that it will maintain its angle between startups.  The absolute position is initially set to zero when all wheels are pointed forwards. 
 
 ![Swerve Module](../images/SwerveDrive/SwerveDrive.003.jpeg)
-
-There are two data classes to identify where each swerve module is positioned on the robot and to keep track of the current state of each module (speed and direction). 
 
 ## Drive Command
 The objective of the *Drive* command is to convert a user provided field-relative set of speeds into a *ChassisSpeeds* data structure that represents the required speeds and direction of the robot chassis.  
@@ -70,7 +73,11 @@ Check CTREConfigs for motor and encoder. -->
 It's important to keep track of the robot's position and heading on the game field during the course of the match. This is especially useful during the autonomous period for complex tasks like path following.  This is function is performed by the *SwerveDriveOdometry* class that takes readings from your swerve drive encoders and swerve azimuth encoders.  
 
 During the course of the match the odometry may become less accurate, perhaps as a result of collisions with other robots. To mitigate this we can use the *SwerveDrivePoseEstimator* class, which is a wrapper for the *SwerveDriveOdometry* class, and provides the additional functionality of fusing camera data to come up with a more accurate estimate of the where the robot is.
-          
+
+### Phoenix SwerveDrive API
+Phoenix software provides some [Swerve API](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/api-usage/swerve/swerve-overview.html) libraries that may be a useful resource.  This would be difficult to intergrate into a project using *AdvantageKit*, so may only be useful for code ideas at this time.
+
+
 ## References
 
 - [Advanced SwerveDrive Example](https://github.com/Mechanical-Advantage/AdvantageKit/tree/main/example_projects/advanced_swerve_drive/src/main)  with AdvantageKit

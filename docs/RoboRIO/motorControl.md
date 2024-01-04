@@ -59,68 +59,45 @@ We can switch between the PID slots in our code when we make the velocity reques
 
 See [Closed-Loop Gain Slots](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/device-specific/talonfx/closed-loop-requests.html#gain-slots) in the Phoenix6 documentation for details.
 
-## Sensors
-In order to do any Close-Loop control (Position, MotionMagic, Velocity, MotionProfile) you will need to have a sensor attached to the motor. There are several sensor types used in FRC.
-Our team mainly uses the **Talon FX Integrated Sensor** and the **CTRE Magnetic Encoder**.
+## Feedback Sensors
+In order to do any Close-Loop control (Position, MotionMagic, Velocity, MotionProfile) you will need to have a sensor attached to the motor. There are several sensor types that can be used depending on the application.
 
-#### Talon FX Rotory Sensor
-    RemoteCANcoder(1),
-    RemoteCANcoder(1),
-As the name suggests, the [Talon FX Integrated Sensor](https://docs.ctre-phoenix.com/en/latest/ch14_MCSensor.html?highlight=configSelectedFeedbackSensor#talon-fx-integrated-sensor) has a sensor integrated into the controller. This is necessary for the brushless commutation and allows the user to use the Talon FX with a high resolution sensor without attaching any extra hardware. The selected Feedback Device defaults to *Rotor Sensor*, previously *Integrated Sensor*, for the Talon FX, but you can set it explicitly in code with the following API statement.  Other options are RemoteCANcoder and FusedCANcoder.
+#### Rotor Sensor
+The TalonFX  has a sensor integrated into the controller. This is necessary for the brushless commutation and allows the user to use the Talon FX with a high resolution sensor without attaching any extra hardware. The selected Feedback Device defaults to *Rotor Sensor*, previously *Integrated Sensor*, for the Talon FX, but you can set it explicitly in code with the following code API statement. 
 
-    Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
+    driveMotor.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
 
-This sensor has a resolution of `2048` ticks per revolution, so you should place a reference for this in the *Constants* file:
+#### Remote CANcoder
+To use another CANcoder on the same CAN bus choose *RemoteCANcoder*.  The TalonFX will update its position and velocity whenever CANcoder publishes its information on CAN bus.  This requires setting the *FeedbackRemoteSensorID*.  A typical use for this would be to control the angle of an arm that is being measured by an absolute encoder.
 
-    public static final int kEncoderCPR = 2048;
+See [Remote CANcoder](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/device-specific/talonfx/remote-sensors.html#remotecancoder) in the Phoenix documentation on how to set it up.
 
+#### Fused CANcoder
+The *FusedCANcoder* and Talon FX will fuse another CANcoder's information with the internal rotor, which provides the best possible position and velocity for accuracy and bandwidth.  FusedCANcoder was developed for applications such as swerve-azimuth.
 
-<!-- Talon FX supports multiple (cascaded) PID loops.     -->
+See [Fused CANcoder](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/device-specific/talonfx/remote-sensors.html#fusedcancoder) in the Phoenix documentation.
 
-#### CTRE Magnetic Encoder
-The [Cross The Road Electronics Magnetic Encoder](https://docs.ctre-phoenix.com/en/latest/ch14_MCSensor.html?highlight=configSelectedFeedbackSensor#cross-the-road-electronics-magnetic-encoder-absolute-and-relative) is actually two sensor interfaces packaged into one ([Quadrature](https://docs.ctre-phoenix.com/en/latest/ch14_MCSensor.html?highlight=configSelectedFeedbackSensor#quadrature) and [Pulse Width](https://docs.ctre-phoenix.com/en/latest/ch14_MCSensor.html?highlight=configSelectedFeedbackSensor#pulse-width-decoder) encoder). Therefore the sensor provides two modes of use: *Absolute* and *Relative*. 
+#### Pigeon2 Gyro 
+*RemotePigeon2_Yaw*, *RemotePigeon2_Pitch*, or *RemotePigeon2_Roll* to use a Pigeon2 on the same CAN bus.  Talon FX will update its position to match the selected value whenever Pigeon2 publishes its information on CAN bus. Note that the Talon FX position will be in rotations and not degrees.  Here's an example of the setup.
 
-To select feedback sensor use the Phoenix API, call `configSelectedFeedbackSensor()`. The selected “Feedback Device” defaults to Quadrature Encoder for Talon SRX, which puts the sensor in Relative Mode. 
+    var motorConfig = new TalonFXConfiguration();
+    motorConfig.Feedback.FeedbackRemoteSensorID = m_cancoder.getDeviceID();
+    motorConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemotePigeon2_Yaw;
+    talonMotor.getConfigurator().apply(motorConfig);
+ 
+#### SyncCANcoder
 
-    var fx_cfg = new TalonFXConfiguration();
-    fx_cfg.Feedback.FeedbackRemoteSensorID = m_cancoder.getDeviceID();
-    fx_cfg.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
+Choose SyncCANcoder (requires Phoenix Pro) and Talon FX will synchronize its internal rotor position against another CANcoder, then continue to use the rotor sensor for closed loop control (note this requires setting FeedbackRemoteSensorID).  The TalonFX will report if its internal position differs significantly from the reported CANcoder position.  SyncCANcoder was developed for mechanisms where there is a risk of the CANcoder failing in such a way that it reports a position that does not match the mechanism, such as the sensor mounting assembly breaking off. 
 
-    m_talonFX.getConfigurator().apply(fx_cfg);
+## Actuator Limit Switches
+CTR Electronics actuators, such as the TalonFX, support various kinds of hardware and software limits. See
+[Actuator Limit Switches](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/api-usage/actuator-limits.html) for details.
 
-<!-- m_turretMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-
-To put the sensor in Absolute mode, which uses the Pulse Width Encoder:
-
-m_turretMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute); -->
-
-
-<!-- Use `setSensorPhase()` to set the phase of the sensor. A positive PercentOutput yields a positive change in sensor. Sensor phase is not the same as sensor direction. When `setInverted()` is called on a motor controller, the values reported by the selected sensor are also inverted. As a result, changing the SetInverted input does not require changing the sensor phase.
-
-    // Put the motor and sensor going in the same direction
-    m_turretMotor.setSensorPhase(true);
-
-    // The motor and sensor are both inverted since they are "in-phase".
-    m_turretMotor.setInverted(true);
-
-See the Phoenix documentation for more information about the [Sensor Phase](https://docs.ctre-phoenix.com/en/latest/ch14_MCSensor.html?highlight=configSelectedFeedbackSensor#sensor-check-with-motor-drive). -->
-
-<!-- Both modes of this sensor (Relative and Absolute) have a resolution of `4096` ticks per revolution, so you should place a reference for this in the Constants file:
-
-    public static final int kEncoderCPR = 4096; -->
-
-See [Remote Sensors](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/device-specific/talonfx/remote-sensors.html#talonfx-remote-sensors) in the Phoenix6 documentation for each of the remote sensor options.
-
-### Fused Sensor
-New in Phoenix 6 is a feedback sensor type called *FusedCANcoder*. *FusedCANcoder* will fuse another CANcoder’s information with the motor’s internal rotor, which provides the best possible position and velocity for accuracy and bandwidth. This is useful in applications such as swerve azimuth. See [FusedCANcoder](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/device-specific/talonfx/remote-sensors.html#fusedcancoder) in the Phoenix6 documentation.
-
-<!-- ### Soft Limits
-- Soft limits (auto neutral motor if out of range) -->
-
-<!-- Measure distance driven on a drivetrain - Use a Falcon 500 on a single speed drivetrain and get accurate distance measurement without the need of an external encoder. For 2-speed drivetrains, teams should still use an external encoder and an encoder, as the motor can’t measure the difference in wheel speed between high and low gear. -->
+## Status Signals
+Signals represent live data reported by a device; these can be yaw, position, etc. To make use of the live data, users need to know the value, timestamp, latency, units, and error condition of the data. See [Status Signals](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/api-usage/status-signals.html) for a detailed explaination.
 
 
-## Lab - Motor Control
+<!-- ## Lab - Motor Control
 
 - Run drivetrain motors using Velocity control. Tune feedforward.
 
@@ -225,10 +202,10 @@ We'll need some telemetry in order to do the testing, so create the `publishTele
         SmartDashboard.putNumber("Right Wheel Speed", rightVelocity);
     }
 
-Create a command.
+Create a command. -->
 
-### Drive using MotionMagic
-Currently no lab for this task.
+<!-- ### Drive using MotionMagic
+Currently no lab for this task. -->
 <!-- remember that you have really switched to a position control loop once you select Motion Magic.
 
 You then tune P, I, D just like you would for a normal position loop. 
@@ -267,7 +244,7 @@ The outer PID controller will control the distance and the inner PID controllers
 
 <!-- [ChiefDelphi post](https://www.chiefdelphi.com/t/some-questions-about-motion-magic/400422) -->
 
-### Drive using Position Control
+<!-- ### Drive using Position Control
 In this task you'll control the drivetrain motors in order to keep the robot level.  For this we'll need to use a Gyro as the feedback sensor.
 
 Create a control output function in the Drivetrain.
@@ -390,7 +367,7 @@ These go in the Drivetrain.
         this.leftLeader.set(ControlMode.Position, setpoint);
         this.rightLeader.set(ControlMode.Position, setpoint);
         this.diffDrive.feed();
-    }
+    } -->
 
 ## References
 

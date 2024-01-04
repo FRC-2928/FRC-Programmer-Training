@@ -12,9 +12,9 @@ The *Drivetrain* subsystem uses comments to divide it into four logical subsecti
 ## Lab - Robot Structure
 The purpose of this lab is to learn about the roboRIO training robot's code structure and practice deploying your own code to the robot.  There are four tasks for this lab:
 
-- Fork the *SweetpantsReference* program for the roboRIO training robot into your own Github account.
+- Fork the *Sweetpants2024* program for the roboRIO training robot into your own Github account.
 
-- Clone to *SweetpantsReference* program to your laptop.
+- Clone to *Sweetpants2024* program to your laptop.
 
 - Learn about the roboRIO training robot and it's code structure.  
 
@@ -23,7 +23,7 @@ The purpose of this lab is to learn about the roboRIO training robot's code stru
 ### Fork the Reference Program
 We're going to start our training on the roboRIO robots by **Forking** a reference program for a robot that we call *Sweetpants*. This will put a copy of the program into your own Github account so as you can make changes to it.
 
-1. Navigate to the [SweetpantsReference](https://github.com/FRC-2928/SweetpantsReference) program for the training roboRIO robot.  
+1. Navigate to the [Sweetpants2024](https://github.com/FRC-2928/Sweetpants2024) program for the training roboRIO robot.  
 
 2. Follow the instructions on [Forking a Repository](../Tools/git.md#gitFork) to get a copy of the program into your own Github account.
 
@@ -34,7 +34,7 @@ You're now done with this task!
 ### Clone the Reference Program
 Now that you have a copy of the reference program in your own Github repository you can clone it onto your laptop and make changes to it.
 
-1. In VSCode, clone the reference program for the roboRIO training robot from your own *SweetpantsReference* repository.  For a reminder on how to do this refer to [Cloning a Repository](../Tools/git.md#gitClone).
+1. In VSCode, clone the reference program for the roboRIO training robot from your own *Sweetpants2024* repository.  For a reminder on how to do this refer to [Cloning a Repository](../Tools/git.md#gitClone).
 
 Once you have your own personal of the reference program you're done with this task!
 
@@ -71,11 +71,11 @@ The distance needs to be averaged over the two wheels, which is done in the `get
 After taking the measurements and reviewing the code you're done with this task!
 
 ### Drive the *Sweetpants* Training Robot
-In this task you'll drive the *Sweetpants* robot from your own laptop using the *SweetpantsReference* code that you copied into your Github repository.  If you don't have a Windows laptop you can use one of the team laptops.  
+In this task you'll drive the *Sweetpants* robot from your own laptop using the *Sweetpants2024* code that you copied into your Github repository.  If you don't have a Windows laptop you can use one of the team laptops.  
 
 1. Connect to the robot and run the DriverStation.  See [Understand the Driver Station](driverStation.md#dsUnderstand) from the previous lab.
 
-2. Deploy the *SweetpantsReference* code from your laptop. See [Deploy Robot Code](driverStation.md#dsUnderstand) from the previous lab.
+2. Deploy the *Sweetpants2024* code from your laptop. See [Deploy Robot Code](driverStation.md#dsUnderstand) from the previous lab.
 
 3. Execute the *AutonomousDistance* command from the *SendableChooser* menu by selecting *Autonomous* mode from the DriverStation and "Enabling" the robot.  This command does the same thing as the *AutonomousDistance* command on the Romi.  It drives forward, turns 180 degrees, drives back, and turns another 180 degrees.  The last two steps of the command have been commented out, since we want to ensure that the robot turns approximately 180 degrees before doing the return leg of the trip. Once You've confirmed that the robot is pointing in the right direction you can uncomment the last two sequential commands.
 
@@ -87,4 +87,4 @@ You're now done with this task!
 
 ## References
 
-- Example code [SweetpantsReference](https://github.com/FRC-2928/SweetpantsReference)
+- Example code [Sweetpants2024](https://github.com/FRC-2928/Sweetpants2024)
