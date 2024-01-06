@@ -21,7 +21,7 @@ There are a number of parameters that need to be supplied when defining a DCMoto
 
 	private DCMotorSim driveSim = new DCMotorSim(DCMotor.getFalcon500(1), 6.75, 0.025);
 
-The gearing and moment of inertia of the DC motor of the DC motor must also be provided.  These can be obtained from simulation examples. Use the ones shown above as a starting point.	
+The *gearing* and *moment of inertia* of the DC motor must also be provided.  These can be obtained from simulation examples. Use the ones shown above as a starting point.	
 
 As the program runs the `setInputVoltage()` is usually called from the `simulationPeriodic()` loop of the subsystem, or from the `execute()` phase of a command, using:
 
