@@ -62,6 +62,8 @@ Implement motor safety via `setSafetyEnabled()`.  See [Motor Safety](https://pro
 
 ![Motor Configuration](../images/FRCroboRIO/FRCroboRIO.004.jpeg)
 
+Also see the [Open Loop Quickstart](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/examples/quickstart.html) example.
+
 ## Feedback Sensors
 In order to do any Close-Loop control (Position, MotionMagic, Velocity, MotionProfile) you will need to have a sensor attached to the motor. There are several sensor types that can be used depending on the application.
 
@@ -96,6 +98,16 @@ Choose SyncCANcoder (requires Phoenix Pro) and Talon FX will synchronize its int
 CTR Electronics actuators, such as the TalonFX, support various kinds of hardware and software limits. See
 [Actuator Limit Switches](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/api-usage/actuator-limits.html) for details.
 
+## CANivore
+The [CANivore](https://store.ctr-electronics.com/canivore/) is a multipurpose USB-to-CAN FD device, that improves upon CAN with increased device bandwidth and transfer speed.  See the introduction to [CANivore](https://pro.docs.ctr-electronics.com/en/latest/docs/canivore/canivore-intro.html) in the Phoenix documentation.
+
+The CANivore should be named in the Phoenix Tuner, see the  [CANivore Setup](https://pro.docs.ctr-electronics.com/en/latest/docs/canivore/canivore-setup.html) page. To use it in the program refer to the named CANivore bus.  The following command constructs a TalonFX on the CANivore bus named `Drivebase`.
+
+    TalonFX fx_drivebase = new TalonFX(0, "Drivebase"); 
+
+See the [CANivore API](https://pro.docs.ctr-electronics.com/en/latest/docs/canivore/canivore-api.html) for more details.
+
+
 <!-- ## Lab - Configure Motors -->
 <!-- In this lab your task is to research some of the motor configuration parameters.  Go to the [Phoenix Documentation Website](https://docs.ctre-phoenix.com/en/latest/index.html).  Use the search field to find results for the `setNeutralMode()`, `configSupplyCurrentLimit()`, `configSelectedFeedbackSensor()` motor configuration parameters and read the information provided.  You may have to do a page search after clicking on the result to find the parameter.  After doing your research consider the following questions.
 
@@ -120,3 +132,5 @@ Once you understand the configuration parameters you're done with this task! -->
 - CTRE - [Falcon 500 Motor User Guide](https://robotics.choate.edu/wp-content/uploads/2020/01/Falcon500UserGuide-20191101.pdf)
 
 - CTRE - [Talon SRX - User’s Guide](https://store.ctr-electronics.com/content/user-manual/Talon%20SRX%20User's%20Guide.pdf)
+
+- CTRE - [CANivore](https://pro.docs.ctr-electronics.com/en/latest/docs/canivore/canivore-intro.html)
