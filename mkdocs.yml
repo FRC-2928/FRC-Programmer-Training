@@ -49,10 +49,10 @@ nav:
             - RoboRIO/motorControl.md
             - RoboRIO/pneumatics.md    
             - RoboRIO/swervedrive.md
+            - RoboRIO/roboRIOSimulation.md 
             - RoboRIO/AdvantageKit.md
             - RoboRIO/limelight.md
-            # - RoboRIO/pathWeaver.md  
-            # - RoboRIO/roboRIOSimulation.md    
+            # - RoboRIO/pathWeaver.md            
         # - 'RoboRIO Vision Processing - Limelight': 
         #     - LimelightVision/introVision.md
             
