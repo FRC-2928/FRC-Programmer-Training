@@ -1,6 +1,8 @@
-# Installing Phoenix Libraries
+# Installing Phoenix API Libraries
 
-The **CTRE Phoenix Framework Installer** is a zip file download that contains files that must be installed into the `wpilib/20YY` directory.  Here are the [Phoenix Software](https://pro.docs.ctr-electronics.com/en/latest/docs/installation/installation.html) releases for each platform. 
+To install the Pheonix API libraries copy the link found on [Phoenix Releases](https://v6.docs.ctr-electronics.com/en/latest/docs/installation/installation-frc.html) page.  You'll need to click on the **Online** tab to find the link.  Click on the WPI pallet and type **Manage Vendor Libraries** then click on the menu option that appears. Click **Install new libraries (online)** and a textbox should appear. Paste the link into the textbox.
+
+<!-- The **CTRE Phoenix Framework Installer** is a zip file download that contains files that must be installed into the `wpilib/20YY` directory.  Here are the [Phoenix Software](https://pro.docs.ctr-electronics.com/en/latest/docs/installation/installation.html) releases for each platform. 
 
 When you run the Phoenix software installer for Windows it installs the software in the requisit directories.  For Mac and Linux follow the *Install Phoenix on Mac and Linux* instructions below once you've downloaded the zip file.
 
@@ -12,18 +14,18 @@ There are three folders contained in this archive-
 - "vendordeps"
 - "Robotbuilder"
 
-Place the `maven/com/ctre` and `vendordeps/Pheonix6.json` folders inside of the respective directories of the WPILib installation folder.  This is typically located in `~/wpilib/202Y` directory.
+Place the `maven/com/ctre` and `vendordeps/Pheonix6.json` folders inside of the respective directories of the WPILib installation folder.  This is typically located in `~/wpilib/202Y` directory. -->
 
-Instructions on adding Phoenix to your FRC vscode project can be found [here](https://phoenix-documentation.readthedocs.io/en/latest/ch05a_CppJava.html).
+<!-- Instructions on adding Phoenix to your FRC vscode project can be found [here](https://phoenix-documentation.readthedocs.io/en/latest/ch05a_CppJava.html). -->
 
-The **Robotbuilder** folder contains Robotbuilder extensions for using CTRE classes. It currently contains the Talon FX, CANCoder, Talon SRX, Victor SPX, CANifier, and Pigeon IMU extensions. Take the desired extension folder (eg. "Talon SRX") and place it in `~\wpilib\2022\Robotbuilder\extensions`.
+<!-- The **Robotbuilder** folder contains Robotbuilder extensions for using CTRE classes. It currently contains the Talon FX, CANCoder, Talon SRX, Victor SPX, CANifier, and Pigeon IMU extensions. Take the desired extension folder (eg. "Talon SRX") and place it in `~\wpilib\2022\Robotbuilder\extensions`. -->
 
-### Migrating to Phoenix6
+### Migrating to Phoenix 6
 To migrate a project to Phoenix6 API follow these steps:
 
 - Remove the older phoenix libraries. Go to `vendordeps` folder and delete the `phoenix.json` file.
 
-- Install [Phoenix6](https://pro.docs.ctr-electronics.com/en/latest/docs/installation/installation.html) libraries in VSCode.   
+- Install [Phoenix 6](https://pro.docs.ctr-electronics.com/en/latest/docs/installation/installation.html) libraries in VSCode. See above.  
 
 - Remove any red-underlined imports in your code.
 
@@ -33,7 +35,7 @@ To migrate a project to Phoenix6 API follow these steps:
 
 - Update your code to apply hardware control requests.  See the [Control Requests](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/api-usage/control-requests.html) documentation.  Also see [Motor Control](../RoboRIO/motorControl.md) in this documentation.
 
-Another resource is the [Phoenix6](https://github.com/CrossTheRoadElec/Phoenix6-Examples/tree/main/java) example code on GitHub.
+Another resource is the [Phoenix 6](https://github.com/CrossTheRoadElec/Phoenix6-Examples/tree/main/java) example code on GitHub.  Also see [Phoenix 6 Migration](https://pro.docs.ctr-electronics.com/en/latest/docs/migration/migration-guide/index.html) in the Phoenix documentation.
 
 In order to select data values (referred to as *Signal Values*) from the Phoenix hardware you need to import these classes:
 
@@ -41,7 +43,15 @@ In order to select data values (referred to as *Signal Values*) from the Phoenix
     import com.ctre.phoenix6.StatusSignal;
 
 ## Installing the Phoenix Tuner
-Phoenix Tuner is the companion application allowing you to configure, analyze, update and control device. See [Phoenix X Tuner](https://pro.docs.ctr-electronics.com/en/latest/docs/tuner/index.html) for installing the tuner.
+Phoenix Tuner is the companion application allowing you to configure, analyze, update and control device. See [Phoenix 6 Tuner X](https://pro.docs.ctr-electronics.com/en/latest/docs/tuner/index.html) for installing the tuner.
+
+There are multiple ways to connect the tuner to the RoboRio.  If you have a USB cable connected it defaults to `172.22.11.2` which is the roboRIO IP when connected via USB.  You can also connect via the *DriverStation* as long as it's connected to the RoboRio.  If the RoboRio is newly imaged and there is no robot program running you'll need to bring up a *Temporary Diagnostic Server*, which is done from the Tuner.  
+
+![Connect Tuner X](../images/FRCroboRIO/FRCroboRIO.012.jpeg)
+
+To upgrade the devices see the [Devices](https://pro.docs.ctr-electronics.com/en/latest/docs/tuner/device-list.html) page.
+
+The Tuner will automatically download the latest firmware when it's started.  See [Firmware Upgrade](https://pro.docs.ctr-electronics.com/en/latest/docs/tuner/device-details-page.html#field-upgrade-firmware-version).
 
 ## Install REV Robotics Software
 The install of the REV Robotics libraries is similar to that of the Phoenix software for Mac and Linux.  
