@@ -48,13 +48,13 @@ This lab builds on the code that you wrote in the [Telemetry](romiTelemetry.md) 
 
 - The Java keyword [super](https://www.w3schools.com/java/ref_keyword_super.asp) to call superclass (parent) class methods.
 
-There are three tasks for this lab:
+There is one task for this lab:
 
 - *DriveDistancePID* that will drive the robot a specified distance.
 
-- *TurnToAnglePID* that will allow the robot to turn to a specified angle. 
+<!-- - *TurnToAnglePID* that will allow the robot to turn to a specified angle. 
 
-- Change the PID gains from the Simulator or Shuffleboard to make PID tuning more efficient.
+- Change the PID gains from the Simulator or Shuffleboard to make PID tuning more efficient. -->
 
 ### Drive Robot a Specified Distance
 To create a *PIDCommand* in VSCode right click under the commands folder and select *Create a new class/command*.  Then select **PIDCommand (New)** from the drop down list.  Call the command *DriveDistancePID*.  The constructor of the new command is shown in the diagram.  
@@ -156,7 +156,7 @@ For more details on what we've just done read the [PID Control through PIDSubsys
 
 When you're happy with how the robot is moving you've now completed this task!
 
-### Rotate the Robot to a Specified Angle
+<!-- ### Rotate the Robot to a Specified Angle
 The process for creating this command will be very similar to the DriveDistancePID command.  This command will rotate the robot to a specified angle.  
 
 Create a new PIDCommand using the method in the previous lab and call it *TurnToAnglePID*.  We again need a *PIDController* with the **P**roportional, **I**ntegral, and **D**erivative values.  We'll start with the **P** set to `0.04` and **I**, **D** set to zero.  These values will be very different from the ones used to drive distance so create a new set of constants in the *Constants* file.  
@@ -275,7 +275,7 @@ You can also change the PID gains from Shuffleboard.  Once you move to the compe
 
 Run the commands several times testing the new PID gain values.  Try tuning it to run on the floor carpet and the desktop.  You may find that the PID gain values are different.
 
-You're now done with the Basic PID command tasks!
+You're now done with the Basic PID command tasks! -->
 
 ## References
 
