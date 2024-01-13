@@ -32,11 +32,11 @@ This lab builds on the code that you wrote in the [Commands](romiCommands.md) se
 
 - [static](https://www.w3schools.com/java/ref_keyword_static.asp) methods that can be accessed without creating an object of the class first.
 
-This lab has two tasks:
+This lab has one task:
 
 - Track the current position and heading of the robot using *SmartDashboard*. 
 
-- Create a new tab on *Shuffleboard* and put telemetry data onto it.
+<!-- - Create a new tab on *Shuffleboard* and put telemetry data onto it. -->
 
 ## Tracking Robot Velocity and Heading
 In this task you'll use telemetry to track the current position and heading of the robot. The data will be output to the SmartDashboard, which is now part of Shuffleboard.  As you put data onto SmartDashboard it will automatically place it into the Network Tables.  As stated above, Network Tables are a key enabling technology for implementing telemetry.
@@ -65,7 +65,7 @@ This function can now be called from the `periodic()` method, which will place i
 
 You're now done with this task!
 
-### Put Data onto Shuffleboard
+<!-- ### Put Data onto Shuffleboard
 We can configure how Shuffleboard displays data from our robot code.  Shuffleboard enables you create multiple tabs that lets you view data in a logical fashion.  This lab task shows you how to create a new Shuffleboard tab and add telemetry data to it.  The tab will be called **Drivetrain**, which will be used to see data coming from that subsystem.  
 
 First, we should again setup a function to keep all of the code together, so create a function called `setupShuffleboard()` and place it right after the *Drivetrain*'s constructor.  The Shuffleboard layout is going to get setup when the *Drivetrain* is initialized, which is why we're putting it right after the constructor.
@@ -136,7 +136,7 @@ Place the following statements in the `publishTelemetry()` method to put the dat
 
 You can now check out the telemetry data by running the Romi robot. 
 
-You're now done with this task!
+You're now done with this task! -->
 
 ## References
 - FRC Documentation - [Telemetry](https://docs.wpilib.org/en/stable/docs/software/telemetry/index.html)
