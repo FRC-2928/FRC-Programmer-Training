@@ -62,6 +62,10 @@ See [Closed-Loop Gain Slots](https://pro.docs.ctr-electronics.com/en/latest/docs
 ## Status Signals
 Signals represent live data reported by a device; these can be yaw, position, etc. To make use of the live data, users need to know the value, timestamp, latency, units, and error condition of the data. See [Status Signals](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/api-usage/status-signals.html) for a detailed explaination.
 
+## Hardware Attached Simulation
+CANivore supports hardware-attached simulation when used in an FRC robot program. This allows a CANivore to be used with real devices from a PC. See [Hardware Attached Simulation](https://pro.docs.ctr-electronics.com/en/latest/docs/canivore/canivore-hardware-attached.html) in the Phoenix 6 documentation.  The devices must be independently powered since the USB cable will not supply enough power.
+
+![Hardware Attached Simulation](../images/FRCroboRIO/FRCroboRIO.013.jpeg)
 
 <!-- ## Lab - Motor Control
 

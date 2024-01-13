@@ -42,16 +42,20 @@ In order to select data values (referred to as *Signal Values*) from the Phoenix
     import com.ctre.phoenix6.BaseStatusSignal;
     import com.ctre.phoenix6.StatusSignal;
 
-## Installing the Phoenix Tuner
+## Installing the Phoenix Tuner X
 Phoenix Tuner is the companion application allowing you to configure, analyze, update and control device. See [Phoenix 6 Tuner X](https://pro.docs.ctr-electronics.com/en/latest/docs/tuner/index.html) for installing the tuner.
+
+## Connecting the Phoenix Tuner X
 
 There are multiple ways to connect the tuner to the RoboRio.  If you have a USB cable connected it defaults to `172.22.11.2` which is the roboRIO IP when connected via USB.  You can also connect via the *DriverStation* as long as it's connected to the RoboRio.  If the RoboRio is newly imaged and there is no robot program running you'll need to bring up a *Temporary Diagnostic Server*, which is done from the Tuner.  
 
 ![Connect Tuner X](../images/FRCroboRIO/FRCroboRIO.012.jpeg)
 
-To upgrade the devices see the [Devices](https://pro.docs.ctr-electronics.com/en/latest/docs/tuner/device-list.html) page.
+ See the Phoenix Tuner X [Devices](https://pro.docs.ctr-electronics.com/en/latest/docs/tuner/device-list.html) page for information on upgrading devices.  The Tuner will automatically download the latest firmware when it's started.  See [Firmware Upgrade](https://pro.docs.ctr-electronics.com/en/latest/docs/tuner/device-details-page.html#field-upgrade-firmware-version).
 
-The Tuner will automatically download the latest firmware when it's started.  See [Firmware Upgrade](https://pro.docs.ctr-electronics.com/en/latest/docs/tuner/device-details-page.html#field-upgrade-firmware-version).
+If you have a *CANivore* you can upgrade Phoenix device firmware directly from a PC.
+
+![Connect Tuner X](../images/FRCroboRIO/FRCroboRIO.014.jpeg)
 
 ## Install REV Robotics Software
 The install of the REV Robotics libraries is similar to that of the Phoenix software for Mac and Linux.  

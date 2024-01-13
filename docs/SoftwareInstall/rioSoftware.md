@@ -2,11 +2,11 @@
 
 The [NI-roboRIO](https://docs.wpilib.org/en/stable/docs/software/roborio-info/roborio-introduction.html#roborio-introduction) is the main robot controller used for FRC. The roboRIO serves as the “brain” for the robot running team-generated code that commands all of the other hardware.  Prior to using the **RoboRio** you have to install, or update, the software stack.  Here are the components that need to be installed.
 
-![RoboRIO Software Stack](../../images/FRCTools/FRCTools.016.jpeg)
+![RoboRIO Software Stack](../images/FRCTools/FRCTools.016.jpeg)
 
 Here is a step-by-step guide for accomplishing the install.
 
-![After Upgrade](../../images/FRCTools/FRCTools.017.jpeg)
+![After Upgrade](../images/FRCTools/FRCTools.017.jpeg)
 
 #### Step 1. Install the FRC Game Tools
 The first step is to [Install the FRC Game Tools](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/frc-game-tools.html).  These can be down loaded from the [NI FRC Game Tools](https://www.ni.com/en-us/support/downloads/drivers/download.frc-game-tools.html#473762) releases site, and only supports Windows.  After the install it asks you to login to your **NI Activation** account and enter a serial number.  It's not clear why you need the account, but here's information on [getting the serial number](https://knowledge.ni.com/KnowledgeArticleDetails?id=kA00Z0000019OJTSA2&l=en-US).  Once you have the serial number you can use the [Activation Wizard](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/labview-setup.html#ni-activation-wizard). 
@@ -20,9 +20,9 @@ Installed tools include:
 #### Step 2. Image the RoboRio
 The *Imaging Tool* is used to install the roboRIO Firmware and the Image.  The image is the equivalent of the operating system.  The roboRIO 2 must be imaged using the [roboRIO 2.0 microSD](https://docs.wpilib.org/en/stable/docs/software/roborio-info/roborio2-imaging.html) card imaging process.  This also applies if you're upgrading from a previous year.  Once the image is flashed to a microSD card and inserted the team number will need to be set using the RoboRIO imaging tool. See [Setting the roboRIO Team Number](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-3/roborio2-imaging.html#setting-the-roborio-team-number) in the FRC documentation.  If you have any problems with the install checkout the [Troubleshooting](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-3/imaging-your-roborio.html#troubleshooting) steps.
 
- If you have the older roboRIO then all of the imaging is done from the *Imaging Tool*.  If the RoboRio has already been imaged from a previous year and already has an microSD card inserted then the Imaging Tool can be used to update the software. Open the [RoboRIO Imaging Tool](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-3/imaging-your-roborio.html#roborio-imaging-tool) and follow the instructions.  
+ <!-- If you have the older roboRIO then all of the imaging is done from the *Imaging Tool*.  If the RoboRio has already been imaged from a previous year and already has an microSD card inserted then the Imaging Tool can be used to update the software. Open the [RoboRIO Imaging Tool](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-3/imaging-your-roborio.html#roborio-imaging-tool) and follow the instructions.   -->
 
-Once the RoboRIO is imaged it sets up the [RoboRIO Web Dashboard](https://docs.wpilib.org/en/stable/docs/software/roborio-info/roborio-web-dashboard.html#roborio-web-dashboard), which is a webpage built into the roboRIO that can be used for checking status and updating settings of the roboRIO. 
+Once the RoboRIO is imaged it sets up the [RoboRIO Web Dashboard](https://docs.wpilib.org/en/stable/docs/software/roborio-info/roborio-web-dashboard.html#roborio-web-dashboard), which is a webpage built into the roboRIO that can be used for checking status and updating settings of the roboRIO. Use `172.22.11.2` if connected via USB, or `roboRIO-2928-FRC.local` if connected over WiFi.
 
 #### Step 3. Install Phoenix Framework Software
 

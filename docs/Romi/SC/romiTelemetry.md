@@ -54,7 +54,7 @@ Remember that we're putting this in the `publishTelemetry()` method. Also publis
         // Display the meters per/second for each wheel and the heading
         SmartDashboard.putNumber("Left Wheel Speed", m_leftEncoder.getRate());
         SmartDashboard.putNumber("Right Wheel Speed", m_rightEncoder.getRate());
-        SmartDashboard.putNumber("Heading", getHeading());
+        SmartDashboard.putNumber("Heading", getHeading().getDegrees());
     }
 
 This function can now be called from the `periodic()` method, which will place it in the robot's process loop.  Since the process loop runs 50 times per/second we'll see a continuous stream of changing data as the robot moves.
