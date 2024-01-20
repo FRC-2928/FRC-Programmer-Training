@@ -222,6 +222,31 @@ Add new constants.
 		REPLAY
 	}
 
+### Robot Changes
+
+Add the following to `robotInit()` just before the `Logger.start()` command.
+
+    // Set up data receivers & replay source
+    switch (Constants.currentMode) {
+      case REAL:
+        // Running on a real robot, log to a USB stick
+        Logger.addDataReceiver(new WPILOGWriter("/U"));
+        Logger.addDataReceiver(new NT4Publisher());
+        break;
+
+      case SIM:
+        // Running a physics simulator, log to NT
+        Logger.addDataReceiver(new NT4Publisher());
+        break;
+
+      case REPLAY:
+        // Replaying a log, set up replay source
+        setUseTiming(false); // Run as fast as possible
+        String logPath = LogFileUtil.findReplayLog();
+        Logger.setReplaySource(new WPILOGReader(logPath));
+        Logger.addDataReceiver(new WPILOGWriter(LogFileUtil.addPathSuffix(logPath, "_sim")));
+        break;
+    }
 ### GyroIOPigeon2 Changes
 Change the configuration.
 
