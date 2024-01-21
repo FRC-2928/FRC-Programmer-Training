@@ -448,6 +448,111 @@ Change.
 
     this.driverOI.resetFOD.whileTrue(new RunCommand(() -> this.drivetrain.resetGyro()));
 
+
+## Additional Changes
+
+### SwerveModule
+
+    public double getDistanceMeters() {
+        return 
+            Constants.Drivetrain.driveGearMotorToWheel
+                .forward(
+                    // Constants.Drivetrain.motorEncoderToRotations.forward(this.drive.getRotorPosition().getValue())
+                    Constants.Drivetrain.motorEncoderToRotations.forward(this.inputs.driveRotorPosition)
+                );
+    }
+
+    /**
+     * Position of the motor rotor in rotations. This position is only affected by the
+     * RotorOffset config. Function driveTalon.getRotorPosition();
+     * 
+     * @return
+     */
+    public double getDriveRotorPosition() {
+        return this.inputs.driveRotorPosition;
+    }
+
+    /**
+     * Absolute Position of the device in rotations.
+     * 
+     * @return Rotation2d.fromRotations(cancoder.getAbsolutePosition().getValueAsDouble());
+     */
+    public Rotation2d getAngle() {
+        return  this.inputs.turnAbsolutePosition;
+    }
+
+    /**
+     * Position of the device in mechanism radians.  This is
+     * multiplied by the gear ratio to get the number of wheel radians.
+     * Finally, use the wheel radius to get the distance in meters.
+     * 
+     * @return current drive position of the module in meters. 
+     */
+    public double getPositionMeters() {
+        return inputs.drivePositionRad * Constants.Drivetrain.wheelRadius;
+    }
+
+    /** Returns the current turn angle of the module. 
+     * 
+     * @return Rotation2d.fromRotations(turnTalon.getPosition().getValueAsDouble() / TURN_GEAR_RATIO)
+    */
+    public Rotation2d getOptometryAngle() {      
+        return inputs.turnPosition;
+    }
+
+    /** Returns the module position delta since the last call to this method. */
+    public SwerveModulePosition getPositionDelta() {
+        var delta = new SwerveModulePosition(getPositionMeters() - lastPositionMeters, getAngle());
+        lastPositionMeters = getPositionMeters();
+        return delta;
+    }
+
+### Drivetrain
+
+      /**
+    * 
+    * @return pigeon2.getRotation2d().unaryMinus().getRotations();
+    */
+        public double getGyroRotations() {
+            return gyroInputs.rotations;
+        }
+
+    /** Returns the current odometry pose. */
+    @AutoLogOutput(key = "Odometry/Robot")
+    public Pose2d getPose() {
+        return pose;
+    }
+
+    /** Returns the current odometry pose. */
+    @AutoLogOutput(key = "OdometryEstimation/Robot")
+    public Pose2d getPoseEstimation() {
+        return this.poseEstimator.getEstimatedPosition();
+    }
+
+    public void updateOdometry() {
+        // Update odometry
+        SwerveModulePosition[] wheelDeltas = new SwerveModulePosition[4];
+        for (int i = 0; i < 4; i++) {
+        wheelDeltas[i] = modules[i].getPositionDelta();
+        }
+        // The twist represents the motion of the robot since the last
+        // loop cycle in x, y, and theta based only on the modules,
+        // without the gyro. The gyro is always disconnected in simulation.
+        var twist = kinematics.toTwist2d(wheelDeltas);
+        if (gyroInputs.connected) {
+        // If the gyro is connected, replace the theta component of the twist
+        // with the change in angle since the last loop cycle.
+        twist =
+            new Twist2d(
+                twist.dx, twist.dy, gyroInputs.yawPosition.minus(lastGyroRotation).getRadians());
+        lastGyroRotation = gyroInputs.yawPosition;
+        }
+        SmartDashboard.putNumber("Twist", twist.dx);
+        // Apply the twist (change since last loop cycle) to the current pose
+        pose = pose.exp(twist);
+    }
+
+
 ## References
 
 - [AdvantageKit](https://github.com/Mechanical-Advantage/AdvantageKit/blob/main/docs/WHAT-IS-ADVANTAGEKIT.md) documentation.

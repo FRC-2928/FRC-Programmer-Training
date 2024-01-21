@@ -87,6 +87,33 @@ It's important to keep track of the robot's position and heading on the game fie
 
 During the course of the match the odometry may become less accurate, perhaps as a result of collisions with other robots. To mitigate this we can use the *SwerveDrivePoseEstimator* class, which is a wrapper for the *SwerveDriveOdometry* class, and provides the additional functionality of fusing camera data to come up with a more accurate estimate of the where the robot is.
 
+Update the position of each module.  This must be done from somewhere in the `periodic()` routine.
+
+    public SwerveModulePosition updateModulePosition() {
+        return new SwerveModulePosition(getPositionMeters(), getAngle());
+    }
+
+    public double getPositionMeters() {
+        return 
+            Constants.Drivetrain.driveGearMotorToWheel
+                .forward(
+                    // Constants.Drivetrain.motorEncoderToRotations.forward(this.drive.getRotorPosition().getValue())
+                    Constants.Drivetrain.motorEncoderToRotations.forward(this.inputs.drivePositionRotations)
+                );
+    }
+
+    public Rotation2d getAngle() {
+        // Rotation2d.fromRotations(this.encoder.getAbsolutePosition().getValue())
+        return  this.inputs.turnAbsolutePosition;
+    }
+
+    public SwerveModulePosition getPositionDelta() {
+        var delta = new SwerveModulePosition(getPositionMeters() - lastPositionMeters, getAngle());
+        SmartDashboard.putNumber(this.place.name() + " Position Meters", getPositionMeters());
+        SmartDashboard.putNumber(this.place.name() + " Delta", delta.distanceMeters);
+        lastPositionMeters = getPositionMeters();
+        return delta;
+    }
 ### Phoenix SwerveDrive API
 Phoenix software provides some [Swerve API](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/api-usage/swerve/swerve-overview.html) libraries that may be a useful resource.  This would be difficult to intergrate into a project using *AdvantageKit*, so may only be useful for code ideas at this time.
 
