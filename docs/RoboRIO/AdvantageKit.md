@@ -496,7 +496,7 @@ Change.
      * 
      * @return Rotation2d.fromRotations(turnTalon.getPosition().getValueAsDouble() / TURN_GEAR_RATIO)
     */
-    public Rotation2d getOptometryAngle() {      
+    public Rotation2d getOdometryAngle() {      
         return inputs.turnPosition;
     }
 

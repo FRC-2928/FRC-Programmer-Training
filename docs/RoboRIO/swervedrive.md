@@ -37,7 +37,7 @@ Program code objects need to implemented to represent each of the hardware compo
 ## Swerve Drive Program Sequence
 Programming a Swerve Drive robot is a little more complicated than programming a Differential Drive robot.  The general flow is documented in the following diagram that shows the programming steps required to translate commands sent in from a game controller to the point at which power is sent to each of the eight motors that make up the Swerve Drive chassis. 
 
-![Swerve Sequence](../images/SwerveDrive/SwerveDrive.002.jpeg)
+<!-- ![Swerve Sequence](../images/SwerveDrive/SwerveDrive.002.jpeg) -->
 
 The decision on where to place each of these steps is left up to the implementer. A possible implementation is shown below.  Steps 7 and 8 must be done in the *SwerveModule*.  You could also do step 6 in the *SwerveModule* instead of the *Drivetrain*.  Some implementations might do step 2 in *RobotContainer*.
 
