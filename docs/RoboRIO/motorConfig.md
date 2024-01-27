@@ -33,7 +33,7 @@ To determine the state of the motor controller bridge when output is neutral or 
     leftConfiguration.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     rightConfiguration.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
-Each motor will play a different roll depending on its position in the drivetrain.  For a differential drive robot the motors on the left side of the drivetrain would need to be going in the opposite direction of those on the right. To invert the motors on one side of the drivetrain we use the *MotorOutput.Inverted* configuration parameter. A class called *InvertedValue* is provided to specify the direction of the wheels.
+Each motor will play a different roll depending on its position in the drivetrain.  For a differential drive robot the motors on the left side of the drivetrain would need to be going in the opposite direction of those on the right. To invert the motors on one side of the drivetrain we use the `MotorOutput.Inverted` configuration parameter. A class called *InvertedValue* is provided to specify the direction of the wheels. The default value is `CounterClockwise_Positive`
 
     // Have the wheels on each side of the drivetrain run in opposite directions
     leftConfiguration.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;

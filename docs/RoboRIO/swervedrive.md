@@ -34,6 +34,20 @@ Program code objects need to implemented to represent each of the hardware compo
 
 ![SwerveDrive Objects](../images/SwerveDrive/SwerveDrive.005.jpeg)
 
+The following device configurations are applied.
+- The Default configuration is first applied.
+- All motors are set to Brake mode. 
+- Drive motors are `setInverted(true)` on the left side. Equivalent to `Clockwise_Positive`. The default value is `CounterClockwise_Positive`
+- CANcoder MagnetOffsets are applied
+
+<!-- AdvantageKit example
+- Drive motors are all set to `CounterClockwise_Positive`
+- Turn motors are all set to `Clockwise_Positive`.
+
+JackInTheBox example
+- All drive motors are `setInverted(true)` equals `Clockwise_Positive`
+- All turn motors are `setInverted(true)` equals `Clockwise_Positive` -->
+
 ## Swerve Drive Program Sequence
 Programming a Swerve Drive robot is a little more complicated than programming a Differential Drive robot.  The general flow is documented in the following diagram that shows the programming steps required to translate commands sent in from a game controller to the point at which power is sent to each of the eight motors that make up the Swerve Drive chassis. 
 
@@ -87,7 +101,7 @@ It's important to keep track of the robot's position and heading on the game fie
 
 During the course of the match the odometry may become less accurate, perhaps as a result of collisions with other robots. To mitigate this we can use the *SwerveDrivePoseEstimator* class, which is a wrapper for the *SwerveDriveOdometry* class, and provides the additional functionality of fusing camera data to come up with a more accurate estimate of the where the robot is.
 
-Update the position of each module.  This must be done from somewhere in the `periodic()` routine.
+<!-- Update the position of each module.  This must be done from somewhere in the `periodic()` routine.
 
     public SwerveModulePosition updateModulePosition() {
         return new SwerveModulePosition(getPositionMeters(), getAngle());
@@ -113,7 +127,7 @@ Update the position of each module.  This must be done from somewhere in the `pe
         SmartDashboard.putNumber(this.place.name() + " Delta", delta.distanceMeters);
         lastPositionMeters = getPositionMeters();
         return delta;
-    }
+    } -->
 ### Phoenix SwerveDrive API
 Phoenix software provides some [Swerve API](https://pro.docs.ctr-electronics.com/en/latest/docs/api-reference/api-usage/swerve/swerve-overview.html) libraries that may be a useful resource.  This would be difficult to intergrate into a project using *AdvantageKit*, so may only be useful for code ideas at this time.
 
