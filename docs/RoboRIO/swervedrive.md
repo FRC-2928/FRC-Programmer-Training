@@ -57,6 +57,38 @@ The decision on where to place each of these steps is left up to the implementer
 
 ![Sequence Placement](../images/SwerveDrive/SwerveDrive.007.jpeg)
 
+### 1. Convert Joystick Input
+Converts joystick input to a magnitude of the desired velocity.  This is a unitless value between `-1` and `1` and will be converted to meters per/sec which the *ChassisSpeeds* object requires.
+
+The unitless direction magnitude value computed from the previous step are converted to `velocity meters per second` by multiplying by the maximum speed of the motors.
+
+![Joystick Conversions](../images/SwerveDrive/SwerveDrive.008.jpeg)
+
+### 2. Create *ChassisSpeeds* Object
+The *ChassisSpeeds* object tracks the lateral and turn velocity of the robot.  We'll use it to convert from the **Game Field** relative heading to the **Robot** relative heading in the next step.   Here's an overview picture of what the *ChassisSpeeds* object expects and it functions.
+
+![Chassis Speeds](../images/FRCKinematics&Odometry/FRCKinematics&Odometry.015.jpeg) 
+
+### 3. Convert to Field Relative Speeds
+Converts a user provided field-relative ChassisSpeeds object into a robot-relative ChassisSpeeds object. The ChassisSpeeds object representing the speeds in the **Game Field** frame of reference. Positive x is away from your alliance wall. Positive y is to your left when standing behind the alliance wall.
+
+ The angle of the robot as measured by a gyroscope. The robot's angle is considered to be zero when it is facing directly away from your alliance station wall.
+
+ ![Field Relative Speeds](../images/SwerveDrive/SwerveDrive.010.jpeg)
+
+### 4. Convert to Module Speeds and Angle
+
+### 5. Desaturate Wheel Speeds
+
+### 6. Apply New States
+
+### 7. Optimize Wheel Speeds
+
+### 8. Apply Power
+There are two ways to apply power.  PID in program or Closed loop control in the motors.
+
+![Control Modes](../images/FRCroboRIO/FRCroboRIO.011.jpeg)
+
 ## Drivetrain Class
 The drivetrain requires an object for each of the four swerve modules.  There needs to be a way to translate the required speed and direction of the drivetrain chassis into the individual speed and direction of each of the four wheel modules.  This is the job of the *SwerveDriveKinematics* class, which takes in the locations of the wheels relative to the physical center of the robot in order to compute the required control input for each wheel. These control inputs tell the wheel how fast it should be going and what angle it should be at.
 
