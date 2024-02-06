@@ -77,12 +77,16 @@ Converts a user provided field-relative ChassisSpeeds object into a robot-relati
  ![Field Relative Speeds](../images/SwerveDrive/SwerveDrive.010.jpeg)
 
 ### 4. Convert to Module Speeds and Angle
+Performs inverse kinematics. Takes the desired chassis speed and converts it into an array containing the module states.
 
 ### 5. Desaturate Wheel Speeds
+Renormalizes the wheel speeds if any individual speed is above the specified maximum. Sometimes, after inverse kinematics, the requested speed from one or more modules may be above the max attainable speed for the driving motor on that module. To fix this issue, one can reduce all the wheel speeds to make sure that all requested module speeds are at-or-below the absolute threshold, while maintaining the ratio of speeds between modules.
 
 ### 6. Apply New States
+Applies the module speed and angle to each of the modules.
 
 ### 7. Optimize Wheel Speeds
+This minimizes the change in heading the desired swerve module state would require by potentially reversing the direction the wheel spins. If this is used with the PIDController class's continuous input functionality, the furthest a wheel will ever rotate is 90 degrees.
 
 ### 8. Apply Power
 There are two ways to apply power.  PID in program or Closed loop control in the motors.

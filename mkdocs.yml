@@ -33,12 +33,6 @@ nav:
             - Romi/Control/romiStateSpace.md
             # - Romi/Control/romiServos.md
             # - Romi/Control/romiArm.md
-        - 'Romi Vision Processing - PhotoVision':
-            - Romi/Vision/romiVisionIndex.md
-            - Romi/Vision/romiBasicVision.md
-            - Romi/Vision/romiPhotonVision.md
-            - Romi/Vision/romiImageProcessing.md
-            - Romi/Vision/romiLineFollow.md
         
         - 'RoboRIO Training Robots':
             - RoboRIO/roboRIOIndex.md
@@ -50,12 +44,16 @@ nav:
             - RoboRIO/pneumatics.md    
             - RoboRIO/swervedrive.md
             - RoboRIO/roboRIOSimulation.md
-            - RoboRIO/AdvantageKit.md
-            - RoboRIO/limelight.md
+            - RoboRIO/AdvantageKit.md      
             # - RoboRIO/pathWeaver.md            
-        # - 'RoboRIO Vision Processing - Limelight': 
-        #     - LimelightVision/introVision.md
             
+        - 'Vision Processing':
+            - Vision/limelight.md
+            - Vision/romiVisionIndex.md
+            - Vision/romiBasicVision.md
+            # - Romi/Vision/romiPhotonVision.md
+            # - Romi/Vision/romiImageProcessing.md
+            # - Romi/Vision/romiLineFollow.md
 
         - 'Programming': 
             - Programming/introProgramming.md
