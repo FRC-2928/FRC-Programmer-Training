@@ -193,6 +193,16 @@ To install *Advantage Scope* go to the [releases page](https://github.com/Mechan
 
 Standard WPILib data logging can be used with *AdvantageScope*.  This provides a lot of data and may be sufficient without using *AdvantageKit*.  See [On-Robot Telemetry Recording Into Data Logs](https://docs.wpilib.org/en/stable/docs/software/telemetry/datalog.html) in the FRC documentation.
 
+### Creating and Reading Log Files
+By default, *DataLogManager* stores to a USB stick if one is present at startup, or `/home/lvuser` otherwise, but you can alternatively specify the directory when calling `start()`.
+
+To log to a USB stick (`/U/logs`) by default
+
+	Logger.addDataReceiver(new WPILOGWriter());
+
+You can choose where you want the log files to be stored, `/media/sda1` refers specifically to a USB drive attached to the Rio (`media/sda2` refers to the other USB port).  Also, I see that I can reference `/U/` and `/V/` (presumably for the two USB ports).
+
+
 ### Running Live Simulator Streams
 If you run your robot code in simulator mode using **Simulate Robot Code** from VSCode, then you can connect it to a running simulator in *AdvantageScope* via **File->Connect to Simulator**.  In the example below the robot pose has been dropped into the *Odometry* tab.  As you move the robot in the WPI Simulator it should also move in the AdvantageScope view.
 

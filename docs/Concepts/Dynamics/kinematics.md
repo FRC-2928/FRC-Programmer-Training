@@ -69,6 +69,14 @@ Add the DifferentialDriveKinematics constraint that you just created and the fee
               kDriveKinematics,
               10); -->
 
+## Swerve Drive Robots
+
+The function `toSwerveModuleStates()` performs inverse kinematics to get the module states from a desired chassis velocity. 
+
+The function `toChassisSpeeds()` performs forward kinematics to return the resulting chassis state from the given module states. This method is often used for odometry -- determining the robot's position on the field using data from the real-world speed and angle of each module on the robot.
+
+The function `desaturateWheelSpeeds()` renormalizes the wheel speeds if any individual speed is above the specified maximum. Sometimes, after inverse kinematics, the requested speed from one or more modules may be above the max attainable speed for the driving motor on that module. To fix this issue, one can reduce all the wheel speeds to make sure that all requested module speeds are at-or-below the absolute threshold, while maintaining the ratio of speeds between modules.
+
 ## References
 
 - FRC Documentation - [Kinematics and Odometry](https://docs.wpilib.org/en/latest/docs/software/kinematics-and-odometry/index.html)

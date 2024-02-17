@@ -48,7 +48,7 @@ JackInTheBox example
 - All drive motors are `setInverted(true)` equals `Clockwise_Positive`
 - All turn motors are `setInverted(true)` equals `Clockwise_Positive` -->
 
-## Swerve Drive Program Sequence
+## <a name="sequence"></a>Swerve Drive Program Sequence
 Programming a Swerve Drive robot is a little more complicated than programming a Differential Drive robot.  The general flow is documented in the following diagram that shows the programming steps required to translate commands sent in from a game controller to the point at which power is sent to each of the eight motors that make up the Swerve Drive chassis. 
 
 <!-- ![Swerve Sequence](../images/SwerveDrive/SwerveDrive.002.jpeg) -->
@@ -69,10 +69,10 @@ The *ChassisSpeeds* object tracks the lateral and turn velocity of the robot.  W
 
 ![Chassis Speeds](../images/FRCKinematics&Odometry/FRCKinematics&Odometry.015.jpeg) 
 
-### 3. Convert to Field Relative Speeds
-Converts a user provided field-relative ChassisSpeeds object into a robot-relative ChassisSpeeds object. The ChassisSpeeds object representing the speeds in the **Game Field** frame of reference. Positive x is away from your alliance wall. Positive y is to your left when standing behind the alliance wall.
+### 3. Convert to Robot Relative Chassis Speeds
+Converts a user provided field-relative ChassisSpeeds object into a robot-relative ChassisSpeeds object. The ChassisSpeeds object representing the speeds in the **Game Field** frame of reference. Positive `X` is away from your alliance wall. Positive `Y` is to your left when standing behind the alliance wall.
 
- The angle of the robot as measured by a gyroscope. The robot's angle is considered to be zero when it is facing directly away from your alliance station wall.
+ The angle of the robot as measured by a gyroscope. The robot's angle is considered to be zero when it is facing directly away from your alliance station wall. The new X and Y speeds are calculated after the rotation.  The omega radians per second remains the same.
 
  ![Field Relative Speeds](../images/SwerveDrive/SwerveDrive.010.jpeg)
 
@@ -89,12 +89,18 @@ Applies the module speed and angle to each of the modules.
 This minimizes the change in heading the desired swerve module state would require by potentially reversing the direction the wheel spins. If this is used with the PIDController class's continuous input functionality, the furthest a wheel will ever rotate is 90 degrees.
 
 ### 8. Apply Power
-There are two ways to apply power.  PID in program or Closed loop control in the motors.
+To apply power to the motors a Closed Loop PID controller is used.
+
+Closed Loop PID control can be done in the user program or within the controllers of the *Falcon500* motors.
 
 ![Control Modes](../images/FRCroboRIO/FRCroboRIO.011.jpeg)
 
 ## Drivetrain Class
-The drivetrain requires an object for each of the four swerve modules.  There needs to be a way to translate the required speed and direction of the drivetrain chassis into the individual speed and direction of each of the four wheel modules.  This is the job of the *SwerveDriveKinematics* class, which takes in the locations of the wheels relative to the physical center of the robot in order to compute the required control input for each wheel. These control inputs tell the wheel how fast it should be going and what angle it should be at.
+The drivetrain requires an object for each of the four swerve modules.  There needs to be a way to translate the required speed and direction of the drivetrain chassis into the individual speed and direction of each of the four wheel modules.  This is the job of the *SwerveDriveKinematics* class, which takes in the locations of the wheels relative to the physical center of the robot in order to compute the required control input for each wheel. These control inputs tell the wheel how fast it should be going and what angle it should be at.  
+
+When the *Drivetrain* is initiated the desired wheel directions are set in the Rotate configuration.  If Field Oriented mode is set then this allows it to rotate to the zero gyro position.
+
+![Kinematics](../images/SwerveDrive/SwerveDrive.012.jpeg)
 
 After the wheel control inputs have been calculated by the *SwerveDriveKinematics* class the *Drivetrain* sets the wheel velocities.
 
@@ -103,34 +109,24 @@ A gyro is required to track the orientation of the robot with respect to the gam
 ![Drivetrain Class](../images/SwerveDrive/SwerveDrive.004.jpeg)
 
 ## SwerveModule Class
-The following picture shows the [MK4i Swerve Module](https://www.swervedrivespecialties.com/products/mk4i-swerve-module) that we use and it's representation by the *SwerveModule* class in the code.  The current distance travelled by the wheel and its current angle is given by the *SwerveModulePosition* data structure.  The *SwerveModuleState* data structure holds the current wheel speed and angle.
+The following picture shows the [MK4i Swerve Module](https://www.swervedrivespecialties.com/products/mk4i-swerve-module) that we use and it's representation by the *SwerveModule* class in the code. 
 
 The wheel is turned to the required angle by a PID controller that is driven off of the rotary sensor.  This sensor will boot to it's absolute position, meaning that it will maintain its angle between startups.  The absolute position is initially set to zero when all wheels are pointed forwards. 
 
-![Swerve Module](../images/SwerveDrive/SwerveDrive.003.jpeg)
+![Swerve Module](../images/SwerveDrive/SwerveDrive.003.jpeg) 
 
-## Drive Command
-The objective of the *Drive* command is to convert a user provided field-relative set of speeds into a *ChassisSpeeds* data structure that represents the required speeds and direction of the robot chassis.  
+The current distance travelled by the wheel and its current angle is given by the *SwerveModulePosition* data structure.  This is updated in the period loop of the program.
 
-Prior to creating the *ChassisSpeeds* structure it might apply deadbands to the game controller inputs.
+The *SwerveModuleState* data structure is used to hold the desired wheel speed and angle. This is normally updated from the *Drivetrain* class to set the desired speed and angle that each wheel module should be commanded to.  If the current angle and the desired angle are the same then no power is sent to the turn motor.  
 
-<!-- This data structure is sent to the *SwerveDriveKinematics* class that can translate the required chassis speeds into instructions for each of the four wheel modules.  These instructions will tell the module how fast it should be going and what angle it should be at.  The instructions are carried out by the `swerve()` method of the *Drivetrain* class.  This method first ensures that none of the wheels exceed their max speed and then applies the state (speed and direction) to each motor in order to obtain the required chassis speeds.  An important thing to note is that the applied states are from the robots frame of reference not field frame of reference. -->
+The wheel angle and drive speed direction may get changed due to wheel optimization.  See the step *7. Optimize Wheel Speeds* above.
 
-<!-- *CTREModuleState* `optimize()` - Accepts the desired state and the current module angle. Minimize the change in heading the desired swerve module state would require by potentially reversing the direction the wheel spins.  
+![Swerve Module](../images/SwerveDrive/SwerveDrive.011.jpeg)
 
-Button to switch robot from field centric to robot centric. 
+## JoystickDrive Command
+The objective of the *JoystickDrive* command is to drive the robot based on user input.  This is the default command that runs on the Drivetrain.  The left joystick axis is used to move the robot laterally (forward, back, left, and right) relative to the game field.  The right axis is used to rotate the robot.  It will rotated it to the orientation of the joystick.
 
-Need position to encoder counts, and meters per/sec to encoder counts per/100 milliseconds.  Look at BaseFalconSwerve Conversions.java 
-
-Check CTREConfigs for motor and encoder. -->
-
-<!-- Azimuth motor should be *Position* in open and closed loop mode. Drive motor is *PercentOutput* in open loop and *Velocity* or *Position* in closed loop.  -->
-
-
-
-<!-- ![Drive Command](../images/SwerveDrive/SwerveDrive.005.jpeg) -->
-
-<!-- The drive command will use a PID controller to control the orientation of the robot relative to the game field.  The controller uses the Pigeon gyro as the sensor input. The robot's angle is considered to be zero when it is facing directly away from your alliance station wall. -->
+See [Swerve Drive Program Sequence](swervedrive.md#sequence) for more details.
 
 ## Odometry and Pose Estimation
 It's important to keep track of the robot's position and heading on the game field during the course of the match. This is especially useful during the autonomous period for complex tasks like path following.  This is function is performed by the *SwerveDriveOdometry* class that takes readings from your swerve drive encoders and swerve azimuth encoders.  
