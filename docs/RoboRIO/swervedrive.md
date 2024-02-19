@@ -79,7 +79,9 @@ Converts a user provided field-relative ChassisSpeeds object into a robot-relati
 ### 4. Convert to Module Speeds and Angle
 The function `toSwerveModuleStates()` in the *SwerveDriveKinematic* class performs inverse kinematics. It takes the desired chassis speed and converts it into an array containing the module states. The function takes a *ChassisSpeeds* data structure as input and returns an array of *ModuleState* entries.  The function uses matrix multiplication to compute the new module values.
 
-The first matrix holds the X and Y offset of each module from the center of rotation.  By default, the center of rotation is the center of the robot chassis. The multiplier matrix holds the required chassis speeds.  
+The *inverseKinematics* matrix holds the X and Y offset of each module from the center of the robot's rotation.  By default, the center of rotation is the center of the robot chassis. This is multipled by a vector that holds the required chassis speeds. The multiplication computes the XY speed value for each module taking into account its offset. The XY value is then used to get the speed required for each wheel.
+
+![Convert Module Speeds](../images/SwerveDrive/SwerveDrive.013.jpeg)
 
 In the case that the desired chassis speeds are zero (i.e. the robot will be stationary), the previously calculated module angle will be maintained.
 
@@ -87,15 +89,15 @@ In the case that the desired chassis speeds are zero (i.e. the robot will be sta
 Renormalizes the wheel speeds if any individual speed is above the specified maximum. Sometimes, after inverse kinematics, the requested speed from one or more modules may be above the max attainable speed for the driving motor on that module. To fix this issue, one can reduce all the wheel speeds to make sure that all requested module speeds are at-or-below the absolute threshold, while maintaining the ratio of speeds between modules.
 
 ### 6. Apply New States
-Applies the module speed and angle to each of the modules.
+Now that the desired wheel speed and angle has been computed for each wheel it is sent to the respective module.
 
 ### 7. Optimize Wheel Speeds
 This minimizes the change in heading the desired swerve module state would require by potentially reversing the direction the wheel spins. If this is used with the PIDController class's continuous input functionality, the furthest a wheel will ever rotate is 90 degrees.
 
 ### 8. Apply Power
-To apply power to the motors a Closed Loop PID controller is used.
+To apply power to the motors a Closed Loop PID controller is used. For the drive motor the PID loop will measure the speed of the wheel.  The angle motor will move the wheel to the required angle using the CANcoder as its measurement device.
 
-Closed Loop PID control can be done in the user program or within the controllers of the *Falcon500* motors.
+The Closed Loop PID control can be done in the user program or within the controllers of the *Falcon500* motors.
 
 ![Control Modes](../images/FRCroboRIO/FRCroboRIO.011.jpeg)
 
