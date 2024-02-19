@@ -77,7 +77,11 @@ Converts a user provided field-relative ChassisSpeeds object into a robot-relati
  ![Field Relative Speeds](../images/SwerveDrive/SwerveDrive.010.jpeg)
 
 ### 4. Convert to Module Speeds and Angle
-Performs inverse kinematics. Takes the desired chassis speed and converts it into an array containing the module states.
+The function `toSwerveModuleStates()` in the *SwerveDriveKinematic* class performs inverse kinematics. It takes the desired chassis speed and converts it into an array containing the module states. The function takes a *ChassisSpeeds* data structure as input and returns an array of *ModuleState* entries.  The function uses matrix multiplication to compute the new module values.
+
+The first matrix holds the X and Y offset of each module from the center of rotation.  By default, the center of rotation is the center of the robot chassis. The multiplier matrix holds the required chassis speeds.  
+
+In the case that the desired chassis speeds are zero (i.e. the robot will be stationary), the previously calculated module angle will be maintained.
 
 ### 5. Desaturate Wheel Speeds
 Renormalizes the wheel speeds if any individual speed is above the specified maximum. Sometimes, after inverse kinematics, the requested speed from one or more modules may be above the max attainable speed for the driving motor on that module. To fix this issue, one can reduce all the wheel speeds to make sure that all requested module speeds are at-or-below the absolute threshold, while maintaining the ratio of speeds between modules.
