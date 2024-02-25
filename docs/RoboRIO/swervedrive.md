@@ -70,16 +70,16 @@ The *ChassisSpeeds* object tracks the lateral and turn velocity of the robot.  W
 ![Chassis Speeds](../images/FRCKinematics&Odometry/FRCKinematics&Odometry.015.jpeg) 
 
 ### 3. Convert to Robot Relative Chassis Speeds
-Converts a user provided field-relative ChassisSpeeds object into a robot-relative ChassisSpeeds object. The ChassisSpeeds object representing the speeds in the **Game Field** frame of reference. Positive `X` is away from your alliance wall. Positive `Y` is to your left when standing behind the alliance wall.
+Converts a user provided field-relative *ChassisSpeeds* into a robot-relative *ChassisSpeeds* using the function `fromFieldRelativeSpeeds()`. The *ChassisSpeeds* object represents the robot's speeds in the **Game Field** frame of reference. Positive `X` is away from your alliance wall. Positive `Y` is to your left when standing behind the alliance wall.
 
  The angle of the robot as measured by a gyroscope. The robot's angle is considered to be zero when it is facing directly away from your alliance station wall. The new X and Y speeds are calculated after the rotation.  The omega radians per second remains the same.
 
  ![Field Relative Speeds](../images/SwerveDrive/SwerveDrive.010.jpeg)
 
 ### 4. Convert to Module Speeds and Angle
-The function `toSwerveModuleStates()` in the *SwerveDriveKinematic* class performs inverse kinematics. It takes the desired chassis speed and converts it into an array containing the module states. The function takes a *ChassisSpeeds* data structure as input and returns an array of *ModuleState* entries.  The function uses matrix multiplication to compute the new module values.
+The function `toSwerveModuleStates()` in the [SwerveDriveKinematics](https://docs.wpilib.org/en/latest/docs/software/kinematics-and-odometry/swerve-drive-kinematics.html) class performs inverse kinematics. It takes the desired chassis speed and converts it into an array containing each of the four module states. The function takes a *ChassisSpeeds* data structure as input and returns an array of *ModuleState* entries.  The function uses matrix multiplication to compute the new module values.
 
-The *inverseKinematics* matrix holds the X and Y offset of each module from the center of the robot's rotation.  By default, the center of rotation is the center of the robot chassis. This is multipled by a vector that holds the required chassis speeds. The multiplication computes the XY speed value for each module taking into account its offset. The XY value is then used to get the speed required for each wheel.
+The *inverseKinematics* matrix holds each module's X and Y offset from the robot's center of rotation.  By default, the center of rotation is the center of the robot chassis. This is multipled by a vector that holds the required chassis speeds. The multiplication computes the XY speed value for each module taking into account its offset. The XY value is then used to compute the speed required for each wheel.
 
 ![Convert Module Speeds](../images/SwerveDrive/SwerveDrive.013.jpeg)
 
@@ -171,6 +171,8 @@ Phoenix software provides some [Swerve API](https://pro.docs.ctr-electronics.com
 
 
 ## References
+
+- FRC documentation [Swerve Drive Kinematics](https://docs.wpilib.org/en/latest/docs/software/kinematics-and-odometry/swerve-drive-kinematics.html)
 
 - AdvantageKit [SwerveDrive Example](https://github.com/Mechanical-Advantage/AdvantageKit/tree/main/example_projects/advanced_swerve_drive/src/main)
 
