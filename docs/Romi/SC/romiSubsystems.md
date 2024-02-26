@@ -38,6 +38,7 @@ This lab builds on the lab that you did in the [Basic Robot Structure](romiStruc
 There are three updates for this lab:
 
 - Create a method to get the current heading of the robot.
+- Use the `this.` syntax for member variables.
 - Add comments to divide the *Drivetrain* class into subsections.
 
 ### <a name="heading"></a>Create Heading Method
@@ -49,35 +50,42 @@ Update the *Drivetrain* class with a new method called `getHeading()` that will 
         return new Rotation2d(getGyroAngleZ() * (Math.PI/180));
     }
 
-We also may need to reset the heading, so create another method named `zeroHeading()` to accomplish this.  Notice that the name "zeroHeading" describes exactly **what** we want the method to do and not **how** we want it to be done.  The **how** part is hidden within the function. This is an example of [Declarative Programming](https://en.wikipedia.org/wiki/Declarative_programming).
+<!-- We also may need to reset the heading, so create another method named `zeroHeading()` to accomplish this.  Notice that the name "zeroHeading" describes exactly **what** we want the method to do and not **how** we want it to be done.  The **how** part is hidden within the function. This is an example of [Declarative Programming](https://en.wikipedia.org/wiki/Declarative_programming).
 
 The function has a return type of `void`, which means that it does **not** return any value.  Our function should call the `reset()` method of the gyro object, like so:
 
     public void zeroHeading() {
       m_gyro.reset();
-    }
+    } -->
 
 We're now done creating our new heading method!
+
+### Use the `this.` Syntax for Member Variables
+In most of the code examples used by WPILib the member variables are denoted by using the `m_` syntax.  Our team uses the `this.` convention so we'll change our code accordingly.  This will give you a chance to learn the *Replace* function in the VSCode editor.
+
+Open the *Drivetrain* class and select one of the occurences of `m_` with the mouse. Make sure that you only select those two characters. Then right mouse click and select *Change All Occurences*.  Type `this.` to replace all occurences of `m_`.  You'll see a whole bunch of errors.  This is because the `this.` keyword cannot be used when you first define the member variable.  To fix this, remove the `this.` from all the lines 20 through 36.
+
+Repeat this process for all of the other files.
 
 ### <a name="addComments"></a>Add Comments
 As you add functionality to your code some of the files may get quite long, so it's a good idea to divide them into sections by using comment separators.  In the *Drivetrain* class we'll add the following comment separators to group together methods that are logically related.  This will make them easier to find.  The comment sections will be:
 
 - **Initialization** - Includes everything required to construct and initialize the *Drivetrain* object.
-- **Control Input** - Any method that causes the robot, or subsystem, to react in some way.
-- **System State** - Methods that give information on what the current state of the *Drivetrain*  object is.
-- **Process Logic** - Mostly logic that occurs during the `periodic()` loop, or processes/interprets incoming data before performing some kind of *Control Input* to the robot.  Incoming data will normally be provided by methods found in the *System State* subsection.
+- **Control Output** - Any method that causes the robot, or subsystem, to react in some way.
+- **System State** - Methods that give information on the current state of the *Drivetrain*.
+- **Process Logic** - Mostly logic that occurs during the `periodic()` loop, or processes/interprets incoming data before performing some kind of *Control Output* to the robot.  Incoming data will normally be provided by methods found in the *System State* subsection.
 
 The comments will span most of the line width to form a separator and will look like this:
 
     // -----------------------------------------------------------
-    // Control Input
+    // System State
     // -----------------------------------------------------------
 
 Think about where these file separators will go and what code will go in each section.  Here are a couple tips:
 
 - If a method is returning a value, such as `double`, then it's most likely describing the System's State.
 
-- If a method return type is declared as `void` then it's probably some kind of Control Input.
+- If a method return type is declared as `void` then it's probably some kind of Control Output.
 
 That's all for this update!
 

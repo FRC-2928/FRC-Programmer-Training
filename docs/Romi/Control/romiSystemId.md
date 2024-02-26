@@ -123,7 +123,7 @@ Start the Simulator and create a plot to view the wheel speeds.  Edit the plot b
 
 You're now done with this task!
 
-### Use Cascade Control
+<!-- ### Use Cascade Control
 One problem with the *DriveDistanceProfiled* command that you created in the [Drive Robot a Specified Distance](romiProfiledPID.md#driveDistanceProfiled) lab is that the robot may not drive straight. One way we can fix this is to use *Cascade Control*, where we nest one PID controller inside another.  For a more detailed explaination of this process see [Cascade Control](../../Concepts/Control/classicalControl.md#cascadeLoops) in this training guide.
 
 ![Cascade PID Controller](../../images/FRCControlSystems/FRCControlSystems.012.jpeg)
@@ -226,7 +226,7 @@ Use the new `setOutputMetersPerSecond()` method.
 #### Testing Cascade Control
 <!-- Make the PID gain values visible as shown in [Changing the PID Gains from the Simulator](romiPID.md#pidGains) -->
 
-Start the Simulator and run the *DriveDistanceProfiled* command one time to populate the voltage data into the SmartDashboard.  Create two plots to log the output from the command.  Call them *Left Volts* and *Right Volts*.  Set the Y axis range between `-7` to `7`, since 7 volts is the maximum value that the Romi puts out.  Drag the *Left* and *Right Feedforward Volts*, *PID Volts*, and *Volts* onto the each plot window.  Run the command again to see the results.  The plot windows should look like the following.
+<!-- Start the Simulator and run the *DriveDistanceProfiled* command one time to populate the voltage data into the SmartDashboard.  Create two plots to log the output from the command.  Call them *Left Volts* and *Right Volts*.  Set the Y axis range between `-7` to `7`, since 7 volts is the maximum value that the Romi puts out.  Drag the *Left* and *Right Feedforward Volts*, *PID Volts*, and *Volts* onto the each plot window.  Run the command again to see the results.  The plot windows should look like the following.
 
 ![Simulator Wheel Voltages](../../images/FRCTools/FRCTools.032.jpeg)
 
@@ -234,7 +234,7 @@ The reason we layed out the telemetry data in this way is so that we can see how
 
 You should also open the plot that you created in the last task that shows the left and right wheel speeds to aid in tuning.
 
-Once you've got the Romi to go in a straight line you're done with this task!
+Once you've got the Romi to go in a straight line you're done with this task! --> 
 
 ## References
 - Videos [System Identification](https://www.youtube.com/playlist?list=PLlmlmzye-q9gC7DwJ0xObASeOWUeADxJW) by Brian Douglas

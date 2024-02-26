@@ -62,10 +62,10 @@ The class *DifferentialDriveWheelSpeeds* is used the `getWheelSpeeds()` method t
 
 Finally, a method called `tankDriveVolts()` needs to be implemented so as to drive each wheel individually.  This function will be the output of the trajectory-following command.
 
-    public void tankDriveVolts(double leftVolts, double rightVolts) {
-      m_leftMotor.setVoltage(leftVolts);
-      m_rightMotor.setVoltage(-rightVolts); // We invert this to maintain +ve = forward
-      m_diffDrive.feed();
+    public void voltageDrive(double leftVolts, double rightVolts) {
+        this.leftMotor.setVoltage(leftVolts);
+        this.rightMotor.setVoltage(rightVolts); 
+        this.diffDrive.feed();
     }
 
 ## Step 3. Generating the Trajectory
