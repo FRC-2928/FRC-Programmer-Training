@@ -8,3 +8,4 @@ The Subsystems and Command modules are the starting point for the programmer tra
 - [Subsystems](romiSubsystems.md)
 - [Commands](romiCommands.md)
 - [Telemetry](romiTelemetry.md)
+- [GPIO (Optional)](romiGPIO.md)

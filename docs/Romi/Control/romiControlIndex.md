@@ -5,7 +5,7 @@ In the previous section we got the Romi up and running and learned about Subsyst
 - [Motion Profiled PID Control](romiProfiledPID.md)
 - [System Identification](romiSystemId.md)
 - [Trajectory Following](romiTrajectory.md)
-- [State Space Control](romiStateSpace.md)
+<!-- - [State Space Control](romiStateSpace.md) -->
 <!-- - [Programming Servos](romiServos.md) -->
 <!-- Velocity PID Control  -->
 <!-- - [Filters](romiFilters) -->

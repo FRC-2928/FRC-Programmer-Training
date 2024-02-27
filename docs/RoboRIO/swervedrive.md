@@ -76,6 +76,8 @@ Converts a user provided field-relative *ChassisSpeeds* into a robot-relative *C
 
  ![Field Relative Speeds](../images/SwerveDrive/SwerveDrive.010.jpeg)
 
+When translating and rotating the swerve drivetrain at the same time it tends to skew to one side.  To prevent this we use the `discretize()` function, which converts a continous-time chassis speed into a discrete-time one such that when the discrete-time chassis speed is applied for one timestep, the robot moves as if the velocity components are independent (i.e., the robot moves v_x * dt along the x-axis, v_y * dt along the y-axis, and omega * dt around the z-axis).
+
 ### 4. Convert to Module Speeds and Angle
 The function `toSwerveModuleStates()` in the [SwerveDriveKinematics](https://docs.wpilib.org/en/latest/docs/software/kinematics-and-odometry/swerve-drive-kinematics.html) class performs inverse kinematics. It takes the desired chassis speed and converts it into an array containing each of the four module states. The function takes a *ChassisSpeeds* data structure as input and returns an array of *ModuleState* entries.  The function uses matrix multiplication to compute the new module values.
 

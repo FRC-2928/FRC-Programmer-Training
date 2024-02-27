@@ -45,15 +45,15 @@ In this task you'll use telemetry to track the current position and heading of t
 
  If you examine the *SmartDashboard* class you'll notice that all of the methods are defined as `public static`.  This means that its methods can be accessed without creating an object of the class first.  This allows us to convenienty use the SmartDashboard functionality anywhere in our code.  Use SmartDashboard's `putNumber()` method to output the left encoder rate.  The encoder rate tells us the wheel speed.  Here's an example of the syntax:
 
-        SmartDashboard.putNumber("Left Wheel Speed", m_leftEncoder.getRate());
+        SmartDashboard.putNumber("Left Wheel Speed", this.leftEncoder.getRate());
  
 Remember that we're putting this in the `publishTelemetry()` method. Also publish the right encoder rate and the heading.  The robot heading can be obtained from the `getHeading()` method of the *Drivetrain*. When you're done the code should look like this:
 
     public void publishTelemetry() {
         
         // Display the meters per/second for each wheel and the heading
-        SmartDashboard.putNumber("Left Wheel Speed", m_leftEncoder.getRate());
-        SmartDashboard.putNumber("Right Wheel Speed", m_rightEncoder.getRate());
+        SmartDashboard.putNumber("Left Wheel Speed", this.leftEncoder.getRate());
+        SmartDashboard.putNumber("Right Wheel Speed", this.rightEncoder.getRate());
         SmartDashboard.putNumber("Heading", getHeading().getDegrees());
     }
 
@@ -72,20 +72,20 @@ First, we should again setup a function to keep all of the code together, so cre
 
 The syntax for adding data to a tab is quite complex.  Essentially, we have to define what data to display, how to display it, and where on the screen to place it.  See the [Shuffleboard](https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/shuffleboard/index.html) documentation for details on the code syntax.  Unlike SmartDashboard, you will have to explicitly create a NetworkTable entry to hold your data value.  This is done by creating the following attribute:
 
-    GenericEntry m_headingEntry;
+    GenericEntry this.headingEntry;
 
 The next step is to create the Shuffleboard tab to show the data.  Place this in the `setupShuffleboard()` method.  You'll need to import a couple of classes.
 
-    ShuffleboardTab m_driveTab = Shuffleboard.getTab("Drivetrain");
+    ShuffleboardTab this.driveTab = Shuffleboard.getTab("Drivetrain");
 
 After creating the tab you can start adding data components to it.  Here's the full code for creating the Shuffleboard tab and adding the robot heading:
 
     private void setupShuffleboard() {
         // Create a tab for the Drivetrain
-        ShuffleboardTab m_driveTab = Shuffleboard.getTab("Drivetrain");
+        ShuffleboardTab this.driveTab = Shuffleboard.getTab("Drivetrain");
 
         // Add telemetry data to the tab
-        m_headingEntry = m_driveTab.add("Heading Deg.", getHeading())
+        this.headingEntry = this.driveTab.add("Heading Deg.", getHeading())
             .withWidget(BuiltInWidgets.kGraph)      
             .withSize(3,3)
             .withPosition(0, 0)
@@ -101,25 +101,25 @@ Our `setupShuffleboard()` method gets called from the *Drivetrain*'s constructor
 
 Telemetry data needs to be put into the NetworkTables to become visible in Shuffleboard.  The following code is placed in the `publishTelemetry()` method using the table entry that you defined earlier.  Data types for NetworkTables are either boolean, numeric, or string. Numeric values are written as `double` precision values. 
 
-    m_headingEntry.setDouble(getHeading());
+    this.headingEntry.setDouble(getHeading());
 
 Since `publishTelemetry()` is called from the `periodic()` function, this statement will populate the NetworkTable entry every 50 milliseconds giving you a Real-Time view of the data. 
 
-Continue on and add some more telemetry data to the **Drivetrain** tab.  Add three variables `m_leftWheelPositionEntry`, `m_rightWheelPositionEntry`, and `m_avgDistanceEntry` to track how far we've travelled.  Use the methods `getLeftDistanceMeters()`, `getRightDistanceMeters()`, and `getAverageDistanceMeters()` to populate the data entries.  Follow the example above to add the entries to the **Drivetrain** tab.
+Continue on and add some more telemetry data to the **Drivetrain** tab.  Add three variables `this.leftWheelPositionEntry`, `this.rightWheelPositionEntry`, and `this.avgDistanceEntry` to track how far we've travelled.  Use the methods `getLeftDistanceMeters()`, `getRightDistanceMeters()`, and `getAverageDistanceMeters()` to populate the data entries.  Follow the example above to add the entries to the **Drivetrain** tab.
 
 Here's how the entries should look once you've added them.  
 
-    m_leftWheelPositionEntry = m_driveTab.add("Left Wheel Pos.", getLeftDistanceMeters())
+    this.leftWheelPositionEntry = this.driveTab.add("Left Wheel Pos.", getLeftDistanceMeters())
         .withWidget(BuiltInWidgets.kGraph)      
         .withSize(3,3)  
         .withPosition(4, 0)
         .getEntry();  
-    m_rightWheelPositionEntry = m_driveTab.add("Right Wheel Pos.", getRightDistanceMeters())
+    this.rightWheelPositionEntry = this.driveTab.add("Right Wheel Pos.", getRightDistanceMeters())
         .withWidget(BuiltInWidgets.kGraph)      
         .withSize(3,3)
         .withPosition(7, 0)
         .getEntry(); 
-    m_avgDistanceEntry = m_driveTab.add("Average Distance", getAverageDistanceMeters())
+    this.avgDistanceEntry = this.driveTab.add("Average Distance", getAverageDistanceMeters())
         .withWidget(BuiltInWidgets.kGraph)      
         .withSize(3,3)
         .withPosition(10, 0)
@@ -130,9 +130,9 @@ Once again, the entries are of type GenericEntry, which need to be defined as at
 Place the following statements in the `publishTelemetry()` method to put the data into the NetworkTables and see them in Shuffleboard.
 
     // Display the distance travelled for each wheel
-    m_leftWheelPositionEntry.setDouble(getLeftDistanceMeters());
-    m_rightWheelPositionEntry.setDouble(getRightDistanceMeters()); 
-    m_avgDistanceEntry.setDouble(getAverageDistanceMeters());
+    this.leftWheelPositionEntry.setDouble(getLeftDistanceMeters());
+    this.rightWheelPositionEntry.setDouble(getRightDistanceMeters()); 
+    this.avgDistanceEntry.setDouble(getAverageDistanceMeters());
 
 You can now check out the telemetry data by running the Romi robot. 
 

@@ -47,17 +47,17 @@ We can view the odometry data in the Simulator or Shuffleboard by using the [Fie
 
     public void periodic() {
       // Update the odometry in the periodic block
-      m_odometry.update(m_gyro.getRotation2d(), m_leftEncoder.getDistance(), m_rightEncoder.getDistance());
+      this.odometry.update(this.gyro.getRotation2d(), this.leftEncoder.getDistance(), this.rightEncoder.getDistance());
       
       // Also update the Field2D object (so that we can visualize this in sim)
-      m_field2d.setRobotPose(getPose());
+      this.field2d.setRobotPose(getPose());
     }
 
 
 The class *DifferentialDriveWheelSpeeds* is used the `getWheelSpeeds()` method to return the current speed of each wheel.  The `getWheelSpeeds()` method serves as the measurement input to our trajectory controller and is just a wrapper for each wheel speed. More information can be found in [Setting up the Drive System](https://docs.wpilib.org/en/latest/docs/software/pathplanning/trajectory-tutorial/creating-drive-subsystem.html) FRC documentation.
 
     public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-        return new DifferentialDriveWheelSpeeds(m_leftEncoder.getRate(), m_rightEncoder.getRate());
+        return new DifferentialDriveWheelSpeeds(this.leftEncoder.getRate(), this.rightEncoder.getRate());
     }
 
 Finally, a method called `tankDriveVolts()` needs to be implemented so as to drive each wheel individually.  This function will be the output of the trajectory-following command.
@@ -184,8 +184,8 @@ You're done with step 3.
 We now need to create a command to run the trajectory.  Create a new command and call it *RunRamseteTrajectory*.  The command will extend the *RamseteCommand* and will require an object parameter for the *Drivetrain* and the *Trajectory*.  The command should look like the following when you're done.
 
     public class RunRamseteTrajectory extends RamseteCommand {
-        Drivetrain m_drivetrain;
-        Trajectory m_trajectory;
+        Drivetrain this.drivetrain;
+        Trajectory this.trajectory;
 
         /** Creates a new RunRamseteTrajectory. */
         public RunRamseteTrajectory(Drivetrain drivetrain, Trajectory trajectory) {}
@@ -205,19 +205,19 @@ Now insert the following code into the constructor that will run the trajectory.
         drivetrain::tankDriveVolts,
         drivetrain);
 
-        m_drivetrain = drivetrain;
-        m_trajectory = trajectory;
+        this.drivetrain = drivetrain;
+        this.trajectory = trajectory;
 
 In the initalization method we will reset the odometry to the initial pose of the generated starting point of the trajectory.  This ensures that the robot is in-sync with the trajectory.
 
     public void initialize() {
         super.initialize();
-        m_drivetrain.resetOdometry(m_trajectory.getInitialPose());   
+        this.drivetrain.resetOdometry(this.trajectory.getInitialPose());   
     }
 
 Now in the *RobotContainer* class we can create an auto command to run the trajectory.  The command first calls the `curvedTrajectory()` method to generate the trajectory and then passes it to the *RunRamseteTrajectory* command that you just created.
 
-    m_chooser.addOption("Drive Curved Trajectory", new RunRamseteTrajectory(m_drivetrain, curvedTrajectory()));
+    this.chooser.addOption("Drive Curved Trajectory", new RunRamseteTrajectory(this.drivetrain, curvedTrajectory()));
 
 
 

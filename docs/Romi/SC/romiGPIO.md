@@ -1,4 +1,4 @@
-# Romi GPIO
+# Romi GPIO (Optional)
 As is the case with most microcontrollers, the Romi has GPIO pins that allow it to communicate with its sensors and actuators. GPIO stands for General Purpose Input/Output is an uncommitted digital signal pin on an integrated circuit or electronic circuit board which may be used as an input or output, or both, and is controllable by the user at runtime. GPIOs have no predefined purpose and are unused by default. 
 
 ## Onboard IO

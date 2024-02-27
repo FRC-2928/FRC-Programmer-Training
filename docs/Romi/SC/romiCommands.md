@@ -8,38 +8,38 @@ A command is a simple **State Machine** that is either *Initializing*, *Executin
 ## The DriveDistance Command
 Let's take a look at the *DriveDistance* command to see how this all works. This command is used to drive the robot for a specified distance.  This is where [Parameters](https://www.w3schools.com/java/java_methods_param.asp) are very useful since we can decide how far to drive when the program runs.  This command demonstrates the classic [State Machine](../../Programming/stateMachines.md) programming paradigm where we have an **Initialization Step** `initialize()` followed the **Next Step** `execute()`, and an **Input Update** that repeatedly calls `execute()` until a threshold is met.  The `isFinished()` method transititions it to the next major state `end()`, at which time the command moves to the *Idle* state.
 
-        public DriveDistance(double speed, double inches, Drivetrain drive) {
-            m_distance = inches;
-            m_speed = speed;
-            m_drive = drive;
-            addRequirements(drive);
-        }
+    public DriveDistance(double speed, double meters, Drivetrain drive) {
+        this.distance = meters;
+        this.speed = speed;
+        this.drive = drive;
+        addRequirements(drive);
+    }
 
-        // Called when the command is initially scheduled.
-        @Override
-        public void initialize() {
-            m_drive.arcadeDrive(0, 0);
-            m_drive.resetEncoders();
-        }
+    // Called when the command is initially scheduled.
+    @Override
+    public void initialize() {
+        this.drive.arcadeDrive(0, 0);
+        this.drive.resetEncoders();
+    }
 
-        // Called every time the scheduler runs while the command is scheduled.
-        @Override
-        public void execute() {
-            m_drive.arcadeDrive(m_speed, 0);
-        }
+    // Called every time the scheduler runs while the command is scheduled.
+    @Override
+    public void execute() {
+        this.drive.arcadeDrive(this.speed, 0);
+    }
 
-        // Called once the command ends or is interrupted.
-        @Override
-        public void end(boolean interrupted) {
-            m_drive.arcadeDrive(0, 0);
-        }
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {
+        this.drive.arcadeDrive(0, 0);
+    }
 
-        // Returns true when the command should end.
-        @Override
-        public boolean isFinished() {
-            // Compare distance travelled from start to desired distance
-            return Math.abs(m_drive.getAverageDistanceMeters()) >= m_distance;
-        }
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        // Compare distance travelled from start to desired distance
+        return Math.abs(this.drive.getAverageDistanceInch()) >= this.distance;
+    }
 
 
 ## ArcadeDrive Command
@@ -47,25 +47,25 @@ The *ArcadeDrive* command is a simple command that will drive the robot using  v
 
     import java.util.function.Supplier;
 
-    private final Supplier<Double> m_xaxisSpeedSupplier;
-    private final Supplier<Double> m_zaxisRotateSupplier;
+    private final Supplier<Double> this.xaxisSpeedSupplier;
+    private final Supplier<Double> this.zaxisRotateSupplier;
 
 The constructor accepts values for speed and angular rotation together with the *Drivetrain* subsystem.
 
     public ArcadeDrive(
-      Drivetrain subsystem,
+      Drivetrain drivetrain,
       Supplier<Double> xaxisSpeedSupplier,
       Supplier<Double> zaxisRotateSupplier) {
-        m_drivetrain = subsystem;
-        m_xaxisSpeedSupplier = xaxisSpeedSupplier;
-        m_zaxisRotateSupplier = zaxisRotateSuppplier;
-        addRequirements(subsystem);
+        this.drivetrain = drivetrain;
+        this.xaxisSpeedSupplier = xaxisSpeedSupplier;
+        this.zaxisRotateSupplier = zaxisRotateSupplier;
+        addRequirements(drivetrain);
     }
 
 The `execute()` method calls the *Drivetrain* subsystem to activate the motors.
 
     public void execute() {
-      m_drivetrain.arcadeDrive(m_xaxisSpeedSupplier.get(),m_zaxisRotateSupplier.get());
+      this.drivetrain.arcadeDrive(this.xaxisSpeedSupplier.get(),this.zaxisRotateSupplier.get());
     }
 
 The *ArcadeDrive*'s `isFinished()` method always returns `false`, meaning that the command never completes on it's own. The reason we do this is so that it can be set as the *default command*. A default command runs whenever the subsystem is not running any other command. If another command is scheduled, it will interrupt the default command and return to it when the scheduled command completes. 
@@ -76,7 +76,7 @@ The *ArcadeDrive*'s `isFinished()` method always returns `false`, meaning that t
 
 The `setDefaultCommand()` method sets the default command for the subsystem. The default command will always be running when no other commands are scheduled for that subsystem.  The following statement is called in the *RobotContainer* class to schedule the default command for the *Drivetrain*.
 
-    m_drivetrain.setDefaultCommand(getArcadeDriveCommand());
+    this.drivetrain.setDefaultCommand(getArcadeDriveCommand());
 
 ## Instant Commands
 An *Instant Command* works similarly to a regular command except that there is no `execute()` method and the `isFinished()` method always returns `true`.  The main purpose of Instant Commands commands is to quickly alter some robot state such as activating, deactivating, or resetting a subsystem.  Instant Commands are used quite often.
@@ -137,24 +137,24 @@ Notice that this command only includes the constructor and the `initialize()` fu
 
 This command is going to call methods in the *Drivetrain* subsystem, so you must pass that in as a parameter to the *ResetOdometry* constructor. When passing a parameter you must tell the method what the parameter type is.  In this case, the parameter type is *Drivetrain*.
 
-    public ResetOdometry(Drivetrain drive) {
+    public ResetOdometry(Drivetrain drive)
 
 Parameters act as variables inside a method. A constructor is a special method that initializes our *ResetOdometry* command object.  If we want to use the *Drivetrain* object with the other *ResetOdometry* methods, then we're going need to assign it as an attribute of the command. So, place the following inside the constructor. 
 
-    m_drive = drive;
+    this.drive = drive;
 
-We need of course to define the `m_drive` variable, so place this above the contructor but inside of the *ResetOdometry* class. You're also going to need to import the *Drivetrain* class.
+We need of course to define the `this.drive` variable, so place this above the contructor but inside of the *ResetOdometry* class. You're also going to need to import the *Drivetrain* class.
 
-    private final Drivetrain m_drive;
+    private final Drivetrain drive;
 
 The *Drivetrain* is added to the command as a requirement.  This will prevent any other commands from using the *Drivetrain* subsystem while this command is executing. 
 
 When you're done your changes should look like this:
 
-        private final Drivetrain m_drive;
+        private final Drivetrain this.drive;
 
         public ResetOdometry(Drivetrain drive) {
-            m_drive = drive;
+            this.drive = drive;
             // Use addRequirements() here to declare subsystem dependencies.
             addRequirements(drive);
         }
@@ -164,15 +164,15 @@ In the `initialize()` function call the following two methods.  You can see now 
         // Called when the command is initially scheduled.
         @Override
         public void initialize() {
-            m_drive.resetGyro();
-            m_drive.resetEncoders();
+            this.drive.resetGyro();
+            this.drive.resetEncoders();
         }
 
 That's all that's needed to create this command.  The command will just run `initialize()` and then exit since there's no `execute()` function.  The `isFinished()` function is just set to `true`.  
 
 This command should be executable from the dropdown menu in the Simulator and Shuffleboard.  Take the Instant Command that you just created and add it the end of the *SendableChooser* menu in *RobotContainer*.
 
-    m_chooser.addOption("Reset Odometry", new ResetOdometry(m_drivetrain));
+    this.chooser.addOption("Reset Odometry", new ResetOdometry(this.drivetrain));
 
 In order to make the command accessible from *RobotContainter* you'll need to import the *ResetOdometry* command.
 

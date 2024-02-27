@@ -133,7 +133,7 @@ The `isFinished()` method will return a different value from our previous PID co
 
 Before testing, add the command to the SendableChooser in the *RobotContainer* class.  Have the robot travel for distance of `1.0` meter.  This should be enough distance to see the three phases of the trapezoid profile; acceleration, coast, and deceleration.
 
-    m_chooser.addOption("Profiled Distance PID", new DriveDistanceProfiled(1.0, m_drivetrain));
+    this.chooser.addOption("Profiled Distance PID", new DriveDistanceProfiled(1.0, this.drivetrain));
 
 That should be all, so go ahead and test the command.
 
@@ -240,7 +240,7 @@ The `isFinished()` method will return `atGoal()`, which tests if we have reached
 
 Before testing, add the command to the SendableChooser in the *RobotContainer* class.  Have the robot turn 180 degrees.
 
-       m_chooser.addOption("Profiled Turn Angle PID", new TurnToAngleProfiled(180, m_drivetrain));
+       this.chooser.addOption("Profiled Turn Angle PID", new TurnToAngleProfiled(180, this.drivetrain));
 
 That should be all, so go ahead and test the command.
 
@@ -255,14 +255,14 @@ Adjust the PID parameters and tolerance until you have a satisfactory result.
 Once you're happy with the results you're done with this task!
 
 ### Reset Odometry from a Command
-Create a method variable called `m_drivetrain` and initialize it to `drivetrain` in the constructor.
+Create a method variable called `this.drivetrain` and initialize it to `drivetrain` in the constructor.
 
 Added the following code in the `initialize()` method to reset the odometry at the start of the command.  Place it before the call to `super`, since the parent method resets the controller odometry.
 
     public void initialize() { 
       // Reset the Odometry 
-      m_drivetrain.resetEncoders();
-      m_drivetrain.resetGyro();
+      this.drivetrain.resetEncoders();
+      this.drivetrain.resetGyro();
 
       super.initialize();
     }

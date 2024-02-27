@@ -136,7 +136,7 @@ The last thing we need to do is tell the command to finish once it has reached t
 
 In order to run the command you'll need to add it to the SendableChooser in the *RobotContainer* class.  Have the robot travel for distance of 0.5 meters.
 
-    m_chooser.addOption("Drive Distance PID", new DriveDistancePID(0.5, m_drivetrain));
+    this.chooser.addOption("Drive Distance PID", new DriveDistancePID(0.5, this.drivetrain));
 
 #### <a name="driveDistance"></a>Testing the DriveDistancePID Command
 Now connect your laptop to a Romi and test your code.  When the Simulator starts we'll need to pull some components onto the dashboard in order to see how the command is functioning.  First make sure that you have the dropdown list of commands by selecting *NetworkTables->SmartDashboard->SendableChooser*.  Then from *NetworkTables->LiveWindow* select the two components shown on the picture below.  When you're done your dashboard should show the following four components:
@@ -215,7 +215,7 @@ Once the setpoint is reached we need the command to finish, so don't forget to c
 
 Before testing the command add it to the SendableChooser in the *RobotContainer* class.  Have the robot turn 90 degrees.
 
-        m_chooser.addOption("Turn To Angle PID", new TurnToAnglePID(90, m_drivetrain));
+        this.chooser.addOption("Turn To Angle PID", new TurnToAnglePID(90, this.drivetrain));
 
 #### <a name="turnToAngle"></a>Testing the TurnToAnglePID Command
 Ensure that you have the *SendableChooser* and *LiveWindow/Drivetrain* components are displayed on your Simulator, as in the previous test.  For this test you'll select *PIDController[2]* instead of *PIDController[1]*.  This time, we're going to use a plot to track the heading of the robot as it turns.  From the topbar click **Plot** and then **Add plot**.  Drag the **Heading Deg.** value into the plot window.  Next, edit the plot by right clicking on the plot window topbar and change the range values to `-400` and `400`.  This will show the full range of the robot heading.
@@ -239,32 +239,32 @@ Once you've finishied tuning you're done with this task!
 While we're tuning the PID gain values we are constantly having to recompile the program and restart the Simulator in order to check the results.  It would be useful if we could change PID gains from the Simulator or Shuffleboard without restarting the program.  We can do this by adding the values to Shuffleboard.  These values need to be available prior to running the commands, so add them to the `setupShuffleboard()` method in the *Drivetrain*.  The following code sample adds the PID gains for the *DriveDistancePID* command. They'll be added to the *Drivetrain* tab. You should also add the PID gains for the *TurnToAnglePID* command.  Make sure that you give them a different name and position on Shuffleboard.
 
     // Add PID tuning parameters (distance)
-    m_distanceP = m_driveTab.add("DistancekP", Constants.kPDriveVel)
+    this.distanceP = this.driveTab.add("DistancekP", Constants.kPDriveVel)
       .withPosition(0, 3)
       .getEntry();  
 
-    m_distanceI = m_driveTab.add("DistancekI", Constants.kIDriveVel)
+    this.distanceI = this.driveTab.add("DistancekI", Constants.kIDriveVel)
       .withPosition(0, 4)
       .getEntry();  
 
-    m_distanceD = m_driveTab.add("DistancekD", Constants.kDDriveVel)
+    this.distanceD = this.driveTab.add("DistancekD", Constants.kDDriveVel)
       .withPosition(0, 5)
       .getEntry();    
 
-We need to add Network Tables to each of our PID commands in order to communicate with the robot. Create a member variable called `m_table` to each of the commands where you need to tune PID.  The following lines are placed within the class above the constructor.  You'll need to import the Network Table classes.  The values will be retrieved from the *Drivetrain* tab in Shuffleboard.  You can get more detailed information on [Network Tables](https://docs.wpilib.org/en/stable/docs/software/networktables/index.html) in the FRC documentation.
+We need to add Network Tables to each of our PID commands in order to communicate with the robot. Create a member variable called `this.table` to each of the commands where you need to tune PID.  The following lines are placed within the class above the constructor.  You'll need to import the Network Table classes.  The values will be retrieved from the *Drivetrain* tab in Shuffleboard.  You can get more detailed information on [Network Tables](https://docs.wpilib.org/en/stable/docs/software/networktables/index.html) in the FRC documentation.
 
     private static NetworkTableInstance inst = NetworkTableInstance.getDefault();
-    private static NetworkTable m_table = inst.getTable("Shuffleboard/Drivetrain");
+    private static NetworkTable this.table = inst.getTable("Shuffleboard/Drivetrain");
 
 Now create a new `initialize()` method in your command.  This method is inherited (extended) from *PIDCommand* class.  You must call the superclass's `initialize()` method since it resets the PID controller prior to each run of the command.  You do this by using the Java keyword [super](https://www.w3schools.com/java/ref_keyword_super.asp). The `initialize()` method calls `getController()` from the *PIDCommand* class to set the PID gains prior to executing the command.  The following code example sets the `DriveVel` gains that would be placed in the *DriveDistancePID* command.
 
     public void initialize() {
         super.initialize();
         // Override PID parameters from Shuffleboard
-        getController().setSetpoint(m_table.getEntry("Distance").getDouble(0.0));
-        getController().setP(m_table.getEntry("DistancekP").getDouble(Constants.kPDriveVel));
-        getController().setI(m_table.getEntry("DistancekI").getDouble(Constants.kIDriveVel));
-        getController().setD(m_table.getEntry("DistancekD").getDouble(Constants.kDDriveVel));
+        getController().setSetpoint(this.table.getEntry("Distance").getDouble(0.0));
+        getController().setP(this.table.getEntry("DistancekP").getDouble(Constants.kPDriveVel));
+        getController().setI(this.table.getEntry("DistancekI").getDouble(Constants.kIDriveVel));
+        getController().setD(this.table.getEntry("DistancekD").getDouble(Constants.kDDriveVel));
     }
 
 Run the Simulator to test your change.  The new PID gain values will show up under the *NetworkTables->Shuffleboard->Drivetrain* window.  You can change these values and rerun your PID command without having to restart the Simulator.  Prior to re-running each test you have to reset the odometry.  You created the *ResetOdometry* command in a previous lab, so you can run it by selecting it from the *SendableChooser* menu and running **Autonomous**.
