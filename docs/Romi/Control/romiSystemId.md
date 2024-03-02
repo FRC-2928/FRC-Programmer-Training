@@ -45,9 +45,13 @@ There are four tasks for this lab:
 
 - Calibrate the gyro.
 
-- Configure and run the *System Identification* Tool for the Romi.
+- Edit the project code to create a System Identification Routine.
 
 - Log telemetry data on wheel speeds using the WPILib *DifferentialDriveWheelSpeeds* class.
+
+- Load the data into the SysId tool.
+
+- Analyze the data and update the project code with the feedforward and feedback parameter variables.
 
 - Use [Cascade Control](../../Concepts/Control/classicalControl.md#cascadeLoops) and the data that you get from *System Identification* to drive the Romi in a straight line.
 
@@ -56,21 +60,88 @@ Ensure that the gyro has been [calibrated using the web UI](https://docs.wpilib.
 
 Once the calibration has been done this task is complete!
 
-### Use the System Identification Tool
-For this task we're going to run system identification for the Romi.  As noted above, the data gathering code will be executed from VSCode, and the Simulator will be used to communicate with the Romi.  Open the *romi-characterization-sysid* project from [RomiExamples](https://github.com/FRC-2928/RomiExamples).  Connect to a Romi and execute the code.
+### Create a System Identification Routine
+To run the system identification tests we need to add some code to our project. See [Creating a System Identification Routine](https://docs.wpilib.org/en/stable/docs/software/advanced-controls/system-identification/creating-routine.html) in the FRC documentation. Add the followng code to the constructor of the *Drivetrain*. 
 
-Next, start the **SysID Tool**, see [Starting SysID](romiSystemId.md#startSysid).  We'll first need to configure the tool for the Romi, which is done from the **Generator** window.  Select Romi for the **Analysis Type**.  You'll notice that all of the other sections in the **Generator** window will go away.  This is because all of the components on the Romi are already known to the tool.  Consequently, there's no *Save* button for the configuration.
+    new SysIdRoutine(
+          // Empty config defaults to 1 volt/second ramp rate and 7 volt step voltage.
+          new SysIdRoutine.Config(),
+          new SysIdRoutine.Mechanism(
+              // Tell SysId how to plumb the driving voltage to the motors.
+              (Measure<Voltage> volts) -> {
+                this.leftMotor.setVoltage(volts.in(Volts));
+                this.rightMotor.setVoltage(volts.in(Volts));
+              },
+              // Tell SysId how to record a frame of data for each motor on the mechanism being
+              // characterized.
+              log -> {
+                // Record a frame for the left motors.  Since these share an encoder, we consider
+                // the entire group to be one motor.
+                log.motor("drive-left")
+                    .voltage(this.appliedVoltage.mut_replace(
+                            this.leftMotor.get() * RobotController.getBatteryVoltage(), Volts))
+                    .linearPosition(this.distance.mut_replace(this.leftEncoder.getDistance(), Meters))
+                    .linearVelocity(this.velocity.mut_replace(this.leftEncoder.getRate(), MetersPerSecond));
+                // Record a frame for the right motors.  Since these share an encoder, we consider
+                // the entire group to be one motor.
+                log.motor("drive-right")
+                    .voltage(this.appliedVoltage.mut_replace(
+                            this.rightMotor.get() * RobotController.getBatteryVoltage(), Volts))
+                    .linearPosition(this.distance.mut_replace(this.rightEncoder.getDistance(), Meters))
+                    .linearVelocity(this.velocity.mut_replace(this.rightEncoder.getRate(), MetersPerSecond));
+              },
+              // Tell SysId to make generated commands require this subsystem, suffix test state in
+              // WPILog with this subsystem's name ("drive")
+              this));
 
-![Configure SysID](../../images/FRCTools/FRCTools.024.jpeg)
+In the *Drivetrain* setup two routines to run the tests. The `sysIdQuasistatic()` returns a command to run a quasistatic test in the specified direction. In this test the robot will start out slowly and gradually pick up speed.  The `sysIdDynamic()` returns a command to run a dynamic test in the specified direction. This test will immediatelly try to accelerate the robot to full speed.
 
-We're now ready to run the tests that gather the data.  In the **Logger** window, change mode from *Disabled* to *Client* and type `localhost` into *Team/IP* field. In our case, the client is the Simulator that's running on the same PC as the SysId tool. Click on *Apply* and the status field will change from **NT Disconnected** to **NT Connected**.  
+	public Command sysIdQuasistatic(SysIdRoutine.Direction direction) {
+		return sysIdRoutine.quasistatic(direction);
+	}
+	
+	public Command sysIdDynamic(SysIdRoutine.Direction direction) {
+		return sysIdRoutine.dynamic(direction);
+	}
 
-The encoder data that gets sent to *SysId* is in terms of wheel rotations (and not distance traveled), so you would need to change *Unit* in *Project Parameters* section to *Rotations*. Leave the Units per Rotation at `1.0` meters, since that is accounted for in the *romi-characterization-sysid* code. 
+Finally, we need a way to run the test so add the following options the the *SendableChooser* in *RobotContainer*.
 
-Before running the tests, it's best to get the Simulator and SysID tool displays onto one screen of your laptop, since you'll need to switch quickly between them.  Also, place the Romi on the floor and make sure that you have at least 10 feet of space.  Start with the *Quasistatic forward* test and follow the instructions.  Switch to the Simulator and put the Romi in **Autonomous** mode.  Click **Disabled** before the Romi runs out of space.  Go back to the SysID Tool and click **End**.  Run the other three tests in a similar manner.  Read the [Instructions](https://docs.wpilib.org/en/stable/docs/software/pathplanning/system-identification/identification-routine.html#running-tests) in the FRC documentation for more information.  
+    // Set up SysId routines
+    this.chooser.addOption(
+        "Drive SysId (Quasistatic Forward)",
+        this.drivetrain.sysIdQuasistatic(SysIdRoutine.Direction.kForward));
+    this.chooser.addOption(
+        "Drive SysId (Quasistatic Reverse)",
+        this.drivetrain.sysIdQuasistatic(SysIdRoutine.Direction.kReverse));
+    this.chooser.addOption(
+        "Drive SysId (Dynamic Forward)", this.drivetrain.sysIdDynamic(SysIdRoutine.Direction.kForward));
+    this.chooser.addOption(
+        "Drive SysId (Dynamic Reverse)", this.drivetrain.sysIdDynamic(SysIdRoutine.Direction.kReverse));
+   
 
-After running the tests, save the results into the *FRCProjects* folder that you created to keep your projects.
+### Run the SysId Tests
+Before running the tests place the Romi on the floor and make sure that you have at least 10 feet of space.  Start with the *Quasistatic forward* test by selecting it from the chooser. Put the Simulator in **Autonomous** mode.  Click **Disabled** before the Romi runs out of space.   Run the other three tests in a similar manner.  
 
+After running the tests the results should appear in your project folder under `logs`. Start the SysId and load the log files.
+
+Picture here...
+
+### Load the Data
+AdvantageKit synchronizes all log updates to the robot loop cycle to enable replay. However, only changes to each field are recorded directly to the log file; by saving the timestamps of each loop cycle, the full set of timestamps where a field was originally recorded can be recreated during replay. This design was chosen because it significantly reduces file size, but it is not compatible with WPILib's SysId analyzer (where explicit updates are expected for every sample, regardless of whether the value changed).
+
+To convert the AdvantageKit log file to a SysId compatible format, follow the instructions below:
+
+1. Open the AdvantageKit log file in AdvantageScope. In the menu bar, go to "File" > "Export Data...".
+
+2. Set the format to "WPILOG" and the timestamps to "AdvantageKit Cycles". For large log files, enter the prefixes for only the fields and tables necessary for SysId analysis (see the export options documentation for details).
+
+3. Click the save icon and choose a location to save the log.
+
+4. Open the SysId analyzer by searching for "WPILib: Start Tool" in the VSCode command palette and choosing "SysId" (or using the desktop launcher on Windows). Open the exported log file by clicking "Open data log file..."
+
+5. Choose the fields to analyze as normal.
+
+### Analyze the Data
 Let's examine the data starting with the **Feedforward** analysis.  The Feedforward analysis gives you the `Ks`, `Kv`, and `Ka` voltage values required to drive the Romi forward.  You'll use these values in your project (see the next task for this lab). These values will be called `ksVolts`, `kvVoltSecondsPerMeter`, and `kaVoltSecondsSquaredPerMeter` respectively in our project.  These values are explained in the [Feedforward Control](../../Concepts/Control/classicalControl.md#feedforward) module of the training guide. 
 
 The analysis gives you the readout for each wheel. This will be useful in getting the Romi to go straight, since the wheels are commonly not going to be exactly the same leading to the Romi curving either left or right.
