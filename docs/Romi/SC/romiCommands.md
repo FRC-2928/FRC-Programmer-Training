@@ -122,14 +122,15 @@ This lab continues with the one that you worked on in the [Subsystems](romiSubsy
 
 - [Method Parameters](https://www.w3schools.com/java/java_methods_param.asp) the syntax used to pass parameters to methods.
 
-There's one task for this lab:
+There are two tasks for this lab:
 
-- Add a command to reset the Odometry.
+- Create a command to reset the Odometry.
+- Add the command to the *SendableChooser*.
 
 ### Add Reset Odometry Command
 For testing purposes it's useful to have a command that resets the odometry back to zero.  
 
-Create an *InstantCommand* called *ResetOdometry* from the left files panel in VSCode.  Right mouse-click on the `commands` folder and select "Create a new class/command".  Next, select "InstantCommand (New)" from the dropdown, and enter *ResetOdometry* for the name of your new command.  Be careful to select the **New** instant command since the **Old** commands are still listed in the dropdown. 
+We're going to create an *InstantCommand* called *ResetOdometry* from the left files panel in VSCode.  Right mouse-click on the `commands` folder and select "Create a new class/command".  Next, select "InstantCommand" from the dropdown, and enter *ResetOdometry* for the name of your new command.
 
 ![Create Instant Command](../../images/FRCProgramming/FRCProgramming.023.jpeg)
 
@@ -141,11 +142,11 @@ This command is going to call methods in the *Drivetrain* subsystem, so you must
 
 Parameters act as variables inside a method. A constructor is a special method that initializes our *ResetOdometry* command object.  If we want to use the *Drivetrain* object with the other *ResetOdometry* methods, then we're going need to assign it as an attribute of the command. So, place the following inside the constructor. 
 
-    this.drive = drive;
+    m_drive = drive;
 
-We need of course to define the `this.drive` variable, so place this above the contructor but inside of the *ResetOdometry* class. You're also going to need to import the *Drivetrain* class.
+We need of course to define the `m_drive` variable, so place this above the contructor but inside of the *ResetOdometry* class. You're also going to need to import the *Drivetrain* class.
 
-    private final Drivetrain drive;
+    private final Drivetrain m_drive;
 
 The *Drivetrain* is added to the command as a requirement.  This will prevent any other commands from using the *Drivetrain* subsystem while this command is executing. 
 
@@ -156,7 +157,7 @@ When you're done your changes should look like this:
         public ResetOdometry(Drivetrain drive) {
             this.drive = drive;
             // Use addRequirements() here to declare subsystem dependencies.
-            addRequirements(drive);
+            addRequirements(m_drive);
         }
 
 In the `initialize()` function call the following two methods.  You can see now why we made the *Drivetrain* object an attribute of our *ResetOdometry* command.
@@ -164,15 +165,20 @@ In the `initialize()` function call the following two methods.  You can see now 
         // Called when the command is initially scheduled.
         @Override
         public void initialize() {
-            this.drive.resetGyro();
-            this.drive.resetEncoders();
+            m_drive.resetGyro();
+            m_drive.resetEncoders();
         }
 
-That's all that's needed to create this command.  The command will just run `initialize()` and then exit since there's no `execute()` function.  The `isFinished()` function is just set to `true`.  
+That's all that's needed to create this command.  The command will just run `initialize()` and then exit since there's no `execute()` function.  The `isFinished()` function is just set to `true` by default.  
 
-This command should be executable from the dropdown menu in the Simulator and Shuffleboard.  Take the Instant Command that you just created and add it the end of the *SendableChooser* menu in *RobotContainer*.
+You're done with this task!
 
-    this.chooser.addOption("Reset Odometry", new ResetOdometry(this.drivetrain));
+## Add the command to the *SendableChooser*.
+The *ResetOdometry* command that you just created should be executable from the dropdown menu in the Simulator or Shuffleboard.  For this we'll use the *SendableChooser* class that simplifies the process of managing and selecting between different operational modes or routines in an FRC robot.
+
+Take the Instant Command that you just created and add it the end of the *SendableChooser* menu in *RobotContainer*.
+
+    m_chooser.addOption("Reset Odometry", new ResetOdometry(m_drivetrain));
 
 In order to make the command accessible from *RobotContainter* you'll need to import the *ResetOdometry* command.
 

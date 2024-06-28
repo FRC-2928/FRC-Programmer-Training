@@ -63,12 +63,14 @@ There are three updates for this lab:
 - Rename the *Joystick* variable.
 
 ### Move constants to Constants File
-Open the *RomiReference* project in VSCode and place the `Drivetrain.java` and `Constants.java` files into the editor window. The *Constants* file is where we keep variables that don't change during the execution of the program.  There are two such variables in the *Drivetrain* class that really should be moved into the *Constants* file.  You'll find these variables on lines 15 and 16 of the *Drivetrain* file:
+Open the *RomiReference* project in VSCode and place the `Drivetrain.java` and `Constants.java` files into the editor window. The *Constants* file is where we keep variables that don't change during the execution of the program.  There are two such variables in the *Drivetrain* class that we'll be moving into the *Constants* file.  You'll find these variables on lines 15 and 16 of the *Drivetrain* file:
 
     private static final double kCountsPerRevolution = 1440.0;
     private static final double kWheelDiameterInch = 2.75591; // 70 mm
 
-Move the two variables into the *Constants* file placing them between the two brackets. Notice that there are four keywords before these two variables:
+Move the two variables into the *Constants* file placing them between the two brackets. 
+
+Notice that there are four keywords before these two variables. So let's learn what they mean:
 
 - The [private](https://www.w3schools.com/java/ref_keyword_private.asp) keyword makes the variable accessible only within the declared class.  Since we want to make them accessible by all classes, we're going to change the keyword to [public](https://www.w3schools.com/java/ref_keyword_public.asp).
 
@@ -78,27 +80,22 @@ Move the two variables into the *Constants* file placing them between the two br
 
 - [double](https://www.w3schools.com/java/ref_keyword_double.asp) is a variable data type that can store large fractional numbers.
 
-In the next lab we're going to measure the distance that the robot travels from inches to meters, so change the name of the variable `kWheelDiameterInch` to `kWheelDiameterMeters`.  Also change its value from `2.75591` to `0.07`.  The wheel diameter on the Romi is 7 centimeters, which is 0.07 meters.
+Go ahead and change the keyword from `private` to `public` to make the accessible from other files in our project.
 
-Now, if you look at the tab for the *Drivetrain* you'll notice that it has turned red.  This means that there's an error in the code that will prevent it from compiling.  This is because you have moved the definitions for the two variables out of the Drivetrain file and it can no longer find them.  To fix this, go to lines `44` and `45` and type the class name *Constants* followed by a period in front of the four variables that are underlined in red.  The word Constants will now be underlined, so mouseover the word and select "Quick Fix" to import the *Constants* class into the *Drivetrain* file.  When you're done it should look like the following:
+Now, if you look at the tab for the *Drivetrain* you'll notice that it has turned red.  This means that there's an error in the code that will prevent it from compiling.  This is because you have moved the definitions for the two variables out of the *Drivetrain* file and it can no longer find them.  To fix this, scroll down to the error where you'll find four variables that are underlined in red.  Type the class name *Constants* followed by a period in front of the four variables that are underlined in red.  The word Constants will now be underlined, so mouseover the word and select "Quick Fix" to import the *Constants* class into the *Drivetrain* file.  When you're done it should look like the following and the red lines should be gone:
 
     m_leftEncoder.setDistancePerPulse((Math.PI * Constants.kWheelDiameterMeters) / Constants.kCountsPerRevolution);
     m_rightEncoder.setDistancePerPulse((Math.PI * Constants.kWheelDiameterMeters) / Constants.kCountsPerRevolution);
-
-So what's happening in the these two lines?  On lines `24` and `25` of our *Drivetrain* class you'll find two encoder objects created from the *Encoder* class.  Since we have two motor encoders attached to our drivetrain, it makes sense that they're made accessible from within the *Drivetrain* class.  Here's how we create the encoder objects.  The number parameters tells us what GPIO pins the encoders are connected to.  
-
-    private final Encoder m_leftEncoder = new Encoder(4, 5);
-    private final Encoder m_rightEncoder = new Encoder(6, 7);
-
-One of the methods of the Encoder class is `setDistancePerPulse()`, which tells us how far we've travelled for each encoder pulse. We set it with one very long parameter that does all the math to work out what this value is.    
 
 We're now done with this update!
 <!-- [Move constants solution](solutionMoveConstants.md) -->
 
 ### Change Inches to Meters
-In robotics it's better to do things in meters instead of feet and inches, so we're going to change some methods in the *Drivetrain* class to return the distance travelled from inches to meters.  A [method](https://www.w3schools.com/java/java_methods.asp) is a block of code that only runs when it's called. A method must be declared within a class, and are used to perform certain actions. They can only be accessed after you have created a class object. Methods are also known as functions, so we'll use the words method and function interchangeably. 
+In robotics it's better to do things in meters instead of inches, so we're going to change some methods in the *Drivetrain* class to return the distance travelled in meters instead of inches.  A [method](https://www.w3schools.com/java/java_methods.asp) is a block of code that only runs when it's called. A method must be declared within a class, and are used to perform certain actions. They can only be accessed after you have created a class object. Methods are also known as functions, so we'll use the words method and function interchangeably. 
 
-In the *Drivetrain* class, go to line `66` where you'll find three methods that will need to be renamed.  Change `Inch` to `Meters` at the end of the method names.  We've already changed the variable `kWheelDiameterMeters` in the last lab, which means that the `getDistance()` function will be returning meters instead of inches.  A key skill of a good programmer is to name variables and functions in a way that makes your code easy to read.  If you choose good names then you'll need to have far fewer comments in your code, since it'll be clear what's going on.  When you're done making the changes the methods should look like this:
+In the *Drivetrain* class you'll find three methods that will need to be renamed. Select the method name `getLeftDistanceInch()` and right click.  Select "Rename Symbol" and change it to `getLeftDistanceMeters()` This will rename the method throughout your project.  Do the same for `getRightDistanceMeters()` and `getAverageDistanceInch()`.  If this is not working for you ask a mentor or other student to help you.
+
+A key skill of a good programmer is to name variables and functions in a way that makes your code easy to read.  If you choose good names then you'll need to have far fewer comments in your code, since it'll be clear what's going on.  When you're done making the changes the methods should look like this:
 
     public double getLeftDistanceMeters() {
       return m_leftEncoder.getDistance();
@@ -112,16 +109,17 @@ In the *Drivetrain* class, go to line `66` where you'll find three methods that 
       return (getLeftDistanceMeters() + getRightDistanceMeters()) / 2.0;
     }
 
-Now look at the files `TurnDegrees.java` and `DriveDistance.java` under the `commands` subfolder and you'll see that you have errors.  This is because it references our original functions, which we have just renamed.  Change the name to match our renamed functions.  You can also use the mouseover trick and select "Quick Fix" to reconcile the name, but be careful to select the correct choice from the dropdown list.  
+Now go to the *Constants* file and rename the symbol `kWheelDiameterInch` to `kWheelDiameterMeters` Also change its value from `2.75591` to `0.07`.  The wheel diameter on the Romi is 7 centimeters, which is 0.07 meters.
 
-Another change to make is on line `58` of the *TurnDegrees* class.   Change `inchPerDegree` to `metersPerDegree`, and also change it's value from `5.551` to `0.141`.  The line should now look like this:
+Another update needed to get us from inches to meters is in the file `TurnDegrees.java` under the `commands` subfolder.  Change `inchPerDegree` to `metersPerDegree`, and also change it's value from `5.551` to `0.141`.  The line should now look like this:
 
     double metersPerDegree = Math.PI * 0.141 / 360;
 
-Since we're using meters now instead of inches we need to change the values passed in the *AutonomousDistance* command from `10` to `1`. Also change the variable name in the *DriveDistance* command from `inches` to `meters`.
+Finally, since we're using meters now instead of inches we need to change the values passed in the *AutonomousDistance* command from `10` to `1`. Otherwise, we'll be travelling 10 meters (33 feet) instead of one meter.
+
+You should also change the variable name in the *DriveDistance* command from `inches` to `meters`.
 
 We're now done with this update!
-<!-- [Inches to meters solution](solutionInchMeters.md) -->
 
 ### Rename Joystick Variable
 Also, we should change the name of the Joystick variable name to `m_joystick` instead of `m_controller`.  In later lessons a *Controller* is a class that manages the movement of the robot.  Renaming this variable to `m_joystick` will avoid future confusion.
@@ -130,8 +128,6 @@ Also, we should change the name of the Joystick variable name to `m_joystick` in
 - FRC Documentation - [Structuring a Command-Based Robot Project](https://docs.wpilib.org/en/latest/docs/software/commandbased/structuring-command-based-project.html?highlight=RobotContainer)
 
 - FRC Documentation - [Joysticks](https://docs.wpilib.org/en/latest/docs/software/basic-programming/joystick.html)
-
-- FRC Documentation - [Shuffleboard](https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/shuffleboard/index.html)
 
 - Java Tutorial on [W3Schools](https://www.w3schools.com/java/default.asp)
 
