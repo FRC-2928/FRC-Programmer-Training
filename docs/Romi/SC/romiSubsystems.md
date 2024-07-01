@@ -91,4 +91,4 @@ That's all for this update!
 
 - QUT Robot Academy [Measuring Motion](https://robotacademy.net.au/masterclass/measuring-motion/)
 
-- Code Example - [RomiSubsystems](https://github.com/FRC-2928/RomiExamples/tree/main/RomiSubsystems)
+- Code Example - [RomiSubsystems](https://github.com/FRC-2928/RomiExamples2024/tree/main/RomiSubsystems)

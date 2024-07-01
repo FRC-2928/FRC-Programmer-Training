@@ -205,6 +205,4 @@ We don't want to use this filter unless we're very specific about it so create a
 
 - Java Tutorial on [W3Schools](https://www.w3schools.com/java/default.asp)
 
-- Code Example - [RomiSubsystems](https://github.com/FRC-2928/RomiExamples/tree/main/RomiSubsystems)
-
-- [Amazon Example](https://s3.amazonaws.com/screensteps_live/exported/Wpilib/2078/2286/Command_based_programming.pdf?1478686718)
+- Code Example - [RomiCommands](https://github.com/FRC-2928/RomiExamples2024/tree/main/RomiSubsystems)

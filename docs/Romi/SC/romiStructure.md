@@ -131,5 +131,5 @@ Also, we should change the name of the Joystick variable name to `m_joystick` in
 
 - Java Tutorial on [W3Schools](https://www.w3schools.com/java/default.asp)
 
-- Code Example - [RomiRobotStructure](https://github.com/FRC-2928/RomiExamples/tree/main/RomiRobotStructure)
+- Code Example - [RomiRobotStructure](https://github.com/FRC-2928/RomiExamples2024/tree/main/RomiRobotStructure)
 

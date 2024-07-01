@@ -148,4 +148,4 @@ You're now done with this task!
 
 - FRC Documentation - [Network Tables](https://docs.wpilib.org/en/stable/docs/software/networktables/index.html)
 
-- Code Example - [RomiTelemetry](https://github.com/FRC-2928/RomiExamples/tree/main/RomiTelemetry)
+- Code Example - [RomiTelemetry](https://github.com/FRC-2928/RomiExamples2024/tree/main/RomiTelemetry)

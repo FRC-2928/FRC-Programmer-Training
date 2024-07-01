@@ -41,6 +41,6 @@ Look at some of these files in the editor by double-clicking on them.  If you kn
 ## References
 - Youtube Video - [Romi WPILib Example Project Walkthrough](https://www.youtube.com/watch?v=j5g4nHV3FaY&ab_channel=Spectrum3847) from Team Spectrum3847 
 
-<!-- - Cerbotics4400 - [Introduction to FRC programming](https://www.youtube.com/watch?v=ImkxFrBirwY&list=TLPQMjgxMTIwMjF2Q19t44SxpA&index=3&ab_channel=Cerbotics4400) -->
+- Code Example - [RomiReference](https://github.com/FRC-2928/RomiExamples2024/tree/main/RomiSubsystems)
 
 - FRC Documentation - [Robot Simulator](https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/robot-simulation/introduction.html)
