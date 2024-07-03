@@ -57,7 +57,7 @@ There is one task for this lab:
 - Change the PID gains from the Simulator or Shuffleboard to make PID tuning more efficient. -->
 
 ### Drive Robot a Specified Distance
-To create a *PIDCommand* in VSCode right click under the commands folder and select *Create a new class/command*.  Then select **PIDCommand (New)** from the drop down list.  Call the command *DriveDistancePID*.  The constructor of the new command is shown in the diagram.  
+To create a *PIDCommand* in VSCode right click under the commands folder and select *Create a new class/command*.  Then select **PIDCommand** from the drop down list.  Call the command *DriveDistancePID*.  The constructor of the new command is shown in the diagram.  
 
 ![Commands](../../images/Romi/Romi.041.jpeg)
 
@@ -113,7 +113,6 @@ The full constructor for our *DriveDistancePID* command is listed below.
                         Constants.kDDriveVel),
       // This should return the measurement
       () -> drivetrain.getAverageDistanceMeters(),
-      // drivetrain::getAverageDistanceMeters,
       // This should return the setpoint (can also be a constant)
       () -> targetDistance,
       // This uses the output

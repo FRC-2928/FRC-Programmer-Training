@@ -3,6 +3,7 @@ In the previous section we got the Romi up and running and learned about Subsyst
  
 - [Motion PID Control](romiPID.md)
 - [Motion Profiled PID Control](romiProfiledPID.md)
+- [Advance Telemetry - Advantage Kit](romiAdvantageKit.md)
 - [System Identification](romiSystemId.md)
 - [Trajectory Following](romiTrajectory.md)
 <!-- - [State Space Control](romiStateSpace.md) -->

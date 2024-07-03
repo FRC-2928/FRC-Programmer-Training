@@ -26,9 +26,9 @@ nav:
             - Romi/SC/romiGPIO.md
         - 'Romi Robot Control':
             - Romi/Control/romiControlIndex.md
-            - Romi/Control/romiAdvantageKit.md
             - Romi/Control/romiPID.md
             - Romi/Control/romiProfiledPID.md
+            - Romi/Control/romiAdvantageKit.md
             - Romi/Control/romiSystemId.md
             - Romi/Control/romiTrajectory.md
             # - Romi/Control/romiStateSpace.md

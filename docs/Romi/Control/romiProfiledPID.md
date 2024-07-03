@@ -30,16 +30,14 @@ This lab builds on the code that you wrote in the [Motion PID Control](romiPID.m
 
 - [Java Inner Classes](https://www.w3schools.com/java/java_inner_classes.asp) also referred to as Nested Classes.
 
-There are three tasks for this lab:
+There are two tasks for this lab:
 
 - Create a profiled command called *DriveDistanceProfiled* to drive the robot a specified distance.  The robot should acheive a smooth acceleration and deceleration at the beginning and end of the motion path.
 
 - Create a profiled command called *TurnToAngleProfiled* to turn the robot to a specified angle.  This profiled command should make smooth turns as opposed to the *TurnToAnglePID* command where the turns are very abrupt.
 
-- Use the *TurnToAngleProfiled* command to make the robot drive in a square path.  This task will require the use of a Group Command.
-
 ## <a name="driveDistanceProfiled"></a>Drive Robot a Specified Distance
-To create a *ProfiledPIDCommand* in VSCode right click under the commands folder and select *Create a new class/command*.  Then select **ProfiledPIDCommand (New)** from the drop down list.  Call the command *DriveDistanceProfiled*.  The constructor of the new command is shown in the diagram.  
+To create a *ProfiledPIDCommand* in VSCode right click under the commands folder and select *Create a new class/command*.  Then select **ProfiledPIDCommand** from the drop down list.  Call the command *DriveDistanceProfiled*.  The constructor of the new command is shown in the diagram.  
 
 ![Commands](../../images/Romi/Romi.050.jpeg)
 
@@ -150,7 +148,7 @@ Keep on tuning until the command finishes and you are happy with the results.  O
 Once you've finished tuning you're done with this task!
 
 ### Rotate the Robot to a Specified Angle
-This is very similar to the *DriveDistanceProfiled* command in that it uses a *TrapezoidProfile* to make the turn.  To create a *ProfiledPIDCommand* in VSCode right click under the commands folder and select *Create a new class/command*.  Then select **ProfiledPIDCommand (New)** from the drop down list.  Call the command *TurnToAngleProfiled*. We'll modify this command to smoothly turn the robot to a specified angle.  Here's a pictorial representation of how we need to setup our *ProfiledPIDController*. 
+This is very similar to the *DriveDistanceProfiled* command in that it uses a *TrapezoidProfile* to make the turn.  To create a *ProfiledPIDCommand* in VSCode right click under the commands folder and select *Create a new class/command*.  Then select **ProfiledPIDCommand** from the drop down list.  Call the command *TurnToAngleProfiled*. We'll modify this command to smoothly turn the robot to a specified angle.  Here's a pictorial representation of how we need to setup our *ProfiledPIDController*. 
 
 ![PID Command](../../images/Romi/Romi.043.jpeg)
 
@@ -266,10 +264,6 @@ Added the following code in the `initialize()` method to reset the odometry at t
 
       super.initialize();
     }
-
-### Bonus Task - Drive a Square Path
-
-This lab still to be written.
 
 ## References
 
