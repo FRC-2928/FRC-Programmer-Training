@@ -1,5 +1,5 @@
 # Advanced Telemetry - Advantage Kit
-AdvantageKit is a logging framework that records all of the data flowing into the robot code. After a match, these values can be replayed to the robot code in a simulator. The log needs to be replayed using the same version of code that generated the log. See [What is Advantage Kit](https://github.com/Mechanical-Advantage/AdvantageKit/blob/main/docs/WHAT-IS-ADVANTAGEKIT.md) for more information.
+AdvantageKit is a logging framework that records all of the data flowing into the robot code. Every sensor value, button press, and much more is logged every loop cycle. These values can be viewed in [AdvantageScope](https://github.com/Mechanical-Advantage/AdvantageScope/blob/main/docs/INDEX.md) in real-time to tune and debug your code.  After a match, these values can also be replayed to the robot code in a simulator.  See [What is Advantage Kit](https://github.com/Mechanical-Advantage/AdvantageKit/blob/main/docs/WHAT-IS-ADVANTAGEKIT.md) for more information.
 
 ## Installation
 To install the *Advantage Kit* libraries into your project go to [Advantage Kit Installation Page](https://github.com/Mechanical-Advantage/AdvantageKit/blob/main/docs/INSTALLATION.md#new-projects).  Follow the instructions on that page for setting up a project. Commands need to be added to the `build.gradle` file, and to the *Robot* class. You should also add the *Gversion Plugin (Git Metadata)*, as documented on the installation page. This ensures that you can match the logfiles with the correct version of the code that generated them. 
@@ -13,7 +13,7 @@ Once you have a log file you can simply play it back in *AdvantageScope*.  If yo
 
 In playback mode it reads the log file previously written during a match or in simulation and plays it back to the robot code. You start the playback by running the **Simulate Robot Code** option in VSCode. When the playback runs it can create a new logfile that includes any new data that was collected.  Note that the code will run as fast as possible in the WPI Simulator and then exit, so the review must be done from *AdvantageScope*.
 
-![AdvantageKit IOLayer](../images/AdvantageKit/AdvantageKit.002.jpeg)
+![AdvantageKit IOLayer](../../images/AdvantageKit/AdvantageKit.002.jpeg)
 
 Here's an example of how these modes can be enabled.  This code goes in the `initRobot()` function of the *Robot* class.  Log generation takes place when running the real robot or in simulation.  Once the data is collected it can be played back using the same user program that generated it.
 
@@ -54,14 +54,14 @@ After installing *AdvantageKit* you need to configure the robot code in order to
 ### Setting up the IO Layers
 By necessity, any interaction with external hardware must be isolated such that all input data is logged and can be replayed in *AdvantageScope* where that hardware is not present. It's recommended to restructure the subsystem such that hardware interfacing occurs in a separate object called the *IO Layer*. The IO layer includes an interface defining all methods used for interacting with the hardware along with one or more implementations that make use of vendor libraries to carry out commands and read data.
 
-![Extracting IO Layers](../images/AdvantageKit/AdvantageKit.004.jpeg)
+![Extracting IO Layers](../../images/AdvantageKit/AdvantageKit.004.jpeg)
 
 The following section shows how to set up an IO Layer for the gyro and implement it in the *Drivetrain* subsystem.
 
 ### Setting up the GyroIO Interface
 Each hardware system should have an interface class that defines the input/output data that should be logged, and methods used to control the hardware. Specific hardware classes can then be created that implement the IO interface.  The example diagram the real Pigeon2 hardware and a simulation of it.
 
-![AdvantageKit IOLayer](../images/AdvantageKit/AdvantageKit.001.jpeg)
+![AdvantageKit IOLayer](../../images/AdvantageKit/AdvantageKit.001.jpeg)
 
 Create an `interface` class that can use to implement different types of hardware. In our case we'll implement the *Pideon2* gyro, but we can also implement simulation class.
 
@@ -187,7 +187,7 @@ See the [Differential Drive example project](https://github.com/Mechanical-Advan
 ## Advantage Scope
 AdvantageScope is a robot diagnostics, log review/analysis, and data visualization application for FIRST Robotics Competition teams. It reads logs in WPILOG, DS log, and RLOG file formats, plus live robot data viewing using NT4 or RLOG streaming. AdvantageScope can be used with any WPILib project, but is also optimized for use with our AdvantageKit logging framework. Here's the online documentation of [AdvantageScope](https://github.com/Mechanical-Advantage/AdvantageScope/blob/main/docs/INDEX.md).
 
-![AdvantageKit IOLayer](../images/AdvantageKit/AdvantageKit.003.jpeg)
+![AdvantageKit IOLayer](../../images/AdvantageKit/AdvantageKit.003.jpeg)
 
 To install *Advantage Scope* go to the [releases page](https://github.com/Mechanical-Advantage/AdvantageScope/releases/tag/v3.0.0-beta-5) and download the package for you operation system.  
 
@@ -206,8 +206,200 @@ You can choose where you want the log files to be stored, `/media/sda1` refers s
 ### Running Live Simulator Streams
 If you run your robot code in simulator mode using **Simulate Robot Code** from VSCode, then you can connect it to a running simulator in *AdvantageScope* via **File->Connect to Simulator**.  In the example below the robot pose has been dropped into the *Odometry* tab.  As you move the robot in the WPI Simulator it should also move in the AdvantageScope view.
 
-![AdvantageKit IOLayer](../images/AdvantageKit/AdvantageKit.007.jpeg)
+![AdvantageKit IOLayer](../../images/AdvantageKit/AdvantageKit.007.jpeg)
 
+## Lab - Advantage Kit
+In this lab we're going to implement telemetry using the Advantage Kit libraries.  We'll Advantage Scope to view the logged output.
+
+There are ? tasks for this lab:
+
+- Update the `build.gradle` to recongnize the new libraries.
+- Install the Advantage Kit libraries into you project.
+- Modifify the *Robot* and *RobotContainer* classes to use Advantage Kit logging.
+- Add the new IO Layers.
+
+### Update the `build.gradle` File
+Before installing the Advantage Kit libraries we need to update the `build.gradle` file. There are two updates that need to be made. First, add the following code to configure the Advantage Kit libraries.  A **Maven** repository is a central place where project dependencies are published and retrieved.
+
+    repositories {
+        maven {
+            url = uri("https://maven.pkg.github.com/Mechanical-Advantage/AdvantageKit")
+            credentials {
+                username = "Mechanical-Advantage-Bot"
+                password = "\u0067\u0068\u0070\u005f\u006e\u0056\u0051\u006a\u0055\u004f\u004c\u0061\u0079\u0066\u006e\u0078\u006e\u0037\u0051\u0049\u0054\u0042\u0032\u004c\u004a\u006d\u0055\u0070\u0073\u0031\u006d\u0037\u004c\u005a\u0030\u0076\u0062\u0070\u0063\u0051"
+            }
+        }
+        mavenLocal()
+    }
+
+Once the repository is configured, you can declare dependencies that are resolved from the repository in the dependencies block.  Add the following code to the `dependencies` block of the `build.gradle` file.
+
+    def akitJson = new groovy.json.JsonSlurper().parseText(new File(projectDir.getAbsolutePath() + "/vendordeps/AdvantageKit.json").text)
+    annotationProcessor "org.littletonrobotics.akit.junction:junction-autolog:$akitJson.version"
+
+We're now done with this task!
+
+### Install the Advantage Kit Libraries
+Now that we have updated the `build.gradle` file we can install the AdvantageKit libraries, go to "*WPILib: Manage Vendor Libraries*" > "*Install new libraries (online)*" and paste the following URL. 
+
+    https://github.com/Mechanical-Advantage/AdvantageKit/releases/latest/download/AdvantageKit.json
+
+The libraries should now be in the `vendordeps` folder.  You should build the robot code and check that everything compliles correctly.
+
+If everything compliles without error you are done with this task!
+
+### Modifify the *Robot* Class
+Advantage Kit provides a class called *LoggedRobot*. The *Robot* class in your project must inherit from this class.  Update your *Robot* class to extend *LoggedRobot* instead of *TimedRobot*. 
+
+    public class Robot extends LoggedRobot {
+
+Add the following code to the robotInit() method of the *Robot* class.  This code will start logging to the Network Tables so as we can see the data in Advantage Scope.
+
+    // Running a physics simulator, log to NT
+    Logger.addDataReceiver(new NT4Publisher());
+    Logger.addDataReceiver(new WPILOGWriter());
+         
+    // Start logging
+    Logger.start(); 
+
+That's all for this task!
+
+### Create the IOLayer Class
+Copy the following code to create the DriveIO interface.
+
+    package frc.robot.subsystems;
+
+    import org.littletonrobotics.junction.LogTable;
+    import org.littletonrobotics.junction.inputs.LoggableInputs;
+
+    /** Drive subsystem hardware interface. */
+    public interface DriveIO {
+
+        /** The set of loggable inputs for the drive subsystem. */
+        public static class DriveIOInputs implements LoggableInputs {
+            public double leftPosition = 0.0;
+            public double leftVelocity = 0.0;
+            public double leftAppliedVolts = 0.0;
+
+            public double rightPosition = 0.0;
+            public double rightVelocity = 0.0;
+            public double rightAppliedVolts = 0.0;
+
+            public boolean gyroConnected = false;
+            public double gyroYawPositionRad = 0.0;
+            public double gyroYawVelocityRadPerSec = 0.0;
+
+            public void toLog(LogTable table) {
+                table.put("LeftPosition", leftPosition);
+                table.put("LeftVelocity", leftVelocity);
+                table.put("LeftAppliedVolts", leftAppliedVolts);
+
+                table.put("RightPosition", rightPosition);
+                table.put("RightVelocity", rightVelocity);
+                table.put("RightAppliedVolts", rightAppliedVolts);
+
+                table.put("GyroConnected", gyroConnected);
+                table.put("GyroYawPositionRad", gyroYawPositionRad);
+                table.put("GyroYawVelocityRadPerSec", gyroYawVelocityRadPerSec);
+            }
+
+            public void fromLog(LogTable table) {
+                leftPosition = table.get("LeftPositionRad", leftPosition);
+                leftVelocity =
+                    table.get("LeftVelocityRadPerSec", leftVelocity);
+                leftAppliedVolts = table.get("LeftAppliedVolts", leftAppliedVolts);
+
+                rightPosition = table.get("RightPositionRad", rightPosition);
+                rightVelocity =
+                    table.get("RightVelocityRadPerSec", rightVelocity);
+                rightAppliedVolts =
+                    table.get("RightAppliedVolts", rightAppliedVolts);
+
+                gyroConnected = table.get("GyroConnected", gyroConnected);
+                gyroYawPositionRad =
+                    table.get("GyroYawPositionRad", gyroYawPositionRad);
+                gyroYawVelocityRadPerSec =
+                    table.get("GyroYawVelocityRadPerSec", gyroYawVelocityRadPerSec);
+            }
+        }
+
+        /** Updates the set of loggable inputs. */
+        public default void updateInputs(DriveIOInputs inputs) {}
+
+        /** Run open loop at the specified voltage. */
+        public default void setVoltage(double leftVolts, double rightVolts) {}
+
+        public default void resetEncoders() {}
+        }
+    }
+
+Explaination of code...
+
+Next, copy the following code to create the Romi
+
+    package frc.robot.subsystems;
+
+    import edu.wpi.first.wpilibj.Encoder;
+    import edu.wpi.first.wpilibj.romi.RomiGyro;
+    import edu.wpi.first.wpilibj.motorcontrol.Spark;
+
+    import frc.robot.Constants;
+
+    public class DriveIORomi implements DriveIO {
+
+        private final Spark leftMotor = new Spark(0);
+        private final Spark rightMotor = new Spark(1);
+        private final Encoder leftEncoder = new Encoder(4, 5);
+        private final Encoder rightEncoder = new Encoder(6, 7);
+        private final RomiGyro gyro = new RomiGyro();
+        
+        private double appliedVoltsLeft = 0.0;
+        private double appliedVoltsRight = 0.0;
+
+        public DriveIORomi() {
+            // Romi encoders have 1440 pulses per revolution
+            this.leftEncoder.setDistancePerPulse((Math.PI * Constants.kWheelDiameterMeters) / Constants.kCountsPerRevolution);
+            this.rightEncoder.setDistancePerPulse((Math.PI * Constants.kWheelDiameterMeters) / Constants.kCountsPerRevolution);
+        }
+
+        @Override
+        public void updateInputs(DriveIOInputs inputs) {
+            inputs.leftPosition = leftEncoder.getDistance();
+            inputs.leftVelocity = leftEncoder.getRate();
+            inputs.leftAppliedVolts = appliedVoltsLeft;
+
+            inputs.rightPosition = rightEncoder.getDistance();
+            inputs.rightVelocity = rightEncoder.getRate();
+            inputs.rightAppliedVolts = appliedVoltsRight;
+
+            inputs.gyroConnected = true;
+            inputs.gyroYawPositionRad = Math.toRadians(gyro.getAngleZ());
+            inputs.gyroYawVelocityRadPerSec = Math.toRadians(gyro.getRateZ());
+        }
+
+        @Override
+        public void setVoltage(double leftVolts, double rightVolts) {
+            appliedVoltsRight = rightVolts;
+            appliedVoltsLeft = leftVolts;
+            leftMotor.setVoltage(leftVolts * 1.1);
+            rightMotor.setVoltage(rightVolts * -1);
+        }
+
+        @Override
+        public void resetEncoders() {
+            this.leftEncoder.reset();
+            this.rightEncoder.reset();
+        }
+    }
+
+Explaination of code...
+
+You're now done with this task!
+
+### Testing with Advantage Scope
+AdvantageScope is a data visualization tool for NetworkTables, WPILib data logs, and Driver Station logs. It  can be used to debug real or simulated robot code from a log file or live over the network. For our test we'll use it to debug over the network.
+
+In Visual Studio Code, press Ctrl+Shift+P and type WPILib or click the WPILib logo in the top right to launch the *WPILib Command Palette*. Select **Start Tool**, then select **AdvantageScope**. 
 
 ## References
 

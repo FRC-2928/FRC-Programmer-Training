@@ -184,10 +184,10 @@ The *targetAngleDegrees* will be passed into the command as a *TrapezoidProfile.
     // This should return the goal (can also be a constant)
     () -> new TrapezoidProfile.State(targetAngleDegrees,0),
 
-Since we're rotating the robot we'll use the gyro as our measurement source, so use `getHeading()` from the *Drivetrain* class.
+Since we're rotating the robot we'll use the gyro as our measurement source, so use `getHeading().getDegrees()` from the *Drivetrain* class.
 
     // This should return the measurement
-    () -> drivetrain.getHeading(),
+    () -> drivetrain.getHeading().getDegrees(),
 
 Now we have to set the output from the controller that's used to drive our motors.  We'll use the same *Drivetrain* method `arcadeDrive()` as in previous PID control labs. We send the output to the second parameter and clamp it to `0.5` in either direction by using the `MathUtil.clamp` function.  Notice that the output value is negated. We need a negative output because by default the robot turns in a clockwise direction. In order to get to 180 degrees however, we need to turn anticlockwise. Our output value will now look like this:
 
@@ -213,7 +213,7 @@ Add the *Drivetrain* as a requirement, and set the tolerance for the command as 
                                               Constants.kMaxTurnAccelDegPerSSquared)),
 
           // This should return the measurement
-          () -> drivetrain.getHeading(),
+          () -> drivetrain.getHeading().getDegrees(),
 
           // This should return the goal (can also be a constant)
           () -> new TrapezoidProfile.State(targetAngleDegrees,0),
