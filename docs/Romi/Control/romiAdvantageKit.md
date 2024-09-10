@@ -1,6 +1,8 @@
 # Advanced Telemetry - Advantage Kit
 AdvantageKit is a logging framework that records all of the data flowing into the robot code. Every sensor value, button press, and much more is logged every loop cycle. These values can be viewed in [AdvantageScope](https://github.com/Mechanical-Advantage/AdvantageScope/blob/main/docs/INDEX.md) in real-time to tune and debug your code.  After a match, these values can also be replayed to the robot code in a simulator.  See [What is Advantage Kit](https://github.com/Mechanical-Advantage/AdvantageKit/blob/main/docs/WHAT-IS-ADVANTAGEKIT.md) for more information.
 
+
+
 ## Installation
 To install the *Advantage Kit* libraries into your project go to [Advantage Kit Installation Page](https://github.com/Mechanical-Advantage/AdvantageKit/blob/main/docs/INSTALLATION.md#new-projects).  Follow the instructions on that page for setting up a project. Commands need to be added to the `build.gradle` file, and to the *Robot* class. You should also add the *Gversion Plugin (Git Metadata)*, as documented on the installation page. This ensures that you can match the logfiles with the correct version of the code that generated them. 
 
